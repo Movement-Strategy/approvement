@@ -1,7 +1,8 @@
 <template name="calendarDay">
 	<div class="column">
     	{{#if is_external}}
-    		<p>{{day.day_name}}</p>
+    		<p class="day-name">{{day.day_name}}</p>
+    		<p class="full-date">{{day.full_date}}</p>
     	{{/if}}
 		<div class="content-container">
 			{{#if is_external}}
