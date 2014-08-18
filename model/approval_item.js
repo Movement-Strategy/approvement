@@ -15,6 +15,16 @@ ApprovalItem.allow({
 });
 
 if(Meteor.isServer) {
+
+	Meteor.methods({
+		uploadImage: function(url, context) {
+			return url;
+		},
+		insertApprovalItem : function(newApprovalItem) {
+			ApprovalItem.insert(newApprovalItem);
+		},
+	});
+}
 /*
 	var testRecord = {
 		scheduled_time : 1407877893000,
@@ -26,5 +36,4 @@ if(Meteor.isServer) {
 	
 	ApprovalItem.insert(testRecord);
 */
-}
 

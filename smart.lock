@@ -7,7 +7,8 @@
       "iron-router-progress": {},
       "semantic-ui": {},
       "collection2": {},
-      "moment": {}
+      "moment": {},
+      "s3": {}
     },
     "packages": {
       "iron-router": {
@@ -37,8 +38,13 @@
       },
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",
-        "tag": "v2.6.0",
-        "commit": "26156df681750fd6e6ed77043eef32b6653ebbdf"
+        "tag": "v2.8.1",
+        "commit": "722ea63783d594341023836b7d418ab2567dab8c"
+      },
+      "s3": {
+        "git": "https://github.com/Lepozepo/S3.git",
+        "tag": "v2.1.4",
+        "commit": "a908757c061bd9cec24b470b1d7208284165c72e"
       },
       "iron-layout": {
         "git": "https://github.com/EventedMind/iron-layout.git",

@@ -49,5 +49,10 @@ Template['calendarDay'].helpers({
 });
 
 Template['calendarDay'].events({
+	'click .create-item-button' : function(event) {
+		
+		Session.set('current_scheduled_time', this.day.scheduled_time);
+		$('.create-item').modal('show');	
+	},
 });
 

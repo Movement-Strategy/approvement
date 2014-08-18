@@ -5,6 +5,7 @@
     "iron-router-progress": {},
     "semantic-ui": {},
     "collection2": {},
-    "moment": {}
+    "moment": {},
+    "s3": {}
   }
 }

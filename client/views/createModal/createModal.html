@@ -45,7 +45,12 @@
 					{{/with}}
 			    </div>
 			    <div class="content-container">
-			    	<img class="ui image link-image edit-target" src="http://lorempixel.com/476/246/">
+					{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
+						<input id='image-input' type="file">
+					{{/S3}}
+			    	<label for="image-input">
+				    	<img class="ui image link-image edit-target" src="{{image_url}}">
+			    	</label>
 			    	<div class="link-body">
 						{{#with link_body}}
 						    {{#clickableInput}}
@@ -73,10 +78,12 @@
 	    {{/with}}
 	</div>
 	<div class="actions">
+<!--
 		<div class="large orange ui button comment">Note</div>
 		<div class="large red ui button reject">Reject</div>
 		<div class="large green ui button approve">Approve</div>
-<!-- 		<div class="small blue ui button submit">submit</div> -->
+-->
+		<div class="small blue ui button submit">submit</div>
 	</div>
 </template>
 
