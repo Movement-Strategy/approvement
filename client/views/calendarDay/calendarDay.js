@@ -16,6 +16,12 @@ var setApprovalItemInDay = function(day, approvalItem) {
 	// convert the status to a label color
 	processedItem['label_color'] = statusColorMap[approvalItem.status];
 	processedItem['label_icon'] = approvalItem.type;
+	processedItem['contents'] = approvalItem.contents;
+	
+	// add this back in so we can process this data structure the same depending on if its being editted or created new
+	processedItem['day'] = {
+		scheduled_time : day.scheduled_time
+	};
 	day['approval_items'][scope].push(processedItem);
 	
 	return day;
@@ -50,9 +56,7 @@ Template['calendarDay'].helpers({
 
 Template['calendarDay'].events({
 	'click .create-item-button' : function(event) {
-		
-		Session.set('current_scheduled_time', this.day.scheduled_time);
-		$('.create-item').modal('show');	
+		prepareModalToShow(this, true);
 	},
 });
 

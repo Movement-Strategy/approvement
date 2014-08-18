@@ -70,5 +70,6 @@ Template['contentCalendar'].helpers({
 });
 
 Template['contentCalendar'].events({
+	
 });
 

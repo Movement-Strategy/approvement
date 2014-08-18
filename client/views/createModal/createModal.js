@@ -1,3 +1,16 @@
+prepareModalToShow = function(context, creatingNewItem){
+	Session.set('current_scheduled_time', context.day.scheduled_time);
+	Session.set('creating_new_item', creatingNewItem);
+	var currentItemContents = creatingNewItem ? {} : context.contents;
+	Session.set('current_item_contents', currentItemContents);
+	showCreationModal();
+};
+
+showCreationModal = function() {
+	initializeClickableInputs();
+	$('.create-item').modal('show');
+};
+
 getCurrentApprovalItemFromModal = function() {
 	var clickableInputs = Session.get('clickable_inputs');
 	var itemContents = {};
@@ -13,7 +26,7 @@ getCurrentApprovalItemFromModal = function() {
 		created_time : moment().format("X") * 1000,
 		type : 'facebook',
 	};
-}
+};
 
 initializeClickableInputs = function() {
 	var inputs =  {
@@ -28,9 +41,10 @@ initializeClickableInputs = function() {
 		},
 	};
 	var processedInputs = {};
+	var currentItemContents = Session.get('current_item_contents');
+	
 	_.map(inputs, function(input, key){
-		
-		input.text = input.default_text;
+		input.text = _.has(currentItemContents, key) ? currentItemContents[key] : input.default_text;
 		input.id = key;
 		processedInputs[key] = input;
 		
@@ -40,17 +54,28 @@ initializeClickableInputs = function() {
 
 Template['createModal'].helpers({
 	clickable_inputs : function() {
-		return Session.get('clickable_inputs');	
+		return Session.get('clickable_inputs');
 	},
 	image_url : function() {
-		return Session.get('uploaded_image_url') == null ? "http://lorempixel.com/476/246/" : Session.get('uploaded_image_url');
-	}
+		currentItemContents = Session.get('current_item_contents');
+		currentURL = _.has(currentItemContents, 'image_url') ? currentItemContents['image_url'] : "http://lorempixel.com/476/246/";
+		return Session.get('uploaded_image_url') == null ? currentURL : Session.get('uploaded_image_url');
+	},
+	creating_new_item : function() {
+		return Session.get('creating_new_item');
+	},
+ 	is_content_type_chosen : function() {
+		return Session.get('current_content_type') != null;
+	},
 });
 
 Template['createModal'].events({
 	'click .submit.button' : function() {
 		var approvalItem = getCurrentApprovalItemFromModal();
 		Meteor.call('insertApprovalItem', approvalItem);
-	}
+	},
+	'change .network-type-dropdown' : function(event) {
+		Session.set('current_network_type', event.target.value);
+	},
 });
 
