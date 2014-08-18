@@ -6,7 +6,8 @@
       "handlebar-helpers": {},
       "iron-router-progress": {},
       "semantic-ui": {},
-      "collection2": {}
+      "collection2": {},
+      "moment": {}
     },
     "packages": {
       "iron-router": {
@@ -33,6 +34,11 @@
         "git": "https://github.com/aldeed/meteor-collection2.git",
         "tag": "v0.4.6",
         "commit": "80554182486be0d8e74f7ed02194a5649d712e27"
+      },
+      "moment": {
+        "git": "https://github.com/acreeger/meteor-moment.git",
+        "tag": "v2.6.0",
+        "commit": "26156df681750fd6e6ed77043eef32b6653ebbdf"
       },
       "iron-layout": {
         "git": "https://github.com/EventedMind/iron-layout.git",

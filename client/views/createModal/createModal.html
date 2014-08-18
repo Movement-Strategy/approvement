@@ -1,0 +1,82 @@
+<template name="createModal">
+	<div class="header">
+		<div>Create New</div>
+	</div>
+	<div class="content">
+	    
+	    <div class="create-options">
+			<div class="ui selection dropdown dropdown-font network-type-dropdown">
+				<input type="hidden" name="network-type">
+				<div class="default text">Network</div>
+				<i class="dropdown icon"></i>
+				<div class="menu">
+					<div class="item" data-value="facebook">Facebook</div>
+					<div class="item" data-value="instagram">Instagram</div>
+					<div class="item" data-value="twitter">Twitter</div>
+				</div>
+			</div>
+			<div class="ui selection dropdown dropdown-font content-type-dropdown">
+				<input type="hidden" name="content-type">
+				<div class="default text">Content Type</div>
+				<i class="dropdown icon"></i>
+				<div class="menu">
+					<div class="item" data-value="link">Link</div>
+					<div class="item" data-value="image">Image</div>
+					<div class="item" data-value="status">Status</div>
+				</div>
+			</div>	    
+		</div>
+		{{#with clickable_inputs}}
+		    <div class="ui segment fb-box go-to-back">
+			    <div class = "image-container">
+				    <img class="ui image profile-icon" src="/images/fb_icon.png">
+			    </div>
+			    <div class="name-container">
+			    <h5 class="profile-name"><a>USA TODAY</a>
+			   </h5>
+			   	
+			    <span class="time-ago">15 hrs</span>
+		    </div>
+			    <div class="link-description">
+					{{#with link_description}}
+					    {{#clickableInput}}
+					    	<p id="{{id}}_display" class='edit-target'>{{text}}</p>
+					    {{/clickableInput}}
+					{{/with}}
+			    </div>
+			    <div class="content-container">
+			    	<img class="ui image link-image edit-target" src="http://lorempixel.com/476/246/">
+			    	<div class="link-body">
+						{{#with link_body}}
+						    {{#clickableInput}}
+						    	<a id="{{id}}_display" class="link-title edit-target">{{text}}</a>
+						    {{/clickableInput}}
+						{{/with}}
+						{{#with link_text}}
+						    {{#clickableInput}}
+						    	<div id="{{id}}_display" class="link-text edit-target">
+							    	{{text}}
+						    	</div>
+						    {{/clickableInput}}
+						{{/with}}
+				    	<div class="link-domain">
+					    	usatoday.com
+				    	</div>	    
+			    	</div>
+			    </div>
+			    <div class="actions-container">
+				    <span>Like</span>
+				    <span>Comment</span>
+				    <span>Share</span>
+			    </div>
+		    </div>
+	    {{/with}}
+	</div>
+	<div class="actions">
+		<div class="large orange ui button comment">Note</div>
+		<div class="large red ui button reject">Reject</div>
+		<div class="large green ui button approve">Approve</div>
+<!-- 		<div class="small blue ui button submit">submit</div> -->
+	</div>
+</template>
+
