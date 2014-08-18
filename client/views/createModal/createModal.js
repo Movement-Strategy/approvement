@@ -47,7 +47,6 @@ initializeClickableInputs = function() {
 		input.text = _.has(currentItemContents, key) ? currentItemContents[key] : input.default_text;
 		input.id = key;
 		processedInputs[key] = input;
-		
 	});
 	Session.set('clickable_inputs', processedInputs);
 };

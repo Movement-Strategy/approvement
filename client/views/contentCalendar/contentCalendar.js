@@ -64,7 +64,6 @@ Template['contentCalendar'].helpers({
 		Meteor.defer(function(){
 			$('.network-type-dropdown').dropdown();
 			$('.content-type-dropdown').dropdown();
-			
 		}); 
 	},
 });
