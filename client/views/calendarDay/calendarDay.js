@@ -13,10 +13,10 @@ var setApprovalItemInDay = function(day, approvalItem) {
 	}
 	var processedItem = {};
 	
+	processedItem = approvalItem;
 	// convert the status to a label color
 	processedItem['label_color'] = statusColorMap[approvalItem.status];
 	processedItem['label_icon'] = approvalItem.type;
-	processedItem['contents'] = approvalItem.contents;
 	
 	// add this back in so we can process this data structure the same depending on if its being editted or created new
 	processedItem['day'] = {
