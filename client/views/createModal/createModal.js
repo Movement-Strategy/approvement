@@ -2,7 +2,9 @@ resetModalContent = function() {
 	Session.set('uploaded_image_url', null);
 }
 prepareModalToShow = function(context, creatingNewItem){
+	Session.set('current_item_id', context._id);
 	Session.set('current_scheduled_time', context.day.scheduled_time);
+	
 	Session.set('creating_new_item', creatingNewItem);
 	var currentItemContents = creatingNewItem ? {} : context.contents;
 	Session.set('current_item_contents', currentItemContents);
@@ -86,6 +88,9 @@ Template['createModal'].events({
 		var approvalItem = getCurrentApprovalItemFromModal();
 		Meteor.call('insertApprovalItem', approvalItem);
 		hideCreationModal();
+	},
+	'click .reject.button' : function() {
+		console.log(this);
 	},
 	'change .network-type-dropdown' : function(event) {
 		Session.set('current_network_type', event.target.value);
