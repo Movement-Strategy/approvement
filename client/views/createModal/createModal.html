@@ -72,10 +72,7 @@
 			{{#if creating_new_item}}
 				<div class="small blue ui button submit">submit</div>
 			{{else}}
-				<div class="small blue ui button update">Update</div>
-				<div class="large orange ui button comment">Note</div>
-				<div class="large red ui button reject">Reject</div>
-				<div class="large green ui button approve">Approve</div>
+				{{> creationActions}}
 			{{/if}}
 	</div>
 </template>

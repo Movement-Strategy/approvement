@@ -9,7 +9,6 @@ Meteor.startup(function () {
 	Session.setDefault('current_content_type', null);
 	initializeClickableInputs();
 	setCurrentDays(momentDate);
-	Session.set('current_scope', 'internal');
 	approvalActionHandler.getActionButtons();
 	
 	
