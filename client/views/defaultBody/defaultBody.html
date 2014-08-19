@@ -1,12 +1,16 @@
 <template name="defaultBody">
     <div class="default">
-    	{{#if approval_items_are_ready}}
-	    	{{> contentCalendar}}
-	    {{else}}
-			<div class="ui active dimmer">
-				<div class="ui loader"></div>
-			</div>
-		{{/if}}    	
+    	{{#if logged_in}}
+	    	{{#if approval_items_are_ready}}
+		    	{{> contentCalendar}}
+		    {{else}}
+				<div class="ui active dimmer">
+					<div class="ui loader"></div>
+				</div>
+			{{/if}}  
+		{{else}}
+			{{> loginButtons}}
+		{{/if}}  	
     </div>
 </template>
 
