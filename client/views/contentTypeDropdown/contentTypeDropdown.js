@@ -28,6 +28,11 @@ Template['contentTypeDropdown'].helpers({
 	content_types : function() {
 		return getContentTypes();
 	},
+	initialize : function() {
+		Meteor.defer(function(){
+			$('.content-type-dropdown').dropdown();
+		});
+	}
 });
 
 Template['contentTypeDropdown'].events({
