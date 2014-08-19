@@ -3,6 +3,7 @@ resetModalContent = function() {
 }
 prepareModalToShow = function(context, creatingNewItem){
 	Session.set('current_item_id', context._id);
+	Session.set('current_scope', context.scope);
 	Session.set('current_scheduled_time', context.day.scheduled_time);
 	
 	Session.set('creating_new_item', creatingNewItem);
@@ -90,7 +91,16 @@ Template['createModal'].events({
 		hideCreationModal();
 	},
 	'click .reject.button' : function() {
-		
+		stateManager.changeToState('rejected');
+	},
+	'click .approve.button' : function() {
+		stateManager.changeToState('approved');
+	},
+	'click .comment.button' : function() {
+		stateManager.changeToState('commented');
+	},
+	'click .update.button' : function() {
+		stateManager.changeToState('updated');
 	},
 	'change .network-type-dropdown' : function(event) {
 		Session.set('current_network_type', event.target.value);

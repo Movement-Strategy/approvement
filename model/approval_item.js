@@ -26,8 +26,14 @@ if(Meteor.isServer) {
 		removeAllApprovalItems : function() {
 			ApprovalItem.remove({});
 		},
-		updateStatus : function(id, status) {
-			ApprovalItem.update(id, {$set : {status : status}});
+		updateStatus : function(id, fieldsToUpdate) {
+			var updateQuery = {
+				$set : {},
+			};
+			_.map(fieldsToUpdate, function(value, key){
+				updateQuery['$set'][key] = value;
+			}); 
+			ApprovalItem.update(id, updateQuery);
 		}
 	});
 }
