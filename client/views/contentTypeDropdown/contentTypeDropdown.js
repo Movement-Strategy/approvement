@@ -18,10 +18,6 @@ var getContentTypes = function() {
 	if(networkType != null) {
 		contentTypes = networkTypeMap[networkType];
 	}
-	Meteor.defer(function(){
-		$('.content-type-dropdown').dropdown();
-/* 		$('.network-type-dropdown').dropdown(); */
-	});
 	return contentTypes;
 };
 
