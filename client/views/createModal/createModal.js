@@ -35,6 +35,7 @@ getCurrentApprovalItemFromModal = function() {
 	return {
 		contents : itemContents,
 		scheduled_time : Session.get('current_scheduled_time'),
+		content_type : Session.get('current_content_type'),
 		scope : 'internal',
 		status : 'submitted',
 		created_time : moment().format("X") * 1000,
