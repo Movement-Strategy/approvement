@@ -27,7 +27,7 @@ if(Meteor.isServer) {
 			ApprovalItem.remove({});
 		},
 		updateStatus : function(id, status) {
-			
+			ApprovalItem.update(id, {$set : {status : status}});
 		}
 	});
 }

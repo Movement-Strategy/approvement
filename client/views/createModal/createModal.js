@@ -90,7 +90,7 @@ Template['createModal'].events({
 		hideCreationModal();
 	},
 	'click .reject.button' : function() {
-		console.log(this);
+		
 	},
 	'change .network-type-dropdown' : function(event) {
 		Session.set('current_network_type', event.target.value);
