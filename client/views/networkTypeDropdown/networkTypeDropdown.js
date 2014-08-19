@@ -1,7 +1,10 @@
 Template['networkTypeDropdown'].helpers({
 	initialize : function() {
-		$('.network-type-dropdown').dropdown();
-	}
+		Meteor.defer(function(){
+			console.log('firing');
+			$('.network-type-dropdown').dropdown();
+		});
+	},
 });
 
 Template['networkTypeDropdown'].events({

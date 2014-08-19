@@ -60,12 +60,6 @@ Template['contentCalendar'].helpers({
 			$('.create-item').modal();
 		}); 
 	},
-	initializeDropdown : function() {
-		Meteor.defer(function(){
-			$('.network-type-dropdown').dropdown();
-			$('.content-type-dropdown').dropdown();
-		}); 
-	},
 });
 
 Template['contentCalendar'].events({
