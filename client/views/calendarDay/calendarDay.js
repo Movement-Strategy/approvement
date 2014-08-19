@@ -52,6 +52,7 @@ setCalendarDays = function() {
 
 
 Template['calendarDay'].helpers({
+	
 });
 
 Template['calendarDay'].events({

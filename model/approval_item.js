@@ -25,7 +25,10 @@ if(Meteor.isServer) {
 		},
 		removeAllApprovalItems : function() {
 			ApprovalItem.remove({});
-		} 
+		},
+		updateStatus : function(id, status) {
+			
+		}
 	});
 }
 /*

@@ -6,6 +6,12 @@ prepareModalToShow = function(context, creatingNewItem){
 	Session.set('creating_new_item', creatingNewItem);
 	var currentItemContents = creatingNewItem ? {} : context.contents;
 	Session.set('current_item_contents', currentItemContents);
+	if(!creatingNewItem) {
+/*
+		Session.set('current_network_type', context.type);
+		Session.set('current_content_type', context.type);
+*/
+	}
 	showCreationModal();
 };
 
