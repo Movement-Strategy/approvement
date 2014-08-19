@@ -20,7 +20,8 @@ var getContentTypes = function() {
 	}
 	Meteor.defer(function(){
 		$('.content-type-dropdown').dropdown();
-	}); 
+		$('.network-type-dropdown').dropdown();
+	});
 	return contentTypes;
 };
 

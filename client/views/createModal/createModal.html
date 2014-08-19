@@ -23,52 +23,56 @@
 		
 			{{#with clickable_inputs}}
 			    <div class="ui segment fb-box go-to-back">
-					    <div class = "image-container">
-						    <img class="ui image profile-icon" src="/images/fb_icon.png">
-					    </div>
-					    <div class="name-container">
+					    {{#if is_content_type_chosen}}
+						    <div class = "image-container">
+							    <img class="ui image profile-icon" src="/images/fb_icon.png">
+						    </div>
+						    <div class="name-container">
 			    <h5 class="profile-name"><a>USA TODAY</a>
 			   </h5>
 			   	
 			    <span class="time-ago">15 hrs</span>
 		    </div>
-					    <div class="link-description">
-							{{#with link_description}}
-							    {{#clickableInput}}
-							    	<p id="{{id}}_display" class='edit-target'>{{text}}</p>
-							    {{/clickableInput}}
-							{{/with}}
-					    </div>
-					    <div class="content-container">
-							{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
-								<input id='image-input' type="file">
-							{{/S3}}
-					    	<label for="image-input">
-						    	<img class="ui image link-image edit-target" src="{{image_url}}">
-					    	</label>
-					    	<div class="link-body">
-								{{#with link_body}}
+						    <div class="link-description">
+								{{#with link_description}}
 								    {{#clickableInput}}
-								    	<a id="{{id}}_display" class="link-title edit-target">{{text}}</a>
+								    	<p id="{{id}}_display" class='edit-target'>{{text}}</p>
 								    {{/clickableInput}}
 								{{/with}}
-								{{#with link_text}}
-								    {{#clickableInput}}
-								    	<div id="{{id}}_display" class="link-text edit-target">
-									    	{{text}}
-								    	</div>
-								    {{/clickableInput}}
-								{{/with}}
-						    	<div class="link-domain">
-							    	usatoday.com
-						    	</div>	    
-					    	</div>
-					    </div>
-					    <div class="actions-container">
-						    <span>Like</span>
-						    <span>Comment</span>
-						    <span>Share</span>
-					    </div>
+						    </div>
+						    <div class="content-container">
+								
+									{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
+										<input id='image-input' type="file">
+									{{/S3}}
+							    	<label for="image-input">
+								    	<img class="ui image link-image edit-target" src="{{image_url}}">
+							    	</label>
+							    	<div class="link-body">
+										{{#with link_body}}
+										    {{#clickableInput}}
+										    	<a id="{{id}}_display" class="link-title edit-target">{{text}}</a>
+										    {{/clickableInput}}
+										{{/with}}
+										{{#with link_text}}
+										    {{#clickableInput}}
+										    	<div id="{{id}}_display" class="link-text edit-target">
+											    	{{text}}
+										    	</div>
+										    {{/clickableInput}}
+										{{/with}}
+								    	<div class="link-domain">
+									    	usatoday.com
+								    	</div>	    
+							    	</div>
+							    
+						    </div>
+						    <div class="actions-container">
+							    <span>Like</span>
+							    <span>Comment</span>
+							    <span>Share</span>
+						    </div>
+					    {{/if}}
 				</div>
 		    {{/with}}
 		
@@ -77,6 +81,7 @@
 			{{#if creating_new_item}}
 				<div class="small blue ui button submit">submit</div>
 			{{else}}
+				<div class="small blue ui button update">Update</div>
 				<div class="large orange ui button comment">Note</div>
 				<div class="large red ui button reject">Reject</div>
 				<div class="large green ui button approve">Approve</div>

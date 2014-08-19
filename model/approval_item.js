@@ -23,6 +23,9 @@ if(Meteor.isServer) {
 		insertApprovalItem : function(newApprovalItem) {
 			ApprovalItem.insert(newApprovalItem);
 		},
+		removeAllApprovalItems : function() {
+			ApprovalItem.remove({});
+		} 
 	});
 }
 /*

@@ -1,3 +1,6 @@
+resetModalContent = function() {
+	Session.set('uploaded_image_url', null);
+}
 prepareModalToShow = function(context, creatingNewItem){
 	Session.set('current_scheduled_time', context.day.scheduled_time);
 	Session.set('creating_new_item', creatingNewItem);
@@ -10,6 +13,11 @@ showCreationModal = function() {
 	initializeClickableInputs();
 	$('.create-item').modal('show');
 };
+
+hideCreationModal = function() {
+	$('.create-item').modal('hide');
+};
+
 
 getCurrentApprovalItemFromModal = function() {
 	var clickableInputs = Session.get('clickable_inputs');
@@ -72,6 +80,7 @@ Template['createModal'].events({
 	'click .submit.button' : function() {
 		var approvalItem = getCurrentApprovalItemFromModal();
 		Meteor.call('insertApprovalItem', approvalItem);
+		hideCreationModal();
 	},
 	'change .network-type-dropdown' : function(event) {
 		Session.set('current_network_type', event.target.value);
