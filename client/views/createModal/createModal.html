@@ -6,16 +6,7 @@
 	    
 	    {{#if creating_new_item}}
 		    <div class="create-options">
-				<div class="ui selection dropdown dropdown-font network-type-dropdown">
-					<input type="hidden" name="network-type">
-					<div class="default text">Network</div>
-					<i class="dropdown icon"></i>
-					<div class="menu">
-						<div class="item" data-value="facebook">Facebook</div>
-						<div class="item" data-value="instagram">Instagram</div>
-						<div class="item" data-value="twitter">Twitter</div>
-					</div>
-				</div>
+				{{> networkTypeDropdown}}
 				{{> contentTypeDropdown}}
 			</div>
 		{{/if}}
