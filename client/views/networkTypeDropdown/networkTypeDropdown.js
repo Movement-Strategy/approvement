@@ -5,6 +5,9 @@ Template['networkTypeDropdown'].helpers({
 			$('.network-type-dropdown').dropdown();
 		});
 	},
+	network_type_is_chosen : function() {
+		return Session.get('network_type') != null;
+	}
 });
 
 Template['networkTypeDropdown'].events({

@@ -29,7 +29,11 @@ Template['contentTypeDropdown'].helpers({
 		Meteor.defer(function(){
 			$('.content-type-dropdown').dropdown();
 		});
+	},
+	network_type_is_chosen : function() {
+		return Session.get('current_network_type') != null;
 	}
+
 });
 
 Template['contentTypeDropdown'].events({

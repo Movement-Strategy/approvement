@@ -1,13 +1,16 @@
 <template name="contentTypeDropdown">
-	<div class="ui selection dropdown dropdown-font content-type-dropdown">
-		<input type="hidden" name="content-type">
-		<div class="default text">Content Type</div>
-		<i class="dropdown icon"></i>
-		<div class="menu">
-			{{#each content_types}}
-				<div class="item" data-value="{{value}}">{{display}}</div>
-			{{/each}}
+	{{#if network_type_is_chosen}}
+		<div class="ui selection dropdown dropdown-font content-type-dropdown">
+			<input type="hidden" name="content-type">
+			<div class="default text">Content Type</div>
+			<i class="dropdown icon"></i>
+			<div class="menu">
+				{{#each content_types}}
+					<div class="item" data-value="{{value}}">{{display}}</div>
+				{{/each}}
+			</div>
 		</div>
-	</div>
+		{{initialize}}
+	{{/if}}
 </template>
 
