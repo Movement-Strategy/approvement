@@ -22,9 +22,6 @@ var getContentTypes = function() {
 };
 
 Template['contentTypeDropdown'].helpers({
-	show_state : function() {
-		return Session.get('current_network_type') != null ? '' : 'hidden';
-	},
 	content_types : function() {
 		return getContentTypes();
 	},
