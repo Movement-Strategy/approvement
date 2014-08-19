@@ -1,6 +1,5 @@
 Meteor.startup(function () {
 	Session.setDefault('approval_items_are_ready', false);
-	Session.set('user_type', 'creative_director');
 	var dateObject = new Date().add;
 	var momentDate = moment(dateObject);
 	Session.setDefault('current_item_contents', {});
@@ -10,7 +9,4 @@ Meteor.startup(function () {
 	initializeClickableInputs();
 	setCurrentDays(momentDate);
 	approvalActionHandler.getActionButtons();
-	
-	
-	
 });
