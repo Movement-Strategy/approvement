@@ -66,8 +66,11 @@
 					    {{/if}}
 				</div>
 		    {{/with}}
-		    {{> approvalItemComments}}
-		
+		    {{#if creating_new_item}}
+		   	 	
+		   	{{else}}
+		   		{{> approvalItemComments}}
+		   	{{/if}}
 	</div>
 	<div class="actions">
 		{{#if modal_shown}}
