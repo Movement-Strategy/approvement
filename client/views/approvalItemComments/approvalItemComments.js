@@ -22,6 +22,7 @@ Template['approvalItemComments'].events({
 			var commentText = $(".comment-input").val();
 			var comment = buildComment(commentText);
 			Meteor.call('addComment', Session.get('current_item_id'), comment);
+			$(".comment-input").val("");
 		}
 	},
 });
