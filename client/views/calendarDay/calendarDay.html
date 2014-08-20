@@ -7,7 +7,7 @@
 		<div class="content-container">
 			{{#if is_external}}
 				{{# each day.approval_items.external}}
-					{{updateComments}}
+					{{updateReactiveVariables}}
 					{{> approvalItemIcon}}
 				{{/each}}
 				<a class="ui large grey circular label create-item-button">
@@ -15,7 +15,7 @@
 				</a>
 			{{else}}
 				{{# each day.approval_items.internal}}
-					{{updateComments}}
+					{{updateReactiveVariables}}
 					{{> approvalItemIcon}}
 				{{/each}}
 			{{/if}}

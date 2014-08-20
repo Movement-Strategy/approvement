@@ -52,8 +52,8 @@ setCalendarDays = function() {
 
 
 Template['calendarDay'].helpers({
-	updateComments : function() {
-		var comments = _.has(this, 'comments') ? context.comments : [];
+	updateReactiveVariables : function() {
+		var comments = _.has(this, 'comments') ? this.comments : [];
 		Session.set('current_comments', comments);
 	}
 });
