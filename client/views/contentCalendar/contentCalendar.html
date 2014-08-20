@@ -11,15 +11,17 @@
 	    		<i class="large right arrow icon"></i>
 	    	</div>
     	</div>
-    	<div class="bottom calendar row">
-	    	<div class="arrow column">
+    	{{#if show_internal_row}}
+	    	<div class="bottom calendar row">
+		    	<div class="arrow column">
+		    	</div>
+	    		{{#each calendar_days}}
+	    			{{> calendarDay is_external=false day=this}}
+	    		{{/each}}
+		    	<div class="arrow column">
+		    	</div>
 	    	</div>
-    		{{#each calendar_days}}
-    			{{> calendarDay is_external=false day=this}}
-    		{{/each}}
-	    	<div class="arrow column">
-	    	</div>
-    	</div>
+	    {{/if}}
 	</div>
 	<div class="ui modal small create-item">
 		{{> createModal}}

@@ -54,6 +54,9 @@ Template['contentCalendar'].helpers({
 		
 		calendarDays = Session.get('calendar_days');
 		return calendarDays;
+	},
+	show_internal_row : function() {
+		return Session.get('user_type') != 'client';
 	}, 
 	initializeModal : function() {
 		Meteor.defer(function(){
