@@ -52,7 +52,10 @@ setCalendarDays = function() {
 
 
 Template['calendarDay'].helpers({
-	
+	updateComments : function() {
+		var comments = _.has(this, 'comments') ? context.comments : [];
+		Session.set('current_comments', comments);
+	}
 });
 
 Template['calendarDay'].events({
