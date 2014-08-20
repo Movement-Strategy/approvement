@@ -19,10 +19,12 @@ prepareModalToShow = function(context, creatingNewItem){
 showCreationModal = function() {
 	initializeClickableInputs();
 	$('.create-item').modal('show');
+	Session.set('modal_shown', true);
 };
 
 hideCreationModal = function() {
 	$('.create-item').modal('hide');
+	Session.set('modal_shown', false);
 };
 
 

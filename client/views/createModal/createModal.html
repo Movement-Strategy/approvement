@@ -66,14 +66,19 @@
 					    {{/if}}
 				</div>
 		    {{/with}}
+		    {{> approvalItemComments}}
 		
 	</div>
 	<div class="actions">
-			{{#if creating_new_item}}
-				<div class="small blue ui button submit">submit</div>
-			{{else}}
-				{{> creationActions}}
-			{{/if}}
+		{{#if modal_shown}}
+			<div class="approval-actions">
+				{{#if creating_new_item}}
+					<div class="small blue ui button submit">submit</div>
+				{{else}}
+					{{> creationActions}}
+				{{/if}}
+			</div>
+		{{/if}}
 	</div>
 </template>
 

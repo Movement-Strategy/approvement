@@ -8,5 +8,4 @@ Meteor.startup(function () {
 	Session.setDefault('current_content_type', null);
 	initializeClickableInputs();
 	setCurrentDays(momentDate);
-	approvalActionHandler.getActionButtons();
 });
