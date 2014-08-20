@@ -57,7 +57,7 @@ Template['contentCalendar'].helpers({
 	}, 
 	initializeModal : function() {
 		Meteor.defer(function(){
-			$('.create-item').modal();
+			$('.create-item').modal({detachable : false});
 		}); 
 	},
 });

@@ -6,3 +6,15 @@ body > div.default {
 	padding : 20px 0 0 15px;
 }
 
+.ui.dimmer {
+     position: fixed;
+}
+.ui.scrolling.dimmable > .dimmer,
+.ui.scrolling.page.dimmer {
+  position: fixed; /*absolute*/
+}
+/* Bound to segment size*/
+ .ui.segment > .ui.dimmer {
+   position:absolute;
+}
+
