@@ -24,6 +24,7 @@ showCreationModal = function() {
 hideCreationModal = function() {
 	$('.create-item').modal('hide');
 	Session.set('modal_shown', false);
+	Session.set('current_comments', []);
 };
 
 
@@ -71,6 +72,9 @@ initializeClickableInputs = function() {
 Template['createModal'].helpers({
 	clickable_inputs : function() {
 		return Session.get('clickable_inputs');
+	},
+	modal_shown : function() {
+		return Session.get('modal_shown');
 	},
 	image_url : function() {
 		currentItemContents = Session.get('current_item_contents');
