@@ -3,6 +3,8 @@ resetModalContent = function() {
 }
 prepareModalToShow = function(context, creatingNewItem){
 	Session.set('current_item_id', context._id);
+	var comments = _.has(context, 'comments') ? context.comments : [];
+	Session.set('current_comments', comments);
 	Session.set('current_scope', context.scope);
 	Session.set('current_scheduled_time', context.day.scheduled_time);
 	

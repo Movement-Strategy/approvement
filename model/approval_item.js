@@ -34,7 +34,15 @@ if(Meteor.isServer) {
 				updateQuery['$set'][key] = value;
 			}); 
 			ApprovalItem.update(id, updateQuery);
-		}
+		},
+		addComment : function(id, comment) {
+			var updateQuery = {
+				$push : {
+					comments : comment,
+				},
+			};
+			ApprovalItem.update(id, updateQuery);
+		},
 	});
 }
 /*
