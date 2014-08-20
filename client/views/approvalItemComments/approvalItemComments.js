@@ -10,6 +10,9 @@ var buildComment = function(commentText) {
 };
 
 Template['approvalItemComments'].helpers({
+	comments : function() {
+		Session.get('current_comments');
+	}
 });
 
 Template['approvalItemComments'].events({
