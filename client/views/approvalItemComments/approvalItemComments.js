@@ -11,7 +11,7 @@ var buildComment = function(commentText) {
 
 Template['approvalItemComments'].helpers({
 	comments : function() {
-		Session.get('current_comments');
+		return Session.get('current_comments');
 	}
 });
 

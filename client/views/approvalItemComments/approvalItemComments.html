@@ -1,38 +1,24 @@
 <template name="approvalItemComments">
     <div class="ui segment comment-container">
 	    <div class="ui comments">
-		    <div class="comment">
-			   	<a class="avatar">
-				   	<img src="/images/fb_icon.png" />
-			   	</a>
-			    <div class="content">
-				    <a class="author">
-					    Clay Branch
-				    </a>
-				    <div class="metadata">
-					    <span class="date">Monday</span>
-				    </div>
-				    <div class="text">
-					    Comment Text
-				    </div>
-			    </div>
-		    </div>
-		    <div class="comment">
-			   	<a class="avatar">
-				   	<img src="/images/fb_icon.png" />
-			   	</a>
-			    <div class="content">
-				    <a class="author">
-					    Clay Branch
-				    </a>
-				    <div class="metadata">
-					    <span class="date">Monday</span>
-				    </div>
-				    <div class="text">
-					   Lorem ipsum dolor sit amet, quo doctus pericula disputando at, virtute vituperata pri no, an stet perpetua his. Usu alii debet ea, quodsi quaeque aliquando pri ex, nam te error repudiare. Pri corpora 
+		    {{#each comments}}
+			    <div class="comment">
+				   	<a class="avatar">
+					   	<img src="{{avatar}}" />
+				   	</a>
+				    <div class="content">
+					    <a class="author">
+						    {{name}}
+					    </a>
+					    <div class="metadata">
+						    <span class="date">Monday</span>
+					    </div>
+					    <div class="text">
+						    {{text}}
+					    </div>
 				    </div>
 			    </div>
-		    </div>
+		    {{/each}}
 		    <div class="comment">
 			   	<a class="avatar">
 				   	<img src="/images/fb_icon.png" />
