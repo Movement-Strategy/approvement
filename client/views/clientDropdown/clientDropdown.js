@@ -25,8 +25,8 @@ Template['clientDropdown'].helpers({
 
 Template['clientDropdown'].events({
 	'change .client-dropdown' : function(event) {
-		console.log(event.target.value);
-	}
+/* 		Session.set('selected_client_id', event.target.value); */
+	},
 });
 
 
