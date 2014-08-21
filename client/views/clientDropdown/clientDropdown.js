@@ -1,11 +1,12 @@
 Template['clientDropdown'].helpers({
 	initialize : function() {
 		Meteor.defer(function(){
-			$('.client-type-dropdown').dropdown();
+			$('.client-dropdown').dropdown();
 		});
 	},
 });
 
 Template['clientDropdown'].events({
 });
+
 
