@@ -11,6 +11,7 @@ Meteor.subscribe('userData', onReady = function(){
 	var clients = users[0].clients;
 	Session.set('user_type', users[0].user_type);
 	Session.set('current_clients', clients);
+	var clientsByID = Session.get('clients_by_id');
 	if(!Session.get('clients_are_ready')) {
 		if(clientsByID != {}) {
 			Session.set('selected_client_id', clients[0]);

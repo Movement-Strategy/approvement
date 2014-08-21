@@ -87,6 +87,12 @@ Template['createModal'].helpers({
  	is_content_type_chosen : function() {
 		return Session.get('current_content_type') != null;
 	},
+	profile_pic_url : function() {
+		return Session.get('selected_client').profile_pictures.facebook;
+	},
+	display_name : function() {
+		return Session.get('selected_client').display_name;
+	}
 });
 
 Template['createModal'].events({
