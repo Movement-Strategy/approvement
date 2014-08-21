@@ -55,7 +55,10 @@ Template['calendarDay'].helpers({
 	updateReactiveVariables : function() {
 		var comments = _.has(this, 'comments') ? this.comments : [];
 		Session.set('current_comments', comments);
-	}
+	},
+	is_not_client : function() {
+		return Session.get('user_type') != 'client';
+	},
 });
 
 Template['calendarDay'].events({

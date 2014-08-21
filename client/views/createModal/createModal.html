@@ -12,8 +12,9 @@
 		{{/if}}
 		
 		
-			{{#with clickable_inputs}}
-			    <div class="ui segment fb-box go-to-back">
+			{{#if is_content_type_chosen}}
+				{{#with clickable_inputs}}
+				    <div class="ui segment fb-box go-to-back">
 					    {{#if is_content_type_chosen}}
 						    <div class = "image-container">
 							    <img class="ui image profile-icon" src="/images/fb_icon.png">
@@ -65,7 +66,8 @@
 						    </div>
 					    {{/if}}
 				</div>
-		    {{/with}}
+			    {{/with}}
+			{{/if}}
 		    {{#if creating_new_item}}
 		   	 	
 		   	{{else}}
