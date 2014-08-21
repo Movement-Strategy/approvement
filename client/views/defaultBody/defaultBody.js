@@ -1,6 +1,6 @@
 Template['defaultBody'].helpers({
-	approval_items_are_ready : function() {
-		return Session.get('approval_items_are_ready');
+	page_is_ready : function() {
+		return Session.get('page_is_ready');
 	},
 	logged_in : function() {
 		return Meteor.userId() != null;

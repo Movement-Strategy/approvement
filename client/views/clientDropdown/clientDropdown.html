@@ -1,15 +1,12 @@
 <template name="clientDropdown">
 	<div class="ui dropdown client-dropdown">
 		<input type="hidden" name="content-type">
-		<div class="default text">Client</div>
+		<div class="text">{{selected_client_name}}</div>
 		<i class="dropdown icon"></i>
 		<div class="menu">
-				<div class="item" data-value="usa_today">Usa Today</div>
-<!--
-			{{#each content_types}}
+			{{#each clients}}
 				<div class="item" data-value="{{value}}">{{display}}</div>
 			{{/each}}
--->
 		</div>
 	</div>
 	{{initialize}}

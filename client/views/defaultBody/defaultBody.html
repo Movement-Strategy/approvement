@@ -1,7 +1,7 @@
 <template name="defaultBody">
     <div class="default">
     	{{#if logged_in}}
-	    	{{#if approval_items_are_ready}}
+	    	{{#if page_is_ready}}
 		    	{{> contentCalendar}}
 		    {{else}}
 				<div class="ui active dimmer">
