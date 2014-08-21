@@ -1,4 +1,17 @@
 <template name="clientDropdown">
-    <span>Template clientDropdown</span>
+	<div class="ui selection dropdown dropdown-font client-dropdown">
+		<input type="hidden" name="content-type">
+		<div class="default text">Client</div>
+		<i class="dropdown icon"></i>
+		<div class="menu">
+				<div class="item" data-value="usa_today">Usa Today</div>
+<!--
+			{{#each content_types}}
+				<div class="item" data-value="{{value}}">{{display}}</div>
+			{{/each}}
+-->
+		</div>
+	</div>
+	{{initialize}}
 </template>
 
