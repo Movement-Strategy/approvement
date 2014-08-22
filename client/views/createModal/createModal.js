@@ -74,6 +74,13 @@ Template['createModal'].helpers({
 	clickable_inputs : function() {
 		return Session.get('clickable_inputs');
 	},
+	initializeModal : function() {
+		var test = Session.get('current_content_type');
+		Meteor.defer(function(){
+			$('.create-item').modal({detachable : false});
+			$('.create-item').modal('refresh');
+		}); 
+	},
 	modal_shown : function() {
 		return Session.get('modal_shown');
 	},

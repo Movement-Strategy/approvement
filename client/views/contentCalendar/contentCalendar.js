@@ -108,11 +108,6 @@ Template['contentCalendar'].helpers({
 	is_not_client : function() {
 		return Session.get('user_type') != 'client';
 	},
-	initializeModal : function() {
-		Meteor.defer(function(){
-			$('.create-item').modal({detachable : false});
-		}); 
-	},
 });
 
 Template['contentCalendar'].events({
