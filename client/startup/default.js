@@ -4,7 +4,7 @@ Meteor.startup(function () {
 	Session.setDefault('page_is_ready', false);
 	confirmPageIsReady();
 	var dateObject = new Date().add;
-	var momentDate = moment(dateObject);
+	momentDate = moment(dateObject);
 	Session.setDefault('current_item_contents', {});
 	Session.setDefault('approval_items_by_day', {});
 	Session.setDefault('current_clients', []); 

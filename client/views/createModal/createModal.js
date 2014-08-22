@@ -42,6 +42,7 @@ getCurrentApprovalItemFromModal = function() {
 		scope : 'internal',
 		status : 'submitted',
 		created_time : moment().format("X") * 1000,
+		client_id : Session.get('selected_client_id'),
 		type : 'facebook',
 	};
 };

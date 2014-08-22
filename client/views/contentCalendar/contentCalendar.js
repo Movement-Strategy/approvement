@@ -1,3 +1,18 @@
+changeToNextWeek = function() {
+	momentDate.add('days', 7);
+	setCurrentDays(momentDate);
+	setCalendarDays();
+	setApprovalItemsByDay();
+	
+}
+
+changeToLastWeek = function() {
+	momentDate.subtract('days', 7);
+	setCurrentDays(momentDate);
+	setCalendarDays();
+	setApprovalItemsByDay();
+}
+
 setCurrentDays = function(currentDate) {
 	var currentDays = {
 		1 : {
@@ -34,7 +49,7 @@ setCurrentDays = function(currentDate) {
 }
 
 setApprovalItemsByDay = function() {
-	var approvalItems = ApprovalItem.find().fetch();
+	var approvalItems = ApprovalItem.find({client_id : Session.get('selected_client_id')}).fetch();
 	approvalItemsByDay = {};
 	_.map(approvalItems, function(item){
 		momentDate = moment(item.scheduled_time);
@@ -66,6 +81,11 @@ Template['contentCalendar'].helpers({
 });
 
 Template['contentCalendar'].events({
-	
+	'click .right.arrow' : function() {
+		changeToNextWeek();
+	},
+	'click .left.arrow' : function() {
+		changeToLastWeek();
+	},
 });
 
