@@ -116,10 +116,10 @@ Template['contentCalendar'].helpers({
 });
 
 Template['contentCalendar'].events({
-	'click .right.arrow' : function() {
+	'click .right.arrow' : function(event) {
 		changeToNextWeek();
 	},
-	'click .left.arrow' : function() {
+	'click .left.arrow' : function(event) {
 		changeToLastWeek();
 	},
 });
