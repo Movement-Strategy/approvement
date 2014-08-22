@@ -55,7 +55,6 @@ Template['calendarDay'].helpers({
 	updateReactiveVariables : function() {
 		var comments = _.has(this, 'comments') ? this.comments : [];
 		if(this._id == Session.get('current_item_id')) {
-			console.log('setting');
 			Session.set('current_comments', comments);
 		}
 	},

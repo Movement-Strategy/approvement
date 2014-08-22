@@ -15,7 +15,6 @@ prepareModalToShow = function(context, creatingNewItem){
 	Session.set('creating_new_item', creatingNewItem);
 	var currentItemContents = creatingNewItem ? {} : context.contents;
 	Session.set('current_item_contents', currentItemContents);
-	console.log(currentItemContents);
 	if(!creatingNewItem) {
 		Session.set('current_network_type', context.type);
 		Session.set('current_content_type', context.content_type);
@@ -95,13 +94,6 @@ Template['createModal'].helpers({
 	clickable_inputs : function() {
 		return Session.get('clickable_inputs');
 	},
-	initializeModal : function() {
-		var test = Session.get('current_content_type');
-		Meteor.defer(function(){
-			$('.create-item').modal({detachable : false});
-			$('.create-item').modal('refresh');
-		}); 
-	},
 	modal_shown : function() {
 		return Session.get('modal_shown');
 	},
@@ -114,6 +106,7 @@ Template['createModal'].helpers({
 		return Session.get('creating_new_item');
 	},
  	is_content_type_chosen : function() {
+		
 		return Session.get('current_content_type') != null;
 	},
 	profile_pic_url : function() {
