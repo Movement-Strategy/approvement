@@ -52,8 +52,8 @@ setApprovalItemsByDay = function() {
 	var approvalItems = ApprovalItem.find({client_id : Session.get('selected_client_id')}).fetch();
 	approvalItemsByDay = {};
 	_.map(approvalItems, function(item){
-		momentDate = moment(item.scheduled_time);
-		var dayIndex = momentDate.isoWeekday();
+		var scheduledDate = moment(item.scheduled_time);
+		var dayIndex = scheduledDate.isoWeekday();
 		if(!_.has(approvalItemsByDay, dayIndex)) {
 			approvalItemsByDay[dayIndex] = [];
 		}
