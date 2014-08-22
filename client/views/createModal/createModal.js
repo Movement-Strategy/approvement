@@ -128,16 +128,20 @@ Template['createModal'].events({
 	},
 	'click .reject.button' : function() {
 		stateManager.changeToState('rejected');
+		hideCreationModal();
 	},
 	'click .approve.button' : function() {
 		stateManager.changeToState('approved');
+		hideCreationModal();
 	},
 	'click .comment.button' : function() {
 		stateManager.changeToState('commented');
+		hideCreationModal();
 	},
 	'click .update.button' : function() {
 		var contents = getDynamicContentFromModal();
 		stateManager.changeToState('updated', contents);
+		hideCreationModal();
 	},
 	'change .network-type-dropdown' : function(event) {
 		Session.set('current_network_type', event.target.value);
