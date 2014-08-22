@@ -10,6 +10,7 @@ stateMap = {
 	commented : {
 		creative_director : {
 			status : 'commented',
+			
 		},
 		client : {
 			status : 'commented',
@@ -17,10 +18,10 @@ stateMap = {
 	},
 	updated : {
 		creative_director : {
-			
+		
 		},
 		client : {
-			
+		
 		},
 		social_media_manager : {
 			status : 'submitted',

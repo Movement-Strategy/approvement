@@ -27,7 +27,6 @@ hideCreationModal = function() {
 	Session.set('current_comments', []);
 };
 
-
 getCurrentApprovalItemFromModal = function() {
 	var clickableInputs = Session.get('clickable_inputs');
 	var itemContents = {};
