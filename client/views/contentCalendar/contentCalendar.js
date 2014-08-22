@@ -111,7 +111,7 @@ Template['contentCalendar'].helpers({
 	initializeModal : function() {
 		if(Session.get('current_content_type') != {}) {
 			Meteor.defer(function(){
-				$('.create-item').modal({detachable : false, debug : true});
+				$('.create-item').modal({detachable : false});
 				$('.create-item').modal('refresh');
 			});
 		}
