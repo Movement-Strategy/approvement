@@ -18,7 +18,6 @@ Template['approvalItemComments'].helpers({
 Template['approvalItemComments'].events({
 	'keydown' : function() {
 		if($(".comment-input").is(":focus") && event.which == 13) {
-			
 			var commentText = $(".comment-input").val();
 			var comment = buildComment(commentText);
 			Meteor.call('addComment', Session.get('current_item_id'), comment);

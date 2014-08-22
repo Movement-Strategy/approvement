@@ -54,7 +54,10 @@ setCalendarDays = function() {
 Template['calendarDay'].helpers({
 	updateReactiveVariables : function() {
 		var comments = _.has(this, 'comments') ? this.comments : [];
-		Session.set('current_comments', comments);
+		if(this._id == Session.get('current_item_id')) {
+			console.log('setting');
+			Session.set('current_comments', comments);
+		}
 	},
 	is_not_client : function() {
 		return Session.get('user_type') != 'client';
