@@ -1,17 +1,29 @@
-changeToNextWeek = function() {
-	momentDate.add('days', 7);
-	setCurrentDays(momentDate);
-	setCalendarDays();
-	setApprovalItemsByDay();
-	
+getStartOfWeek = function() {
+	var currentDays = Session.get('current_days');
+	var startOfWeekTime = currentDays[1]['scheduled_time'];
+	return moment(startOfWeekTime);
 }
 
-changeToLastWeek = function() {
-	momentDate.subtract('days', 7);
+alterCurrentDate = function(alterFunction) {
+	var startOfWeek = getStartOfWeek();
+	startOfWeek = alterFunction(startOfWeek);
+	momentDate = startOfWeek;
 	setCurrentDays(momentDate);
 	setCalendarDays();
 	setApprovalItemsByDay();
 }
+
+changeToNextWeek = function() {
+	alterCurrentDate(function(date){
+		return date.add('days', 7);
+	});
+};
+
+changeToLastWeek = function() {
+	alterCurrentDate(function(date){
+		return date.subtract('days', 7);
+	});
+};
 
 setCurrentDays = function(currentDate) {
 	var currentDays = {
@@ -39,9 +51,10 @@ setCurrentDays = function(currentDate) {
 	};
 	
 	currentDays = _.map(currentDays, function(day, dayIndex){
-		day['full_date'] = currentDate.isoWeekday(dayIndex).format("MMMM D, YYYY");
-		day['scheduled_time'] = currentDate.isoWeekday(dayIndex).format("X") * 1000;
-		
+		var isoDate = currentDate;
+		isoDate.isoWeekday(dayIndex);
+		day['full_date'] = isoDate.format("MMMM D, YYYY");
+		day['scheduled_time'] = isoDate.format("X") * 1000;
 		return day;
 	});
 	Session.set('current_days', currentDays);
@@ -64,7 +77,6 @@ var getApprovalItemQuery = function() {
 
 setApprovalItemsByDay = function() {
 	var approvalItemQuery = getApprovalItemQuery();
-	console.log(approvalItemQuery);
 	var approvalItems = ApprovalItem.find(approvalItemQuery).fetch();
 	approvalItemsByDay = {};
 	
