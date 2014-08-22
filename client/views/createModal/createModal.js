@@ -1,5 +1,9 @@
 resetModalContent = function() {
 	Session.set('uploaded_image_url', null);
+	Session.set('current_item_contents', {});
+	Session.set('current_network_type', null);
+	Session.set('current_content_type', null);
+	Session.set('creating_new_item', true);
 }
 prepareModalToShow = function(context, creatingNewItem){
 	Session.set('current_item_id', context._id);
@@ -24,16 +28,30 @@ showCreationModal = function() {
 hideCreationModal = function() {
 	$('.create-item').modal('hide');
 	Session.set('modal_shown', false);
-	Session.set('current_comments', []);
 };
 
-getCurrentApprovalItemFromModal = function() {
+getDynamicContentFromModal = function() {
 	var clickableInputs = Session.get('clickable_inputs');
 	var itemContents = {};
 	_.map(clickableInputs, function(clickableInput){
 		itemContents[clickableInput.id] = clickableInput.text;
 	});
-	itemContents.image_url = Session.get('uploaded_image_url');
+	var uploadedImageURL = Session.get('uploaded_image_url');
+	var imageURL = null;
+	if(Session.get('creating_new_item')) {
+		imageURL = uploadedImageURL;
+	} else {
+		imageURL = Session.get('current_item_contents').image_url;
+	}
+	
+	if(imageURL != null) {
+		itemContents.image_url = imageURL;
+	}
+	return itemContents;
+}
+
+getCurrentApprovalItemFromModal = function() {
+	var itemContents = getDynamicContentFromModal();
 	return {
 		contents : itemContents,
 		scheduled_time : Session.get('current_scheduled_time'),
@@ -118,7 +136,8 @@ Template['createModal'].events({
 		stateManager.changeToState('commented');
 	},
 	'click .update.button' : function() {
-		stateManager.changeToState('updated');
+		var contents = getDynamicContentFromModal();
+		stateManager.changeToState('updated', contents);
 	},
 	'change .network-type-dropdown' : function(event) {
 		Session.set('current_network_type', event.target.value);
