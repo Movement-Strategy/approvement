@@ -6,12 +6,16 @@ resetModalContent = function() {
 	Session.set('creating_new_item', true);
 }
 prepareModalToShow = function(context, creatingNewItem){
+	Session.set('uploaded_image_url', null);
 	Session.set('current_item_id', context._id);
 	Session.set('current_scope', context.scope);
+	Session.set('current_content_type', null);
+	Session.set('current_network_type', null);
 	Session.set('current_scheduled_time', context.day.scheduled_time);
 	Session.set('creating_new_item', creatingNewItem);
 	var currentItemContents = creatingNewItem ? {} : context.contents;
 	Session.set('current_item_contents', currentItemContents);
+	console.log(currentItemContents);
 	if(!creatingNewItem) {
 		Session.set('current_network_type', context.type);
 		Session.set('current_content_type', context.content_type);
@@ -41,7 +45,7 @@ getDynamicContentFromModal = function() {
 	if(Session.get('creating_new_item')) {
 		imageURL = uploadedImageURL;
 	} else {
-		imageURL = Session.get('current_item_contents').image_url;
+		imageURL = uploadedImageURL == null ?Session.get('current_item_contents').image_url : uploadedImageURL;
 	}
 	
 	if(imageURL != null) {
