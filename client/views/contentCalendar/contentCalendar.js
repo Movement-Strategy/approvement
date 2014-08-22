@@ -51,6 +51,10 @@ setCurrentDays = function(currentDate) {
 setApprovalItemsByDay = function() {
 	var approvalItems = ApprovalItem.find({client_id : Session.get('selected_client_id')}).fetch();
 	approvalItemsByDay = {};
+	var startTime = momentDate.format('X') * 1000;
+	var endDate = momentDate;
+	endDate.add(7, 'days');
+	var endTime = endDate.format('X') * 1000;
 	_.map(approvalItems, function(item){
 		var scheduledDate = moment(item.scheduled_time);
 		var dayIndex = scheduledDate.isoWeekday();
