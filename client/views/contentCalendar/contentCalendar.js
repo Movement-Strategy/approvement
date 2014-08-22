@@ -62,8 +62,9 @@ setCurrentDays = function(currentDate) {
 }
 
 var getApprovalItemQuery = function() {
-	var startTime = momentDate.format('X') * 1000;
-	var endDate = momentDate;
+	var startOfWeek = getStartOfWeek();
+	var startTime = startOfWeek.format('X') * 1000;
+	var endDate = startOfWeek;
 	endDate.add(7, 'days');
 	var endTime = endDate.format('X') * 1000;
 	return {
