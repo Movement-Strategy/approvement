@@ -61,9 +61,15 @@ setCurrentDays = function(currentDate) {
 	
 }
 
+debugTime = function(time, name) {
+	console.log(name + moment(time).format('MMMM Do YYYY, h:mm:ss a'));
+}
+
 var getApprovalItemQuery = function() {
+	
 	var startOfWeek = getStartOfWeek();
 	var startTime = startOfWeek.format('X') * 1000;
+	
 	var endDate = startOfWeek;
 	endDate.add(7, 'days');
 	var endTime = endDate.format('X') * 1000;
@@ -72,7 +78,7 @@ var getApprovalItemQuery = function() {
 			$gte : startTime,
 			$lt : endTime,
 		},
-		client : Session.get('selected_client_id'),
+		client_id : Session.get('selected_client_id'),
 	};
 };
 
@@ -96,7 +102,6 @@ setApprovalItemsByDay = function() {
 Template['contentCalendar'].helpers({
 	calendar_days : function() {
 		// maps a status to the color that's going to be displayed
-		
 		calendarDays = Session.get('calendar_days');
 		return calendarDays;
 	},
