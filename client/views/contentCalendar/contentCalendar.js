@@ -105,16 +105,11 @@ Template['contentCalendar'].helpers({
 		calendarDays = Session.get('calendar_days');
 		return calendarDays;
 	},
+	details_shown : function() {
+		return Session.get('details_shown');	
+	},
 	is_not_client : function() {
 		return Session.get('user_type') != 'client';
-	},
-	initializeModal : function() {
-		if(Session.get('current_content_type') != {}) {
-			Meteor.defer(function(){
-				$('.create-item').modal({detachable : false});
-				$('.create-item').modal('refresh');
-			});
-		}
 	},
 });
 

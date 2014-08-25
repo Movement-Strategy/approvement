@@ -19,18 +19,17 @@ prepareModalToShow = function(context, creatingNewItem){
 		Session.set('current_network_type', context.type);
 		Session.set('current_content_type', context.content_type);
 	}
+	console.log(Session.get('current_item_contents'));
 	showCreationModal();
 };
 
 showCreationModal = function() {
 	initializeClickableInputs();
-	$('.create-item').modal('show');
-	Session.set('modal_shown', true);
+	Session.set('details_shown', true);
 };
 
 hideCreationModal = function() {
-	$('.create-item').modal('hide');
-	Session.set('modal_shown', false);
+	Session.set('details_shown', false);
 };
 
 getDynamicContentFromModal = function() {
@@ -94,9 +93,6 @@ initializeClickableInputs = function() {
 };
 
 Template['createModal'].helpers({
-	clickable_inputs : function() {
-		return Session.get('clickable_inputs');
-	},
 	modal_shown : function() {
 		return Session.get('modal_shown');
 	},

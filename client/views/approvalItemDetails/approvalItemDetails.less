@@ -1,3 +1,71 @@
 @import '../../stylesheets/variables.less'; 
 @import '../../stylesheets/elements.less'; 
 
+.edit-target:hover {
+	background-color : rgba(220,220,220,0.97);
+	cursor : pointer;
+}
+.edit-target.link-image:hover {
+	opacity: 0.4;
+}
+
+#image-input {
+	display : none;
+}
+
+.item-preview > {
+	.header.preview-header {
+		font-family : alternate-gothic-no-1-d, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		font-size : 34px;
+		text-transform: uppercase;
+	}
+	.approval-actions > .button {
+		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		font-size: 0.6875rem;
+		letter-spacing: normal;
+		font-style: normal;
+		font-variant: normal;
+		font-weight: bold;
+		opacity : 100%;
+	}
+	.preview-content > {
+		.fb-box {
+		    position : relative;
+		    left: 50%;
+		    transform: translateX(-50%);
+	    }
+		.create-options {
+		    width : 497px;
+		    left: 50%;
+		    position : relative;
+		    transform: translate3d(-50%, 0px, 1em);
+		    transform-style: preserve-3d;
+		    overflow-y : visible;
+		    z-index : 1;
+	    }
+	    .create-options > {
+		    .hidden {
+			    display : none;
+		    }
+	    }
+	    .ui.selection.dropdown {
+		    padding :10px;
+	    }
+	    .create-options > {
+		    .dropdown > .text, .menu > .item {
+				font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+				font-size: 14px;
+				font-style: normal;
+				font-variant: normal;
+				font-weight: bold;
+				color : black; 
+			}
+	    }
+		.go-to-back {
+			z-index: 0;
+		}
+		.go-to-front {
+			z-index: 1;
+		}
+	}
+}
