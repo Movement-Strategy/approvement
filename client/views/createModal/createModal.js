@@ -100,24 +100,12 @@ Template['createModal'].helpers({
 	modal_shown : function() {
 		return Session.get('modal_shown');
 	},
-	image_url : function() {
-		currentItemContents = Session.get('current_item_contents');
-		currentURL = _.has(currentItemContents, 'image_url') ? currentItemContents['image_url'] : "http://lorempixel.com/476/246/";
-		return Session.get('uploaded_image_url') == null ? currentURL : Session.get('uploaded_image_url');
-	},
 	creating_new_item : function() {
 		return Session.get('creating_new_item');
 	},
  	is_content_type_chosen : function() {
-		
 		return Session.get('current_content_type') != null;
 	},
-	profile_pic_url : function() {
-		return Session.get('selected_client').profile_pictures.facebook;
-	},
-	display_name : function() {
-		return Session.get('selected_client').display_name;
-	}
 });
 
 Template['createModal'].events({
