@@ -71,12 +71,15 @@ initializeClickableInputs = function() {
 	var inputs =  {
 		link_description : {
 			default_text : 'Overview for link',
+			style_class : '',
 		},
 		link_body : {
 			default_text : 'Title Included with Link',
+			style_class : 'link-title',
 		},
 		link_text : {
 			default_text : 'Detailed Link Description',
+			style_class : 'link-text',
 		},
 	};
 	var processedInputs = {};
