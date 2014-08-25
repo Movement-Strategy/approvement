@@ -12,6 +12,9 @@ var buildComment = function(commentText) {
 Template['approvalItemComments'].helpers({
 	comments : function() {
 		return Session.get('current_comments');
+	},
+	formatted_date : function() {
+		return moment(this.created_time).format('MMMM Do YYYY, h:mm a');
 	}
 });
 
