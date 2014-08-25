@@ -11,8 +11,39 @@ Template['approvalItemDetails'].helpers({
 	details_shown : function() {
 		return Session.get('details_shown');	
 	},
+	show_class : function() {
+		return Session.get('details_shown') ? '' : 'hidden';
+	},
 });
 
 Template['approvalItemDetails'].events({
+	'click .submit.button' : function() {
+		var approvalItem = getCurrentApprovalItemFromModal();
+		Meteor.call('insertApprovalItem', approvalItem);
+		hideCreationModal();
+	},
+	'click .reject.button' : function() {
+		stateManager.changeToState('rejected');
+		hideCreationModal();
+	},
+	'click .approve.button' : function() {
+		stateManager.changeToState('approved');
+		hideCreationModal();
+	},
+	'click .comment.button' : function() {
+		stateManager.changeToState('commented');
+		hideCreationModal();
+	},
+	'click .back.button' : function() {
+		hideCreationModal();
+	},
+	'click .update.button' : function() {
+		var contents = getDynamicContentFromModal();
+		stateManager.changeToState('updated', contents);
+		hideCreationModal();
+	},
+	'change .network-type-dropdown' : function(event) {
+		Session.set('current_network_type', event.target.value);
+	},
 });
 

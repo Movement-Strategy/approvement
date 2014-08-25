@@ -19,7 +19,6 @@ prepareModalToShow = function(context, creatingNewItem){
 		Session.set('current_network_type', context.type);
 		Session.set('current_content_type', context.content_type);
 	}
-	console.log(Session.get('current_item_contents'));
 	showCreationModal();
 };
 
@@ -105,30 +104,5 @@ Template['createModal'].helpers({
 });
 
 Template['createModal'].events({
-	'click .submit.button' : function() {
-		var approvalItem = getCurrentApprovalItemFromModal();
-		Meteor.call('insertApprovalItem', approvalItem);
-		hideCreationModal();
-	},
-	'click .reject.button' : function() {
-		stateManager.changeToState('rejected');
-		hideCreationModal();
-	},
-	'click .approve.button' : function() {
-		stateManager.changeToState('approved');
-		hideCreationModal();
-	},
-	'click .comment.button' : function() {
-		stateManager.changeToState('commented');
-		hideCreationModal();
-	},
-	'click .update.button' : function() {
-		var contents = getDynamicContentFromModal();
-		stateManager.changeToState('updated', contents);
-		hideCreationModal();
-	},
-	'change .network-type-dropdown' : function(event) {
-		Session.set('current_network_type', event.target.value);
-	},
 });
 

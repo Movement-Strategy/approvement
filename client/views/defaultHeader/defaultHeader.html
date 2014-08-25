@@ -1,7 +1,9 @@
 <template name="defaultHeader">
     <header class="default">
     	<span class='main-title'>Jammin' & Cruisin'</span>
-    	{{> clientDropdown}}
+    	{{#if show_dropdown}}
+    		{{> clientDropdown}}
+    	{{/if}}
     </header>
 </template>
 

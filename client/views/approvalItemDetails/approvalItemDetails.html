@@ -1,7 +1,8 @@
 <template name="approvalItemDetails">
-    <div class="ui one column page grid">
+    <div class="ui {{show_class}} one column page grid">
 	    <div class="column">
 		 	<div class="item-preview">
+			    
 			    <h4 class="ui top attached header preview-header">
 				    Create New
 			    </h4>
@@ -23,18 +24,24 @@
 				   	{{else}}
 				   		{{> approvalItemComments}}
 				   	{{/if}}
-			    </div>
-			    <div class="ui bottom attached header">
 					{{#if details_shown}}
-						<div class="approval-actions">
-							{{#if creating_new_item}}
-								<div class="small blue ui button submit">submit</div>
-							{{else}}
-								{{> creationActions}}
-							{{/if}}
-						</div>
+						{{#if is_content_type_chosen}}
+							<div class="action-section">
+								<div class="approval-actions">
+									{{#if creating_new_item}}
+										<div class="small blue ui button submit">submit</div>
+									{{else}}
+										{{> creationActions}}
+									{{/if}}
+								</div>
+							</div>
+						{{/if}}
 					{{/if}}
 			    </div>
+<!--
+			    <div class="ui bottom attached header">
+			    </div>
+-->
 		 	</div>
 	    </div>
     </div>

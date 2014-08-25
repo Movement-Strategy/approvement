@@ -16,7 +16,7 @@ Template['approvalItemComments'].helpers({
 });
 
 Template['approvalItemComments'].events({
-	'keydown' : function() {
+	'keydown' : function(event) {
 		if($(".comment-input").is(":focus") && event.which == 13) {
 			var commentText = $(".comment-input").val();
 			var comment = buildComment(commentText);

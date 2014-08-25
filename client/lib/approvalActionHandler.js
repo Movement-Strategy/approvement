@@ -1,14 +1,17 @@
 actionMap = {
 	social_media_manager : {
 		internal : [
+			'back',
 			'update',
 		],
 		external : [
+			'back',
 			'update',
 		],
 	},
 	client : {
 		external : [
+			'back',
 			'comment',
 			'reject',
 			'approve',
@@ -17,12 +20,14 @@ actionMap = {
 	},
 	creative_director : {
 		internal : [
+			'back',
 			'comment',
 			'reject',
 			'approve',
 			'update',
 		],
 		external : [
+			'back',
 			'update',
 		],
 	},
@@ -32,6 +37,10 @@ buttonMap = {
 	comment : {
 		color : 'orange',
 		display : 'Note',
+	},
+	back : {
+		color : 'grey',
+		display : 'Back',
 	},
 	update : {
 		color : 'blue',

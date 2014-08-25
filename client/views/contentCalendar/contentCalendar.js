@@ -111,6 +111,11 @@ Template['contentCalendar'].helpers({
 	is_not_client : function() {
 		return Session.get('user_type') != 'client';
 	},
+	show_class : function() {
+		var test = Session.get('details_shown') ? 'hidden' : '';
+		console.log(test);
+		return test;
+	},
 });
 
 Template['contentCalendar'].events({

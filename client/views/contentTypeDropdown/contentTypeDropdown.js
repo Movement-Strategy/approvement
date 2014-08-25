@@ -4,10 +4,6 @@ networkTypeMap = {
 			display : "Link",
 			value : "link",
 		},
-		{
-			display : "Status",
-			value : "status",
-		},
 	],
 };
 
@@ -33,7 +29,6 @@ Template['contentTypeDropdown'].helpers({
 	network_type_is_chosen : function() {
 		return Session.get('current_network_type') != null;
 	}
-
 });
 
 Template['contentTypeDropdown'].events({
