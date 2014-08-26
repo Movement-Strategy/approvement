@@ -2,7 +2,6 @@
 @import '../../stylesheets/elements.less'; 
 
 .fb-box {
-	height : 496px;
 	width : 497px;
 }
 
@@ -11,7 +10,6 @@
 	.profile-icon {
 		float : left;
 		margin-right: 10px;
-		
 	}
 	
 	.name-container {
@@ -48,7 +46,6 @@
 	
 	.content-container {
 		float : left;
-		height : 345px;
 		width : 470px;
 		box-shadow : rgba(0, 0, 0, 0.0980392) 0px 0px 0px 1.5px inset, rgba(0, 0, 0, 0.0470588) 0px 1px 1px 0px;
 	}
@@ -70,10 +67,14 @@
 		margin-left : 12px;
 	}
 	
+	.link-text-container {
+		max-height : 40px;
+		text-overflow: ellipsis;
+		margin-top : 5px;
+	}
 	.link-text {
 		font-size : 12px;
 		font-family: Helvetica;
-		margin-top : 5px;
 	}
 	
 	.link-title {
@@ -87,6 +88,7 @@
 		text-transform: uppercase;
 		padding-top : 9px;
 		color: rgb(145, 151, 163);
+		margin-bottom : 5px;
 	}
 	
 	.actions-container {
