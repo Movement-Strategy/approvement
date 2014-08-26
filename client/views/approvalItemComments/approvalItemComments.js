@@ -6,7 +6,6 @@ var buildComment = function(commentText) {
 		name : "Clay Branch",
 		avatar : '/images/fb_icon.png',
 	};
-	
 };
 
 Template['approvalItemComments'].helpers({
