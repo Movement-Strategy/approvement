@@ -53,7 +53,7 @@ setCurrentDays = function(currentDate) {
 	currentDays = _.map(currentDays, function(day, dayIndex){
 		var isoDate = currentDate;
 		isoDate.isoWeekday(dayIndex);
-		day['full_date'] = isoDate.format("MMMM D, YYYY");
+		day['full_date'] = isoDate.format("MM/DD/YYYY");
 		day['scheduled_time'] = isoDate.format("X") * 1000;
 		return day;
 	});
