@@ -1,7 +1,8 @@
 getStartOfWeek = function() {
 	var currentDays = Session.get('current_days');
-	var startOfWeekTime = currentDays[1]['scheduled_time'];
-	return moment(startOfWeekTime);
+	var startOfWeekTime = currentDays[0]['scheduled_time'];
+	var dateString = moment(startOfWeekTime).format('DD-MM-YYYY');
+	return moment(dateString, 'DD-MM-YYYY');
 }
 
 alterCurrentDate = function(alterFunction) {
@@ -85,8 +86,7 @@ var getApprovalItemQuery = function() {
 setApprovalItemsByDay = function() {
 	var approvalItemQuery = getApprovalItemQuery();
 	var approvalItems = ApprovalItem.find(approvalItemQuery).fetch();
-	approvalItemsByDay = {};
-	
+	var approvalItemsByDay = {};
 	_.map(approvalItems, function(item){
 		var scheduledDate = moment(item.scheduled_time);
 		var dayIndex = scheduledDate.isoWeekday();
@@ -113,7 +113,6 @@ Template['contentCalendar'].helpers({
 	},
 	show_class : function() {
 		var test = Session.get('details_shown') ? 'hidden' : '';
-		console.log(test);
 		return test;
 	},
 });

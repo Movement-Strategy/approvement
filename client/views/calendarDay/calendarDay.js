@@ -31,7 +31,6 @@ setAllApprovalItemsInDay = function(day, dayIndex, approvalItemsByDay) {
 	if(_.has(approvalItemsByDay, dayIndex)) {
 		day['approval_items'] = {};	
 		_.map(approvalItemsByDay[dayIndex], function(approvalItem) {
-
 			day = setApprovalItemInDay(day, approvalItem);
 		});
 		
@@ -46,7 +45,6 @@ setCalendarDays = function() {
 		return setAllApprovalItemsInDay(day, dayIndex + 1, approvalItemsByDay);
 	});
 	Session.set('calendar_days', calendarDays);
-	
 	Session.set('approval_items_are_ready', true);
 }
 
