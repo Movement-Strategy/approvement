@@ -20,8 +20,11 @@
 			{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
 				<input id='image-input' type="file">
 			{{/S3}}
+
 			<label for="image-input">
-				<img class="ui image link-image edit-target" src="{{image_url}}">
+				<div class="link-image-container">
+					<img class="ui image link-image edit-target" src="{{image_url}}">
+				</div>
 			</label>
 			<div class="link-body">
 				{{#with link_body}}
