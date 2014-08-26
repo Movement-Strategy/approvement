@@ -30,15 +30,17 @@
 				
 				{{#with link_body}}
 					{{#clickableInput}}
-						<div class="link-text-container">
+						
 							<a id="{{id}}_display" class="link-title edit-target">{{text}}</a>
-						</div>
+						
 					{{/clickableInput}}
 				{{/with}}
 				{{#with link_text}}
 					{{#clickableInput}}
-						<div id="{{id}}_display" class="link-text edit-target">
-							{{text}}
+						<div class="link-text-container">
+							<div id="{{id}}_display" class="link-text edit-target">
+								{{text}}
+							</div>
 						</div>
 					{{/clickableInput}}
 				{{/with}}
