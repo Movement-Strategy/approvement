@@ -9,6 +9,7 @@ confirmPageIsReady = function() {
 Meteor.subscribe('userData', onReady = function(){
 	var users = Meteor.users.find({}, {fields : {user_type : 1, clients : 1}}).fetch();
 	var clients = users[0].clients;
+	var clients = _.has(users[0], 'clients') ? users[0].clients : ['usa_today'];
 	Session.set('user_type', users[0].user_type);
 	Session.set('current_clients', clients);
 	var clientsByID = Session.get('clients_by_id');
