@@ -1,7 +1,7 @@
 setEditStateForInput = function(input_id, isBeingEditted, text) {
 	inputs = Session.get('clickable_inputs');
 	inputs[input_id].being_editted = isBeingEditted;
-	if(text != null) {
+	if(text != null && text != '') {
 		inputs[input_id].text = text;
 	}
 	Session.set('clickable_inputs', inputs);
@@ -23,8 +23,10 @@ Template['clickableInput'].helpers({
 
 Template['clickableInput'].events({
 	'click'  : function(event) {
-		event.preventDefault();
+		var inputElement = this.id + '_input';
 		setEditStateForInput(this.id, true, null);
+		Meteor.flush();	
+		document.getElementById(inputElement).focus();
 	},
 	'keydown' : function() {
 		if(beingEditted(this.id) && event.which == 13) {
@@ -33,7 +35,6 @@ Template['clickableInput'].events({
 			setEditStateForInput(this.id, false, $(inputElement).val());
 			Meteor.flush();
 			$(displayElement).transition('pulse');
-			
 		}
 	},
 	'blur .input-text' : function(event) {
