@@ -4,7 +4,7 @@ var buildComment = function(commentText) {
 		text : commentText,
 		created_time : timestamp,
 		name : Session.get('user_name'),
-		avatar : '/images/fb_icon.png',
+		avatar : Session.get('user_picture'),
 	};
 };
 
@@ -17,6 +17,9 @@ Template['approvalItemComments'].helpers({
 	},
 	user_name : function() {
 		return Session.get('user_name');
+	},
+	user_picture : function() {
+		return Session.get('user_picture');
 	}
 });
 
