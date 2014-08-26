@@ -7,11 +7,13 @@ confirmPageIsReady = function() {
 }
 
 Meteor.subscribe('userData', onReady = function(){
-	var users = Meteor.users.find({}, {fields : {user_type : 1, clients : 1}}).fetch();
+	var users = Meteor.users.find({}, {fields : {user_type : 1, clients : 1, profile : 1}}).fetch();
 	console.log(users);
-	var clients = _.has(users[0], 'clients') ? users[0].clients : ['usa_today'];
-	Session.set('user_type', users[0].user_type);
+	var user = users[0];
+	var clients = _.has(user, 'clients') ? user.clients : ['usa_today'];
+	Session.set('user_type', user.user_type);
 	Session.set('current_clients', clients);
+	Session.set('user_name', user.profile.name);
 	var clientsByID = Session.get('clients_by_id');
 	if(!Session.get('clients_are_ready')) {
 		if(clientsByID != {}) {

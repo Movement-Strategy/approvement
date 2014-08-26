@@ -3,7 +3,7 @@ var buildComment = function(commentText) {
 	return {
 		text : commentText,
 		created_time : timestamp,
-		name : "Clay Branch",
+		name : Session.get('user_name'),
 		avatar : '/images/fb_icon.png',
 	};
 };
@@ -14,6 +14,9 @@ Template['approvalItemComments'].helpers({
 	},
 	formatted_date : function() {
 		return moment(this.created_time).format('MMMM Do YYYY, h:mm a');
+	},
+	user_name : function() {
+		return Session.get('user_name');
 	}
 });
 
