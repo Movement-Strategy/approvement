@@ -49,8 +49,5 @@ Template['approvalItemDetails'].events({
 		stateManager.changeToState('updated', contents);
 		hideCreationModal();
 	},
-	'change .network-type-dropdown' : function(event) {
-		Session.set('current_network_type', event.target.value);
-	},
 });
 
