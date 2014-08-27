@@ -15,8 +15,8 @@
 					{{/if}}
 					
 					{{#if is_content_type_chosen}}
-						{{#with clickable_inputs}}
-					    	{{ > createItemPreview}}
+						{{#with preview_content}}
+					    	{{> UI.dynamic template=preview_template data=clickable_inputs}}
 					    {{/with}}
 					{{/if}}
 				    {{#if creating_new_item}}
@@ -38,10 +38,6 @@
 						{{/if}}
 					{{/if}}
 			    </div>
-<!--
-			    <div class="ui bottom attached header">
-			    </div>
--->
 		 	</div>
 	    </div>
     </div>

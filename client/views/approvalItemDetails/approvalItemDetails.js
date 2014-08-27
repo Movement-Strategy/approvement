@@ -1,4 +1,11 @@
 Template['approvalItemDetails'].helpers({
+	
+	preview_content : function() {
+		return {
+			clickable_inputs : Session.get('clickable_inputs'),
+			preview_template : Session.get('current_network_type') + 'Preview',
+		};
+	},
 	clickable_inputs : function() {
 		return Session.get('clickable_inputs');
 	},
