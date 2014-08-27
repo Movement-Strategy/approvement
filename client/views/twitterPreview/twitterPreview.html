@@ -9,12 +9,22 @@
 			    	@nytimes . 1h
 			    </span>
 		    </div>
-		    <p class="twitter-body">
-			    Andre 3000 says he's getting too old to be a rapper (Photo: Amber Fouts for NYT) http://nyti.ms/1phwhBl  
-		    </p>
-		    <div class="twitter-image-container">
-			    <img class="ui image twitter-image" src="https://pbs.twimg.com/media/BwEquD7IYAAg9s2.jpg">
-		    </div>
+		    
+			{{#with tweet_body}}
+				{{#clickableInput}}
+						<a id="{{id}}_display" class="twitter-body edit-target">{{text}}</a>
+				{{/clickableInput}}
+			{{/with}}
+			
+			{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
+				<input id='image-input' type="file">
+			{{/S3}}
+
+			<label for="image-input">
+			    <div class="twitter-image-container">
+				    <img class="ui image twitter-image edit-target" src="{{image_url}}">
+			    </div>
+			</label>
 		    <div class="twitter-actions">
 			    <span>Reply  </span>
 			    <span>Retweet  </span>

@@ -61,7 +61,7 @@ getCurrentApprovalItemFromModal = function() {
 		status : 'submitted',
 		created_time : moment().format("X") * 1000,
 		client_id : Session.get('selected_client_id'),
-		type : 'facebook',
+		type : Session.get('current_network_type'),
 	};
 };
 
@@ -84,7 +84,7 @@ initializeClickableInputs = function() {
 		},
 		twitter : {
 			tweet_body : {
-				default_text : "Text",
+				default_text : "Choose some text for your tweet",
 				style_class : '',
 			},
 		},
