@@ -16,15 +16,18 @@
 				{{/clickableInput}}
 			{{/with}}
 			
-			{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
-				<input id='image-input' type="file">
-			{{/S3}}
-
-			<label for="image-input">
-			    <div class="twitter-image-container">
-				    <img class="ui image twitter-image edit-target" src="{{image_url}}">
-			    </div>
-			</label>
+			{{#if show_image}}
+				{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
+					<input id='image-input' type="file">
+				{{/S3}}
+			
+				<label for="image-input">
+				    <div class="twitter-image-container">
+					    <img class="ui image twitter-image edit-target" src="{{image_url}}">
+				    </div>
+				</label>
+			
+			{{/if}}
 		    <div class="twitter-actions">
 			    <span>Reply  </span>
 			    <span>Retweet  </span>

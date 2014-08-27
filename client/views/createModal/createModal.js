@@ -102,6 +102,9 @@ initializeClickableInputs = function() {
 			with_picture : [
 				'tweet_body',
 			],
+			without_picture : [
+				'tweet_body',
+			],
 		},
 	};
 	

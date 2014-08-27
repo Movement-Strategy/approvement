@@ -7,7 +7,11 @@ networkTypeMap = {
 	],
 	twitter : [
 		{
-			display : "With Picture",
+			display : "Standard",
+			value : 'without_picture',
+		},
+		{
+			display : "With Twit-pic",
 			value : 'with_picture',
 		},
 	],
