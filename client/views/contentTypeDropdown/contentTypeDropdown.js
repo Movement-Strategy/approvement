@@ -5,6 +5,12 @@ networkTypeMap = {
 			value : "link",
 		},
 	],
+	twitter : [
+		{
+			display : "With Picture",
+			value : 'with_picture',
+		},
+	],
 };
 
 var getContentTypes = function() {

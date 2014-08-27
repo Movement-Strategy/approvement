@@ -82,6 +82,12 @@ initializeClickableInputs = function() {
 				style_class : 'link-text',
 			},
 		},
+		twitter : {
+			tweet_body : {
+				default_text : "Text",
+				style_class : '',
+			},
+		},
 	};
 	
 	var inputs =  {
@@ -90,6 +96,11 @@ initializeClickableInputs = function() {
 				'link_body',
 				'link_text',
 				'link_description',
+			],
+		},
+		twitter : {
+			with_picture : [
+				'tweet_body',
 			],
 		},
 	};
