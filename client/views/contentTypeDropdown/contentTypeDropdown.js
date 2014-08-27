@@ -34,6 +34,7 @@ Template['contentTypeDropdown'].helpers({
 Template['contentTypeDropdown'].events({
 	'change .content-type-dropdown' : function(event) {		
 		Session.set('current_content_type', event.target.value);
+		initializeClickableInputs();
 	},
 });
 
