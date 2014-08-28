@@ -4,7 +4,11 @@
 		 	<div class="item-preview">
 			    
 			    <h4 class="ui top attached header preview-header">
-				    Create New
+				    {{#if creating_new_item}}
+				   		Create New
+				   	{{else}}
+				   		Edit
+				   	{{/if}}
 			    </h4>
 			    <div class="ui segment attached preview-content">
 				    {{#if creating_new_item}}
@@ -29,6 +33,7 @@
 							<div class="action-section">
 								<div class="approval-actions">
 									{{#if creating_new_item}}
+										<div class="small grey ui button back">back</div>
 										<div class="small blue ui button submit">submit</div>
 									{{else}}
 										{{> creationActions}}
