@@ -12,10 +12,13 @@
 			    </h4>
 			    <div class="ui segment attached preview-content">
 				    {{#if creating_new_item}}
-					    <div class="create-options">
-							{{> networkTypeDropdown}}
-							{{> contentTypeDropdown}}
-						</div>
+					    {{#if is_content_type_chosen}}
+						{{else}}
+						    <div class="create-options">
+								{{> networkTypeDropdown}}
+								{{> contentTypeDropdown}}
+							</div>
+						{{/if}}
 					{{/if}}
 					
 					{{#if is_content_type_chosen}}

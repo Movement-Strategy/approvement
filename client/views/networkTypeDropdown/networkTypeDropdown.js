@@ -9,6 +9,8 @@ Template['networkTypeDropdown'].helpers({
 Template['networkTypeDropdown'].events({
 	'change .network-type-dropdown' : function(event) {
 		Session.set('current_network_type', event.target.value);
+		Session.set('current_content_type', null);
+		initializeClickableInputs();
 	},
 });
 
