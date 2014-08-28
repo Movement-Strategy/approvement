@@ -1,3 +1,11 @@
+handleNetworkWithSingleContentType = function() {
+	var contentTypes = networkTypeMap[Session.get('current_network_type')];
+	if(contentTypes.length == 1) {
+		Session.set('current_content_type', contentTypes[0].value);
+		initializeClickableInputs();
+	}
+}
+
 Template['networkTypeDropdown'].helpers({
 	initialize : function() {
 		Meteor.defer(function(){
@@ -11,6 +19,7 @@ Template['networkTypeDropdown'].events({
 		Session.set('current_network_type', event.target.value);
 		Session.set('current_content_type', null);
 		initializeClickableInputs();
+		handleNetworkWithSingleContentType();
 	},
 });
 
