@@ -1,6 +1,14 @@
 <template name="instagramPreview">
 	<div class="instagram-box">
-    	<img class="instagram-image" src="http://photos-g.ak.instagram.com/hphotos-ak-xaf1/10632436_282696248592966_16473152_n.jpg" alt="" />
+		{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
+			<input id='image-input' type="file">
+		{{/S3}}
+
+		<label for="image-input">
+			<div class="instagram-image-container">
+				<img class="ui image instagram-image edit-target" src="{{image_url}}">
+			</div>
+		</label>
     	<div class="instagram-likes">
 	    	<a href="" class="like-button">
 	    	</a>
@@ -14,13 +22,17 @@
 	    	</div>
     	</div>
     	<div class="instagram-comment">
-	    	<img class="instagram-profile-image" src="http://images.ak.instagram.com/profiles/profile_1122730_75sq_1374430700.jpg" alt="" />
+	    	<img class="instagram-profile-image" src="{{profile_pic_url}}" alt="" />
 	    	<div class="instagram-comment-container">
 		    	<div class="comment-text">
 			    	<span class="instagram-username">
-				    	USATODAY
+				    	{{display_name}}
 			    	</span>
-		    		<span>National dog day! I think this is a pretty good pair to honor the day with!! #nationaldogday</span>
+				{{#with instagram_caption}}
+					{{#clickableInput}}
+		    			<span id="{{id}}_display" class="edit-target">{{text}}</span>
+					{{/clickableInput}}
+				{{/with}}
 		    	</div>
 	    	</div>
     	</div>

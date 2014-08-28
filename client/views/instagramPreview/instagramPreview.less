@@ -1,5 +1,10 @@
 @import '../../stylesheets/variables.less'; 
 @import '../../stylesheets/elements.less'; 
+
+.edit-target.instagram-image:hover {
+	opacity: 0.4;
+}
+
 .instagram-box {
 	margin-left : auto;
 	margin-right : auto;
@@ -8,9 +13,16 @@
 }
 
 div.instagram-box {
+	.link-image-container {
+		width : 512px;
+		height : 512px;
+		overflow: hidden;
+	}
+	.link-image {
+		width : 470px;
+	}
 	.instagram-image {
 		height : 512px;
-		width : 512px;
 	}
 	.instagram-comment > {
 		padding-top : 10px;

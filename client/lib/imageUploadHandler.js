@@ -7,6 +7,10 @@ imageUploadHandler = {
 		twitter : {
 			width : '364',
 			height : '506',
+		},
+		instagram : {
+			width : '512',
+			height : '512',
 		}
 	},
 	getImageURL : function() {

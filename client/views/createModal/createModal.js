@@ -89,8 +89,8 @@ initializeClickableInputs = function() {
 			},
 		},
 		instagram : {
-			instagram_body : {
-				default_text : "",
+			instagram_caption : {
+				default_text : "The caption you would like to included with your instagram post",
 				style_class : '',
 			},
 		},
@@ -114,7 +114,7 @@ initializeClickableInputs = function() {
 		},
 		instagram : {
 			standard : [
-				'instagram_body'
+				'instagram_caption'
 			],
 		},
 	};
