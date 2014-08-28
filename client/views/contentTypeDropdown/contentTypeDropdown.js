@@ -15,6 +15,12 @@ networkTypeMap = {
 			value : 'with_picture',
 		},
 	],
+	instagram : [
+		{
+			display : "Standard",
+			value : 'standard',
+		}
+	],
 };
 
 var getContentTypes = function() {

@@ -88,6 +88,12 @@ initializeClickableInputs = function() {
 				style_class : '',
 			},
 		},
+		instagram : {
+			instagram_body : {
+				default_text : "",
+				style_class : '',
+			},
+		},
 	};
 	
 	var inputs =  {
@@ -104,6 +110,11 @@ initializeClickableInputs = function() {
 			],
 			without_picture : [
 				'tweet_body',
+			],
+		},
+		instagram : {
+			standard : [
+				'instagram_body'
 			],
 		},
 	};
