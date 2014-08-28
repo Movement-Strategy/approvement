@@ -3,7 +3,7 @@ Template['facebookPreview'].helpers({
 		return imageUploadHandler.getImageURL();
 	},
 	profile_pic_url : function() {
-		return Session.get('selected_client').profile_pictures.facebook;
+		return facebookHandler.getProfilePictureURL();
 	},
 	display_name : function() {
 		return Session.get('selected_client').display_name;
