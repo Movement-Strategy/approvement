@@ -23,6 +23,18 @@ Template['approvalItemDetails'].helpers({
 	},
 });
 
+var keydownHandler = function(event) {
+	if(Session.get('details_shown') && event.which == 27) {
+		if(Session.get('details_can_close')) {
+			hideCreationModal();
+		}
+	}
+};
+
+Template.approvalItemDetails.created = function() {
+    $(document).on('keydown', keydownHandler);
+};
+
 Template['approvalItemDetails'].events({
 	'click .submit.button' : function() {
 		var approvalItem = getCurrentApprovalItemFromModal();
