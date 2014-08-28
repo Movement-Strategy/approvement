@@ -13,6 +13,9 @@ Template['twitterPreview'].helpers({
 	},
 	show_image : function() {
 		return Session.get('current_content_type') == 'with_picture';
+	},
+	picture_class : function() {
+		return Session.get('current_content_type') == 'with_picture' ? 'has-picture' : '';
 	}
 });
 
