@@ -10,16 +10,16 @@
 					{{updateReactiveVariables}}
 					{{> approvalItemIcon}}
 				{{/each}}
-				{{#if is_not_client}}
-					<a class="ui large grey circular label create-item-button">
-					  <i class="plus create-icon icon"></i>
-					</a>
-				{{/if}}
 			{{else}}
 				{{#each day.approval_items.internal}}
 					{{updateReactiveVariables}}
 					{{> approvalItemIcon}}
 				{{/each}}
+				{{#if is_not_client}}
+					<a class="ui large grey circular label create-item-button">
+					  <i class="plus create-icon icon"></i>
+					</a>
+				{{/if}}
 			{{/if}}
 		</div>
 	</div>
