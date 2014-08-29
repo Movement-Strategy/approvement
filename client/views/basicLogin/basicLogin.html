@@ -1,8 +1,18 @@
 <template name="basicLogin">
     <div class="ui one column page grid">
 	    <div class="column">
+			{{#if error_message}}
+				<div class="ui error message">
+				  <i class="close icon"></i>
+				  <div class="header">
+				    {{error_message}}
+				  </div>			
+	  			</div>
+	  		{{/if}}
+
+				
 		    <div class="login-container">
-			    <h2 class="login-header">
+				<h2 class="login-header">
 					<span>Login</span>			    
 				</h2>
 				<div class="ui input">

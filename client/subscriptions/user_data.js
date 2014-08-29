@@ -14,7 +14,7 @@ Meteor.subscribe('userData', onReady = function(){
 	Session.set('user_type', profile.user_type);
 	Session.set('current_clients', clients);
 	Session.set('user_name', profile.name);
-	Session.set('user_facebook_id', profile.facebook_id);
+	Session.set('user_picture', facebookHandler.getPictureURL(profile.facebook_id));
 	var clientsByID = Session.get('clients_by_id');
 	if(!Session.get('clients_are_ready')) {
 		if(clientsByID != {}) {
