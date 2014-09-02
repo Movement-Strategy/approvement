@@ -15,8 +15,8 @@ Template['clientDropdown'].helpers({
 		return Session.get('selected_client_id');
 	},
 	clients : function() {
-		var clients = Session.get('current_clients');
 		var clientsByID = Session.get('clients_by_id');
+		var clients = Session.get('current_clients') == 'all' ? _.keys(clientsByID) : Session.get('current_clients');
 		clients = _.map(clients, function(clientID){
 			clientDetails = clientsByID[clientID];
 			return {
