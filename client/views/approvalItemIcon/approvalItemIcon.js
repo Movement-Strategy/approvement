@@ -1,6 +1,6 @@
 Template['approvalItemIcon'].helpers({
 	popup_content : function() {
-		var content = this.contents.link_text;
+		var content = popupContent.getContent(this.type, this.content_type, this.contents).content;
 		var that = this;
 		Meteor.defer(function(){
 			$('#label_' + that._id).popup({debug : true});
@@ -8,7 +8,7 @@ Template['approvalItemIcon'].helpers({
 		return content;
 	},
 	popup_title : function() {
-		return this.contents.link_body;
+		return popupContent.getContent(this.type, this.content_type, this.contents).title;
 	},
 	label_id : function() {
 		return this._id;
