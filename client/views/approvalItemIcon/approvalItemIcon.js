@@ -3,7 +3,7 @@ Template['approvalItemIcon'].helpers({
 		var content = popupContent.getContent(this.type, this.content_type, this.contents).content;
 		var that = this;
 		Meteor.defer(function(){
-			$('#label_' + that._id).popup({debug : true});
+			$('#label_' + that._id).popup();
 		});
 		return content;
 	},
