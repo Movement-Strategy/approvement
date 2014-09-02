@@ -30,8 +30,6 @@ Template['clickableInput'].helpers({
 	}
 });
 
-
-
 Template['clickableInput'].events({
 	'click'  : function(event) {
 		var inputElement = this.id + '_input';
