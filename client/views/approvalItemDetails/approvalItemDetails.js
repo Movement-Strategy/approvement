@@ -61,5 +61,9 @@ Template['approvalItemDetails'].events({
 		stateManager.changeToState('updated', contents);
 		hideCreationModal();
 	},
+	'click .delete.button' : function() {
+		Meteor.call('removeItem', Session.get('current_item_id'));
+		hideCreationModal();
+	}
 });
 

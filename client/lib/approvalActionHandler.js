@@ -2,6 +2,7 @@ actionMap = {
 	social_media_manager : {
 		internal : [
 			'back',
+			'delete',
 			'update',
 		],
 		external : [
@@ -21,6 +22,7 @@ actionMap = {
 	creative_director : {
 		internal : [
 			'back',
+			'delete',
 			'comment',
 			'reject',
 			'approve',
@@ -28,12 +30,17 @@ actionMap = {
 		],
 		external : [
 			'back',
+			'delete',
 			'update',
 		],
 	},
 };
 
 buttonMap = {
+	delete : {
+		color : 'black',
+		display : 'Delete',
+	},
 	comment : {
 		color : 'orange',
 		display : 'Note',
