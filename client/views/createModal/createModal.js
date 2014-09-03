@@ -84,7 +84,12 @@ initializeClickableInputs = function() {
 			photo_description : {
 				default_text : 'Choose some text to describe your photo',
 				style_class : '',
+			},
+			status_message : {
+				default_text : "What's your status?",
+				style_class : '',
 			}
+
 		},
 		twitter : {
 			tweet_body : {
@@ -109,6 +114,9 @@ initializeClickableInputs = function() {
 			],
 			photo : [
 				'photo_description',
+			],
+			status : [
+				'status_message',
 			],
 		},
 		twitter : {
@@ -138,8 +146,6 @@ initializeClickableInputs = function() {
 		input.id = inputName;
 		processedInputs[inputName] = input;
 	});
-	
-	console.log(processedInputs);
 	
 	Session.set('clickable_inputs', processedInputs);
 };

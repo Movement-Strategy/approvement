@@ -11,6 +11,9 @@ Template['facebookPreview'].helpers({
 	is_photo_type : function() {
 		return Session.get('current_content_type') == 'photo';
 	},
+	is_status_type : function() {
+		return Session.get('current_content_type') == 'status';
+	},
 	fixed_class : function() {
 		return Session.get('current_content_type') == 'link' ? 'fixed-size' : ''; 
 	}
