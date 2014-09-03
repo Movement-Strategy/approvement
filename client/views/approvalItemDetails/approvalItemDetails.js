@@ -6,6 +6,11 @@ Template['approvalItemDetails'].helpers({
 			preview_template : Session.get('current_network_type') + 'Preview',
 		};
 	},
+	initializeModal : function() {
+		Meteor.defer(function(){
+			$('.prompt-modal').modal();
+		});
+	},
 	clickable_inputs : function() {
 		return Session.get('clickable_inputs');
 	},
@@ -62,8 +67,7 @@ Template['approvalItemDetails'].events({
 		hideCreationModal();
 	},
 	'click .delete.button' : function() {
-		Meteor.call('removeItem', Session.get('current_item_id'));
-		hideCreationModal();
+		showPromptModal();
 	}
 });
 
