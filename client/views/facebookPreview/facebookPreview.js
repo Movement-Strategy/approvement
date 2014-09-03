@@ -7,7 +7,14 @@ Template['facebookPreview'].helpers({
 	},
 	display_name : function() {
 		return Session.get('selected_client').display_name;
+	},
+	is_photo_type : function() {
+		return Session.get('current_content_type') == 'photo';
+	},
+	fixed_class : function() {
+		return Session.get('current_content_type') == 'link' ? 'fixed-size' : ''; 
 	}
+
 });
 
 Template['facebookPreview'].events({

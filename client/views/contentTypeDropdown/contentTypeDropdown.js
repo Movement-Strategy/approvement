@@ -4,6 +4,10 @@ networkTypeMap = {
 			display : "Link",
 			value : "link",
 		},
+		{
+			display : "Photo",
+			value : "photo",
+		},
 	],
 	twitter : [
 		{

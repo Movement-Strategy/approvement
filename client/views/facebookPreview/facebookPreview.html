@@ -8,44 +8,61 @@
 		</h5>
 		<span class="time-ago">15 hrs</span>
 		</div>
-		<div class="link-description">
-			{{#with link_description}}
-				{{#clickableInput}}
-					<p id="{{id}}_display" class='edit-target'>{{text}}</p>
-				{{/clickableInput}}
-			{{/with}}
-		</div>
-		<div class="content-container">
+		
+		{{#if is_photo_type}}
+			<div class="link-description">
+				
+				{{#with photo_description}}
+					{{#clickableInput}}
+						<p id="{{id}}_display" class='edit-target'>{{text}}</p>
+					{{/clickableInput}}
+				{{/with}}
+			</div>
+		{{else}}
+			<div class="link-description">
+				{{#with link_description}}
+					{{#clickableInput}}
+						<p id="{{id}}_display" class='edit-target'>{{text}}</p>
+					{{/clickableInput}}
+				{{/with}}
+			</div>
+		{{/if}}
+		
+		<div class="content-container {{fixed_class}}">
 		
 			{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
 				<input id='image-input' type="file">
 			{{/S3}}
 
 			<label for="image-input">
-				<div class="link-image-container">
-					<img class="ui image link-image edit-target" src="{{image_url}}">
+				<div class="link-image-container {{fixed_class}}">
+					<img class="ui image link-image edit-target {{fixed_class}}" src="{{image_url}}">
 				</div>
 			</label>
-			<div class="link-body">
+			{{#if is_photo_type}}
 				
-				{{#with link_body}}
-					{{#clickableInput}}
-							<a id="{{id}}_display" class="link-title edit-target">{{text}}</a>
-					{{/clickableInput}}
-				{{/with}}
-				{{#with link_text}}
-					{{#clickableInput}}
-						<div class="link-text-container">
-							<div id="{{id}}_display" class="link-text edit-target">
-								{{text}}
+			{{else}}
+				<div class="link-body">
+					
+					{{#with link_body}}
+						{{#clickableInput}}
+								<a id="{{id}}_display" class="link-title edit-target">{{text}}</a>
+						{{/clickableInput}}
+					{{/with}}
+					{{#with link_text}}
+						{{#clickableInput}}
+							<div class="link-text-container">
+								<div id="{{id}}_display" class="link-text edit-target">
+									{{text}}
+								</div>
 							</div>
-						</div>
-					{{/clickableInput}}
-				{{/with}}
-				<div class="link-domain">
-					usatoday.com
-				</div>	    
-			</div>
+						{{/clickableInput}}
+					{{/with}}
+					<div class="link-domain">
+						domain.com
+					</div>	    
+				</div>
+			{{/if}}
 		</div>
 		<div class="actions-container">
 			<span>Like</span>

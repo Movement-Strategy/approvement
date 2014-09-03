@@ -81,6 +81,10 @@ initializeClickableInputs = function() {
 				default_text : 'Detailed Link Description',
 				style_class : 'link-text',
 			},
+			photo_description : {
+				default_text : 'Choose some text to describe your photo',
+				style_class : '',
+			}
 		},
 		twitter : {
 			tweet_body : {
@@ -102,6 +106,9 @@ initializeClickableInputs = function() {
 				'link_body',
 				'link_text',
 				'link_description',
+			],
+			photo : [
+				'photo_description',
 			],
 		},
 		twitter : {
