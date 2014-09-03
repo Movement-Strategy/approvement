@@ -69,8 +69,8 @@ initializeClickableInputs = function() {
 	
 	var inputMap = {
 		facebook : {
-			link_description : {
-				default_text : 'Overview for link',
+			description : {
+				default_text : 'Choose some text for the post',
 				style_class : '',
 			},
 			link_body : {
@@ -81,15 +81,6 @@ initializeClickableInputs = function() {
 				default_text : 'Detailed Link Description',
 				style_class : 'link-text',
 			},
-			photo_description : {
-				default_text : 'Choose some text to describe your photo',
-				style_class : '',
-			},
-			status_message : {
-				default_text : "What's your status?",
-				style_class : '',
-			}
-
 		},
 		twitter : {
 			tweet_body : {
@@ -110,13 +101,13 @@ initializeClickableInputs = function() {
 			link : [
 				'link_body',
 				'link_text',
-				'link_description',
+				'description',
 			],
 			photo : [
-				'photo_description',
+				'description',
 			],
 			status : [
-				'status_message',
+				'description',
 			],
 		},
 		twitter : {

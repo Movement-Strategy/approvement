@@ -8,6 +8,9 @@ Template['facebookPreview'].helpers({
 	display_name : function() {
 		return Session.get('selected_client').display_name;
 	},
+	is_link_type : function() {
+		return Session.get('current_content_type') == 'link';
+	},
 	is_photo_type : function() {
 		return Session.get('current_content_type') == 'photo';
 	},

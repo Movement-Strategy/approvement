@@ -8,6 +8,10 @@ networkTypeMap = {
 			display : "Photo",
 			value : "photo",
 		},
+		{
+			display : "Status",
+			value : "status",
+		},
 	],
 	twitter : [
 		{

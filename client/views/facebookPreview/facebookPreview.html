@@ -9,36 +9,29 @@
 		<span class="time-ago">15 hrs</span>
 		</div>
 		
-		{{#if is_photo_type}}
-			<div class="link-description">
-				
-				{{#with photo_description}}
-					{{#clickableInput}}
-						<p id="{{id}}_display" class='edit-target'>{{text}}</p>
-					{{/clickableInput}}
-				{{/with}}
-			</div>
-		{{else}}
-			<div class="link-description">
-				{{#with link_description}}
-					{{#clickableInput}}
-						<p id="{{id}}_display" class='edit-target'>{{text}}</p>
-					{{/clickableInput}}
-				{{/with}}
-			</div>
-		{{/if}}
+		<div class="link-description">
+			{{#with description}}
+				{{#clickableInput}}
+					<p id="{{id}}_display" class='edit-target'>{{text}}</p>
+				{{/clickableInput}}
+			{{/with}}
+		</div>
 		
 		<div class="content-container {{fixed_class}}">
 		
-			{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
-				<input id='image-input' type="file">
-			{{/S3}}
-
-			<label for="image-input">
-				<div class="link-image-container {{fixed_class}}">
-					<img class="ui image link-image edit-target {{fixed_class}}" src="{{image_url}}">
-				</div>
-			</label>
+			{{#if is_status_type}}
+				
+			{{else}}
+				{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
+					<input id='image-input' type="file">
+				{{/S3}}
+	
+				<label for="image-input">
+					<div class="link-image-container {{fixed_class}}">
+						<img class="ui image link-image edit-target {{fixed_class}}" src="{{image_url}}">
+					</div>
+				</label>
+			{{/if}}
 			{{#if is_photo_type}}
 				
 			{{else}}
@@ -58,9 +51,11 @@
 							</div>
 						{{/clickableInput}}
 					{{/with}}
-					<div class="link-domain">
-						domain.com
-					</div>	    
+					{{#if is_link_type}}
+						<div class="link-domain">
+							domain.com
+						</div>	    
+					{{/if}}
 				</div>
 			{{/if}}
 		</div>
