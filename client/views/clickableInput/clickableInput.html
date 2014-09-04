@@ -1,6 +1,8 @@
 <template name="clickableInput">
     {{#if being_editted}}
-    	<input class="{{style_class}} input-text" id="{{id}}_input" type="text" value="{{text_to_display}}"/>
+    	<div class="ui input">
+	    	<input class="{{style_class}} input-text" id="{{id}}_input" type="text" value="{{text_to_display}}"/>
+    	</div>
     {{else}}
     	{{> UI.contentBlock}}
     {{/if}}

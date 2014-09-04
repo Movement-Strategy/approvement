@@ -38,18 +38,18 @@
 	
 	.link-description {
 		float : left;
-		font-weight : normal;
-		font-family : Helvetica, Arial, 'lucida grande', tahoma, verdana, arial, sans-serif;
-		font-size : 14px;
 		clear : both;
 		margin-top : 14px;
 		margin-bottom : 14px;
 	}
 	
 	.link-description > {
-		p {
+		p, input {
 			margin-top : 0px;
 			margin-bottom : 0px;
+			font-weight : normal;
+			font-family : Helvetica, Arial, 'lucida grande', tahoma, verdana, arial, sans-serif;
+			font-size : 14px;
 		}
 	}
 	
@@ -81,13 +81,13 @@
 		width : 470px;
 	}
 	
-	
-	
 	.link-body {
 		margin-botton : 10px;
 		margin-top : 10px;
 		margin-right : 12px;
 		margin-left : 12px;
+		display : block;
+		clear : both;
 	}
 	
 	.link-text-container {
@@ -95,15 +95,19 @@
 		max-height : 40px;
 		text-overflow: ellipsis;
 		margin-top : 5px;
-	}
-	.link-text {
-		font-size : 12px;
-		font-family: Helvetica;
+		display : block;
 	}
 	
-	.link-title {
+	div.link-text, input.link-text {
+		font-size : 12px;
+		font-family: Helvetica;
+		display : block;
+	}
+	
+	input.link-title, a.link-title {
 		font-size : 18px;
 		font-family: Georgia, 'lucida grande', tahoma, verdana, arial, sans-serif;
+		display : block;
 	}
 	
 	.link-domain {

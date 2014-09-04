@@ -36,11 +36,18 @@ Template['clickableInput'].events({
 		Session.set('details_can_close', false);
 		setEditStateForInput(this.id, true, null);
 		Meteor.flush();	
-		document.getElementById(inputElement).focus();
+		var element = document.getElementById(inputElement);
+		element = $(element);
+		element.attr('size', element.val().length);
+		element.focus();
+	
 	},
 	'keydown' : function() {
+		var inputElement = '#' + this.id + '_input';
+		if(beingEditted(this.id)) {
+			$(inputElement).attr('size', $(inputElement).val().length);
+		}
 		if(beingEditted(this.id) && event.which == 13) {
-			var inputElement = '#' + this.id + '_input';
 			var displayElement = '#' + this.id + '_display';
 			setEditStateForInput(this.id, false, $(inputElement).val());
 			Meteor.flush();
