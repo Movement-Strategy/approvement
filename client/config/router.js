@@ -2,7 +2,7 @@ Router.configure({
     layoutTemplate: 'basicLayout',
     notFoundTemplate: 'notFound',
     yieldTemplates: {
-        'defaultHeader': { to: 'header' },
+        'mainNav': { to: 'header' },
         'defaultFooter': { to: 'footer' }
     }
 });
