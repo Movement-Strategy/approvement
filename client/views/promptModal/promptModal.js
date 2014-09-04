@@ -11,7 +11,6 @@ Template['promptModal'].helpers({
 
 Template['promptModal'].events({
 	'click .button.delete' : function() {
-		console.log('firing');
 		Meteor.call('removeItem', Session.get('current_item_id'));
 		hideCreationModal();
 		hidePromptModal();

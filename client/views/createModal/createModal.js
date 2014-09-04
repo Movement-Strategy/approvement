@@ -130,7 +130,6 @@ initializeClickableInputs = function() {
 
 	var networkType = Session.get('current_network_type');
 	var contentType = Session.get('current_content_type');
-	console.log(inputs[networkType][contentType]);
 	_.map(inputs[networkType][contentType], function(inputName){
 		var input = inputMap[networkType][inputName];
 		input.text = _.has(currentItemContents, inputName) ? currentItemContents[inputName] : input.default_text;

@@ -41,7 +41,6 @@ stateMap = {
 
 stateManager = {
 	updateApprovalItemState : function(details) {
-		console.log(details);
 		Meteor.call('updateStatus', Session.get('current_item_id'), details);
 	},
 	changeToState : function(newState, contents) {
