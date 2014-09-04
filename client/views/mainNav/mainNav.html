@@ -1,14 +1,20 @@
 <template name="mainNav">
     <div class="ui inverted black menu main-nav">
 		<a class="item main-title">Jammin' & Cruisin'</a>
-		<div class="right menu">
-			<div class="ui dropdown item">
-				Clients <i class="icon dropdown"></i>
-				<div class="menu">
-					<a class="item"><i class="edit icon"></i> Edit Profile</a>
-				</div>
+		{{#if signed_in}}
+			<div class="right menu">
+		    	<a class="ui dropdown item user-image-container">
+					<img class="ui avatar image user-image" src="{{user_picture}}">
+					<span class="menu">
+						<a class="item sign-out">Sign Out</a>
+					</span>
+		    	</a>
+		    	{{#if show_dropdown}}
+		    		{{> clientDropdown}}
+		    	{{/if}}
+		    	{{initializeDropdown}}
 			</div>
-		</div>    
+		{{/if}}    
 	</div>
 </template>
 
