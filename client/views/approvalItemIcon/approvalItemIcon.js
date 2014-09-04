@@ -2,9 +2,11 @@ Template['approvalItemIcon'].helpers({
 	popup_content : function() {
 		var content = popupContent.getContent(this.type, this.content_type, this.contents).content;
 		var that = this;
-		Meteor.defer(function(){
-			$('#label_' + that._id).popup();
-		});
+		if(Session.get('show_popups')) {
+			Meteor.defer(function(){
+				$('#label_' + that._id).popup();
+			});
+		}
 		return content;
 	},
 	popup_title : function() {
