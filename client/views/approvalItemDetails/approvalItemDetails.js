@@ -29,9 +29,15 @@ Template['approvalItemDetails'].helpers({
 });
 
 var updateContents = function() {
-	var contents = getDynamicContentFromModal();
-	stateManager.changeToState('updated', contents);
-	hideCreationModal();
+	if(Session.get('creating_new_item')) {
+		var approvalItem = getCurrentApprovalItemFromModal();
+		Meteor.call('insertApprovalItem', approvalItem);
+		hideCreationModal();
+	} else {
+		var contents = getDynamicContentFromModal();
+		stateManager.changeToState('updated', contents);
+		hideCreationModal();
+	}
 }
 
 var keydownHandler = function(event) {
@@ -51,9 +57,7 @@ Template.approvalItemDetails.created = function() {
 
 Template['approvalItemDetails'].events({
 	'click .submit.button' : function() {
-		var approvalItem = getCurrentApprovalItemFromModal();
-		Meteor.call('insertApprovalItem', approvalItem);
-		hideCreationModal();
+		updateContents();
 	},
 	'click .reject.button' : function() {
 		stateManager.changeToState('rejected');
