@@ -16,6 +16,14 @@ popupContent = {
 				title : 'link_body',
 				content : 'link_text',
 			},
+			status : {
+				title : "Facebook Status",
+				content : 'description',
+			},
+			photo : {
+				title : "Photo Description",
+				content : 'description',
+			},
 		},
 		twitter : {
 			with_picture : {
