@@ -85,7 +85,7 @@ initializeClickableInputs = function() {
 		twitter : {
 			tweet_body : {
 				default_text : "Choose some text for your tweet",
-				style_class : '',
+				style_class : 'twitter-body',
 			},
 		},
 		instagram : {
