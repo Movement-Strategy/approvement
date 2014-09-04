@@ -60,7 +60,7 @@ Template['clickableInput'].events({
 		}
 	},
 	'blur .input-text' : function(event) {
-/* 		cancelEditState(this.id); */
+		cancelEditState(this.id);
 	},
 	
 });

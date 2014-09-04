@@ -30,7 +30,16 @@ Template['approvalItemComments'].events({
 			var comment = buildComment(commentText);
 			Meteor.call('addComment', Session.get('current_item_id'), comment);
 			$(".comment-input").val("");
+			Meteor.defer(function(){
+				Session.set('details_can_close', true);
+			});
 		}
 	},
+	'focus' : function(event) {
+		Session.set('details_can_close', false);
+	},
+	'blur' : function() {
+		Session.set('details_can_close', true);
+	}
 });
 
