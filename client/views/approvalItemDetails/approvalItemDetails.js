@@ -28,11 +28,20 @@ Template['approvalItemDetails'].helpers({
 	},
 });
 
+var updateContents = function() {
+	var contents = getDynamicContentFromModal();
+	stateManager.changeToState('updated', contents);
+	hideCreationModal();
+}
+
 var keydownHandler = function(event) {
-	if(Session.get('details_shown') && event.which == 27) {
-		if(Session.get('details_can_close')) {
-			hideCreationModal();
-		}
+	
+	if(Session.get('details_shown') && event.which == 27 && Session.get('details_can_close')) {
+		hideCreationModal();
+	}
+	
+	if(Session.get('details_shown') && event.which == 13 && Session.get('details_can_close')) {
+		updateContents();
 	}
 };
 
@@ -62,9 +71,7 @@ Template['approvalItemDetails'].events({
 		hideCreationModal();
 	},
 	'click .update.button' : function() {
-		var contents = getDynamicContentFromModal();
-		stateManager.changeToState('updated', contents);
-		hideCreationModal();
+		updateContents();
 	},
 	'click .delete.button' : function() {
 		showPromptModal();

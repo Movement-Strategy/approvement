@@ -44,8 +44,9 @@ Template['clickableInput'].events({
 			var displayElement = '#' + this.id + '_display';
 			setEditStateForInput(this.id, false, $(inputElement).val());
 			Meteor.flush();
-			$(displayElement).transition('pulse');
-			Session.set('details_can_close', true);
+			$(displayElement).transition('pulse', onHide = function(){
+				Session.set('details_can_close', true);
+			});
 		}
 		if(beingEditted(this.id) && event.which == 27) {
 			cancelEditState(this.id);
