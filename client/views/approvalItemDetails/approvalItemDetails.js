@@ -8,7 +8,9 @@ Template['approvalItemDetails'].helpers({
 	},
 	initializeModal : function() {
 		Meteor.defer(function(){
-			$('.prompt-modal').modal();
+			$('.prompt-modal').modal({
+				context : $('#main'),
+			});
 		});
 	},
 	has_more_than_one_content_type : function() {

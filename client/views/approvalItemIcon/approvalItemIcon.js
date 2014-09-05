@@ -4,7 +4,9 @@ Template['approvalItemIcon'].helpers({
 		var that = this;
 		if(Session.get('show_popups')) {
 			Meteor.defer(function(){
-				$('#label_' + that._id).popup();
+				$('#label_' + that._id).popup({
+					position : 'top center',
+				});
 			});
 		}
 		return content;
