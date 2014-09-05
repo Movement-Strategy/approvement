@@ -24,16 +24,16 @@
 						{{/if}}
 						{{#if is_content_type_chosen}}
 							
-<!--
 							<div class="ui input">
-								<label for="basicExample">Time to Post</label>
-								<input id="basicExample" type="text" class="time ui-timepicker-input" autocomplete="off" placeholder="Choose a time to post">
+								<input id="time-picker" type="text" class="time ui-timepicker-input" autocomplete="off" placeholder="Choose a time to post">
 							</div>
--->
+							{{initializePicker}}
+<!--
 							<div class="ui segment scheduled-time">
 								Scheduled to be posted at 12:45 pm
 							</div>
-							{{initializePicker}}
+-->
+							
 						{{/if}}
 				    </div>
 					

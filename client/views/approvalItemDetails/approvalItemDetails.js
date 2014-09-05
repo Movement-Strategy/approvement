@@ -8,7 +8,10 @@ Template['approvalItemDetails'].helpers({
 	},
 	initializePicker : function() {
 		Meteor.defer(function(){
-			$('#basicExample').timepicker();
+			$('#time-picker').timepicker();
+			$('#time-picker').on('changeTime', function(){
+				Session.set('current_scheduled_time', $('#time-picker').val());
+			});
 		});	
 	},
 	initializeModal : function() {
