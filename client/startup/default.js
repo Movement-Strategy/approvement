@@ -1,5 +1,5 @@
 Meteor.startup(function () {
-	Session.setDefault('show_popups', false);
+	Session.setDefault('show_popups', true);
 	Session.setDefault('approval_items_are_ready', false);
 	Session.set('clients_are_ready', false);
 	Session.setDefault('page_is_ready', false);

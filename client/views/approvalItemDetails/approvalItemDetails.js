@@ -43,6 +43,13 @@ var updateContents = function() {
 		var contents = getDynamicContentFromModal();
 		stateManager.changeToState('updated', contents);
 		hideCreationModal();
+		
+		// the pop up module in semantic ui has issues resetting correctly when content changes
+		// so were manually setting the items to be empty and flushing the system so that they can reset
+		Session.set('reset_items', true);
+		Meteor.flush();
+		Session.set('reset_items', false);
+		Meteor.flush();
 	}
 }
 

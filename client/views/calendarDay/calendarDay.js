@@ -59,6 +59,14 @@ Template['calendarDay'].helpers({
 	is_not_client : function() {
 		return Session.get('user_type') != 'client';
 	},
+	day : function() {
+		if(Session.get('reset_items')) {
+			return {};
+		} else {
+			return this.day;
+		}
+		
+	},
 });
 
 Template['calendarDay'].events({
