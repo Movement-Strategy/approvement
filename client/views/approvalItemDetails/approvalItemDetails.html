@@ -13,31 +13,25 @@
 			    <div class="ui segment attached preview-content">
 				    <div class="create-options">
 					    {{#if creating_new_item}}
-						    {{#if is_content_type_chosen}}
+						    {{#if is_preview_shown}}
 							{{else}}
 							    
 									{{> networkTypeDropdown}}
-									{{> contentTypeDropdown}}
+									{{#if has_more_than_one_content_type}}
+										{{> contentTypeDropdown}}
+									{{/if}}
 								
 								
 							{{/if}}
 						{{/if}}
 						{{#if is_content_type_chosen}}
 							
-							<div class="ui input">
-								<input id="time-picker" type="text" class="time ui-timepicker-input" autocomplete="off" placeholder="Choose a time to post">
-							</div>
-							{{initializePicker}}
-<!--
-							<div class="ui segment scheduled-time">
-								Scheduled to be posted at 12:45 pm
-							</div>
--->
-							
+							{{> timePicker}}
+														
 						{{/if}}
 				    </div>
 					
-					{{#if is_content_type_chosen}}
+					{{#if is_preview_shown}}
 						{{#with preview_content}}
 					    	{{> UI.dynamic template=preview_template data=clickable_inputs}}
 					    {{/with}}
@@ -48,7 +42,7 @@
 				   		{{> approvalItemComments}}
 				   	{{/if}}
 					{{#if details_shown}}
-						{{#if is_content_type_chosen}}
+						{{#if is_preview_shown}}
 							<div class="action-section">
 								<div class="approval-actions">
 									{{#if creating_new_item}}

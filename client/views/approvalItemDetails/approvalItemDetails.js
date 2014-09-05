@@ -6,18 +6,13 @@ Template['approvalItemDetails'].helpers({
 			preview_template : Session.get('current_network_type') + 'Preview',
 		};
 	},
-	initializePicker : function() {
-		Meteor.defer(function(){
-			$('#time-picker').timepicker();
-			$('#time-picker').on('changeTime', function(){
-				Session.set('current_scheduled_time', $('#time-picker').val());
-			});
-		});	
-	},
 	initializeModal : function() {
 		Meteor.defer(function(){
 			$('.prompt-modal').modal();
 		});
+	},
+	has_more_than_one_content_type : function() {
+		return !hasOnlyOneContentType();
 	},
 	clickable_inputs : function() {
 		return Session.get('clickable_inputs');
@@ -27,6 +22,9 @@ Template['approvalItemDetails'].helpers({
 	},
  	is_content_type_chosen : function() {
 		return Session.get('current_content_type') != null;
+	},
+ 	is_preview_shown : function() {
+		return Session.get('time_to_post') != null;
 	},
 	details_shown : function() {
 		return Session.get('details_shown');	

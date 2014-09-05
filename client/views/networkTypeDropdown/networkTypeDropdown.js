@@ -1,6 +1,15 @@
+hasOnlyOneContentType = function() {
+	if(Session.get('current_network_type') != null) {
+		var contentTypes = networkTypeMap[Session.get('current_network_type')];
+		return contentTypes.length == 1;
+	} else {
+		return false;
+	}
+}
+
 handleNetworkWithSingleContentType = function() {
-	var contentTypes = networkTypeMap[Session.get('current_network_type')];
-	if(contentTypes.length == 1) {
+	if(hasOnlyOneContentType()) {
+		var contentTypes = networkTypeMap[Session.get('current_network_type')];
 		Session.set('current_content_type', contentTypes[0].value);
 		initializeClickableInputs();
 	}

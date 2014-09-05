@@ -6,7 +6,8 @@ resetModalContent = function() {
 	Session.set('creating_new_item', true);
 }
 prepareModalToShow = function(context, creatingNewItem){
-	Session.set('current_scheduled_time', null);
+	Session.set('time_to_post', null);
+	Session.set('editing_time', true);
 	Session.set('uploaded_image_url', null);
 	Session.set('current_item_id', context._id);
 	Session.set('current_scope', context.scope);
@@ -17,8 +18,10 @@ prepareModalToShow = function(context, creatingNewItem){
 	var currentItemContents = creatingNewItem ? {} : context.contents;
 	Session.set('current_item_contents', currentItemContents);
 	if(!creatingNewItem) {
+		Session.set('editing_time', false);
 		Session.set('current_network_type', context.type);
 		Session.set('current_content_type', context.content_type);
+		Session.set('time_to_post', context.time_to_post);
 		initializeClickableInputs();
 	}
 	showCreationModal();
@@ -63,6 +66,7 @@ getCurrentApprovalItemFromModal = function() {
 		created_time : moment().format("X") * 1000,
 		client_id : Session.get('selected_client_id'),
 		type : Session.get('current_network_type'),
+		time_to_post : Session.get('time_to_post'),
 	};
 };
 

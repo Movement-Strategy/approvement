@@ -1,0 +1,13 @@
+<template name="timePicker">
+	{{#if is_time_selected}}
+		<div class="ui segment scheduled-time">
+			Scheduled to be posted at {{time_to_post}}
+		</div>
+	{{else}}
+		<div class="ui input">
+			<input id="time-picker" type="text" class="time ui-timepicker-input" autocomplete="off" placeholder="Choose a time to post">
+		</div>
+		{{initializePicker}}
+	{{/if}}
+</template>
+
