@@ -6,6 +6,11 @@ Template['approvalItemDetails'].helpers({
 			preview_template : Session.get('current_network_type') + 'Preview',
 		};
 	},
+	initializePicker : function() {
+		Meteor.defer(function(){
+			$('#basicExample').timepicker();
+		});	
+	},
 	initializeModal : function() {
 		Meteor.defer(function(){
 			$('.prompt-modal').modal();

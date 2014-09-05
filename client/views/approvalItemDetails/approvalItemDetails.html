@@ -2,7 +2,7 @@
     <div class="ui {{show_class}} one column page grid">
 	    <div class="column">
 		 	<div class="item-preview">
-			    
+				
 			    <h4 class="ui top attached header preview-header">
 				    {{#if creating_new_item}}
 				   		Create New
@@ -11,15 +11,31 @@
 				   	{{/if}}
 			    </h4>
 			    <div class="ui segment attached preview-content">
-				    {{#if creating_new_item}}
-					    {{#if is_content_type_chosen}}
-						{{else}}
-						    <div class="create-options">
-								{{> networkTypeDropdown}}
-								{{> contentTypeDropdown}}
-							</div>
+				    <div class="create-options">
+					    {{#if creating_new_item}}
+						    {{#if is_content_type_chosen}}
+							{{else}}
+							    
+									{{> networkTypeDropdown}}
+									{{> contentTypeDropdown}}
+								
+								
+							{{/if}}
 						{{/if}}
-					{{/if}}
+						{{#if is_content_type_chosen}}
+							
+<!--
+							<div class="ui input">
+								<label for="basicExample">Time to Post</label>
+								<input id="basicExample" type="text" class="time ui-timepicker-input" autocomplete="off" placeholder="Choose a time to post">
+							</div>
+-->
+							<div class="ui segment scheduled-time">
+								Scheduled to be posted at 12:45 pm
+							</div>
+							{{initializePicker}}
+						{{/if}}
+				    </div>
 					
 					{{#if is_content_type_chosen}}
 						{{#with preview_content}}
