@@ -1,3 +1,19 @@
+
+// will be called after successful S3 upload
+onImageUpload = function(url) {
+	Session.set('uploaded_image_url', url);
+	
+	var selectorMap = {
+		facebook : 'link-image',
+		instagram : 'instagram-image-container',
+		twitter : 'twitter-image-container',
+	};
+	
+	var selector = selectorMap[Session.get('current_network_type')];
+	selector = '.' + selector;
+	$(selector).transition('tada');
+}
+
 getWidthClass = function() {
 	return Session.get('current_network_type') != null ? Session.get('current_network_type') + '-width' : 'facebook-width';
 };
