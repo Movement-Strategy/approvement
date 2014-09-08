@@ -33,6 +33,11 @@ Template['approvalItemDetails'].helpers({
 			});
 		});
 	},
+	initializeAccordion : function() {
+		Meteor.defer(function(){
+			$('.creation-accordion').accordion();
+		});
+	},
 	width_class : function() {
 		return getWidthClass();
 	},
