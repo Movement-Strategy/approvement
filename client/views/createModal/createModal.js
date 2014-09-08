@@ -18,7 +18,11 @@ prepareModalToShow = function(context, creatingNewItem){
 	var currentItemContents = creatingNewItem ? {} : context.contents;
 	Session.set('current_item_contents', currentItemContents);
 	if(!creatingNewItem) {
-		Session.set('editing_time', false);
+		Session.set('time_to_post', context.time_to_post);
+		if(context.time_to_post != null) {
+			
+			Session.set('editing_time', false);
+		}
 		Session.set('current_network_type', context.type);
 		Session.set('current_content_type', context.content_type);
 		Session.set('time_to_post', context.time_to_post);
@@ -52,6 +56,9 @@ getDynamicContentFromModal = function() {
 	if(imageURL != null) {
 		itemContents.image_url = imageURL;
 	}
+	
+	itemContents.time_to_post = Session.get('time_to_post');
+	
 	return itemContents;
 }
 

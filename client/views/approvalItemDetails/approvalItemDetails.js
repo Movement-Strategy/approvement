@@ -26,7 +26,7 @@ Template['approvalItemDetails'].helpers({
 		return Session.get('current_content_type') != null;
 	},
  	is_preview_shown : function() {
-		return Session.get('time_to_post') != null;
+		return Session.get('current_content_type') != null;
 	},
 	details_shown : function() {
 		return Session.get('details_shown');	
@@ -43,7 +43,8 @@ var updateContents = function() {
 		hideCreationModal();
 	} else {
 		var contents = getDynamicContentFromModal();
-		stateManager.changeToState('updated', contents);
+		var timeToPost = Session.get('time_to_post');
+		stateManager.changeToState('updated', contents, timeToPost);
 		hideCreationModal();
 		
 		// the pop up module in semantic ui has issues resetting correctly when content changes

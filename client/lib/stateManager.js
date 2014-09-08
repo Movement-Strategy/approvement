@@ -43,11 +43,14 @@ stateManager = {
 	updateApprovalItemState : function(details) {
 		Meteor.call('updateStatus', Session.get('current_item_id'), details);
 	},
-	changeToState : function(newState, contents) {
+	changeToState : function(newState, contents, timeToPost) {
 		var stateDetails = stateMap[newState];
 		var userTypeDetails = stateDetails[Session.get('user_type')];
 		if(_.has(userTypeDetails, 'contents')) {
 			userTypeDetails['contents'] = contents;
+		}
+		if(timeToPost != null) {
+			userTypeDetails['time_to_post'] = timeToPost;
 		}
 		this.updateApprovalItemState(userTypeDetails);
 	},
