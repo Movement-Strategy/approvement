@@ -5,8 +5,8 @@ imageUploadHandler = {
 			height : '246',
 		},
 		twitter : {
-			width : '364',
-			height : '506',
+			width : '506',
+			height : '364',
 		},
 		instagram : {
 			width : '512',
