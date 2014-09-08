@@ -20,7 +20,10 @@ Template['approvalItemComments'].helpers({
 	},
 	user_picture : function() {
 		return Session.get('user_picture');
-	}
+	},
+	width_class : function() {
+		return getWidthClass();
+	},
 });
 
 Template['approvalItemComments'].events({

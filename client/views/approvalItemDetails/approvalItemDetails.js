@@ -1,3 +1,7 @@
+getWidthClass = function() {
+	return Session.get('current_network_type') != null ? Session.get('current_network_type') + '-width' : 'facebook-width';
+};
+
 Template['approvalItemDetails'].helpers({
 	
 	preview_content : function() {
@@ -12,6 +16,9 @@ Template['approvalItemDetails'].helpers({
 				context : $('#main'),
 			});
 		});
+	},
+	width_class : function() {
+		return getWidthClass();
 	},
 	has_more_than_one_content_type : function() {
 		return !hasOnlyOneContentType();
