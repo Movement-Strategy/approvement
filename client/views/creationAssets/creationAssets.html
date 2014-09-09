@@ -2,14 +2,7 @@
 	    <div class="ui divided list creation-assets">
 		   	{{initializeDropdown}}
 		   	{{#if editing_asset}}
-			   	<div class="item edit-asset">
-				   	<div class="content">
-					   	<div class="ui input">
-						   	<input class ='input-asset' type="text" value = "{{edit_value}}" placeholder="Enter the URL"/>
-					   	</div>
-						<a><i class="large delete icon"></i></a>
-				   	</div>
-			   	</div>
+		   		{{> editCreationAsset}}
 		   	{{else}}
 			   	<div class="item current-assets">
 				   	 <div class="content">

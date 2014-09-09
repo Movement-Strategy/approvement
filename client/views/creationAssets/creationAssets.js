@@ -69,9 +69,6 @@ Template['creationAssets'].helpers({
 			return asset;
 		});
 	},
-	edit_value : function() {
-		return Session.get('current_asset').url ? Session.get('current_asset').url : "";
-	},
 	assets : function() {
 		
 		assets = _.map(Session.get('current_assets'), function(asset){
