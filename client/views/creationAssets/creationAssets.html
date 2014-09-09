@@ -2,8 +2,9 @@
 	    <div class="ui divided list creation-assets">
 		   	<div class="item current-assets">
 			   	 <div class="content">
-					<a class="ui large purple circular label"><i class="photo icon"></i></a>
-					<a class="ui large purple circular label"><i class="external url icon"></i></a>
+					{{# each assets}}
+						<a class="ui large purple circular label"><i class="{{icon}} icon"></i></a>
+					{{/each}}
 			   	 </div>
 		   	</div>
 		   	<div class="item edit-asset">
