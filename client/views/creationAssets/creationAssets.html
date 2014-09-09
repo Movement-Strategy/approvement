@@ -1,20 +1,33 @@
 <template name="creationAssets">
 	    <div class="ui divided list creation-assets">
-		   	<div class="item current-assets">
-			   	 <div class="content">
-					{{# each assets}}
-						<a class="ui large purple circular label"><i class="{{icon}} icon"></i></a>
-					{{/each}}
-			   	 </div>
-		   	</div>
-		   	<div class="item edit-asset">
-			   	<div class="content">
-				   	<div class="ui input">
-					   	<input class ='input-asset' type="text" placeholder="Enter the URL"/>
+		   	{{initializeDropdown}}
+		   	{{#if editing_asset}}
+			   	<div class="item edit-asset">
+				   	<div class="content">
+					   	<div class="ui input">
+						   	<input class ='input-asset' type="text" value = "{{edit_value}}" placeholder="Enter the URL"/>
+					   	</div>
+						<a><i class="large delete icon"></i></a>
 				   	</div>
-					<a><i class="large delete icon"></i></a>
 			   	</div>
-		   	</div>
+		   	{{else}}
+			   	<div class="item current-assets">
+				   	 <div class="content">
+						{{# each assets}}
+							{{> creationAssetIcon}}
+						{{/each}}
+						<a class="ui small purple circular button create-asset icon dropdown left pointing">
+						  <i class="plus icon"></i>
+						
+						<div class="menu">
+							{{#each asset_types}}
+								<div class="item asset-type" data-value="{{type}}" ><i class="{{icon}} icon"></i>{{display_name}}</div>
+							{{/each}}
+						</div>
+						</a>
+				   	 </div>
+			   	</div>
+			{{/if}}
 	    </div>
 </template>
 

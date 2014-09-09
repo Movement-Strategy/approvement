@@ -17,4 +17,6 @@ Meteor.startup(function () {
 	Session.setDefault('details_can_close', true);
 	setCurrentDays(momentDate);
 	setSelectedClient();
+	handleAssetID();
+	handleAssets();
 });

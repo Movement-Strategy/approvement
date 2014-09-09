@@ -6,6 +6,7 @@ resetModalContent = function() {
 	Session.set('creating_new_item', true);
 }
 prepareModalToShow = function(context, creatingNewItem){
+	Session.set('new_asset', null);
 	Session.set('time_to_post', null);
 	Session.set('editing_time', true);
 	Session.set('uploaded_image_url', null);
