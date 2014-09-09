@@ -15,25 +15,42 @@
     margin-bottom : 15px;
 }
 .creation-assets > {
-	.item > {
-		div.content > {
-			.header {
-			}
-			p {
-				font-size : 10px;
-			}
-			a.label {
-				width : 30px;
-				margin : 0 0 0 0;
-			}
-			a > i.icon {
-				opacity : 1;
-				margin : 0 0 0 0;
-				color : white;
-			}
-			
+	div.content > {
+		a.label {
+			width : 30px;
+			margin : 0 0 0 0;
+			color : inherit;
+			transition : 0.3s;
+		}
+		a > i.icon {
+			opacity : 1;
+			margin : 0 0 0 0;
+			color : white;
 		}
 	}
+	padding : 16px 16px 16px;
+	.item.current-assets {
+		padding-top : 0px;
+		padding-bottom : 10px;
+	}
+	.item.edit-asset {
+		padding-bottom : 0px;
+		padding-top : 10px;
+	}
+	.item.edit-asset > {
+		.content > {
+			font-size : 12px;
+			font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		}
+		.input-asset {
+			width : 400px;
+		}
+		.delete.icon {
+			color : black;
+		}
+	}
+	
+	
 }
 
 .content-calendar > .calendar.row > .column > .content-container > {
