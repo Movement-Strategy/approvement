@@ -5,11 +5,8 @@ Template['editCreationAsset'].helpers({
 });
 
 Template['editCreationAsset'].events({
-	'keydown' : function(event.which) {
-		// escape
-		if(event.which == 27) {
-			
-		}
+	'keydown' : function(event) {
+		
 	}
 });
 
