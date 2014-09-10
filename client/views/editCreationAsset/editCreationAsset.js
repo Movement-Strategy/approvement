@@ -1,9 +1,13 @@
-resetAndTriggerAnimationOnAsset = function(assetID, animationName) {
+resetAssetTemplate = function() {
 	resetAssetState();
 	Meteor.flush();
 	Meteor.defer(function(){
 		$('.create-asset').dropdown();
 	});
+}
+
+resetAndTriggerAnimationOnAsset = function(assetID, animationName) {
+	resetAssetTemplate();
 	var selector = '#' + assetID;
 	$(selector).transition(animationName, onHide = function(){
 		Session.set('details_can_close', true);
@@ -38,6 +42,10 @@ Template['editCreationAsset'].events({
 	},
 	'blur' : function() {
 		resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');
-	}
+	},
+	'click .delete-asset' : function() {
+		Meteor.call('removeAsset', Session.get('current_asset_id'));
+		resetAssetTemplate();
+	},
 });
 
