@@ -33,19 +33,13 @@
 						{{#with preview_content}}
 					    	{{> UI.dynamic template=preview_template data=clickable_inputs}}
 					    {{/with}}
+					    {{#if creating_new_item}}
+						{{else}}
+							{{> creationAccordion}}
+							{{initializeAccordion}}
+						{{/if}}
 					{{/if}}
-					
-					{{> creationAccordion}}
-					{{initializeAccordion}}
 				    
-<!--
-				    {{#if creating_new_item}}
-				   	{{else}}
-				   		{{> approvalItemComments}}
-				   		
-				   	{{/if}}
-					{{> creationAssets}}
--->
 					{{#if details_shown}}
 						{{#if is_preview_shown}}
 							<div class="action-section {{width_class}}">
@@ -59,6 +53,7 @@
 								</div>
 							</div>
 						{{/if}}
+						
 					{{/if}}
 			    </div>
 		 	</div>
