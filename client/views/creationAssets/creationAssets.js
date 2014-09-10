@@ -1,42 +1,33 @@
-generateNewAsset = function(newType) {
-	var assetID = new Date().getTime();
+createOrUpdateAsset = function(url) {
+	var assetID = Session.get('current_asset_id');
+	var newID = 'asset_' + new Date().getTime();
+	assetID = assetID == null ? newID : assetID;
 	var newAsset = {
-		id : assetID,
-		type : newType,
-		url : '',
+		_id : assetID,
+		client_id : Session.get('selected_client_id'),
+		approval_item_id : Session.get('current_item_id'),
+		type : Session.get('current_asset_type'),
+		url : url,
 	};
-	Session.set('new_asset', newAsset);
-	Session.set('current_asset_id', assetID);
+	Meteor.call('createOrUpdateAsset', newAsset, function(error){
+		resetAndTriggerAnimationOnAsset(assetID, 'pulse');
+	});
 }
 
 handleAssets = function() {
 	Deps.autorun(function(){
-		var assets = [
-			{
-				id : '1000',
-				url : 'www.google.com',
-				type : 'image',
-			},
-			{
-				id : '2000',
-				url : 'www.espn.com',
-				type : 'link',
-			},
-		];
-		
-		var indexedAssets = {};
-		
-		_.map(assets, function(asset){
-			indexedAssets[asset.id] = asset;
-		});
-		
-		// set the newly created assets
-		var newAsset = Session.get('new_asset');
-		if(Session.get('new_asset') != null) {
-			indexedAssets[newAsset.id] = newAsset;
+		var approvalItemID = Session.get('current_item_id');
+		if(Session.get('current_item_id') != null) {
+			var assets = Asset.find({approval_item_id : approvalItemID}).fetch();		
+			var indexedAssets = {};
+			
+			_.map(assets, function(asset){
+				indexedAssets[asset._id] = asset;
+			});
+			
+			// set the newly created assets
+			Session.set('current_assets', indexedAssets);
 		}
-		
-		Session.set('current_assets', indexedAssets);
 	});
 }
 
@@ -61,7 +52,7 @@ Template['creationAssets'].helpers({
 		return getWidthClass();
 	},
 	editing_asset : function() {
-		return Session.get('current_asset_id') != null;
+		return Session.get('current_asset_type') != null;
 	},
 	asset_types : function() {
 		return _.map(assetMap, function(asset, type){
@@ -84,7 +75,8 @@ Template['creationAssets'].helpers({
 Template['creationAssets'].events({
 	'click .asset-type' : function(event){
 		var assetType = $(event.target).data().value;
-		generateNewAsset(assetType);
+		Session.set('current_asset_type', assetType);
+		Session.set('details_can_close', false);
 	}
 });
 

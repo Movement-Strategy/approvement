@@ -1,12 +1,43 @@
+resetAndTriggerAnimationOnAsset = function(assetID, animationName) {
+	resetAssetState();
+	Meteor.flush();
+	Meteor.defer(function(){
+		$('.create-asset').dropdown();
+	});
+	var selector = '#' + assetID;
+	$(selector).transition(animationName, onHide = function(){
+		Session.set('details_can_close', true);
+	});
+}
+
+resetAssetState = function() {
+	Session.set('current_asset_id', null);
+	Session.set('current_asset', null);
+	Session.set('current_asset_type', null);
+}
+
 Template['editCreationAsset'].helpers({
 	edit_value : function() {
-		return Session.get('current_asset').url ? Session.get('current_asset').url : "";
+		var currentAsset = Session.get('current_asset');
+		if(currentAsset) {
+			return _.has(currentAsset, 'url') ? currentAsset.url : "";
+		} else {
+			return "";
+		}
 	},
 });
 
 Template['editCreationAsset'].events({
 	'keydown' : function(event) {
-		
+		if(event.which == 13) {
+			createOrUpdateAsset($('.input-asset').val());
+		}
+		if(event.which == 27) {
+			resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');		
+		}
+	},
+	'blur' : function() {
+		resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');
 	}
 });
 

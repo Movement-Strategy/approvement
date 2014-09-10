@@ -93,6 +93,11 @@ var keydownHandler = function(event) {
 	if(Session.get('details_shown') && event.which == 13 && Session.get('details_can_close')) {
 		updateContents();
 	}
+	
+	if(Session.get('current_asset_type') != null && event.which == 27) {
+		resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');
+	}
+	
 };
 
 Template.approvalItemDetails.created = function() {
