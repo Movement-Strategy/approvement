@@ -120,7 +120,7 @@ Template['approvalItemDetails'].events({
 		stateManager.changeToState('commented');
 		hideCreationModal();
 	},
-	'click .back.button' : function() {
+	'click .back.icon' : function() {
 		hideCreationModal();
 	},
 	'click .update.button' : function() {

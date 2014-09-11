@@ -19,6 +19,11 @@ Template['mainNav'].events({
 	'click .sign-out' : function() {
 		Meteor.logout();
 		Session.set('clients_are_ready', false);
-	}
+	},
+	'click .main-title' : function() {
+		if(Session.get('details_shown')) {
+			hideCreationModal();
+		}
+	},
 });
 

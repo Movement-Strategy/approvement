@@ -1,18 +1,15 @@
 actionMap = {
 	social_media_manager : {
 		internal : [
-			'back',
 			'delete',
 			'update',
 		],
 		external : [
-			'back',
 			'update',
 		],
 	},
 	client : {
 		external : [
-			'back',
 			'comment',
 			'reject',
 			'approve',
@@ -21,7 +18,6 @@ actionMap = {
 	},
 	creative_director : {
 		internal : [
-			'back',
 			'delete',
 			'comment',
 			'reject',
@@ -29,7 +25,6 @@ actionMap = {
 			'update',
 		],
 		external : [
-			'back',
 			'delete',
 			'update',
 		],

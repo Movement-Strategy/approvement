@@ -40,6 +40,10 @@ var assetMap = {
 		icon : 'external url',
 		display_name : 'External URL',
 	},
+	video : {
+		icon : 'video',
+		display_name : 'Video',
+	},
 };
 
 Template['creationAssets'].helpers({
