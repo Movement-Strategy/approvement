@@ -11,6 +11,16 @@ handleAssetID = function() {
 }
 
 Template['creationAssetIcon'].helpers({
+	popup_content : function() {
+		var selector = '#' + this._id;
+		Meteor.defer(function(){
+			$(selector).popup({
+				position : 'top center',
+			});
+			console.log('firing');
+		});
+		return this.url;
+	},
 });
 
 Template['creationAssetIcon'].events({
