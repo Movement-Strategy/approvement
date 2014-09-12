@@ -62,7 +62,10 @@ pendingItemHandler = {
 		Meteor.flush();
 		debugTime(targetTime, 'target');
 		var isoDay = moment(targetTime).isoWeekday();
-		
+		var currentDays = Session.get('calendar_days');
+		var currentDay = currentDays[isoDay];
+		pendingItem['day'] = currentDay;
+		prepareModalToShow(pendingItem, false);
 	},
 	getRelevantItemQuery : function() {
 		var query = {};
