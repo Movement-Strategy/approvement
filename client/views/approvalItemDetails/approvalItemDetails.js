@@ -85,6 +85,7 @@ var updateContents = function() {
 }
 
 var keydownHandler = function(event) {
+	
 	if(Session.get('details_shown') && event.which == 27 && Session.get('details_can_close')) {
 		hideCreationModal();
 	}
@@ -95,6 +96,10 @@ var keydownHandler = function(event) {
 	
 	if(Session.get('current_asset_type') != null && event.which == 27) {
 		resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');
+	}
+	
+	if(!Session.get('details_shown') && event.which == 9) {
+		pendingItemHandler.goToPendingItem(0);
 	}
 	
 };
