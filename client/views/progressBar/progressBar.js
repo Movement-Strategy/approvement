@@ -5,7 +5,9 @@ getBarWidth = function() {
 	var progressPercent = completedActions / totalActions;
 	progressPercent = Math.round(progressPercent * 100);
 	return progressPercent;
-}
+};
+
+
 Template['progressBar'].helpers({
 	bar_width : function() {
 		return getBarWidth();
@@ -30,5 +32,8 @@ Template['progressBar'].helpers({
 });
 
 Template['progressBar'].events({
+	'click .bar-container' : function() {
+		pendingItemHandler.goToPendingItem(0);
+	}
 });
 

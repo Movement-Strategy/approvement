@@ -45,13 +45,23 @@ pendingItemHandler = {
 	},
 	setPendingItemCount : function() {
 		var query = this.getPendingItemQuery();
-		var count = ApprovalItem.find(query).count();
-		Session.set('total_pending_items', count);
+		var pendingItems = ApprovalItem.find(query, {sort : {scheduled_time : 1, created_time : 1}}).fetch();
+		Session.set('total_pending_items', pendingItems.length);
+		Session.set('pending_items', pendingItems);
 	},
 	setRelevantItemCount : function() {
 		var query = this.getRelevantItemQuery();
 		var count = ApprovalItem.find(query).count();
 		Session.set('total_relevant_items', count);
+	},
+	goToPendingItem : function(itemOffset) {
+		this.setCalendarToPendingItem(itemOffset)
+	},
+	setCalendarToPendingItem : function(itemOffset){
+		var pendingItems = Session.get('pending_items');	
+		var pendingItem = pendingItems[itemOffset];
+		var targetTime = pendingItem['scheduled_time'];
+		changeToTargetTime(targetTime);
 	},
 	getRelevantItemQuery : function() {
 		var query = {};
