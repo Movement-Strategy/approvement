@@ -24,12 +24,11 @@ changeToTargetTime = function(targetTime) {
 	alterCurrentDate(function(date){
 		var currentTime = date.format('X') * 1000;
 		console.log(debugTime(currentTime, 'current'));
-		
 		var targetIsBeforeCurrent = targetTime > currentTime; 
 		console.log(debugTime(targetTime, 'target'));
-		var daysBetween = Math.round(moment.duration(Math.abs(currentTime - targetTime)).asDays());
+		var daysBetween = moment.duration(Math.abs(currentTime - targetTime)).asDays();
 		return targetIsBeforeCurrent ? date.add(daysBetween, 'days') : date.subtract(daysBetween, 'days')
-	}); 
+	});
 }
 
 changeToLastWeek = function() {

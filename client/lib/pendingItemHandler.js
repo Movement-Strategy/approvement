@@ -55,17 +55,20 @@ pendingItemHandler = {
 		Session.set('total_relevant_items', count);
 	},
 	goToPendingItem : function(itemOffset) {
+		
 		var pendingItems = Session.get('pending_items');	
-		var pendingItem = pendingItems[itemOffset];
-		var targetTime = pendingItem['scheduled_time'];
-		changeToTargetTime(targetTime);
-		Meteor.flush();
-		debugTime(targetTime, 'target');
-		var isoDay = moment(targetTime).isoWeekday();
-		var currentDays = Session.get('calendar_days');
-		var currentDay = currentDays[isoDay];
-		pendingItem['day'] = currentDay;
-		prepareModalToShow(pendingItem, false);
+		if(pendingItems.length > 0) {
+			var pendingItem = pendingItems[itemOffset];
+			var targetTime = pendingItem['scheduled_time'];
+			changeToTargetTime(targetTime);
+			Meteor.flush();
+			debugTime(targetTime, 'target');
+			var isoDay = moment(targetTime).isoWeekday();
+			var currentDays = Session.get('calendar_days');
+			var currentDay = currentDays[isoDay - 1];
+			pendingItem['day'] = currentDay;
+			prepareModalToShow(pendingItem, false);
+		}
 	},
 	getRelevantItemQuery : function() {
 		var query = {};
