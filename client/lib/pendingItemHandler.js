@@ -4,15 +4,38 @@ pendingItemHandler = {
 			pending_conditions : {
 				internal : [
 					'submitted',
-					'noted',
 				],
+				external : [
+					'commented',
+				],
+			},
+			relevant_scopes : [
+				'external',
+				'internal',
+			],
+		},
+		client : {
+			pending_conditions : {
 				external : [
 					'submitted',
 				],
 			},
 			relevant_scopes : [
 				'external',
-				'internal',
+			],
+		},
+		social_media_manager : {
+			pending_conditions : {
+				external : [
+					'commented',
+				],
+				internal : [
+					'commented',
+				],
+			},
+			relevant_scopes : [
+				'external',
+				'internal'
 			],
 		},
 	},
