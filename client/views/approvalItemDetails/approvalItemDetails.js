@@ -85,7 +85,6 @@ var updateContents = function() {
 }
 
 var keydownHandler = function(event) {
-	
 	if(Session.get('details_shown') && event.which == 27 && Session.get('details_can_close')) {
 		hideCreationModal();
 	}
