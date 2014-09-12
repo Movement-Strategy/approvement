@@ -64,9 +64,11 @@ pendingItemHandler = {
 	},
 	addBaseFields : function(query) {
 		var currentTime = new Date().getTime();
+		var momentDate = new moment();
+		var searchTime = momentDate.subtract(1, 'days').format('X') * 1000;
 		query['client_id'] = Session.get('selected_client_id');
 		query['scheduled_time'] = {
-			$gt : currentTime,
+			$gt : searchTime,
 		};
 		return query;
 	},
