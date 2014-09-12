@@ -55,13 +55,14 @@ pendingItemHandler = {
 		Session.set('total_relevant_items', count);
 	},
 	goToPendingItem : function(itemOffset) {
-		this.setCalendarToPendingItem(itemOffset)
-	},
-	setCalendarToPendingItem : function(itemOffset){
 		var pendingItems = Session.get('pending_items');	
 		var pendingItem = pendingItems[itemOffset];
 		var targetTime = pendingItem['scheduled_time'];
 		changeToTargetTime(targetTime);
+		Meteor.flush();
+		debugTime(targetTime, 'target');
+		var isoDay = moment(targetTime).isoWeekday();
+		
 	},
 	getRelevantItemQuery : function() {
 		var query = {};

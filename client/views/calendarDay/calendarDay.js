@@ -48,7 +48,6 @@ setCalendarDays = function() {
 	Session.set('approval_items_are_ready', true);
 }
 
-
 Template['calendarDay'].helpers({
 	updateReactiveVariables : function() {
 		var comments = _.has(this, 'comments') ? this.comments : [];
