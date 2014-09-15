@@ -3,7 +3,7 @@ Template['defaultBody'].helpers({
 		return pageLoadHandler.pageIsReady();
 	},
 	logged_in : function() {
-		return userHandler.isLoggedIn();
+		return loginHandler.isLoggedIn();
 	}
 });
 
