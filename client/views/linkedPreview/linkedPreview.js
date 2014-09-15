@@ -11,7 +11,10 @@ Template['linkedPreview'].helpers({
 	},
 	has_picture : function() {
 		return Session.get('current_content_type') == 'with_picture';
-	}
+	},
+	display_name : function() {
+		return Session.get('selected_client').display_name;
+	},
 });
 
 Template['linkedPreview'].events({
