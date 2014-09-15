@@ -1,11 +1,3 @@
-confirmPageIsReady = function() {
-	Deps.autorun(function(){
-		if(Session.get('approval_items_are_ready') && Session.get('clients_are_ready')) {
-			Session.set('page_is_ready', true);
-		}
-	});
-}
-
 Meteor.subscribe('userData', onReady = function(){
 	Deps.autorun(function(){
 		var users = Meteor.users.find({}, {fields : {profile : 1}}).fetch();

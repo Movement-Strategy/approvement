@@ -1,9 +1,9 @@
 Template['defaultBody'].helpers({
 	page_is_ready : function() {
-		return Session.get('page_is_ready');
+		return pageLoadHandler.pageIsReady();
 	},
 	logged_in : function() {
-		return Meteor.userId() != null;
+		return userHandler.isLoggedIn();
 	}
 });
 

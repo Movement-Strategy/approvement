@@ -4,7 +4,7 @@ Meteor.startup(function () {
 	Session.set('clients_are_ready', false);
 	Session.setDefault('page_is_ready', false);
 	Session.setDefault('details_shown', false);
-	confirmPageIsReady();
+	pageLoadHandler.checkIfPageIsReady();
 	var dateObject = new Date().add;
 	momentDate = moment(dateObject);
 	Session.setDefault('current_item_contents', {});
