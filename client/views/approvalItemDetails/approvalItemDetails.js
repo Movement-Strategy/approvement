@@ -99,7 +99,15 @@ var keydownHandler = function(event) {
 	}
 	
 	if(!Session.get('details_shown') && event.which == 9) {
-		pendingItemHandler.goToPendingItem(0);
+		pendingItemHandler.goToPendingItem(Session.get('pending_item_index'));
+	}
+	
+	if(!Session.get('details_shown') && event.which == 37) {
+		changeToLastWeek();
+	}
+	
+	if(!Session.get('details_shown') && event.which == 39) {
+		changeToNextWeek();
 	}
 	
 };

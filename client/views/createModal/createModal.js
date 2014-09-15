@@ -4,7 +4,9 @@ resetModalContent = function() {
 	Session.set('current_network_type', null);
 	Session.set('current_content_type', null);
 	Session.set('creating_new_item', true);
+	Session.set('pending_item_index', 0);
 }
+
 prepareModalToShow = function(context, creatingNewItem){
 	Session.set('time_to_post', null);
 	Session.set('editing_time', true);

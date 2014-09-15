@@ -16,6 +16,7 @@ Meteor.startup(function () {
 	Session.setDefault('selected_client', false);
 	Session.setDefault('details_can_close', true);
 	Session.setDefault('total_pending_items', null);
+	Session.setDefault('pending_item_index', 0);
 	setCurrentDays(momentDate);
 	setSelectedClient();
 	handleAssetID();

@@ -33,7 +33,7 @@ Template['progressBar'].helpers({
 
 Template['progressBar'].events({
 	'click .bar-container' : function() {
-		pendingItemHandler.goToPendingItem(0);
+		pendingItemHandler.goToPendingItem(Session.get('pending_item_index'));
 	}
 });
 
