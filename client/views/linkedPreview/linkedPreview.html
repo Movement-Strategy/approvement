@@ -5,13 +5,15 @@
 				<input id='image-input' type="file">
 			{{/S3}}
 	
-			<label for="image-input">
-				<div class="linked-image-container">
-					<img class="ui image linked-image edit-target" src="{{image_url}}">
-				</div>
-			</label>
-			<div class="linked-profile">
-				<img src="{{profile_pic_url}}" class='linked-profile-image' alt="" />
+			{{#if has_picture}}
+				<label for="image-input">
+					<div class="linked-image-container">
+						<img class="ui image linked-image edit-target" src="{{image_url}}">
+					</div>
+				</label>
+			{{/if}}
+			<div class="linked-profile {{picture_class}}">
+				<img src="{{profile_pic_url}}" class='linked-profile-image  {{picture_class}}' alt="" />
 				<h5>USA Today</h5>
 				<h6>Description for Linked In Profile</h6>
 				<div class="linked-follow">
@@ -21,12 +23,20 @@
 			</div>
 			{{#with linked_content_title}}
 				{{#clickableInput}}
-						<h3 id="{{id}}_display" class="linked-title edit-target">{{text}}</h3>
+						<h3 id="{{id}}_display" class="linked-title edit-target {{picture_class}}">{{text}}</h3>
 				{{/clickableInput}}
 			{{/with}}
 			<span class="date">
 				September 15, 2014
 			</span>
+			{{#if has_picture}}
+			{{else}}
+				{{#with linked_description}}
+					{{#clickableInput}}
+							<p id="{{id}}_display" class="linked-description edit-target {{picture_class}}">{{text}}</p>
+					{{/clickableInput}}
+				{{/with}}
+			{{/if}}
 			<div class="tags">
 				<div class="tag-header">
 					In:

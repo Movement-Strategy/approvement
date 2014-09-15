@@ -33,6 +33,10 @@ networkTypeMap = {
 		{
 			display : "With Picture",
 			value : 'with_picture',
+		},
+		{
+			display : "Text Online",
+			value : 'without_picture',
 		}
 	],
 };

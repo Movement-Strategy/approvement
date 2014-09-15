@@ -45,6 +45,10 @@ popupContent = {
 			with_picture : {
 				title : 'Content Title',
 				content : 'linked_content_title',
+			},
+			without_picture : {
+				title : 'linked_content_title',
+				content : 'linked_description',
 			}
 		},
 	},

@@ -113,6 +113,10 @@ initializeClickableInputs = function() {
 				default_text : "The title of the article that you would like to share",
 				style_class : 'linked-title',
 			},
+			linked_description : {
+				default_text : "Describe your content here",
+				style_class : 'linked-description',
+			},
 		},
 	};
 	
@@ -147,6 +151,10 @@ initializeClickableInputs = function() {
 			with_picture : [
 				'linked_content_title',
 			],
+			without_picture : [
+				'linked_content_title',
+				'linked_description',
+			],
 		},
 	};
 	
@@ -161,6 +169,7 @@ initializeClickableInputs = function() {
 		input.id = inputName;
 		processedInputs[inputName] = input;
 	});
+	
 	
 	Session.set('clickable_inputs', processedInputs);
 };
