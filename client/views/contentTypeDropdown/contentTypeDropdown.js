@@ -29,6 +29,12 @@ networkTypeMap = {
 			value : 'standard',
 		}
 	],
+	linked : [
+		{
+			display : "With Picture",
+			value : 'with_picture',
+		}
+	],
 };
 
 var getContentTypes = function() {

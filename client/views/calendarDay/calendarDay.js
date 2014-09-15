@@ -6,6 +6,13 @@ statusColorMap = {
 	commented : 'orange',
 };
 
+var iconMap = {
+	facebook : 'facebook',
+	twitter : 'twitter',
+	instagram : 'instagram',
+	linked : 'linkedin',
+};
+
 var setApprovalItemInDay = function(day, approvalItem) {
 	var scope = approvalItem.scope;
 	if(!_.has(day['approval_items'],scope)) {
@@ -16,7 +23,8 @@ var setApprovalItemInDay = function(day, approvalItem) {
 	processedItem = approvalItem;
 	// convert the status to a label color
 	processedItem['label_color'] = statusColorMap[approvalItem.status];
-	processedItem['label_icon'] = approvalItem.type;
+	
+	processedItem['label_icon'] = iconMap[approvalItem.type];
 	
 	// add this back in so we can process this data structure the same depending on if its being editted or created new
 	processedItem['day'] = {

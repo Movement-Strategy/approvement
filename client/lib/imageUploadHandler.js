@@ -11,7 +11,12 @@ imageUploadHandler = {
 		instagram : {
 			width : '512',
 			height : '512',
-		}
+		},
+		linked : {
+			width : '320',
+			height : '169',
+		},
+		
 	},
 	getImageURL : function() {
 		var heightDetails = this.heightMap[Session.get('current_network_type')];

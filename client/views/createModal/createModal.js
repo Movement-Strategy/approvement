@@ -108,6 +108,12 @@ initializeClickableInputs = function() {
 				style_class : '',
 			},
 		},
+		linked : {
+			linked_content_title : {
+				default_text : "The title of the article that you would like to share",
+				style_class : 'linked-title',
+			},
+		},
 	};
 	
 	var inputs =  {
@@ -135,6 +141,11 @@ initializeClickableInputs = function() {
 		instagram : {
 			standard : [
 				'instagram_caption'
+			],
+		},
+		linked : {
+			with_picture : [
+				'linked_content_title',
 			],
 		},
 	};

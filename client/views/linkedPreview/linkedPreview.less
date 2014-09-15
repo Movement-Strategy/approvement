@@ -1,0 +1,118 @@
+@import '../../stylesheets/variables.less'; 
+@import '../../stylesheets/elements.less'; 
+
+.linked-box {
+	width : 320px;
+	height : 385px;
+	box-shadow: 0 1px 2px #999;
+	position : relative;
+	margin-top : 10px;
+	margin-bottom : 10px;
+}
+
+.linked-image-container{
+	width : 320px;
+	height : 169px;
+	overflow: hidden;
+}
+.ui.segment.linked-box-container {
+ 	margin-left: auto;
+    margin-right: auto;
+}
+
+.linked-box > {
+	.linked-image {
+		width : 320px;
+		display: block;
+	}
+	.linked-profile {
+		padding-left : 65px;
+		padding-top: 20px;
+		display: block;
+		margin-top: -15px;
+		position: relative;
+		margin-bottom: 15px;
+	}
+	.linked-profile > {
+		.linked-profile-image {
+			position: absolute;
+			left : 0;
+			top : 0;
+			height : 50px;
+			width : 50px;	
+			border: 0 solid #fff;
+			border-width: 6px 6px 0 0;
+		}
+		font-family: Helvetica, Arial, sans-serif;
+		h5 {
+			line-height: 17px;
+			font-size : 13px;
+			color: rgb(0, 119, 181);
+			margin-top : 0px;
+			margin-bottom: 5px;
+		}
+		h6 {
+			font-size : 12px;
+			font-style: normal;
+			color: rgb(102, 102, 102);
+			font-weight: normal;
+			padding : 0px 0px 0px 0px;
+			margin : 0px 0px 0px 0px;
+			margin-bottom: 5px;	
+			
+		}
+		.linked-follow {
+			font-size: 13px;
+			color: rgb(67, 70, 73);
+			line-height: 17px;
+			font-weight: bold;
+		}
+		.linked-follow > {
+			.icon.add {
+				margin-right : 0px;
+			}
+		}
+	}
+	h3.linked-title, .ui.input > input.linked-title {
+		font-family: Helvetica, Arial, sans-serif;
+		font-style: normal;
+		padding : 0px 10px 10px 10px;
+		word-wrap: break-word;	
+		margin-bottom : 0px;
+		font-weight: bold;
+		font-size: 19px;
+		text-overflow: ellipsis;
+	}
+	span.date {
+		font-family: Helvetica, Arial, sans-serif;
+		padding : 0px 10px 10px 10px;
+		height: 17px;
+		font-size: 13px;
+		color: rgb(51, 51, 51);
+		display: block;
+	}
+	.tags {
+		font-family: Helvetica, Arial, sans-serif;
+		font-size: 13px;
+		padding : 0px 10px 10px 10px;
+		display: block;
+	}
+	.tags > {
+		.tag-header {
+			font-weight: bold;
+			display: inline;
+		}
+		.tag-body{
+			color: rgb(0, 102, 153);
+			display: inline;
+		}
+	}
+	.linked-actions {
+		height : 22px;
+		background-color: #f4f4f4;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;	
+	}
+}

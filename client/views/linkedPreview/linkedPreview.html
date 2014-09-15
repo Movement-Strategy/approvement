@@ -1,0 +1,44 @@
+<template name="linkedPreview">
+    <div class="ui segment linked-box-container linked-width">
+	    <div class="linked-box">
+			{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
+				<input id='image-input' type="file">
+			{{/S3}}
+	
+			<label for="image-input">
+				<div class="linked-image-container">
+					<img class="ui image linked-image edit-target" src="{{image_url}}">
+				</div>
+			</label>
+			<div class="linked-profile">
+				<img src="{{profile_pic_url}}" class='linked-profile-image' alt="" />
+				<h5>USA Today</h5>
+				<h6>Description for Linked In Profile</h6>
+				<div class="linked-follow">
+					<i class="icon add"></i>
+					Follow
+				</div>
+			</div>
+			{{#with linked_content_title}}
+				{{#clickableInput}}
+						<h3 id="{{id}}_display" class="linked-title edit-target">{{text}}</h3>
+				{{/clickableInput}}
+			{{/with}}
+			<span class="date">
+				September 15, 2014
+			</span>
+			<div class="tags">
+				<div class="tag-header">
+					In:
+				</div>
+				<div class="tag-body">
+					Marketing & Advertising
+				</div>
+			</div>
+			<div class="linked-actions">
+			</div>
+			
+	    </div>
+    </div>
+</template>
+

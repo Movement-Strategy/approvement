@@ -7,6 +7,7 @@ onImageUpload = function(url) {
 		facebook : 'link-image',
 		instagram : 'instagram-image-container',
 		twitter : 'twitter-image-container',
+		linked : 'linked-image-container',
 	};
 	
 	var selector = selectorMap[Session.get('current_network_type')];

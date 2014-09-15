@@ -41,5 +41,11 @@ popupContent = {
 				content : 'instagram_caption',
 			}
 		},
+		linked : {
+			with_picture : {
+				title : 'Content Title',
+				content : 'linked_content_title',
+			}
+		},
 	},
 };
