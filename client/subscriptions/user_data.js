@@ -1,3 +1,10 @@
+handleSingleClient = function() {
+	var clients = Session.get('current_clients');
+	if(clients.length == 1) {
+		Session.set('selected_client_id', clients[0]);
+	} 
+};
+
 Meteor.subscribe('userData', onReady = function(){
 	Deps.autorun(function(){
 		var users = Meteor.users.find({}, {fields : {profile : 1}}).fetch();
@@ -10,6 +17,7 @@ Meteor.subscribe('userData', onReady = function(){
 			var clientsByID = Session.get('clients_by_id');
 			clients = clients == 'all' ? _.keys(clientsByID) : clients;
 			Session.set('current_clients', clients);
+			handleSingleClient();
 			Session.set('user_name', profile.name);
 			Session.set('user_picture', facebookHandler.getPictureURL(profile.facebook_id));
 			if(!Session.get('clients_are_ready')) {

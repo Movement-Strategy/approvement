@@ -1,6 +1,6 @@
 Template['mainNav'].helpers({
 	show_dropdown : function() {
-		return !Session.get('details_shown');
+		return !Session.get('details_shown') && Session.get('current_clients').length > 1;
 	},
 	user_picture : function() {
 		return Session.get('user_picture');
@@ -12,7 +12,7 @@ Template['mainNav'].helpers({
 		Meteor.defer(function(){
 			$('.user-image-container').dropdown();
 		});
-	}
+	},
 });
 
 Template['mainNav'].events({
