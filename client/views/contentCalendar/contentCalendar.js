@@ -1,17 +1,10 @@
-getStartOfWeek = function() {
-	var currentDays = Session.get('current_days');
-	var startOfWeekTime = currentDays[0]['scheduled_time'];
-	var dateString = moment(startOfWeekTime).format('DD-MM-YYYY');
-	return moment(dateString, 'DD-MM-YYYY');
-}
-
 alterCurrentDate = function(alterFunction) {
-	var startOfWeek = getStartOfWeek();
+	var startOfWeek = timeHandler.getStartOfWeek();
 	startOfWeek = alterFunction(startOfWeek);
 	momentDate = startOfWeek;
-	setCurrentDays(momentDate);
-	setCalendarDays();
-	setApprovalItemsByDay();
+	calendarBuilder.setCurrentDays(momentDate);
+	calendarBuilder.buildAndSetCalendarDays();
+	approvalItemBuilder.setItemsByDay();
 }
 
 changeToNextWeek = function() {
@@ -35,77 +28,8 @@ changeToLastWeek = function() {
 	});
 };
 
-setCurrentDays = function(currentDate) {
-	var currentDays = {
-		1 : {
-			name : 'Monday',
-		},
-		2 : {
-			name : 'Tuesday',
-		},
-		3 : {
-			name : 'Wednesday',
-		},
-		4 : {
-			name : 'Thursday',
-		},
-		5 : {
-			name : 'Friday',
-		},
-		6 : {
-			name : 'Saturday',
-		},
-		7 : {
-			name : 'Sunday',
-		},
-	};
-	
-	currentDays = _.map(currentDays, function(day, dayIndex){
-		var isoDate = currentDate;
-		isoDate.isoWeekday(dayIndex);
-		day['full_date'] = isoDate.format("MM/DD/YYYY");
-		day['scheduled_time'] = isoDate.format("X") * 1000;
-		return day;
-	});
-	Session.set('current_days', currentDays);
-	
-}
-
 debugTime = function(time, name) {
 	console.log(name + moment(time).format('MMMM Do YYYY, h:mm:ss a'));
-}
-
-var getApprovalItemQuery = function() {
-	
-	var startOfWeek = getStartOfWeek();
-	var startTime = startOfWeek.format('X') * 1000;
-	
-	var endDate = startOfWeek;
-	endDate.add(7, 'days');
-	var endTime = endDate.format('X') * 1000;
-	return {
-		scheduled_time : {
-			$gte : startTime,
-			$lt : endTime,
-		},
-		client_id : Session.get('selected_client_id'),
-	};
-};
-
-setApprovalItemsByDay = function() {
-	var approvalItemQuery = getApprovalItemQuery();
-	var approvalItems = ApprovalItem.find(approvalItemQuery).fetch();
-	var approvalItemsByDay = {};
-	_.map(approvalItems, function(item){
-		var scheduledDate = moment(item.scheduled_time);
-		var dayIndex = scheduledDate.isoWeekday();
-		if(!_.has(approvalItemsByDay, dayIndex)) {
-			approvalItemsByDay[dayIndex] = [];
-		}
-		approvalItemsByDay[dayIndex].push(item);
-	});
-	Session.set('approval_items_by_day', approvalItemsByDay);
-	
 }
 
 Template['contentCalendar'].helpers({

@@ -3,7 +3,6 @@ Template['linkedPreview'].helpers({
 		return imageUploadHandler.getImageURL();
 	},
 	profile_pic_url : function() {
-		console.log(this);
 		return facebookHandler.getProfilePictureURL();
 	},
 	picture_class : function() {
