@@ -60,7 +60,7 @@ pendingItemHandler = {
 		if(pendingItems.length > 0) {
 			var pendingItem = pendingItems[itemOffset];
 			var targetTime = pendingItem['scheduled_time'];
-			changeToTargetTime(targetTime);
+			timeHandler.changeToTargetTime(targetTime);
 			Meteor.flush();
 			var isoDay = moment(targetTime).isoWeekday();
 			var currentDays = Session.get('calendar_days');

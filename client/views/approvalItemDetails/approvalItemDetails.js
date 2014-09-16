@@ -103,17 +103,18 @@ var keydownHandler = function(event) {
 	}
 	
 	// If details aren't open, go the next pending item on tab press
-	if(!Session.get('details_shown') && event.which == 9) {	pendingItemHandler.goToPendingItem(Session.get('pending_item_index'));
+	if(!Session.get('details_shown') && event.which == 9) {	
+		pendingItemHandler.goToPendingItem(Session.get('pending_item_index'));
 	}
 	
 	// If details is open change to last week on left press
 	if(!Session.get('details_shown') && event.which == 37) {
-		changeToLastWeek();
+		timeHandler.changeToLastWeek();
 	}
 	
 	// If details is open change to next week on right press
 	if(!Session.get('details_shown') && event.which == 39) {
-		changeToNextWeek();
+		timeHandler.changeToNextWeek();
 	}
 	
 	// Submit delete on enter if the prompt modal is open

@@ -8,41 +8,44 @@ calendarBuilder = {
 		Session.set('calendar_days', calendarDays);
 		Session.set('approval_items_are_ready', true);
 	},
+	defaultCurrentDays : {
+		1 : {
+			name : 'Monday',
+		},
+		2 : {
+			name : 'Tuesday',
+		},
+		3 : {
+			name : 'Wednesday',
+		},
+		4 : {
+			name : 'Thursday',
+		},
+		5 : {
+			name : 'Friday',
+		},
+		6 : {
+			name : 'Saturday',
+		},
+		7 : {
+			name : 'Sunday',
+		},
+	},
 	setCurrentDays : function(currentDate) {
-		var currentDays = {
-			1 : {
-				name : 'Monday',
-			},
-			2 : {
-				name : 'Tuesday',
-			},
-			3 : {
-				name : 'Wednesday',
-			},
-			4 : {
-				name : 'Thursday',
-			},
-			5 : {
-				name : 'Friday',
-			},
-			6 : {
-				name : 'Saturday',
-			},
-			7 : {
-				name : 'Sunday',
-			},
-		};
 		
-		currentDays = _.map(currentDays, function(day, dayIndex){
+		// Iterate over the default days and set the full date based on what the current date is
+		currentDays = _.map(this.defaultCurrentDays, function(day, dayIndex){
 			var isoDate = currentDate;
 			
-			// conver the day index into the correct date
+			// convert the day index into the correct date
 			isoDate.isoWeekday(dayIndex);
 			day['full_date'] = isoDate.format("MM/DD/YYYY");
 			day['scheduled_time'] = isoDate.format("X") * 1000;
 			return day;
 		});
 		Session.set('current_days', currentDays);
-	}
-	
+	},
+	getCalendarDays : function() {
+		return Session.get('calendar_days');
+	}	
 };
