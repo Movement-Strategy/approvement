@@ -87,30 +87,44 @@ var updateContents = function() {
 
 var keydownHandler = function(event) {
 	
+	// if details is hide creation modal submit update on cancel press
 	if(Session.get('details_shown') && event.which == 27 && Session.get('details_can_close')) {
 		hideCreationModal();
 	}
 	
+	// if details is open submit update on enter press
 	if(Session.get('details_shown') && event.which == 13 && Session.get('details_can_close')) {
 		updateContents();
 	}
 	
+	// if an asset is open cancel editted on escape
 	if(Session.get('current_asset_type') != null && event.which == 27) {
 		resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');
 	}
 	
-	if(!Session.get('details_shown') && event.which == 9) {
-		pendingItemHandler.goToPendingItem(Session.get('pending_item_index'));
+	// If details aren't open, go the next pending item on tab press
+	if(!Session.get('details_shown') && event.which == 9) {	pendingItemHandler.goToPendingItem(Session.get('pending_item_index'));
 	}
 	
+	// If details is open change to last week on left press
 	if(!Session.get('details_shown') && event.which == 37) {
 		changeToLastWeek();
 	}
 	
+	// If details is open change to next week on right press
 	if(!Session.get('details_shown') && event.which == 39) {
 		changeToNextWeek();
 	}
 	
+	// Submit delete on enter if the prompt modal is open
+	if(Session.get('current_prompt_type') != null && event.which == 13) {
+		promptModalHandler.handleDelete();
+	}
+	
+	// Close the prompt modal on escape if its open
+	if(Session.get('current_prompt_type') != null && event.which == 27) {
+		promptModalHandler.hide();
+	}
 };
 
 Template.approvalItemDetails.created = function() {

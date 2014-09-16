@@ -2,9 +2,13 @@ promptModalHandler = {
 	hide : function() {
 		Session.set('current_prompt_type', null);
 		$('.prompt-modal').modal('hide');
+		Meteor.defer(function(){
+			Session.set('details_can_close', true);
+		});
 	},
 	show : function(promptType) {
 		Session.set('current_prompt_type', promptType);
+		Session.set('details_can_close', false);
 		$('.prompt-modal').modal('show');
 	},
 	handleDelete : function() {
