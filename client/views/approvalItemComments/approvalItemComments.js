@@ -8,6 +8,10 @@ var buildComment = function(commentText) {
 	};
 };
 
+emptyCommentInput = function() {
+	$(".comment-input").val("");
+}
+
 Template['approvalItemComments'].helpers({
 	comments : function() {
 		return Session.get('current_comments');
@@ -33,7 +37,7 @@ Template['approvalItemComments'].events({
 			if(commentText != '') {
 				var comment = buildComment(commentText);
 				Meteor.call('addComment', Session.get('current_item_id'), comment);
-				$(".comment-input").val("");
+				emptyCommentInput();
 				Meteor.defer(function(){
 					Session.set('details_can_close', true);
 				});

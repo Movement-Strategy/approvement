@@ -38,6 +38,7 @@ showCreationModal = function() {
 };
 
 hideCreationModal = function() {
+	emptyCommentInput();
 	Session.set('details_shown', false);
 };
 
