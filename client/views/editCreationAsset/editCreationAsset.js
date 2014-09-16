@@ -44,8 +44,7 @@ Template['editCreationAsset'].events({
 		resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');
 	},
 	'click .delete-asset' : function() {
-		Meteor.call('removeAsset', Session.get('current_asset_id'));
-		resetAssetTemplate();
+		promptModalHandler.show('asset');
 	},
 });
 
