@@ -140,7 +140,7 @@ Template['approvalItemDetails'].events({
 		updateContents();
 	},
 	'click .delete.button' : function() {
-		showPromptModal();
+		promptModalHandler.show();
 	}
 });
 

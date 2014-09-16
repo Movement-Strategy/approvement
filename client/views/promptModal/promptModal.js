@@ -13,7 +13,7 @@ Template['promptModal'].events({
 	'click .button.delete' : function() {
 		Meteor.call('removeItem', Session.get('current_item_id'));
 		hideCreationModal();
-		hidePromptModal();
+		promptModalHandler.hide();
 	},
 });
 
