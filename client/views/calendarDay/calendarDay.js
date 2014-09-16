@@ -16,27 +16,17 @@ iconMap = {
 
 Template['calendarDay'].helpers({
 	updateReactiveVariables : function() {
-		var comments = _.has(this, 'comments') ? this.comments : [];
-		if(this._id == Session.get('current_item_id')) {
-			Session.set('current_comments', comments);
-		}
-	},
-	is_not_client : function() {
-		return Session.get('user_type') != 'client';
+		commentHandler.setCommentsFromDayContext(this);
 	},
 	day : function() {
-		if(Session.get('reset_items')) {
-			return {};
-		} else {
-			return this.day;
-		}
-		
+		return calendarBuilder.getDayFromContext(this);
 	},
 });
 
 Template['calendarDay'].events({
 	'click .create-item-button' : function(event) {
-		prepareModalToShow(this, true);
+			var creatingNew = true;
+			detailsHandler.showDetails(this, creatingNew);
 	},
 });
 

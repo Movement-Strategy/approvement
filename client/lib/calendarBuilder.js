@@ -47,5 +47,12 @@ calendarBuilder = {
 	},
 	getCalendarDays : function() {
 		return Session.get('calendar_days');
-	}	
+	},
+	getDayFromContext : function(context) {
+		if(Session.get('reset_items')) {
+			return {};
+		} else {
+			return context.day;
+		}
+	}
 };

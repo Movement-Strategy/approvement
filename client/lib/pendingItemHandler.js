@@ -66,7 +66,8 @@ pendingItemHandler = {
 			var currentDays = Session.get('calendar_days');
 			var currentDay = currentDays[isoDay - 1];
 			pendingItem['day'] = currentDay;
-			prepareModalToShow(pendingItem, false);
+			var creatingNew = false;
+			detailsHandler.showDetails(pendingItem, creatingNew);
 		}
 	},
 	getRelevantItemQuery : function() {

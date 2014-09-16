@@ -11,7 +11,7 @@ handleNetworkWithSingleContentType = function() {
 	if(hasOnlyOneContentType()) {
 		var contentTypes = networkTypeMap[Session.get('current_network_type')];
 		Session.set('current_content_type', contentTypes[0].value);
-		initializeClickableInputs();
+		inputBuilder.initializeClickableInputs();
 	}
 }
 
@@ -27,7 +27,7 @@ Template['networkTypeDropdown'].events({
 	'change .network-type-dropdown' : function(event) {
 		Session.set('current_network_type', event.target.value);
 		Session.set('current_content_type', null);
-		initializeClickableInputs();
+		inputBuilder.initializeClickableInputs();
 		handleNetworkWithSingleContentType();
 	},
 });
