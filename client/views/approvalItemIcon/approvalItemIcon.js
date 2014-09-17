@@ -22,7 +22,10 @@ Template['approvalItemIcon'].helpers({
 Template['approvalItemIcon'].events({
 	'click' : function() {
 		var creatingNew = false;
-		detailsHandler.showDetails(this, creatingNew);	
+		detailsHandler.showDetails(this, creatingNew);
 	},
+	'mouseenter .approval-item' : function(event) {
+		Session.set('shown_popup_id', event.currentTarget.id);
+	}
 });
 
