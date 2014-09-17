@@ -57,6 +57,15 @@ Template['approvalItemDetails'].helpers({
  	is_preview_shown : function() {
 		return Session.get('current_content_type') != null;
 	},
+	network_type_name : function() {
+		var typeMap = {
+			facebook : 'facebook post',
+			twitter : 'tweet',
+			instagram : 'instagram post',
+			linked : 'linkedin post',
+		};
+		return typeMap[Session.get('current_network_type')];
+	},
 	details_shown : function() {
 		return Session.get('details_shown');	
 	},

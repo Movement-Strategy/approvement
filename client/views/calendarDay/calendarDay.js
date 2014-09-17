@@ -6,14 +6,6 @@ statusColorMap = {
 	commented : 'orange',
 };
 
-iconMap = {
-	facebook : 'facebook',
-	twitter : 'twitter',
-	instagram : 'instagram',
-	linked : 'linkedin',
-};
-
-
 Template['calendarDay'].helpers({
 	updateReactiveVariables : function() {
 		commentHandler.setCommentsFromDayContext(this);

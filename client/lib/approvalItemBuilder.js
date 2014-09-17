@@ -13,6 +13,12 @@ approvalItemBuilder = {
 		});
 		Session.set('approval_items_by_day', itemsByDay);
 	},
+	iconMap : {
+		facebook : 'facebook',
+		twitter : 'twitter',
+		instagram : 'instagram',
+		linked : 'linkedin',
+	},
 	getFindQuery : function() {
 		var startOfWeek = timeHandler.getStartOfWeek();
 		var startTime = startOfWeek.format('X') * 1000;
@@ -47,7 +53,7 @@ approvalItemBuilder = {
 		// convert the status to a label color
 		processedItem['label_color'] = statusColorMap[item.status];
 		
-		processedItem['label_icon'] = iconMap[item.type];
+		processedItem['label_icon'] = this.getIconForType(item.type);
 		
 		// add this back in so we can process this data structure the same depending on if its being editted or created new
 		processedItem['day'] = {
@@ -56,5 +62,8 @@ approvalItemBuilder = {
 		day['approval_items'][scope].push(processedItem);
 		
 		return day;
+	},
+	getIconForType : function(networkType) {
+		return this.iconMap[networkType];
 	}
 };
