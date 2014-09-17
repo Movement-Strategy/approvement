@@ -15,6 +15,9 @@
 						<a id="{{id}}_display" class="twitter-body edit-target">{{text}}</a>
 				{{/clickableInput}}
 			{{/with}}
+			{{#if tweet_is_being_edited}}
+				<span class='characters-remaining {{number_class}}'>{{characters_remaining}}</span>
+			{{/if}}
 			
 			{{#if show_image}}
 				{{#S3 callback="uploadImage" onUpload="setUploadURL"}}

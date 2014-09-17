@@ -1,4 +1,5 @@
 setEditStateForInput = function(input_id, isBeingEditted, text) {
+	Session.set('edited_input_id', input_id);
 	inputs = Session.get('clickable_inputs');
 	inputs[input_id].being_editted = isBeingEditted;
 	if(text != null && text != '') {
@@ -9,6 +10,7 @@ setEditStateForInput = function(input_id, isBeingEditted, text) {
 
 cancelEditState = function(input_id) {
 	setEditStateForInput(input_id, false, null);
+	Session.set('edited_input_id', null);
 	Meteor.flush();
 	var displayElement = '#' + input_id + '_display';
 	$(displayElement).transition('shake', onHide = function(){
@@ -50,9 +52,11 @@ Template['clickableInput'].events({
 		if(beingEditted(this.id) && event.which == 13) {
 			var displayElement = '#' + this.id + '_display';
 			setEditStateForInput(this.id, false, $(inputElement).val());
+			Session.set('edited_input_id', null);
 			Meteor.flush();
 			$(displayElement).transition('pulse', onHide = function(){
 				Session.set('details_can_close', true);
+				
 			});
 		}
 		if(beingEditted(this.id) && event.which == 27) {

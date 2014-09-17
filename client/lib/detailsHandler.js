@@ -11,6 +11,8 @@ detailsHandler = {
 		Session.set('details_shown', true);
 	},
 	setDefaultsOnShow : function(context, creatingNewItem) {
+		Session.set('tweet_length', null);
+		Session.set('edited_input_id', null);
 		Session.set('time_to_post', null);
 		Session.set('editing_time', true);
 		Session.set('uploaded_image_url', null);
