@@ -1,10 +1,16 @@
 popupContent = {
 	getContent : function(networkType, contentType, currentContents) {
 		var contentDetails = this.contentMap[networkType][contentType];
-		return {
-			title : this.getContentKey(contentDetails.title, currentContents),
+		var output = {
+			title :  this.getContentKey(contentDetails.title, currentContents),
 			content : this.getContentKey(contentDetails.content, currentContents),
 		};
+		
+		if(_.has(currentContents, 'image_url') && currentContents.image_url != '') {
+			output.content = output.content + '<img class="ui small popup-image image" src="' + currentContents.image_url + '">';
+		}
+		
+		return output;
 		
 	},
 	getContentKey : function(key, currentContents) {
