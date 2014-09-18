@@ -1,59 +1,7 @@
-networkTypeMap = {
-	facebook : [
-		{
-			display : "Link",
-			value : "link",
-		},
-		{
-			display : "Photo",
-			value : "photo",
-		},
-		{
-			display : "Status",
-			value : "status",
-		},
-	],
-	twitter : [
-		{
-			display : "Standard",
-			value : 'without_picture',
-		},
-		{
-			display : "With Twit-pic",
-			value : 'with_picture',
-		},
-	],
-	instagram : [
-		{
-			display : "Standard",
-			value : 'standard',
-		}
-	],
-	linked : [
-		{
-			display : "With Picture",
-			value : 'with_picture',
-		},
-		{
-			display : "Text Only",
-			value : 'without_picture',
-		}
-	],
-};
-
-var getContentTypes = function() {
-	
-	contentTypes = [];
-	var networkType = Session.get('current_network_type');
-	if(networkType != null) {
-		contentTypes = networkTypeMap[networkType];
-	}
-	return contentTypes;
-};
 
 Template['contentTypeDropdown'].helpers({
 	content_types : function() {
-		return getContentTypes();
+		return contentTypeBuilder.getContentTypes();
 	},
 	initialize : function() {
 		Meteor.defer(function(){

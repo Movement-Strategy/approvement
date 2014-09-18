@@ -22,7 +22,7 @@ Template['mainNav'].events({
 	},
 	'click .main-title' : function() {
 		if(Session.get('details_shown')) {
-			hideCreationModal();
+			detailsHandler.hideDetails();
 		}
 	},
 });

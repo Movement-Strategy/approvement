@@ -96,4 +96,7 @@ inputBuilder = {
 		
 		Session.set('clickable_inputs', processedInputs);
 	},
+	getClickableInputs : function() {
+		return Session.get('clickable_inputs');
+	}
 };

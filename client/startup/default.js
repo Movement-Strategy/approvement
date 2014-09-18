@@ -21,7 +21,7 @@ Meteor.startup(function () {
 	Session.setDefault('pending_item_index', 0);
 	calendarBuilder.setCurrentDays(momentDate);
 	setSelectedClient();
-	handleAssetID();
-	handleAssets();
+	assetHandler.handleAssetID();
+	assetHandler.updateCurrentAssets();
 	handleSuccessGif();
 });

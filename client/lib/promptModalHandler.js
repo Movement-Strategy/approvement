@@ -16,6 +16,13 @@ promptModalHandler = {
 		var promptDetails = this.promptMap[promptType];
 		promptDetails['on_delete']();
 	},
+	initializeModal : function(){
+		Meteor.defer(function(){
+			$('.prompt-modal').modal({
+				context : $('#main'),
+			});
+		});
+	},
 	promptMap : {
 		approval_item : {
 			on_delete : function() {
@@ -30,11 +37,11 @@ promptModalHandler = {
 	},
 	deleteAsset : function() {
 		Meteor.call('removeAsset', Session.get('current_asset_id'));
-		resetAssetTemplate();
+		assetHandler.resetAssetTemplate();
 	},
 	deleteApprovalItem : function() {
 		Meteor.call('removeItem', Session.get('current_item_id'));
-		hideCreationModal();
+		detailsHandler.hideDetails();
 		promptModalHandler.hide();
 	}
 };

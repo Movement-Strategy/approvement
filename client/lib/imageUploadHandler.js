@@ -24,5 +24,18 @@ imageUploadHandler = {
 		currentItemContents = Session.get('current_item_contents');
 		currentURL = _.has(currentItemContents, 'image_url') ? currentItemContents['image_url'] : sampleURL;
 		return Session.get('uploaded_image_url') == null ? currentURL : Session.get('uploaded_image_url');
+	},
+	onImageUpload : function(url) {
+		Session.set('uploaded_image_url', url);
+		var selectorMap = {
+			facebook : 'link-image',
+			instagram : 'instagram-image-container',
+			twitter : 'twitter-image-container',
+			linked : 'linked-image-container',
+		};
+		var selector = selectorMap[Session.get('current_network_type')];
+		selector = '.' + selector;
+		$(selector).transition('tada');
 	}
+	
 };

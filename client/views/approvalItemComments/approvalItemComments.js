@@ -26,7 +26,7 @@ Template['approvalItemComments'].helpers({
 		return Session.get('user_picture');
 	},
 	width_class : function() {
-		return getWidthClass();
+		return detailsHandler.getWidthClass();
 	},
 });
 
