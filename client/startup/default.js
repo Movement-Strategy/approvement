@@ -8,6 +8,8 @@ Meteor.startup(function () {
 	var dateObject = new Date().add;
 	momentDate = moment(dateObject);
 	Session.setDefault('current_item_contents', {});
+	Session.setDefault('show_gif', false);
+	Session.setDefault('there_were_pending_items', false);
 	Session.setDefault('approval_items_by_day', {});
 	Session.setDefault('current_clients', []); 
 	Session.setDefault('clients_by_id', {});
@@ -21,4 +23,5 @@ Meteor.startup(function () {
 	setSelectedClient();
 	handleAssetID();
 	handleAssets();
+	handleSuccessGif();
 });

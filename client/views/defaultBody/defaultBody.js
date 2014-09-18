@@ -4,6 +4,13 @@ Template['defaultBody'].helpers({
 	},
 	logged_in : function() {
 		return loginHandler.isLoggedIn();
+	},
+	show_gif : function() {
+		if(!userHandler.userIsType('client')) {
+			return Session.get('show_gif');
+		} else {
+			return false;
+		}
 	}
 });
 

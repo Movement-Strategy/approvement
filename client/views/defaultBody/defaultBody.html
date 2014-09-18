@@ -2,7 +2,11 @@
     <div class="default">
     	{{#if logged_in}}
 	    	{{#if page_is_ready}}
-		    	{{> contentCalendar}}
+	    		{{#if show_gif}}
+	    			{{> successGif}}
+	    		{{else}}
+			    	{{> contentCalendar}}
+			    {{/if}}
 		    {{else}}
 				<div class="ui active dimmer">
 					<div class="ui loader"></div>
