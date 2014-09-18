@@ -32,6 +32,7 @@ Template['clientDropdown'].helpers({
 
 Template['clientDropdown'].events({
 	'change .client-dropdown' : function(event) {		
+		Session.set('there_were_pending_items', false);
 		Session.set('selected_client_id', event.target.value);
 	},
 });
