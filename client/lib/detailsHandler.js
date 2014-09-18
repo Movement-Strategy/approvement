@@ -17,7 +17,6 @@ detailsHandler = {
 		Session.set('editing_time', true);
 		Session.set('uploaded_image_url', null);
 		Session.set('current_item_id', context._id);
-		
 		Session.set('current_scope', context.scope);
 		Session.set('current_content_type', null);
 		Session.set('current_network_type', null);

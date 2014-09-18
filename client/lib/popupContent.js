@@ -13,6 +13,15 @@ popupContent = {
 		return output;
 		
 	},
+	initializePopup : function(context) {
+		if(Session.get('show_popups')) {
+			Meteor.defer(function(){
+				$('#label_' + context._id).popup({
+					position : 'top center',
+				});
+			});
+		}
+	},
 	getContentKey : function(key, currentContents) {
 		return _.has(currentContents, key) ? currentContents[key] : key;
 	},
