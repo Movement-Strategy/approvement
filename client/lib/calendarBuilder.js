@@ -40,6 +40,7 @@ calendarBuilder = {
 			// convert the day index into the correct date
 			isoDate.isoWeekday(dayIndex);
 			day['full_date'] = isoDate.format("MM/DD/YYYY");
+			day['is_today'] = day['full_date'] == moment().format("MM/DD/YYYY");
 			day['scheduled_time'] = isoDate.format("X") * 1000;
 			return day;
 		});

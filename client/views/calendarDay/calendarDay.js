@@ -7,6 +7,9 @@ statusColorMap = {
 };
 
 Template['calendarDay'].helpers({
+	is_today_class : function() {
+		return this.day.is_today ? 'is-today' : '';
+	},
 	updateReactiveVariables : function() {
 		commentHandler.setCommentsFromDayContext(this);
 	},

@@ -57,7 +57,8 @@ approvalItemBuilder = {
 		
 		// add this back in so we can process this data structure the same depending on if its being editted or created new
 		processedItem['day'] = {
-			scheduled_time : day.scheduled_time
+			scheduled_time : day.scheduled_time,
+			is_today : day.is_today,
 		};
 		day['approval_items'][scope].push(processedItem);
 		
