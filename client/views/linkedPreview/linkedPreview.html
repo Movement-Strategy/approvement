@@ -1,54 +1,46 @@
 <template name="linkedPreview">
-    <div class="ui segment linked-box-container linked-width">
-	    <div class="linked-box">
-			{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
-				<input id='image-input' type="file">
-			{{/S3}}
-	
-			{{#if has_picture}}
-				<label for="image-input">
-					<div class="linked-image-container">
-						<img class="ui image linked-image edit-target" src="{{image_url}}">
-					</div>
-				</label>
-			{{/if}}
-			<div class="linked-profile {{picture_class}}">
-				<img src="{{profile_pic_url}}" class='linked-profile-image  {{picture_class}}' alt="" />
-				<h5>{{display_name}}</h5>
-				<h6>Description for Linked In Profile</h6>
-				<div class="linked-follow">
-					<i class="icon add"></i>
-					Follow
-				</div>
-			</div>
-			{{#with linked_content_title}}
-				{{#clickableInput}}
-						<h3 id="{{id}}_display" class="linked-title edit-target {{picture_class}}">{{text}}</h3>
-				{{/clickableInput}}
-			{{/with}}
-			<span class="date">
-				September 15, 2014
+    <div class="ui segment linked-box {{picture_class}}">
+		<img class="linked-profile" src="{{profile_pic_url}}" alt="" />
+		<div class="linked-content">
+			<span class="linked-name">
+				{{display_name}}
 			</span>
-			{{#if has_picture}}
-			{{else}}
+			{{#if has_description}}
 				{{#with linked_description}}
 					{{#clickableInput}}
-							<p id="{{id}}_display" class="linked-description edit-target {{picture_class}}">{{text}}</p>
+							<span id="{{id}}_display" class="linked-description edit-target">{{text}}</span>
 					{{/clickableInput}}
 				{{/with}}
 			{{/if}}
-			<div class="tags">
-				<div class="tag-header">
-					In:
+			{{#if has_picture}}
+				<div class="linked-post">
+					{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
+						<input id='image-input' type="file">
+					{{/S3}}
+		
+					<label for="image-input">
+						<div class="linked-image-container">
+							<img class="ui image linked-image edit-target" src="{{image_url}}">
+						</div>
+					</label>
+					<div class="linked-body">
+						{{#with linked_content_title}}
+							{{#clickableInput}}
+									<span id="{{id}}_display" class="linked-title edit-target">{{text}}</span>
+							{{/clickableInput}}
+						{{/with}}
+						<p class='details-container'>
+							<span class='linked-source'>{{display_name}} on LinkedIn</span> 
+								{{#with linked_body}}
+									{{#clickableInput}}
+											<span id="{{id}}_display" class="linked-details edit-target">{{text}}</span>
+									{{/clickableInput}}
+								{{/with}}
+						</p>
+					</div>
 				</div>
-				<div class="tag-body">
-					Marketing & Advertising
-				</div>
-			</div>
-			<div class="linked-actions">
-			</div>
-			
-	    </div>
-    </div>
+			{{/if}}
+		</div>
+	</div>
 </template>
 

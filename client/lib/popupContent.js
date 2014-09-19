@@ -57,12 +57,16 @@ popupContent = {
 			}
 		},
 		linked : {
-			with_picture : {
-				title : 'Content Title',
-				content : 'linked_content_title',
+			picture_with_description : {
+				title : 'linked_content_title',
+				content : 'linked_body',
+			},
+			picture_without_description : {
+				title : 'linked_content_title',
+				content : 'linked_body',
 			},
 			without_picture : {
-				title : 'linked_content_title',
+				title : 'LinkedIn Post',
 				content : 'linked_description',
 			}
 		},

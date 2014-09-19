@@ -65,13 +65,24 @@ inputBuilder = {
 					style_class : 'linked-title',
 				},
 				linked_description : {
-					default_text : "Describe your content here",
+					default_text : "Some thoughts on whatever content you're posting",
 					style_class : 'linked-description',
 				},
+				linked_body : {
+					default_text : "This is where the main body of the text describing the link goes.  Feel free to really go sick here.  Just dive into the content in a way that really gets to the heart of things",
+					style_class : 'linked-details',
+				},
+				
 			},
 			inputs_by_content_type : {
-				with_picture : [
+				picture_with_description : [
 					'linked_content_title',
+					'linked_description',
+					'linked_body',
+				],
+				picture_without_description : [
+					'linked_content_title',
+					'linked_body',
 				],
 				without_picture : [
 					'linked_content_title',

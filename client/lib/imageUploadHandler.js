@@ -13,8 +13,8 @@ imageUploadHandler = {
 			height : '512',
 		},
 		linked : {
-			width : '320',
-			height : '169',
+			width : '180',
+			height : '110',
 		},
 		
 	},

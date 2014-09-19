@@ -51,8 +51,12 @@ contentTypeBuilder = {
 		],
 		linked : [
 			{
-				display : "With Picture",
-				value : 'with_picture',
+				display : "Picture With Description",
+				value : 'picture_with_description',
+			},
+			{
+				display : "Picture Without Description",
+				value : 'picture_without_description',
 			},
 			{
 				display : "Text Only",

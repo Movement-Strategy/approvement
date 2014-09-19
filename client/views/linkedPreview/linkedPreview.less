@@ -1,141 +1,92 @@
 @import '../../stylesheets/variables.less'; 
 @import '../../stylesheets/elements.less'; 
 
-.linked-box {
-	width : 320px;
-	height : 385px;
-	box-shadow: 0 1px 2px #999;
-	position : relative;
-	margin-top : 10px;
-	margin-bottom : 10px;
+.ui.segment.linked-box {
+	width : 646px;
+	height : 200px;
+	padding-left : 0px;
+	padding-top : 20px;
+	padding-right : 0px;
+	padding-bottom : 0px;
+	line-height: 15px;
 }
 
-.linked-image-container{
-	width : 320px;
-	height : 169px;
-	overflow: hidden;
+.ui.segment.linked-box.no-picture {
+	height : 80px;
 }
-.ui.segment.linked-box-container {
- 	margin-left: auto;
-    margin-right: auto;
-}
+
 
 .linked-box > {
-	.linked-image {
-		width : 320px;
-		display: block;
-	}
-	.linked-profile {
-		padding-left : 65px;
-		padding-top: 20px;
-		display: block;
-		margin-top: -15px;
-		position: relative;
-		margin-bottom: 15px;
-	}
-	.linked-profile.no-picture {
-		padding-left: 90px;
-		margin-top: 0px;
-		padding-top: 10px;
-	}
-	.linked-profile > {
-		.linked-profile-image {
-			position: absolute;
-			left : 0;
-			top : 0;
-			height : 50px;
-			width : 50px;	
-			border: 0 solid #fff;
-			border-width: 6px 6px 0 0;
-		}
-		.linked-profile-image.no-picture {
-			height : 80px;
-			width : 80px;	
-			border-width: 0px 0px 0px 0px;
-		}
+	span.linked-description, .ui.input > input.linked-description {
+		margin-top: 6px;
+		font-size: 13px;
 		font-family: Helvetica, Arial, sans-serif;
-		h5 {
-			line-height: 17px;
-			font-size : 13px;
-			color: rgb(0, 119, 181);
-			margin-top : 0px;
-			margin-bottom: 5px;
+		display: block;
+	}
+	.linked-post {
+		margin-top : 8px;
+		text-align : left;
+		display : block;
+	}
+	.linked-post > {
+		.linked-image-container {
+			height: 110px;
+			width: 180px;	
+			display : block;
+			float : left;
+			margin-right : 15px;
+			overflow: hidden;
 		}
-		h6 {
-			font-size : 12px;
-			font-style: normal;
-			color: rgb(102, 102, 102);
-			font-weight: normal;
-			padding : 0px 0px 0px 0px;
-			margin : 0px 0px 0px 0px;
-			margin-bottom: 5px;	
-			
+		.linked-image {
+			width : 180px;
 		}
-		.linked-follow {
-			font-size: 13px;
-			color: rgb(67, 70, 73);
-			line-height: 17px;
-			font-weight: bold;
+		.linked-body {
+			font-family: Helvetica, Arial, sans-serif;
 		}
-		.linked-follow > {
-			.icon.add {
-				margin-right : 0px;
+		.linked-body > {
+			.linked-title, .ui.input > input.linked-title{
+				height: 18px;
+				line-height: 18px;
+				font-weight: bold;
+			}
+			.details-container {
+				margin-top : 4px;
+				height : 85px;
+			}
+			.linked-details >, .ui.input > input.linked-details {
+				line-height: 17px;
+				font-size : 13px;
+			}
+			.linked-source {
+				color : rgb(153, 153, 153);
+				font-weight: bold;
+				font-size : 12px;
+				margin-right : 14px;
 			}
 		}
+		
 	}
-	h3.linked-title, .ui.input > input.linked-title {
-		font-family: Helvetica, Arial, sans-serif;
-		font-style: normal;
-		padding : 0px 10px 10px 10px;
-		word-wrap: break-word;	
-		margin-bottom : 0px;
-		font-weight: bold;
-		font-size: 19px;
-		text-overflow: ellipsis;
+	.linked-profile {
+		display : block;
+		float : left;
+		margin-right : 15px;
 	}
-	h3.linked-title.no-picture, .ui.input > input.linked-title.no-picture {
-		font-weight: bold;
-		font-size: 26px;
+	.linked-content {
+		width : 545px;
+		height : 134px;
+		display : block;
+		float : left;
 	}
-	span.date {
-		font-family: Helvetica, Arial, sans-serif;
-		padding : 0px 10px 10px 10px;
-		height: 17px;
-		font-size: 13px;
-		color: rgb(51, 51, 51);
-		display: block;
-	}
-	.linked-description > , .ui.input > .linked-description {
-		font-size: 13px;
-		line-height: 17px;
-		color: #999;
-		font-family: Helvetica, Arial, sans-serif;
-		padding : 15px 10px 15px 10px;
-		margin-top : 0px;
-		margin-bottom : 0px;
-	}
-	.tags {
-		font-family: Helvetica, Arial, sans-serif;
-		font-size: 13px;
-		padding : 0px 10px 10px 10px;
-		display: block;
-	}
-	.tags > {
-		.tag-header {
+	.linked-content > {
+		.linked-name {
+			color : rgb(0, 119, 181);
+			font-family: Helvetica, Arial, sans-serif;
+			font-size: 13px;
+			font-style: normal;
 			font-weight: bold;
-			display: inline;
-		}
-		.tag-body{
-			color: rgb(0, 102, 153);
+			line-height: 1px;
 			display: inline;
 		}
 	}
-	.linked-actions {
-		height : 22px;
-		background-color: #f4f4f4;
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;	
-	}
+
 }
