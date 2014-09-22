@@ -3,6 +3,9 @@ setEditStateForInput = function(input_id, isBeingEditted, text) {
 	inputs = Session.get('clickable_inputs');
 	inputs[input_id].being_editted = isBeingEditted;
 	if(text != null && text != '') {
+		if(inputs[input_id].text != text && !Session.get('changes_made')) {
+			Session.set('changes_made', true);
+		}
 		inputs[input_id].text = text;
 	}
 	Session.set('clickable_inputs', inputs);
