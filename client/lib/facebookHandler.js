@@ -5,5 +5,5 @@ facebookHandler = {
 	},
 	getPictureURL : function(id) {	
 		return 'http://graph.facebook.com/' + id + '/picture?size=square';
-	}
+	},
 };

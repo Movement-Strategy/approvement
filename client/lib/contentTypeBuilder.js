@@ -15,6 +15,9 @@ contentTypeBuilder = {
 			$('.content-type-dropdown').dropdown();
 		});
 	},
+	isType : function(type) {
+		return Session.equals('current_content_type', type);
+	},
 	hasOnlyOneContentType : function() {
 		if(Session.get('current_network_type') != null) {
 			var contentTypes = this.networkTypeMap[Session.get('current_network_type')];

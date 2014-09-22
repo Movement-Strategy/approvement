@@ -9,16 +9,16 @@ Template['facebookPreview'].helpers({
 		return Session.get('selected_client').display_name;
 	},
 	is_link_type : function() {
-		return Session.get('current_content_type') == 'link';
+		return contentTypeBuilder.isType('link');
 	},
 	is_photo_type : function() {
-		return Session.get('current_content_type') == 'photo';
+		return contentTypeBuilder.isType('photo');
 	},
 	is_status_type : function() {
-		return Session.get('current_content_type') == 'status';
+		return contentTypeBuilder.isType('status');
 	},
 	fixed_class : function() {
-		return Session.get('current_content_type') == 'link' ? 'fixed-size' : ''; 
+		return contentTypeBuilder.isType('link') ? 'fixed-size' : ''; 
 	}
 });
 
