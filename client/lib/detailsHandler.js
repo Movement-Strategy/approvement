@@ -20,6 +20,14 @@ detailsHandler = {
 		};
 	},
 	hideDetails : function() {
+		if(Session.get('changes_made')) {
+			promptModalHandler.show('exit_asset');
+		} else {
+			this.onHideDetails();
+		}
+		
+	},
+	onHideDetails : function() {
 		emptyCommentInput();
 		Session.set('details_shown', false);
 	},
@@ -30,6 +38,9 @@ detailsHandler = {
 	onCreatingNewItem : function(itemContents) {
 		var approvalItem = this.generateNewApprovalItemFromContents(itemContents);
 		Meteor.call('insertApprovalItem', approvalItem);
+		
+		// because we're creating a new item, we dont' need to worry about changes being made
+		Session.set('changes_made', false);
 		detailsHandler.hideDetails();
 	},
 	handleUpdate : function(userTypeDetails) {
@@ -58,6 +69,7 @@ detailsHandler = {
 		return userTypeDetails;
 	},
 	afterUpdate : function(contents, dynamicContentsUpdated) {
+		Session.set('changes_made', false);
 		detailsHandler.hideDetails();
 		// the pop up module in semantic ui has issues resetting correctly when content changes
 		// so were manually setting the items to be empty and flushing the system so that they can reset
