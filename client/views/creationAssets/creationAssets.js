@@ -12,7 +12,7 @@ Template['creationAssets'].helpers({
 		return assetHandler.editingAsset();
 	},
 	asset_types : function() {
-		assetHandler.getAssetTypes();
+		return assetHandler.getAssetTypes();
 	},
 	assets : function() {
 		return assetHandler.getAssets();
