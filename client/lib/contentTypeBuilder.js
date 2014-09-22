@@ -10,6 +10,11 @@ contentTypeBuilder = {
 	isContentTypeChosen : function() {
 		return Session.get('current_content_type') != null;
 	},
+	initializeDropdown : function() {
+		Meteor.defer(function(){
+			$('.content-type-dropdown').dropdown();
+		});
+	},
 	hasOnlyOneContentType : function() {
 		if(Session.get('current_network_type') != null) {
 			var contentTypes = this.networkTypeMap[Session.get('current_network_type')];

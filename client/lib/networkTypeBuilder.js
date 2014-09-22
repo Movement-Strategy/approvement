@@ -25,5 +25,8 @@ networkTypeBuilder = {
 		Session.set('current_content_type', null);
 		inputBuilder.initializeClickableInputs();
 		networkTypeBuilder.handleNetworkWithSingleContentType();
+	},
+	networkTypeChosen : function() {
+		return Session.get('current_network_type') != null;
 	}
 };

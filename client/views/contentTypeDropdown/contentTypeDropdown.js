@@ -4,12 +4,10 @@ Template['contentTypeDropdown'].helpers({
 		return contentTypeBuilder.getContentTypes();
 	},
 	initialize : function() {
-		Meteor.defer(function(){
-			$('.content-type-dropdown').dropdown();
-		});
+		contentTypeBuilder.initializeDropdown();
 	},
 	network_type_is_chosen : function() {
-		return Session.get('current_network_type') != null;
+		return networkTypeBuilder.networkTypeChosen();
 	}
 });
 

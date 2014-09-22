@@ -20,7 +20,6 @@ Template['facebookPreview'].helpers({
 	fixed_class : function() {
 		return Session.get('current_content_type') == 'link' ? 'fixed-size' : ''; 
 	}
-
 });
 
 Template['facebookPreview'].events({
