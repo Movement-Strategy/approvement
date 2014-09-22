@@ -45,25 +45,22 @@ Template.approvalItemDetails.created = function() {
 
 Template['approvalItemDetails'].events({
 	'click .submit.button' : function() {
-		detailsHandler.updateContents();
+		stateManager.changeToState('updated');
 	},
 	'click .reject.button' : function() {
 		stateManager.changeToState('rejected');
-		detailsHandler.hideDetails();
 	},
 	'click .approve.button' : function() {
 		stateManager.changeToState('approved');
-		detailsHandler.hideDetails();
 	},
 	'click .comment.button' : function() {
 		stateManager.changeToState('commented');
-		detailsHandler.hideDetails();
 	},
 	'click .back.icon' : function() {
 		detailsHandler.hideDetails();
 	},
 	'click .update.button' : function() {
-		detailsHandler.updateContents();
+		stateManager.changeToState('updated');
 	},
 	'click .delete.button' : function() {
 		promptModalHandler.show('approval_item');

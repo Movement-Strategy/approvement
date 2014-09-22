@@ -10,10 +10,11 @@ stateMap = {
 	commented : {
 		creative_director : {
 			status : 'commented',
-			
+			contents : 'set',
 		},
 		client : {
 			status : 'commented',
+			contents : 'set',
 		},
 	},
 	updated : {
@@ -32,26 +33,19 @@ stateMap = {
 		creative_director : {
 			status : 'submitted',
 			scope : 'external',
+			contents : 'set',
 		},
 		client : {
 			status : 'approved',
+			contents : 'set',
 		},
 	},
 };
 
 stateManager = {
-	updateApprovalItemState : function(details) {
-		Meteor.call('updateStatus', Session.get('current_item_id'), details);
-	},
-	changeToState : function(newState, contents, timeToPost) {
+	changeToState : function(newState) {
 		var stateDetails = stateMap[newState];
 		var userTypeDetails = stateDetails[Session.get('user_type')];
-		if(_.has(userTypeDetails, 'contents')) {
-			userTypeDetails['contents'] = contents;
-		}
-		if(timeToPost != null) {
-			userTypeDetails['time_to_post'] = timeToPost;
-		}
-		this.updateApprovalItemState(userTypeDetails);
+		detailsHandler.handleUpdate(userTypeDetails);
 	},
 };

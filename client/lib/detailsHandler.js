@@ -23,35 +23,55 @@ detailsHandler = {
 		emptyCommentInput();
 		Session.set('details_shown', false);
 	},
-	updateContents : function() {
+	getDynamicContents : function() {
+		itemContents = this.getDynamicContentFromDetails();
+		return itemContents;		
+	},
+	onCreatingNewItem : function(itemContents) {
+		var approvalItem = this.generateNewApprovalItemFromContents(itemContents);
+		Meteor.call('insertApprovalItem', approvalItem);
+		detailsHandler.hideDetails();
+	},
+	handleUpdate : function(userTypeDetails) {
+		contents = detailsHandler.getDynamicContents();
 		if(Session.get('creating_new_item')) {
-			var approvalItem = this.getCurrentApprovalItemFromDetails();
-			Meteor.call('insertApprovalItem', approvalItem);
-			detailsHandler.hideDetails();
+			detailsHandler.onCreatingNewItem(contents);
 		} else {
-			var contents = this.getDynamicContentFromDetails();
-			var timeToPost = Session.get('time_to_post');
-			stateManager.changeToState('updated', contents, timeToPost);
-			detailsHandler.hideDetails();
-			
-			// the pop up module in semantic ui has issues resetting correctly when content changes
-			// so were manually setting the items to be empty and flushing the system so that they can reset
-			Session.set('reset_items', true);
-			Meteor.flush();
-			Session.set('reset_items', false);
-			Meteor.flush();
+			detailsHandler.onUpdatingExistingItem(contents, userTypeDetails);
 		}
 	},
-	resetDetailsContent : function() {
-		Session.set('uploaded_image_url', null);
-		Session.set('current_item_contents', {});
-		Session.set('current_network_type', null);
-		Session.set('current_content_type', null);
-		Session.set('creating_new_item', true);
-		Session.set('pending_item_index', 0);
+	onUpdatingExistingItem : function(contents, userTypeDetails) {
+		var dynamicContentsUpdated = false;
+		if(_.has(userTypeDetails, 'contents')) {
+			userTypeDetails['contents'] = contents;
+			dynamicContentsUpdated = true;
+		}
+		userTypeDetails = this.addTimeToPostToUserTypeDetails(userTypeDetails);
+		Meteor.call('updateStatus', Session.get('current_item_id'), userTypeDetails);
+		this.afterUpdate(dynamicContentsUpdated);
 	},
-	getCurrentApprovalItemFromDetails : function() {
-		var itemContents = this.getDynamicContentFromDetails();
+	addTimeToPostToUserTypeDetails : function(userTypeDetails) {
+		var timeToPost = Session.get('time_to_post');
+		if(timeToPost != null) {
+			userTypeDetails['time_to_post'] = timeToPost;
+		}
+		return userTypeDetails;
+	},
+	afterUpdate : function(contents, dynamicContentsUpdated) {
+		detailsHandler.hideDetails();
+		// the pop up module in semantic ui has issues resetting correctly when content changes
+		// so were manually setting the items to be empty and flushing the system so that they can reset
+		if(dynamicContentsUpdated) {
+			this.resetContentToResetPopups();
+		}
+	},
+	resetContentToResetPopups : function() {
+		Session.set('reset_items', true);
+		Meteor.flush();
+		Session.set('reset_items', false);
+		Meteor.flush();
+	},
+	generateNewApprovalItemFromContents : function(itemContents) {
 		return {
 			contents : itemContents,
 			scheduled_time : Session.get('current_scheduled_time'),
@@ -70,6 +90,10 @@ detailsHandler = {
 		_.map(clickableInputs, function(clickableInput){
 			itemContents[clickableInput.id] = clickableInput.text;
 		});
+		itemContents = this.addImageURLToDynamicContent(itemContents);
+		return itemContents;
+	},
+	addImageURLToDynamicContent : function(itemContents) {
 		var uploadedImageURL = Session.get('uploaded_image_url');
 		var imageURL = null;
 		if(Session.get('creating_new_item')) {
@@ -81,8 +105,15 @@ detailsHandler = {
 		if(imageURL != null) {
 			itemContents.image_url = imageURL;
 		}
-		itemContents.time_to_post = Session.get('time_to_post');
 		return itemContents;
+	},
+	resetDetailsContent : function() {
+		Session.set('uploaded_image_url', null);
+		Session.set('current_item_contents', {});
+		Session.set('current_network_type', null);
+		Session.set('current_content_type', null);
+		Session.set('creating_new_item', true);
+		Session.set('pending_item_index', 0);
 	},
 	initializeAccordion : function() {
 		Meteor.defer(function(){
