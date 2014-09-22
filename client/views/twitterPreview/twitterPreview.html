@@ -9,12 +9,13 @@
 			    	@{{twitter_profile_name}} . 1h
 			    </span>
 		    </div>
-		    
-			{{#with tweet_body}}
-				{{#clickableInput}}
-						<a id="{{id}}_display" class="twitter-body edit-target">{{text}}</a>
-				{{/clickableInput}}
-			{{/with}}
+		    {{#if has_text}}
+				{{#with tweet_body}}
+					{{#clickableInput}}
+							<a id="{{id}}_display" class="twitter-body edit-target">{{text}}</a>
+					{{/clickableInput}}
+				{{/with}}
+			{{/if}}
 			{{#if tweet_is_being_edited}}
 				<span class='characters-remaining {{number_class}}'>{{characters_remaining}}</span>
 			{{/if}}

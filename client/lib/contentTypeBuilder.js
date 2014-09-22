@@ -42,6 +42,10 @@ contentTypeBuilder = {
 				display : "With Twit-pic",
 				value : 'with_picture',
 			},
+			{
+				display : "With Twit-pic, no text",
+				value : 'with_picture_no_text',
+			},
 		],
 		instagram : [
 			{

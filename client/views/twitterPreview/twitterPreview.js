@@ -10,6 +10,9 @@ Template['twitterPreview'].helpers({
 	image_url : function() {
 		return imageUploadHandler.getImageURL();
 	},
+	has_text : function() {
+		return !Session.equals('current_content_type', 'with_picture_no_text');
+	},
 	twitter_profile_name : function() {
 		return Session.get('selected_client').twitter_profile_name;{{}}
 	},
@@ -20,7 +23,7 @@ Template['twitterPreview'].helpers({
 		return facebookHandler.getProfilePictureURL();
 	},
 	show_image : function() {
-		return Session.get('current_content_type') == 'with_picture';
+		return Session.get('current_content_type') != 'without_picture';
 	},
 	characters_remaining : function() {
 		if(Session.equals('tweet_length', null) && $('#tweet_body_input').length){
@@ -36,7 +39,7 @@ Template['twitterPreview'].helpers({
 		return tweetBodyIsBeingEdited();
 	},
 	picture_class : function() {
-		return Session.get('current_content_type') == 'with_picture' ? 'has-picture' : '';
+		return Session.get('current_content_type') != 'without_picture' ? 'has-picture' : '';
 	}
 });
 
