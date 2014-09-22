@@ -6,7 +6,7 @@ Template['facebookPreview'].helpers({
 		return facebookHandler.getProfilePictureURL();
 	},
 	display_name : function() {
-		return Session.get('selected_client').display_name;
+		return clientHandler.getClientName();
 	},
 	is_link_type : function() {
 		return contentTypeBuilder.isType('link');
