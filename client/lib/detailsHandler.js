@@ -159,7 +159,7 @@ detailsHandler = {
 		inputBuilder.initializeClickableInputs();
 	},
 	closeShownPopup : function() {
-		$('#' + Session.get('shown_popup_id')).popup('hide');
+		$('#' + Session.get('shown_popup_id')).popup('remove');
 	},
 	getWidthClass : function() {
 		return Session.get('current_network_type') != null ? Session.get('current_network_type') + '-width' : 'facebook-width';
