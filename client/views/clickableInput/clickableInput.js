@@ -23,7 +23,11 @@ cancelEditState = function(input_id) {
 
 beingEditted = function(input_id) {
 	inputs = Session.get('clickable_inputs');
-	return _.has(inputs [input_id], 'being_editted') ? inputs[input_id]['being_editted'] : false;
+	if(_.has(inputs, input_id)) {
+		return _.has(inputs [input_id], 'being_editted') ? inputs[input_id]['being_editted'] : false;
+	} else {
+		return false;
+	}
 }
 
 Template['clickableInput'].helpers({
