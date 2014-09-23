@@ -7,7 +7,7 @@ Template['creationAssetIcon'].helpers({
 				position : 'top center',
 			});
 		});
-		return this.url;
+		return "<span class='asset-content'>" + this.url + '</span>';
 	},
 });
 
