@@ -6,7 +6,7 @@ Template['instagramPreview'].helpers({
 		return facebookHandler.getProfilePictureURL();
 	},
 	display_name : function() {
-		return Session.get('selected_client').twitter_profile_name;
+		return clientHandler.getTwitterProfileName();
 	}
 });
 

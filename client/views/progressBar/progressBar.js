@@ -1,22 +1,3 @@
-handleSuccessGif = function() {
-	Deps.autorun(function(){
-		var totalPendingItems = Session.get('total_pending_items');
-		var totalActions = Session.get('total_relevant_items');
-		var allFinished = totalPendingItems == 0;
-		
-		if(totalPendingItems > 0) {
-			Session.set('there_were_pending_items', true);
-		}
-		
-		if(allFinished && Session.get('there_were_pending_items')) {
-			Session.set('show_gif', true);
-			Session.set('there_were_pending_items', false);
-			Meteor.setTimeout(function(){
-				Session.set('show_gif', false);
-			}, 3000);
-		}
-	});
-}
 
 getBarWidth = function() {
 	var requiredActions = Session.get('total_pending_items');

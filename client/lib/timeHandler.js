@@ -5,6 +5,11 @@ timeHandler = {
 		var dateString = moment(startOfWeekTime).format('DD-MM-YYYY');
 		return moment(dateString, 'DD-MM-YYYY');
 	},
+	createMomentDate : function() {
+		var dateObject = new Date().add;
+		momentDate = moment(dateObject);
+		calendarBuilder.setCurrentDays(momentDate);
+	},
 	alterCurrentDate : function(alterFunction) {
 		var startOfWeek = timeHandler.getStartOfWeek();
 		startOfWeek = alterFunction(startOfWeek);

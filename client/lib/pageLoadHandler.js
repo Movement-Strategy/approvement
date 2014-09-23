@@ -1,4 +1,11 @@
 pageLoadHandler = {
+	onStartUp : function() {
+		timeHandler.createMomentDate();
+		clientHandler.setSelectedClient();
+		assetHandler.handleAssetID();
+		assetHandler.updateCurrentAssets();
+		gifHandler.handleSuccessGif();
+	},
 	checkIfPageIsReady : function() {
 		Deps.autorun(function(){
 			
@@ -10,5 +17,29 @@ pageLoadHandler = {
 	},
 	pageIsReady : function() {
 		return Session.get('page_is_ready');
+	},
+	defaultSessionValueMap : {
+		show_popups : true,
+		approval_items_are_ready : false,
+		clients_are_ready : false,
+		page_is_ready : false,
+		details_shown : false,
+		current_item_contents : {},
+		show_gif : false,
+		changes_made : false,
+		approval_items_by_day : {},
+		current_clients : [],
+		clients_by_id : {},
+		current_network_type : null,
+		current_content_type : null,
+		selected_client : false,
+		details_can_close : true,
+		total_pending_items : null,
+		pending_item_index : 0,
+	},
+	setSessionDefaults : function() {
+		_.map(this.defaultSessionValueMap, function(value, key){
+			Session.setDefault(key, value);
+		});
 	}
 };

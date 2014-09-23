@@ -1,4 +1,9 @@
 assetHandler = {
+	subscribeToAssets : function() {
+		if(Session.get('selected_client_id') != null) {
+			Meteor.subscribe('asset', Session.get('selected_client_id'));
+		}
+	},
 	resetAndTriggerAnimationOnAsset : function(assetID, animationName) {
 		this.resetAssetTemplate();
 		var selector = '#' + assetID;

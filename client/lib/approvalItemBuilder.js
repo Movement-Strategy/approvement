@@ -1,4 +1,12 @@
 approvalItemBuilder = {
+	onApprovalItemsReady : function()  {
+		Deps.autorun(function () {
+			if(Session.get('clients_are_ready')) {
+				approvalItemBuilder.setItemsByDay();
+				calendarBuilder.buildAndSetCalendarDays();
+			}
+		});	
+	},
 	setItemsByDay : function() {
 		var query = this.getFindQuery();
 		var items = ApprovalItem.find(query).fetch();

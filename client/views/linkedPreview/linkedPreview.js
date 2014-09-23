@@ -6,16 +6,16 @@ Template['linkedPreview'].helpers({
 		return facebookHandler.getProfilePictureURL();
 	},
 	picture_class : function() {
-		return Session.get('current_content_type') == 'without_picture' ? 'no-picture' : '';
+		return contentTypeBuilder.isType('without_picture') ? 'no-picture' : '';
 	},
 	has_picture : function() {
-		return Session.get('current_content_type') != 'without_picture';
+		return !contentTypeBuilder.isType('without_picture');
 	},
 	has_description : function() {
-		return !Session.equals('current_content_type', 'picture_without_description');
+		return !contentTypeBuilder.isType('picture_without_description');
 	},
 	display_name : function() {
-		return Session.get('selected_client').display_name;
+		return clientHandler.getClientName();
 	},
 });
 
