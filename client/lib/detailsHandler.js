@@ -59,7 +59,7 @@ detailsHandler = {
 		}
 		userTypeDetails = this.addTimeToPostToUserTypeDetails(userTypeDetails);
 		Meteor.call('updateStatus', Session.get('current_item_id'), userTypeDetails);
-		this.afterUpdate(dynamicContentsUpdated);
+		this.afterUpdate(contents, dynamicContentsUpdated);
 	},
 	addTimeToPostToUserTypeDetails : function(userTypeDetails) {
 		var timeToPost = Session.get('time_to_post');
