@@ -7,7 +7,7 @@ popupContent = {
 		};
 		
 		if(_.has(currentContents, 'image_url') && currentContents.image_url != '') {
-			output.content = output.content + '<img class="ui small popup-image image" src="' + currentContents.image_url + '">';
+			output.content = output.content + '<div class="popup-image-container"><img class="ui small popup-image image" src="' + currentContents.image_url + '"></div>';
 		}
 		
 		return output;
