@@ -30,5 +30,25 @@ clientHandler = {
 		if(clients.length == 1) {
 			Session.set('selected_client_id', clients[0]);
 		} 
+	},
+	setCurrentClients : function(profile) {
+		clients = this.getClientsFromProfile(profile);
+		Session.set('current_clients', clients);
+		clientHandler.handleSingleClient();
+		this.setClientsAsReady(clients);
+	},
+	getClientsFromProfile : function(profile) {
+		var clients = _.has(profile, 'clients') ? profile.clients : ['usa_today'];
+		clients = clients == 'all' ? _.keys(Session.get('clients_by_id')) : clients;
+		return clients;
+	},
+	setClientsAsReady : function(clients) {
+		if(!Session.get('clients_are_ready')) {
+			if(Session.get('clients_by_id') != {}) {
+				Session.set('selected_client_id', clients[0]);
+				clientHandler.setSelectedClient();
+				Session.set('clients_are_ready', true);
+			}
+		}
 	}
 };
