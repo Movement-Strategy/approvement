@@ -39,7 +39,7 @@ Template['approvalItemComments'].events({
 				Meteor.call('addComment', Session.get('current_item_id'), comment);
 				emptyCommentInput();
 				Meteor.defer(function(){
-					Session.set('details_can_close', true);
+					$(".comment-input").blur();
 				});
 			}
 		}
