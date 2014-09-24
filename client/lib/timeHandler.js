@@ -38,6 +38,20 @@ timeHandler = {
 	},
 	debugTime : function(time, name) {
 		console.log(name + moment(time).format('MMMM Do YYYY, h:mm:ss a'));
+	},
+	initializeTimePicker : function() {
+		Meteor.defer(function(){
+			$('#time-picker').timepicker();
+			$('#time-picker').on('changeTime', function(){
+				Session.set('time_to_post', $('#time-picker').val());
+				Session.set('editing_time', false);
+			});
+		});	
+	},
+	isTimeSelected : function() {
+		return !Session.get('editing_time');
+	},
+	getTimeToPost : function() {
+		return Session.get('time_to_post');
 	}
-	
 };
