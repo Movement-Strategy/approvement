@@ -12,7 +12,7 @@ Template['timePicker'].helpers({
 
 Template['timePicker'].events({
 	'click .scheduled-time' : function() {
-		Session.set('editing_time', true);
+		return timeHandler.pickerIsBeingEditted();
 	}
 });
 

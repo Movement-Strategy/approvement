@@ -53,5 +53,8 @@ timeHandler = {
 	},
 	getTimeToPost : function() {
 		return Session.get('time_to_post');
+	},
+	pickerIsBeingEditted : function() {
+		Session.set('editing_time', true);	
 	}
 };
