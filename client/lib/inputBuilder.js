@@ -109,5 +109,86 @@ inputBuilder = {
 	},
 	getClickableInputs : function() {
 		return Session.get('clickable_inputs');
+	},
+	setEditStateForInput : function(input_id, isBeingEditted, text) {
+		Session.set('edited_input_id', input_id);
+		inputs = Session.get('clickable_inputs');
+		inputs[input_id].being_editted = isBeingEditted;
+		if(text != null && text != '') {
+			this.handleChangesMade(text, inputs, input_id);
+			inputs[input_id].text = text;
+		}
+		
+		Session.set('clickable_inputs', inputs);
+	},
+	handleChangesMade : function(text, inputs, input_id) {
+		if(inputs[input_id].text != text && !Session.get('changes_made')) {
+			Session.set('changes_made', true);
+		}
+	},
+	cancelEditState : function(input_id) {
+		inputBuilder.setEditStateForInput(input_id, false, null);
+		Session.set('edited_input_id', null);
+		Meteor.flush();
+		var displayElement = '#' + input_id + '_display';
+		$(displayElement).transition('shake', onHide = function(){
+			Session.set('details_can_close', true);
+		});
+	},
+	beingEditted : function(input_id) {
+		inputs = Session.get('clickable_inputs');
+		if(_.has(inputs, input_id)) {
+			return _.has(inputs [input_id], 'being_editted') ? inputs[input_id]['being_editted'] : false;
+		} else {
+			return false;
+		}
+	},
+	onInputClick : function(context) {
+		var elementID = context.id;
+		var inputElement = elementID + '_input';
+		Session.set('details_can_close', false);
+		inputBuilder.setEditStateForInput(elementID, true, null);
+		Meteor.flush();	
+		var element = document.getElementById(inputElement);
+		element = $(element);
+		element.attr('size', element.val().length);
+		element.focus();
+	},
+	setLengthOfInputElement : function(elementID, inputElement) {
+		if(inputBuilder.beingEditted(elementID)) {
+			$(inputElement).attr('size', $(inputElement).val().length);
+		}
+	},
+	onInputKeydown : function(context) {
+		var elementID = context.id;
+		var inputElement = '#' + elementID + '_input';
+		this.setLengthOfInputElement(elementID, inputElement);
+		this.handleEnterPress(elementID, inputElement);
+		this.handleEscapePress(elementID);
+	},
+	handleEnterPress : function(elementID, inputElement) {
+		if(inputBuilder.beingEditted(elementID) && event.which == 13) {
+			var displayElement = '#' + elementID + '_display';
+			inputBuilder.setEditStateForInput(elementID, false, $(inputElement).val());
+			Session.set('edited_input_id', null);
+			// flush so that the element resets to its display form
+			Meteor.flush();
+			
+			// trigger an animation so the user knows its been edited
+			$(displayElement).transition('pulse', onHide = function(){
+				Session.set('details_can_close', true);
+			});
+		}
+	},
+	handleEscapePress : function(elementID) {
+		if(inputBuilder.beingEditted(elementID) && event.which == 27) {
+			inputBuilder.cancelEditState(elementID);
+		}
+	},
+	onInputBlur : function(context) {
+		inputBuilder.cancelEditState(context.id);
+	},
+	inputTextIsDefault : function(context) {
+		return context.text == context.default_text
 	}
 };

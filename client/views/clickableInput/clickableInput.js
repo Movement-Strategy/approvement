@@ -1,77 +1,22 @@
-setEditStateForInput = function(input_id, isBeingEditted, text) {
-	Session.set('edited_input_id', input_id);
-	inputs = Session.get('clickable_inputs');
-	inputs[input_id].being_editted = isBeingEditted;
-	if(text != null && text != '') {
-		if(inputs[input_id].text != text && !Session.get('changes_made')) {
-			Session.set('changes_made', true);
-		}
-		inputs[input_id].text = text;
-	}
-	Session.set('clickable_inputs', inputs);
-};
-
-cancelEditState = function(input_id) {
-	setEditStateForInput(input_id, false, null);
-	Session.set('edited_input_id', null);
-	Meteor.flush();
-	var displayElement = '#' + input_id + '_display';
-	$(displayElement).transition('shake', onHide = function(){
-		Session.set('details_can_close', true);
-	});
-}
-
-beingEditted = function(input_id) {
-	inputs = Session.get('clickable_inputs');
-	if(_.has(inputs, input_id)) {
-		return _.has(inputs [input_id], 'being_editted') ? inputs[input_id]['being_editted'] : false;
-	} else {
-		return false;
-	}
-}
 
 Template['clickableInput'].helpers({
 	being_editted : function() {
-		return beingEditted(this.id);
+		return inputBuilder.beingEditted(this.id);
 	},
 	text_to_display : function() {
-		return this.text == this.default_text ? "" : this.text;
+		return inputBuilder.inputTextIsDefault(this) ? "" : this.text;
 	}
 });
 
 Template['clickableInput'].events({
 	'click'  : function(event) {
-		var inputElement = this.id + '_input';
-		Session.set('details_can_close', false);
-		setEditStateForInput(this.id, true, null);
-		Meteor.flush();	
-		var element = document.getElementById(inputElement);
-		element = $(element);
-		element.attr('size', element.val().length);
-		element.focus();
-	
+		inputBuilder.onInputClick(this);
 	},
 	'keydown' : function() {
-		var inputElement = '#' + this.id + '_input';
-		if(beingEditted(this.id)) {
-			$(inputElement).attr('size', $(inputElement).val().length);
-		}
-		if(beingEditted(this.id) && event.which == 13) {
-			var displayElement = '#' + this.id + '_display';
-			setEditStateForInput(this.id, false, $(inputElement).val());
-			Session.set('edited_input_id', null);
-			Meteor.flush();
-			$(displayElement).transition('pulse', onHide = function(){
-				Session.set('details_can_close', true);
-				
-			});
-		}
-		if(beingEditted(this.id) && event.which == 27) {
-			cancelEditState(this.id);
-		}
+		inputBuilder.onInputKeydown(this);
 	},
 	'blur .input-text' : function(event) {
-		cancelEditState(this.id);
+		inputBuilder.onInputBlur(this);
 	},
 	
 });
