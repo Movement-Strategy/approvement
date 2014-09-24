@@ -9,6 +9,12 @@ userHandler = {
 			this.configureCurrentUser(user);
 		}
 	},
+	getName : function() {
+		return Session.get('user_name');
+	},
+	getPicture : function() {
+		return Session.get('user_picture');
+	},
 	configureCurrentUser : function(user) {
 		var profile = user.profile;
 		this.configureUserProfile(profile);

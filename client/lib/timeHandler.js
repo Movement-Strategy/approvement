@@ -56,5 +56,8 @@ timeHandler = {
 	},
 	pickerIsBeingEditted : function() {
 		Session.set('editing_time', true);	
+	},
+	getFormattedDate : function() {
+		return moment(this.created_time).format('MMMM Do YYYY, h:mm a');
 	}
 };

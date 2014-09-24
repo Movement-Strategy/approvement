@@ -1,29 +1,17 @@
-var buildComment = function(commentText) {
-	var timestamp = new Date().getTime();
-	return {
-		text : commentText,
-		created_time : timestamp,
-		name : Session.get('user_name'),
-		avatar : Session.get('user_picture'),
-	};
-};
 
-emptyCommentInput = function() {
-	$(".comment-input").val("");
-}
 
 Template['approvalItemComments'].helpers({
 	comments : function() {
-		return Session.get('current_comments');
+		return commentHandler.getCurrentComments();
 	},
 	formatted_date : function() {
-		return moment(this.created_time).format('MMMM Do YYYY, h:mm a');
+		return timeHandler.getFormattedDate();
 	},
 	user_name : function() {
-		return Session.get('user_name');
+		return userHandler.getName();
 	},
 	user_picture : function() {
-		return Session.get('user_picture');
+		return userHandler.getPicture();
 	},
 	width_class : function() {
 		return detailsHandler.getWidthClass();
@@ -32,23 +20,13 @@ Template['approvalItemComments'].helpers({
 
 Template['approvalItemComments'].events({
 	'keydown' : function(event) {
-		if($(".comment-input").is(":focus") && event.which == 13) {
-			var commentText = $(".comment-input").val();
-			if(commentText != '') {
-				var comment = buildComment(commentText);
-				Meteor.call('addComment', Session.get('current_item_id'), comment);
-				emptyCommentInput();
-				Meteor.defer(function(){
-					$(".comment-input").blur();
-				});
-			}
-		}
+		commentHandler.onKeydown(event);
 	},
 	'focus' : function(event) {
-		Session.set('details_can_close', false);
+		commentHandler.onFocus();
 	},
 	'blur' : function() {
-		Session.set('details_can_close', true);
+		commentHandler.onBlur();
 	}
 });
 

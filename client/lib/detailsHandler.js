@@ -28,7 +28,7 @@ detailsHandler = {
 		
 	},
 	onHideDetails : function() {
-		emptyCommentInput();
+		commentHandler.emptyCommentInput();
 		Session.set('details_shown', false);
 	},
 	getDynamicContents : function() {
