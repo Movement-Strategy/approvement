@@ -18,9 +18,7 @@ promptModalHandler = {
 	},
 	initializeModal : function(){
 		Meteor.defer(function(){
-			$('.prompt-modal').modal({
-				context : $('#main'),
-			});
+			$('.prompt-modal').modal();
 		});
 	},
 	getContent : function() {
