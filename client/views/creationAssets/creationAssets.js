@@ -21,9 +21,7 @@ Template['creationAssets'].helpers({
 
 Template['creationAssets'].events({
 	'click .asset-type' : function(event){
-		var assetType = $(event.target).data().value;
-		Session.set('current_asset_type', assetType);
-		Session.set('details_can_close', false);
+		assetHandler.onClickAssetTypeOption(event);
 	}
 });
 

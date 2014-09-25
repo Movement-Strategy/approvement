@@ -1,24 +1,21 @@
 Template['mainNav'].helpers({
 	show_dropdown : function() {
-		return !Session.get('details_shown') && Session.get('current_clients').length > 1;
+		return clientHandler.clientDropdownShouldBeShown();
 	},
 	user_picture : function() {
-		return Session.get('user_picture');
+		return userHandler.getPicture();
 	},
 	signed_in : function() {
-		return Meteor.userId() != null;
+		return userHandler.userSignedIn();
 	},
 	initializeDropdown : function() {
-		Meteor.defer(function(){
-			$('.user-image-container').dropdown();
-		});
+		userHandler.initializeUserDropdown();
 	},
 });
 
 Template['mainNav'].events({
 	'click .sign-out' : function() {
-		Meteor.logout();
-		Session.set('clients_are_ready', false);
+		userHandler.signUserOut();
 	},
 	'click .main-title' : function() {
 		if(Session.get('details_shown')) {

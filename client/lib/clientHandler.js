@@ -32,6 +32,9 @@ clientHandler = {
 		Session.set('there_were_pending_items', false);
 		Session.set('selected_client_id', event.target.value);
 	},
+	clientDropdownShouldBeShown : function() {
+		return !Session.get('details_shown') && Session.get('current_clients').length > 1;
+	},
 	getClientsForDropdown : function() {
 		var clientsByID = Session.get('clients_by_id');
 		var clients = Session.get('current_clients');

@@ -25,5 +25,30 @@ gifHandler = {
 			Session.set('there_were_pending_items', true);
 		}
 		return allFinished;
-	},	
+	},
+	gifShouldBeShown : function() {
+		if(!userHandler.userIsType('client')) {
+			return Session.get('show_gif');
+		} else {
+			return false;
+		}
+	},
+	getGifURL : function(){
+		var gif = this.gifs[Math.floor(Math.random() * this.gifs.length)];
+		return 'images/' + gif;
+	},
+	gifs : [
+		'gif1.gif',
+		'gif2.gif',
+		'gif3.gif',
+		'topgun.gif',
+		'elvis.gif',
+		'fistpump.gif',
+		'never.gif',
+		'wow.gif',
+		'dog-five.gif',
+		'kingpin.gif',
+		'yes.gif',
+		'slowclap.gif',
+	]	
 };

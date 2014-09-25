@@ -12,6 +12,9 @@ userHandler = {
 	getName : function() {
 		return Session.get('user_name');
 	},
+	userSignedIn : function() {
+		return Meteor.userId() != null;
+	},
 	getPicture : function() {
 		return Session.get('user_picture');
 	},
@@ -26,5 +29,14 @@ userHandler = {
 		Session.set('user_name', profile.name);
 		Session.set('user_picture', facebookHandler.getPictureURL(profile.facebook_id));
 	},
+	initializeUserDropdown : function() {
+		Meteor.defer(function(){
+			$('.user-image-container').dropdown();
+		});
+	},
+	signUserOut : function() {
+		Meteor.logout();
+		Session.set('clients_are_ready', false);
+	}
 	
 };

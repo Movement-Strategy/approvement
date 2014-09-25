@@ -6,11 +6,7 @@ Template['defaultBody'].helpers({
 		return loginHandler.isLoggedIn();
 	},
 	show_gif : function() {
-		if(!userHandler.userIsType('client')) {
-			return Session.get('show_gif');
-		} else {
-			return false;
-		}
+		return gifHandler.gifShouldBeShown();
 	}
 });
 

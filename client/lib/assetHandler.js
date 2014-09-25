@@ -11,6 +11,28 @@ assetHandler = {
 			Session.set('details_can_close', true);
 		});
 	},
+	getAssetContent : function () {
+		var currentAsset = Session.get('current_asset');
+		if(currentAsset) {
+			return _.has(currentAsset, 'url') ? currentAsset.url : "";
+		} else {
+			return "";
+		}
+	},
+	onAssetInputKeydown : function(event) {
+		this.handleEnterPress(event);
+		this.handleEscapePress(event);
+	},
+	handleEnterPress : function() {
+		if(event.which == 13) {
+			assetHandler.createOrUpdateAsset($('.input-asset').val());
+		}
+	},
+	handleEscapePress : function() {
+		if(event.which == 27) {
+			assetHandler.resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');		
+		}
+	},
 	resetAssetTemplate : function() {
 		this.resetAssetState();
 		Meteor.flush();
@@ -26,23 +48,34 @@ assetHandler = {
 	},
 	getPopupContent : function(context) {
 		var selector = '#' + context._id;
-		assetHandler.initializeAssetDropdown(selector);
+		this.initializeAssetPopup(selector);
 		return "<span class='asset-content'>" + context.url + '</span>';
 	},
-	initializeAssetDropdown : function(selector) {
+	initializeAssetPopup : function(selector) {
 		Meteor.defer(function(){
 			$(selector).popup({
 				position : 'top center',
 			});
 		});
 	},
-	editingAsset : function() {
-		return Session.get('current_asset_type') != null;
+	onClickAssetTypeOption : function(event) {
+		var assetType = $(event.target).data().value;
+		Session.set('current_asset_type', assetType);
+		Session.set('details_can_close', false);
 	},
 	initializeAssetDropdown : function() {
 		Meteor.defer(function(){
 			$('.create-asset').dropdown();
 		});
+	},	
+	onClickAssetIcon : function(event) {
+		var clickedID = event.currentTarget.id;
+		$('#' + clickedID).popup('hide');
+		Session.set('current_asset_id', clickedID);
+		Session.set('details_can_close', false);
+	},
+	editingAsset : function() {
+		return Session.get('current_asset_type') != null;
 	},
 	resetAssetState : function() {
 		Session.set('current_asset_id', null);
