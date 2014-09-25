@@ -18,7 +18,7 @@ userHandler = {
 	configureCurrentUser : function(user) {
 		var profile = user.profile;
 		this.configureUserProfile(profile);
-		pendingItemHandler.setCountsForProgressBar();
+		progressBarHandler.setCountsForProgressBar();
 		clientHandler.setCurrentClients(profile);
 	},
 	configureUserProfile : function(profile) {

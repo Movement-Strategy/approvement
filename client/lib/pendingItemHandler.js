@@ -39,10 +39,6 @@ pendingItemHandler = {
 			],
 		},
 	},
-	setCountsForProgressBar : function() {
-		this.setPendingItemCount();
-		this.setRelevantItemCount();
-	},
 	setPendingItemCount : function() {
 		var query = this.getPendingItemQuery();
 		var pendingItems = ApprovalItem.find(query, {sort : {scheduled_time : 1, created_time : 1}}).fetch();

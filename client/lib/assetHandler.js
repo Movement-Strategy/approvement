@@ -24,6 +24,18 @@ assetHandler = {
 			return asset;
 		});
 	},
+	getPopupContent : function(context) {
+		var selector = '#' + context._id;
+		assetHandler.initializeAssetDropdown(selector);
+		return "<span class='asset-content'>" + context.url + '</span>';
+	},
+	initializeAssetDropdown : function(selector) {
+		Meteor.defer(function(){
+			$(selector).popup({
+				position : 'top center',
+			});
+		});
+	},
 	editingAsset : function() {
 		return Session.get('current_asset_type') != null;
 	},

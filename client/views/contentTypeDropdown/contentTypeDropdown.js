@@ -11,8 +11,7 @@ Template['contentTypeDropdown'].helpers({
 
 Template['contentTypeDropdown'].events({
 	'click .content-type-item' : function(event) {
-		Session.set('current_content_type', $(event.currentTarget).attr('data-value'));
-		inputBuilder.initializeClickableInputs();
+		contentTypeBuilder.onClickContentType(event);
 	},
 });
 

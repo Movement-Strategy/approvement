@@ -26,6 +26,10 @@ contentTypeBuilder = {
 			return false;
 		}
 	},
+	onClickContentType : function(event) {
+		Session.set('current_content_type', $(event.currentTarget).attr('data-value'));
+		inputBuilder.initializeClickableInputs();
+	},
 	networkTypeMap : {
 		facebook : [
 			{

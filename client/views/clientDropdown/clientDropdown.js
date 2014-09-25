@@ -1,39 +1,23 @@
 
 Template['clientDropdown'].helpers({
 	initialize : function() {
-		if(Session.get('clients_are_ready')) {
-			Meteor.defer(function(){
-				$('.client-dropdown').dropdown();
-			});
-		}
+		clientHandler.initializeClientDropdown();
 	},
 	selected_client_name : function() {
-		var selectedClient = Session.get('selected_client');
-		var clientName = Session.get('clients_are_ready') ? selectedClient.display_name : 'Client';
-		return clientName;
+		return clientHandler.getSelectedClientName();
 	},
 	selected_client_id : function() {
-		return Session.get('selected_client_id');
+		return clientHandler.getSelectedClientID();
 	},
 	clients : function() {
-		var clientsByID = Session.get('clients_by_id');
-		var clients = Session.get('current_clients');
-		clients = _.map(clients, function(clientID){
-			clientDetails = clientsByID[clientID];
-			return {
-				value : clientID,
-				display : clientDetails['display_name'],
-			};
-		});
-		return clients;
+		return clientHandler.getClientsForDropdown();
 	},
 	
 });
 
 Template['clientDropdown'].events({
 	'change .client-dropdown' : function(event) {		
-		Session.set('there_were_pending_items', false);
-		Session.set('selected_client_id', event.target.value);
+		return clientHandler.onChangeClientDropdown(event);
 	},
 });
 
