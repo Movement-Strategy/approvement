@@ -28,12 +28,15 @@ Template['calendarDay'].events({
 			detailsHandler.showDetails(this, creatingNew);
 	},
 	'dragenter .calendar-day' : function(event) {
-		calendarBuilder.onDragEnter(event);
+		
 	},
 	'dragover .calendar-day' : function(event) {
+		calendarBuilder.onDraggedOver(event);
+		event.originalEvent.dataTransfer.dropEffect = "move";
 		event.preventDefault();
 	},
 	'dragleave .calendar-day' : function(event) {
+		calendarBuilder.onDragLeave();
 		event.preventDefault();
 	},
 	'drop .calendar-day' : function(event) {

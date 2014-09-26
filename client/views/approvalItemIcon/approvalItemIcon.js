@@ -21,8 +21,14 @@ Template['approvalItemIcon'].events({
 	'mouseenter .approval-item' : function(event) {
 		Session.set('shown_popup_id', event.currentTarget.id);
 	},
+	'dragstart .approval-item' : function(event) {
+		detailsHandler.closeShownPopup();
+	},
 	'drag .approval-item' : function(event) {
 		event.preventDefault();	
+	},
+	'dragend .approval-item' : function() {
+		approvalItemBuilder.onDragEnd();
 	}
 });
 

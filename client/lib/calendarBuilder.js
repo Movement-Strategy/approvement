@@ -49,7 +49,21 @@ calendarBuilder = {
 	dayIsDraggedOver : function(context) {
 		return Session.equals('dragged_over_day', context.day.full_date);
 	},
+	resetDraggedOverDay : function() {
+		Session.set('dragged_over_day', null);
+	},
+	onDragLeave : function() {
+		this.resetDraggedOverDay();	
+	},
 	onDragEnter : function(event) {
+		this.setDraggedOverDay(event)
+	},
+	onDraggedOver : function(event) {
+		if(Session.equals('dragged_over_day', null)){
+			this.setDraggedOverDay(event);
+		}	
+	},
+ 	setDraggedOverDay : function(event) {
 		var context = UI.getElementData(event.target);
 		var draggedOverDay = context.day.full_date;
 		Session.set('dragged_over_day', draggedOverDay);

@@ -27,6 +27,9 @@ approvalItemBuilder = {
 		instagram : 'instagram',
 		linked : 'linkedin',
 	},
+	onDragEnd : function() {
+		calendarBuilder.resetDraggedOverDay();	
+	},
 	getFindQuery : function() {
 		var startOfWeek = timeHandler.getStartOfWeek();
 		var startTime = startOfWeek.format('X') * 1000;
