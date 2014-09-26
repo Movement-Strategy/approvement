@@ -21,5 +21,16 @@ Template['contentCalendar'].events({
 	'click .left.arrow' : function(event) {
 		timeHandler.changeToLastWeek();
 	},
+	'dragenter .forward.arrow.column' : function(event) {
+		timeHandler.changeToNextWeek();
+		event.preventDefault();
+	},
+	'dragover .forward.arrow.column' : function(event) {
+		event.preventDefault();
+	},
+	'dragleave .forward.arrow.column' : function() {
+		event.preventDefault();
+	}
+	
 });
 
