@@ -8,7 +8,7 @@ statusColorMap = {
 
 Template['calendarDay'].helpers({
 	is_today_class : function() {
-		return this.day.is_today ? 'is-today' : '';
+		return this.day.is_today && !calendarBuilder.dayIsDraggedOver(this) ? 'is-today' : '';
 	},
 	updateReactiveVariables : function() {
 		commentHandler.setCommentsFromDayContext(this);
@@ -26,9 +26,6 @@ Template['calendarDay'].events({
 	'click .create-item-button' : function(event) {
 			var creatingNew = true;
 			detailsHandler.showDetails(this, creatingNew);
-	},
-	'dragenter .calendar-day' : function(event) {
-		
 	},
 	'dragover .calendar-day' : function(event) {
 		calendarBuilder.onDraggedOver(event);

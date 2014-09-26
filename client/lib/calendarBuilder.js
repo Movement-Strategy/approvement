@@ -47,7 +47,7 @@ calendarBuilder = {
 		Session.set('current_days', currentDays);
 	},
 	dayIsDraggedOver : function(context) {
-		return Session.equals('dragged_over_day', context.day.full_date);
+		return Session.equals('dragged_over_day', context.day.full_date) && this.dayIsRightScope(context);
 	},
 	resetDraggedOverDay : function() {
 		Session.set('dragged_over_day', null);
@@ -77,10 +77,15 @@ calendarBuilder = {
 	},
  	setDraggedOverDay : function(event) {
 		var context = UI.getElementData(event.target);
-		var draggedOverDay = context.day.full_date;
-		Session.set('dragged_over_day', draggedOverDay);
 		
+		var draggedOverDay = context.day.full_date;
+		if(this.dayIsRightScope(context)) {
+			Session.set('dragged_over_day', draggedOverDay);
+		}
 		event.preventDefault();
+	},
+	dayIsRightScope : function(context) {
+		return isRightScope = context.is_external ? Session.equals('dragged_scope', 'external') : Session.equals('dragged_scope', 'internal');
 	},
 	getCalendarDays : function() {
 		return Session.get('calendar_days');

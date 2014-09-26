@@ -28,7 +28,9 @@ approvalItemBuilder = {
 		linked : 'linkedin',
 	},
 	onDragStart : function(event) {
-		var elementID = 'label_' + UI.getElementData(event.target)._id;
+		var approvalItem = UI.getElementData(event.target);
+		var elementID = 'label_' + approvalItem._id;
+		Session.set('dragged_scope', approvalItem.scope);
 		event.originalEvent.dataTransfer.setData('text/plain', elementID);
 		detailsHandler.closeShownPopup();
 	},
