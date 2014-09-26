@@ -10,7 +10,7 @@ commentHandler = {
 	},
 	onKeydown : function(event) {
 		if($(".comment-input").is(":focus") && event.which == 13) {
-			var commentText = $(".comment-input").val();
+			var commentText = $(".comment-input").val();			
 			if(commentText != '') {
 				var comment = this.buildComment(commentText);
 				Meteor.call('addComment', Session.get('current_item_id'), comment);
