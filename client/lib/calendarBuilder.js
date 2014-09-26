@@ -79,6 +79,7 @@ calendarBuilder = {
 		var context = UI.getElementData(event.target);
 		var draggedOverDay = context.day.full_date;
 		Session.set('dragged_over_day', draggedOverDay);
+		
 		event.preventDefault();
 	},
 	getCalendarDays : function() {
