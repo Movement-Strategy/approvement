@@ -16,6 +16,10 @@ Template['calendarDay'].helpers({
 	day : function() {
 		return calendarBuilder.getDayFromContext(this);
 	},
+	drag_class : function() {
+		return calendarBuilder.dayIsDraggedOver(this) ? 'dragged-over' : '';
+	}
+	
 });
 
 Template['calendarDay'].events({
@@ -23,5 +27,17 @@ Template['calendarDay'].events({
 			var creatingNew = true;
 			detailsHandler.showDetails(this, creatingNew);
 	},
+	'dragenter .calendar-day' : function(event) {
+		calendarBuilder.onDragEnter(event);
+	},
+	'dragover .calendar-day' : function(event) {
+		event.preventDefault();
+	},
+	'dragleave .calendar-day' : function(event) {
+		event.preventDefault();
+	},
+	'drop .calendar-day' : function(event) {
+		event.preventDefault();
+	}
 });
 

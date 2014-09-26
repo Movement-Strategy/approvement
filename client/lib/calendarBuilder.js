@@ -46,6 +46,15 @@ calendarBuilder = {
 		});
 		Session.set('current_days', currentDays);
 	},
+	dayIsDraggedOver : function(context) {
+		return Session.equals('dragged_over_day', context.day.full_date);
+	},
+	onDragEnter : function(event) {
+		var context = UI.getElementData(event.target);
+		var draggedOverDay = context.day.full_date;
+		Session.set('dragged_over_day', draggedOverDay);
+		event.preventDefault();
+	},
 	getCalendarDays : function() {
 		return Session.get('calendar_days');
 	},

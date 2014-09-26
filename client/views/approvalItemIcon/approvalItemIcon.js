@@ -20,6 +20,9 @@ Template['approvalItemIcon'].events({
 	},
 	'mouseenter .approval-item' : function(event) {
 		Session.set('shown_popup_id', event.currentTarget.id);
+	},
+	'drag .approval-item' : function(event) {
+		event.preventDefault();	
 	}
 });
 
