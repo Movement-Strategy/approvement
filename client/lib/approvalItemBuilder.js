@@ -27,6 +27,11 @@ approvalItemBuilder = {
 		instagram : 'instagram',
 		linked : 'linkedin',
 	},
+	onDragStart : function(event) {
+		var elementID = 'label_' + UI.getElementData(event.target)._id;
+		event.originalEvent.dataTransfer.setData('text/plain', elementID);
+		detailsHandler.closeShownPopup();
+	},
 	onDragEnd : function() {
 		calendarBuilder.resetDraggedOverDay();	
 	},

@@ -22,7 +22,7 @@ Template['approvalItemIcon'].events({
 		Session.set('shown_popup_id', event.currentTarget.id);
 	},
 	'dragstart .approval-item' : function(event) {
-		detailsHandler.closeShownPopup();
+		approvalItemBuilder.onDragStart(event);
 	},
 	'drag .approval-item' : function(event) {
 		event.preventDefault();	

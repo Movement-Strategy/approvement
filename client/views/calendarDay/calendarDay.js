@@ -40,7 +40,7 @@ Template['calendarDay'].events({
 		event.preventDefault();
 	},
 	'drop .calendar-day' : function(event) {
-		event.preventDefault();
+		calendarBuilder.onDrop(event);
 	}
 });
 

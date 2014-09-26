@@ -58,6 +58,18 @@ calendarBuilder = {
 	onDragEnter : function(event) {
 		this.setDraggedOverDay(event)
 	},
+	onDrop : function(event) {
+		// get the element id that was stored when the drag started
+		var elementID = event.originalEvent.dataTransfer.getData("text/plain");
+		var element = document.getElementById(elementID);
+		
+		// get the meteor context data associated with that element
+		var approvalItemData = UI.getElementData(document.getElementById(elementID));
+		var calendarDayData = UI.getElementData(event.target);
+		var newScheduledTime = calendarDayData.day.scheduled_time;
+		Meteor.call('updateStatus', approvalItemData._id, {scheduled_time : newScheduledTime});
+		event.preventDefault();	
+	},
 	onDraggedOver : function(event) {
 		if(Session.equals('dragged_over_day', null)){
 			this.setDraggedOverDay(event);
