@@ -2,13 +2,13 @@
 	{{> approvalItemDetails}}
     <div class="{{show_class}} content-calendar ui center aligned nine column divided grid">
     	<div class="calendar row">
-	    	<div class="arrow column">
+	    	<div class="back arrow column">
 	    		<a><i class="large left arrow icon"></i></a>
 	    	</div>
     		{{#each calendar_days}}
     			{{> calendarDay is_external=true day=this}}
     		{{/each}}
-	    	<div class="arrow column">
+	    	<div class="forward arrow column">
 	    		<a><i class="large right arrow icon"></i></a>
 	    	</div>
     	</div>
