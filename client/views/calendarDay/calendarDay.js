@@ -29,8 +29,6 @@ Template['calendarDay'].events({
 	},
 	'dragover .calendar-day' : function(event) {
 		calendarBuilder.onDraggedOver(event);
-		event.originalEvent.dataTransfer.dropEffect = "move";
-		event.preventDefault();
 	},
 	'dragleave .calendar-day' : function(event) {
 		calendarBuilder.onDragLeave();

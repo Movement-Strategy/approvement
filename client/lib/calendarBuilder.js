@@ -53,6 +53,7 @@ calendarBuilder = {
 		Session.set('dragged_over_day', null);
 	},
 	onDragLeave : function() {
+		event.preventDefault();
 		this.resetDraggedOverDay();	
 	},
 	onDragEnter : function(event) {
@@ -68,11 +69,14 @@ calendarBuilder = {
 		event.preventDefault();
 	},
 	onDraggedOver : function(event) {
+		event.originalEvent.dataTransfer.dropEffect = "move";
+		event.preventDefault();
 		if(Session.equals('dragged_over_day', null) && !Session.equals('dragged_item', null)){
 			this.setDraggedOverDay(event);
-		}	
+		}
 	},
 	onDragOverArrowColumn : function(event, columnType)  {
+		event.preventDefault();
 		event.originalEvent.dataTransfer.dropEffect = "move";
 		if(Session.get('allow_date_change')) {
 			this.useColumnTypeToChangeDate(columnType);

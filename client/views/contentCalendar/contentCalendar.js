@@ -22,12 +22,10 @@ Template['contentCalendar'].events({
 		timeHandler.changeToLastWeek();
 	},
 	'dragenter .forward.arrow.column' : function(event) {
-		
 		event.preventDefault();
 	},
 	'dragover .forward.arrow.column' : function(event) {
 		calendarBuilder.onDragOverArrowColumn(event, 'forward');
-		event.preventDefault();
 	},
 	'dragleave .forward.arrow.column' : function() {
 		event.preventDefault();
@@ -37,7 +35,6 @@ Template['contentCalendar'].events({
 	},
 	'dragover .back.arrow.column' : function(event) {
 		calendarBuilder.onDragOverArrowColumn(event, 'back');
-		event.preventDefault();
 	},
 	'dragleave .back.arrow.column' : function() {
 		event.preventDefault();
