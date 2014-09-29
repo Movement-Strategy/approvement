@@ -36,21 +36,15 @@
 		clear : both;
 	}
 	
-	.link-description {
-		float : left;
-		clear : both;
-		margin-top : 14px;
-		margin-bottom : 14px;
-	}
-	
-	.link-description > {
-		p, input {
-			margin-top : 0px;
-			margin-bottom : 0px;
+	p.link-description, textarea.link-description {
+			float : left;
+			clear : both;
+			margin-top : 14px;
+			margin-bottom : 14px;
 			font-weight : normal;
 			font-family : Helvetica, Arial, 'lucida grande', tahoma, verdana, arial, sans-serif;
 			font-size : 14px;
-		}
+			width : 100%;
 	}
 	
 	.content-container.fixed-size {
@@ -98,16 +92,18 @@
 		display : block;
 	}
 	
-	div.link-text, input.link-text {
+	div.link-text, textarea.link-text {
 		font-size : 12px;
 		font-family: Helvetica;
 		display : block;
+		width: 100%;
 	}
 	
-	input.link-title, a.link-title {
+	textarea.link-title, a.link-title {
 		font-size : 18px;
 		font-family: Georgia, 'lucida grande', tahoma, verdana, arial, sans-serif;
 		display : block;
+		width : 100%;
 	}
 	
 	.link-domain {

@@ -4,7 +4,7 @@ inputBuilder = {
 			input_types : {
 				description : {
 					default_text : 'Choose some text for the post',
-					style_class : '',
+					style_class : 'link-description',
 				},
 				link_body : {
 					default_text : 'Title Included with Link',
@@ -49,7 +49,7 @@ inputBuilder = {
 			input_types : {
 				instagram_caption : {
 					default_text : "The caption you would like to included with your instagram post",
-					style_class : '',
+					style_class : 'instagram-comment-input',
 				},
 			},
 			inputs_by_content_type : {
@@ -120,6 +120,11 @@ inputBuilder = {
 		}
 		
 		Session.set('clickable_inputs', inputs);
+		Meteor.flush();
+		var inputElement = '#' + input_id + '_input';
+		console.log($(inputElement));
+		$(inputElement).autosize();
+		
 	},
 	handleChangesMade : function(text, inputs, input_id) {
 		if(inputs[input_id].text != text && !Session.get('changes_made')) {

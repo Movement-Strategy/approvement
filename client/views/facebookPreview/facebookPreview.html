@@ -9,13 +9,11 @@
 		<span class="time-ago">15 hrs</span>
 		</div>
 		
-		<div class="link-description">
-			{{#with description}}
-				{{#clickableInput}}
-					<p id="{{id}}_display" class='edit-target'>{{text}}</p>
-				{{/clickableInput}}
-			{{/with}}
-		</div>
+		{{#with description}}
+			{{#clickableInput}}
+				<p id="{{id}}_display" class='edit-target link-description'>{{text}}</p>
+			{{/clickableInput}}
+		{{/with}}
 		
 		<div class="content-container {{fixed_class}}">
 		
