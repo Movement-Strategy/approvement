@@ -16,6 +16,11 @@ Template['approvalItemComments'].helpers({
 	width_class : function() {
 		return detailsHandler.getWidthClass();
 	},
+	initializeTextarea : function() {
+		Meteor.defer(function(){
+			$('textarea.comment-input').autosize();
+		});
+	}
 });
 
 Template['approvalItemComments'].events({
