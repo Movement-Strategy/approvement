@@ -1,7 +1,6 @@
 pageLoadHandler = {
 	
 	onStartUp : function() {
-		Meteor.call('sendNoficationEmail', 'clay@movementstrategy.com', 'mvmt-approve@movementstrategy.com', 'Stuffs', 'text');
 		timeHandler.createMomentDate();
 		clientHandler.setSelectedClient();
 		assetHandler.handleAssetID();
