@@ -36,6 +36,7 @@ pageLoadHandler = {
 		details_can_close : true,
 		total_pending_items : null,
 		pending_item_index : 0,
+		allow_date_change : true,
 	},
 	setSessionDefaults : function() {
 		_.map(this.defaultSessionValueMap, function(value, key){

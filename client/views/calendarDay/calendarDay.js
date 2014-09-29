@@ -24,8 +24,8 @@ Template['calendarDay'].helpers({
 
 Template['calendarDay'].events({
 	'click .create-item-button' : function(event) {
-			var creatingNew = true;
-			detailsHandler.showDetails(this, creatingNew);
+		var creatingNew = true;
+		detailsHandler.showDetails(this, creatingNew);
 	},
 	'dragover .calendar-day' : function(event) {
 		calendarBuilder.onDraggedOver(event);

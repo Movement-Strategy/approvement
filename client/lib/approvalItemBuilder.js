@@ -30,11 +30,11 @@ approvalItemBuilder = {
 	onDragStart : function(event) {
 		var approvalItem = UI.getElementData(event.target);
 		var elementID = 'label_' + approvalItem._id;
-		Session.set('dragged_scope', approvalItem.scope);
-		event.originalEvent.dataTransfer.setData('text/plain', elementID);
+		Session.set('dragged_item', approvalItem);
 		detailsHandler.closeShownPopup();
 	},
 	onDragEnd : function() {
+		Session.set('dragged_item', null);
 		calendarBuilder.resetDraggedOverDay();	
 	},
 	getFindQuery : function() {
