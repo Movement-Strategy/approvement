@@ -7,6 +7,9 @@ Template['defaultBody'].helpers({
 	},
 	show_gif : function() {
 		return gifHandler.gifShouldBeShown();
+	},
+	initializeModal : function() {
+		notificationModalHandler.initializeModal();
 	}
 });
 

@@ -7,6 +7,10 @@
 	    		{{else}}
 			    	{{> contentCalendar}}
 			    {{/if}}
+		    	<div class="ui small modal notification-modal">
+		    		{{> notificationModal}}
+		    	</div>
+		    	{{initializeModal}}
 		    {{else}}
 				<div class="ui active dimmer">
 					<div class="ui loader"></div>

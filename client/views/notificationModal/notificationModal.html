@@ -1,0 +1,39 @@
+<template name="notificationModal">
+	<i class="close icon">
+	</i>
+	<div class="header">
+    	Choose Users to Notify
+	</div>
+	<div class="content">
+    	<div class="grouped inline fields">
+	    	<div class="field">
+		    	<div class="ui checkbox notification-check">
+			    	<input type="checkbox" value="jason@test" class="check-option">
+			    	<label>Jason Mitchell</label>
+		    	</div>
+	    	</div>
+	    	<div class="field">
+		    	<div class="ui checkbox notification-check">
+			    	<input type="checkbox" value="eric@test" class="check-option">
+			    	<label>Eric Dieter</label>
+		    	</div>
+	    	</div>
+	    	<div class="field">
+		    	<div class="ui checkbox notification-check">
+			    	<input type="checkbox" value="clay@test" class="check-option">
+			    	<label>Clay Branch</label>
+		    	</div>
+	    	</div>
+    	</div>
+	</div>
+	<div class="actions">
+    	<div class="ui blue button cancel">
+	    	Back
+    	</div>
+    	<div class="ui green button send">
+	    	Send
+    	</div>
+	</div>
+	{{initializeCheckboxes}}
+</template>
+
