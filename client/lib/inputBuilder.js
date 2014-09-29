@@ -122,7 +122,6 @@ inputBuilder = {
 		Session.set('clickable_inputs', inputs);
 		Meteor.flush();
 		var inputElement = '#' + input_id + '_input';
-		console.log($(inputElement));
 		$(inputElement).autosize();
 		
 	},
