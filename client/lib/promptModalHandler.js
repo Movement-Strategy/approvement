@@ -91,6 +91,7 @@ promptModalHandler = {
 	deleteAsset : function() {
 		Meteor.call('removeAsset', Session.get('current_asset_id'));
 		assetHandler.resetAssetTemplate();
+		promptModalHandler.hide();
 	},
 	deleteApprovalItem : function() {
 		Meteor.call('removeItem', Session.get('current_item_id'));
