@@ -6,6 +6,7 @@ notificationModalHandler = {
 		return Session.get('email_sent');
 	},
 	showModal : function() {
+		$(".custom-notification").val('');
 		this.handleModal('show');
 	},
 	handleModal : function(params) {
@@ -22,7 +23,6 @@ notificationModalHandler = {
 		this.handleModal({});
 	},
 	onClickSend : function(template) {
-		
 		this.sendNotifications(template)
 		this.triggerSuccess();
 		this.hideModal();
@@ -34,6 +34,7 @@ notificationModalHandler = {
 		});
 		return selectedUsernames;
 	},
+	
 	sendNotifications : function(template) {
 		var selectedUsernames = this.getSelectedUsernamesFromModal(template);
 		_.map(selectedUsernames, function(username){
@@ -41,16 +42,28 @@ notificationModalHandler = {
 			Meteor.call('sendNotificationEmail', email.to, email.from, email.subject, email.body);
 		});
 	},
+	getCustomNotificationText : function() {
+		return $(".custom-notification").val();
+	},
 	buildEmailFromUsername : function(userName) {
 		var userToNotify = Session.get('users_to_notify')[userName];
 		var from = "mvmt.approve@movementstrategy.com";
 		var to = userToNotify.email;
 		var displayName = Session.get('selected_client').display_name;
 		var subject = "MVMT Approve : Content for " + displayName + " needs attention";
+		var customText = this.getCustomNotificationText();
+		
 		var body = "Hi " + userToNotify['name'].split(" ")[0] + ',\n'
 			+ "\n"
-			+ "Please go to http://mvmt-approve.meteor.com to see the items that are pending for " + displayName
-			+ "\n"
+			+ "Please go to http://mvmt-approve.meteor.com to see the items that are pending for " + displayName + "\n"
+			+ "\n";
+		
+		if(customText != '') {
+			body = body + Session.get('user_name') + " added the following message :\n"
+				+ "\n"
+				+ customText 
+				+ "\n";
+		}
 		return {
 			from : from,
 			to : to,
