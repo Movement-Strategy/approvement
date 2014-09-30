@@ -3,6 +3,9 @@ Template['notificationModal'].helpers({
 		Meteor.defer(function(){
 		$('.notification-check').checkbox();
 		});
+	},
+	users_to_notify : function() {
+		return clientHandler.getUsersToNotify();
 	}
 });
 

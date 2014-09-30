@@ -35,6 +35,9 @@ clientHandler = {
 			Session.set('users_to_notify', usersToNotify);
 		});	
 	},
+	getUsersToNotify : function() {
+		return Session.get('users_to_notify');
+	},
 	onChangeClientDropdown : function(event) {
 		Session.set('there_were_pending_items', false);
 		Session.set('selected_client_id', event.target.value);

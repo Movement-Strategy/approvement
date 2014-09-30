@@ -2,28 +2,18 @@
 	<i class="close icon">
 	</i>
 	<div class="header">
-    	Choose Users to Notify <
+    	Choose Users to Notify
 	</div>
 	<div class="content">
     	<div class="grouped inline fields">
-	    	<div class="field">
-		    	<div class="ui checkbox notification-check">
-			    	<input type="checkbox" value="jason@test" class="check-option">
-			    	<label>Jason Mitchell</label>
+	    	{{#each users_to_notify}}
+		    	<div class="field">
+			    	<div class="ui checkbox notification-check">
+				    	<input type="checkbox" value="{{email}}" class="check-option">
+				    	<label>{{name}}</label>
+			    	</div>
 		    	</div>
-	    	</div>
-	    	<div class="field">
-		    	<div class="ui checkbox notification-check">
-			    	<input type="checkbox" value="eric@test" class="check-option">
-			    	<label>Eric Dieter</label>
-		    	</div>
-	    	</div>
-	    	<div class="field">
-		    	<div class="ui checkbox notification-check">
-			    	<input type="checkbox" value="clay@test" class="check-option">
-			    	<label>Clay Branch</label>
-		    	</div>
-	    	</div>
+	    	{{/each}}
     	</div>
 	</div>
 	<div class="actions">
