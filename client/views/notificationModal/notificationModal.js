@@ -1,11 +1,11 @@
 Template['notificationModal'].helpers({
 	initializeCheckboxes : function() {
-		Meteor.defer(function(){
-		$('.notification-check').checkbox();
-		});
 	},
 	users_to_notify : function() {
-		return clientHandler.getUsersToNotify();
+		notificationModalHandler.initializeCheckboxes();
+		return _.map(clientHandler.getUsersToNotify(), function(user, userName){
+			return user;
+		});
 	}
 });
 

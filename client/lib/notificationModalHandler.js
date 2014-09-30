@@ -13,17 +13,50 @@ notificationModalHandler = {
 			$('.notification-modal').modal(params);
 		});
 	},
+	initializeCheckboxes : function() {
+		Meteor.defer(function(){
+			$('.notification-check').checkbox();
+		});
+	},
 	initializeModal : function() {
 		this.handleModal({});
 	},
 	onClickSend : function(template) {
-		var selectedItems = template.findAll( "input[type=checkbox]:checked");
-		var selectedValues = _.map(selectedItems, function(selectedItem){
-			return selectedItem.defaultValue;
-		});
-		console.log(selectedValues);
+		
+		this.sendNotifications(template)
 		this.triggerSuccess();
 		this.hideModal();
+	},
+	getSelectedUsernamesFromModal : function(template) {
+		var selectedItems = template.findAll( "input[type=checkbox]:checked");
+		var selectedUsernames = _.map(selectedItems, function(selectedItem){
+			return selectedItem.defaultValue;
+		});
+		return selectedUsernames;
+	},
+	sendNotifications : function(template) {
+		var selectedUsernames = this.getSelectedUsernamesFromModal(template);
+		_.map(selectedUsernames, function(username){
+			var email = notificationModalHandler.buildEmailFromUsername(username);
+			Meteor.call('sendNotificationEmail', email.to, email.from, email.subject, email.body);
+		});
+	},
+	buildEmailFromUsername : function(userName) {
+		var userToNotify = Session.get('users_to_notify')[userName];
+		var from = "mvmt.approve@movementstrategy.com";
+		var to = userToNotify.email;
+		var displayName = Session.get('selected_client').display_name;
+		var subject = "MVMT Approve : Content for " + displayName + " needs attention";
+		var body = "Hi " + userToNotify['name'].split(" ")[0] + ',\n'
+			+ "\n"
+			+ "Please go to http://mvmt-approve.meteor.com to see the items that are pending for " + displayName
+			+ "\n"
+		return {
+			from : from,
+			to : to,
+			subject : subject,
+			body : body,
+		};
 	},
 	triggerSuccess : function() {
 		Session.set('email_sent', true);
