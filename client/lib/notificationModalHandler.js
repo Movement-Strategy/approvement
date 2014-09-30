@@ -59,7 +59,7 @@ notificationModalHandler = {
 			+ "\n";
 		
 		if(customText != '') {
-			body = body + Session.get('user_name') + " added the following message :\n"
+			body = body + Session.get('user_name') + " added the following message:\n"
 				+ "\n"
 				+ customText 
 				+ "\n";
