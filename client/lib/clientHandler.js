@@ -23,10 +23,17 @@ clientHandler = {
 		Deps.autorun(function(){
 			if(Session.get('clients_are_ready')) {
 				var clientID = Session.get('selected_client_id');
+				clientHandler.setUsersToNotifyForClient();
 				var clientsByID = Session.get('clients_by_id');
 				Session.set('selected_client', clientsByID[clientID]);
 			}
 		});
+	},
+	setUsersToNotifyForClient : function() {
+		var userNames  = Session.get('selected_client').users_to_notify;
+		Meteor.call('getUsersToNotify', Session.get('selected_client_id'), userNames, function(error, usersToNotify){
+			Session.set('users_to_notify', usersToNotify);
+		});	
 	},
 	onChangeClientDropdown : function(event) {
 		Session.set('there_were_pending_items', false);

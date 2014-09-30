@@ -38,6 +38,7 @@ pageLoadHandler = {
 		total_pending_items : null,
 		pending_item_index : 0,
 		allow_date_change : true,
+		users_to_notify : [],
 	},
 	setSessionDefaults : function() {
 		_.map(this.defaultSessionValueMap, function(value, key){
