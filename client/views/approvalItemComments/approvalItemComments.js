@@ -5,7 +5,7 @@ Template['approvalItemComments'].helpers({
 		return commentHandler.getCurrentComments();
 	},
 	formatted_date : function() {
-		return timeHandler.getFormattedDate();
+		return timeHandler.getFormattedDate(this);
 	},
 	user_name : function() {
 		return userHandler.getName();
