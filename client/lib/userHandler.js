@@ -3,7 +3,7 @@ userHandler = {
 		return Session.get('user_type') == typeToCheck;
 	},
 	onUserDataReady : function() {
-		var users = Meteor.users.find({}, {fields : {profile : 1}}).fetch();
+		var users = Meteor.users.find({}, {fields : {profile : 1, username : 1}}).fetch();
 		if(users.length > 0) {
 			var user = users[0];
 			this.configureCurrentUser(user);
@@ -19,6 +19,7 @@ userHandler = {
 		return Session.get('user_picture');
 	},
 	configureCurrentUser : function(user) {
+		Session.set('user_login', user.username);
 		var profile = user.profile;
 		this.configureUserProfile(profile);
 		progressBarHandler.setCountsForProgressBar();

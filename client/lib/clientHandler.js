@@ -31,6 +31,13 @@ clientHandler = {
 	},
 	setUsersToNotifyForClient : function() {
 		var userNames  = Session.get('selected_client').users_to_notify;
+		
+		// remove the current user from users to notify
+		// sane users rarely need to notify themselves
+		userNames = _.filter(userNames, function(userName){
+			return userName != Session.get('user_login');
+		});
+		
 		Meteor.call('getUsersToNotify', Session.get('selected_client_id'), userNames, function(error, usersToNotify){
 			Session.set('users_to_notify', usersToNotify);
 		});	
