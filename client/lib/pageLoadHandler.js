@@ -40,7 +40,6 @@ pageLoadHandler = {
 		allow_date_change : true,
 		users_to_notify : [],
 		email_sent : false,
-		show_notification_button : false,
 	},
 	setSessionDefaults : function() {
 		_.map(this.defaultSessionValueMap, function(value, key){
