@@ -142,9 +142,17 @@ assetHandler = {
 			icon : 'external url',
 			display_name : 'External URL',
 		},
+		photo_credit : {
+			icon : 'camera',
+			display_name : 'Photo Credits',
+		},
 		video : {
 			icon : 'video',
 			display_name : 'Video',
+		},
+		sources : {
+			icon : 'info',
+			display_name: 'Sources / References',
 		},
 	},
 };
