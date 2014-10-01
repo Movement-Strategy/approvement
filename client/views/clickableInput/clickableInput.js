@@ -16,7 +16,7 @@ Template['clickableInput'].events({
 		inputBuilder.onInputKeydown(this);
 	},
 	'blur .input-text' : function(event) {
-/* 		inputBuilder.onInputBlur(this); */
+		inputBuilder.onInputBlur(this);
 	},
 	
 });
