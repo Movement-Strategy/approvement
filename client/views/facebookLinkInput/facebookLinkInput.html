@@ -1,0 +1,15 @@
+<template name="facebookLinkInput">
+    {{#if show_link_input}}
+		    {{#if editing_link}}
+			    <div class="ui input facebook-input-container {{width_class}}">
+				    <input class = "facebook-link-input" type="text" placeholder="Enter the link"/>
+			    </div>
+		    {{else}}
+		    <div class="ui segment facebook-link-display {{width_class}}">
+			    	{{facebook_link}}
+			 </div>
+			{{/if}}
+	   
+	 {{/if}}
+</template>
+

@@ -1,4 +1,13 @@
 detailsHandler = {
+	isPreviewShown : function() {
+		var isPreviewShown = false;
+		if(contentTypeBuilder.isType('link')) {
+			isPreviewShown = facebookHandler.linkEntered();
+		} else {
+			isPreviewShown = contentTypeBuilder.isContentTypeChosen();
+		}
+		return isPreviewShown;
+	},
 	detailsShown : function(){
 		return Session.get('details_shown');
 	},

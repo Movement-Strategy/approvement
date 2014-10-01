@@ -25,7 +25,7 @@ Template['approvalItemDetails'].helpers({
 		return contentTypeBuilder.isContentTypeChosen();
 	},
  	is_preview_shown : function() {
-		return contentTypeBuilder.isContentTypeChosen();
+		return detailsHandler.isPreviewShown();
 	},
 	network_type_name : function() {
 		return networkTypeBuilder.getTypeName();
