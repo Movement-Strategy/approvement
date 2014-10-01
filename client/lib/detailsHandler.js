@@ -8,6 +8,13 @@ detailsHandler = {
 		}
 		return isPreviewShown;
 	},
+	showDropdowns : function() {
+		if(contentTypeBuilder.isType('link')) {
+			return false;
+		} else {
+			return !this.isPreviewShown() && this.creatingNewItem();
+		}
+	},
 	detailsShown : function(){
 		return Session.get('details_shown');
 	},

@@ -3,6 +3,9 @@ Template['approvalItemDetails'].helpers({
 	preview_content : function() {
 		return detailsHandler.getPreviewContent();
 	},
+	show_dropdowns : function() {
+		return detailsHandler.showDropdowns();	
+	},
 	initializeModal : function() {
 		promptModalHandler.initializeModal();
 	},

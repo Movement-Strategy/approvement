@@ -14,7 +14,7 @@ facebookHandler = {
 		}
 	},
 	linkEntered : function() {
-		return Session.get('current_facebook_link');	
+		return Session.get('current_facebook_link') && !Session.get('link_is_loading');	
 	},
 	onLinkInputKeydown : function(event) {
 		this.handleEnterPress(event);
@@ -26,16 +26,24 @@ facebookHandler = {
 			if(linkURL != '') {
 				Session.set('current_facebook_link', linkURL);
 				Session.set('editing_link', false);
-				Meteor.flush();
-				$('facebook-link-display').transition('pulse', onHide : function(){
-					Session.set('details_can_close', true);
-				});
+				Session.set('link_is_loading', true);
+				Meteor.setTimeout(function(){
+					Session.set('link_is_loading', false);
+					Meteor.flush();
+					$('.facebook-link-display').transition('pulse', onHide = function(){
+						Session.set('details_can_close', true);
+					});
+				}, 2000);
 			}
 		}
 	},
 	handleEscapePress : function(event) {
 		if(event.which == 27) {
 			Session.set('editing_link', false);
+			Meteor.flush();
+			$('.facebook-link-display').transition('shake', onHide = function(){
+				Session.set('details_can_close', true);
+			});
 		}
 	},
 	getFacebookLink : function() {
@@ -45,6 +53,9 @@ facebookHandler = {
 		Session.set('editing_link', true);
 		Meteor.flush();
 		Meteor.defer(function(){
+			if(!Session.equals('current_facebook_link', null)) {
+				$('.facebook-link-input').val(facebookHandler.getFacebookLink());	
+			}
 			$('.facebook-link-input').focus();	
 		});
 	},

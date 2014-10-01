@@ -11,6 +11,9 @@ Template['facebookLinkInput'].helpers({
 	facebook_link : function() {
 		return facebookHandler.getFacebookLink();
 	},
+	loader_class : function(){
+		return Session.get('link_is_loading') ? 'active' : '';
+	},
 });
 
 Template['facebookLinkInput'].events({
