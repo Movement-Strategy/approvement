@@ -11,6 +11,9 @@ Template['mainNav'].helpers({
 	initializeDropdown : function() {
 		userHandler.initializeUserDropdown();
 	},
+	show_notification_button : function() {
+		return Session.get('show_notification_button');
+	},
 });
 
 Template['mainNav'].events({
