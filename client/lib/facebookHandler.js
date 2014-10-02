@@ -20,26 +20,34 @@ facebookHandler = {
 		this.handleEnterPress(event);
 		this.handleEscapePress(event);
 	},
-	getTextForLinkDataItem : function(inputID) {
-		
-	},
 	handleEnterPress : function(event) {
 		if(event.which == 13) {
 			var linkURL = $('.facebook-link-input').val();
-			if(linkURL != '') {
-				Session.set('current_facebook_link', linkURL);
-				Session.set('editing_link', false);
-				Session.set('link_is_loading', true);
-				Meteor.call('getLinkData', linkURL, function(error, linkData){
-					Session.set('current_facebook_link_data', linkData);
-					Session.set('link_is_loading', false);
-					Meteor.flush();
-					$('.facebook-link-display').transition('pulse', onHide = function(){
-						Session.set('details_can_close', true);
-					});
-				});
-			}
+			this.updateFacebookLink(linkURL);
 		}
+	},
+	updateFacebookLink : function(linkURL) {
+		if(linkURL != '') {
+			Session.set('current_facebook_link', linkURL);
+			Session.set('editing_link', false);
+			Session.set('link_is_loading', true);
+			Meteor.call('getLinkData', linkURL, function(error, linkData){
+				facebookHandler.onLinkDataReturned(linkData);
+			});
+		}
+	},
+	onLinkDataReturned : function(linkData) {
+		Session.set('current_facebook_link_data', linkData);
+		inputBuilder.initializeClickableInputs();
+		
+		// because this is set based on the image url returned in the link data
+		// we need to set it as null here
+		Session.set('uploaded_image_url', null);
+		Session.set('link_is_loading', false);
+		Meteor.flush();
+		$('.facebook-link-display').transition('pulse', onHide = function(){
+			Session.set('details_can_close', true);
+		});
 	},
 	handleEscapePress : function(event) {
 		if(event.which == 27) {

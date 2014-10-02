@@ -9,10 +9,12 @@ inputBuilder = {
 				link_body : {
 					default_text : 'Title Included with Link',
 					style_class : 'link-title',
+					meta_tag : 'og:title',
 				},
 				link_text : {
 					default_text : 'Detailed Link Description',
 					style_class : 'link-text',
+					meta_tag : 'og:description',
 				},
 			},
 			inputs_by_content_type : {
@@ -102,10 +104,18 @@ inputBuilder = {
 			var input = inputBuilder.inputMap[networkType]['input_types'][inputName];
 			input.text = _.has(currentItemContents, inputName) ? currentItemContents[inputName] : input.default_text;
 			input.id = inputName;
+			input = inputBuilder.updateInputFromLinkData(input);
 			processedInputs[inputName] = input;
 		});
 		
 		Session.set('clickable_inputs', processedInputs);
+	},
+	updateInputFromLinkData : function(input) {
+		var linkData = Session.get('current_facebook_link_data');
+		if(_.has(input, 'meta_tag') && _.has(linkData, input.meta_tag)) {
+			input.text = linkData[input.meta_tag];
+		}
+		return input;
 	},
 	getClickableInputs : function() {
 		return Session.get('clickable_inputs');

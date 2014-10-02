@@ -119,6 +119,14 @@ detailsHandler = {
 			itemContents[clickableInput.id] = clickableInput.text;
 		});
 		itemContents = this.addImageURLToDynamicContent(itemContents);
+		itemContents = this.addFacebookLinkToDynamicContent(itemContents);
+		return itemContents;
+	},
+	addFacebookLinkToDynamicContent : function(itemContents) {
+		var facebookLink = Session.get('current_facebook_link');
+		if(facebookLink != null) {
+			itemContents['facebook_link'] = facebookLink;
+		}	
 		return itemContents;
 	},
 	addImageURLToDynamicContent : function(itemContents) {
@@ -166,6 +174,9 @@ detailsHandler = {
 		Session.set('current_scheduled_time', context.day.scheduled_time);
 		Session.set('creating_new_item', creatingNewItem);
 		var currentItemContents = creatingNewItem ? {} : context.contents;
+		if(_.has(currentItemContents, 'facebook_link')) {
+			Session.set('current_facebook_link', currentItemContents.facebook_link);
+		}
 		Session.set('current_item_contents', currentItemContents);
 	},
 	configureDetailsForNewItem: function(context) {
