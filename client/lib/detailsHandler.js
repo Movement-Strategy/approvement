@@ -41,7 +41,6 @@ detailsHandler = {
 		} else {
 			this.onHideDetails();
 		}
-		
 	},
 	onHideDetails : function() {
 		commentHandler.emptyCommentInput();

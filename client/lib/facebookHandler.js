@@ -31,10 +31,24 @@ facebookHandler = {
 			Session.set('current_facebook_link', linkURL);
 			Session.set('editing_link', false);
 			Session.set('link_is_loading', true);
-			Meteor.call('getLinkData', linkURL, function(error, linkData){
+			Meteor.call('getLinkData', linkURL, function(error, response){
+				var linkData = facebookHandler.convertResponseIntoLinkData(response);
 				facebookHandler.onLinkDataReturned(linkData);
 			});
 		}
+	},
+	convertResponseIntoLinkData : function(response) {
+		var metaDiv = document.createElement("div");
+        responseText = result.content;
+		metaDiv.innerHTML = responseText;
+		var titleElement = metaDiv.getElementsByTagName("title");
+		var title = titleElement.length ? titleElement[0].innerHTML : 'None';
+		var metaTags = metaDiv.getElementsByTagName("meta");
+		var indexedTags = {};
+		_.map(metaTags, function(metaTag){
+			indexedTags[metaTag.getAttribute('property')] = metaTag.getAttribute('content');
+		});
+		console.log(indexedTags);
 	},
 	onLinkDataReturned : function(linkData) {
 		Session.set('current_facebook_link_data', linkData);
