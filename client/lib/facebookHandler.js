@@ -20,6 +20,9 @@ facebookHandler = {
 		this.handleEnterPress(event);
 		this.handleEscapePress(event);
 	},
+	getTextForLinkDataItem : function(inputID) {
+		
+	},
 	handleEnterPress : function(event) {
 		if(event.which == 13) {
 			var linkURL = $('.facebook-link-input').val();
@@ -27,13 +30,14 @@ facebookHandler = {
 				Session.set('current_facebook_link', linkURL);
 				Session.set('editing_link', false);
 				Session.set('link_is_loading', true);
-				Meteor.setTimeout(function(){
+				Meteor.call('getLinkData', linkURL, function(error, linkData){
+					Session.set('current_facebook_link_data', linkData);
 					Session.set('link_is_loading', false);
 					Meteor.flush();
 					$('.facebook-link-display').transition('pulse', onHide = function(){
 						Session.set('details_can_close', true);
 					});
-				}, 2000);
+				});
 			}
 		}
 	},

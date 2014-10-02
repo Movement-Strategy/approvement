@@ -41,7 +41,9 @@ pageLoadHandler = {
 		users_to_notify : [],
 		email_sent : false,
 		editing_link : false,
-		link_is_loading : false,		
+		link_is_loading : false,
+		current_facebook_link_data : {},
+		current_facebook_link : "",		
 	},
 	setSessionDefaults : function() {
 		_.map(this.defaultSessionValueMap, function(value, key){
