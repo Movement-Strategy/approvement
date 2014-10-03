@@ -6,7 +6,7 @@ Template['facebookLinkInput'].helpers({
 		return facebookHandler.editingLink();
 	},
 	show_link_input : function() {
-		return contentTypeBuilder.isType('link');
+		return facebookHandler.showLinkInput();
 	},
 	facebook_link : function() {
 		return facebookHandler.getLinkToDisplay();
