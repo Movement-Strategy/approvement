@@ -25,6 +25,9 @@ Template['facebookLinkInput'].events({
 	},
 	'focus .facebook-link-input' : function() {
 		Session.set('details_can_close', false);
+	},
+	'blur .facebook-link-input' : function(event) {
+		facebookHandler.onLinkInputBlur();
 	}
 });
 

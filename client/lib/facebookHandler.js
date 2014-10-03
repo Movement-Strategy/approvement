@@ -69,7 +69,17 @@ facebookHandler = {
 		}
 		return link;
    },
-	convertResponseIntoLinkData : function(response) {
+   onLinkInputBlur : function() {
+	   this.cancelLinkEdit();
+   },
+   cancelLinkEdit : function() {
+		Session.set('editing_link', false);
+		Meteor.flush();
+		$('.facebook-link-display').transition('shake', onHide = function(){
+			Session.set('details_can_close', true);
+		});
+   },
+   convertResponseIntoLinkData : function(response) {
 		var indexedTags = {};
 		var metaDiv = document.createElement("div");
         if(_.has(response, 'content')){
@@ -77,9 +87,15 @@ facebookHandler = {
 			metaDiv.innerHTML = responseText;
 			var titleElement = metaDiv.getElementsByTagName("title");
 			var title = titleElement.length ? titleElement[0].innerHTML : 'None';
+			indexedTags['element_title'] = title;
 			var metaTags = metaDiv.getElementsByTagName("meta");
 			_.map(metaTags, function(metaTag){
-				indexedTags[metaTag.getAttribute('property')] = metaTag.getAttribute('content');
+				var key = metaTag.getAttribute('property');
+				var content = metaTag.getAttribute('content');
+				if(key == null) {
+					key = metaTag.getAttribute('name');
+				}
+				indexedTags[key] = content;
 			});
         }
 		return indexedTags;
@@ -99,11 +115,7 @@ facebookHandler = {
 	},
 	handleEscapePress : function(event) {
 		if(event.which == 27) {
-			Session.set('editing_link', false);
-			Meteor.flush();
-			$('.facebook-link-display').transition('shake', onHide = function(){
-				Session.set('details_can_close', true);
-			});
+			 this.cancelLinkEdit();
 		}
 	},
 	getFacebookLink : function() {

@@ -10,11 +10,17 @@ inputBuilder = {
 					default_text : 'Title Included with Link',
 					style_class : 'link-title',
 					meta_tag : 'og:title',
+					on_meta_tag_not_found : function(indexedTags) {
+						return indexedTags['element_title'];
+					},
 				},
 				link_text : {
 					default_text : 'Detailed Link Description',
 					style_class : 'link-text',
 					meta_tag : 'og:description',
+					on_meta_tag_not_found : function(indexedTags) {
+						return indexedTags['description'];
+					},
 				},
 			},
 			inputs_by_content_type : {
@@ -112,8 +118,15 @@ inputBuilder = {
 	},
 	updateInputFromLinkData : function(input) {
 		var linkData = Session.get('current_facebook_link_data');
-		if(_.has(input, 'meta_tag') && _.has(linkData, input.meta_tag)) {
-			input.text = linkData[input.meta_tag];
+		if(_.has(input, 'meta_tag')) {
+			if(_.has(linkData, input.meta_tag)) {
+				input.text = linkData[input.meta_tag];
+			} else {
+				if (_.has(input, 'on_meta_tag_not_found')) {
+					input.text = input.on_meta_tag_not_found(linkData);
+				}
+			}
+			
 		}
 		return input;
 	},
