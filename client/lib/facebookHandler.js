@@ -7,7 +7,7 @@ facebookHandler = {
 		return 'http://graph.facebook.com/' + id + '/picture?size=square';
 	},
 	showLinkInput : function() {
-		return this.isLegacyLink() ? false : contentTypeBuilder.isType('link');
+		return this.isLegacyLink() ? false : contentTypeBuilder.isType('link') && !userHandler.userIsType('client');
 	},
 	editingLink : function() {
 		if(this.getFacebookLink() == null) {
