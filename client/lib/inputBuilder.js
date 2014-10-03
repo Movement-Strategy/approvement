@@ -10,16 +10,16 @@ inputBuilder = {
 					default_text : 'Title Included with Link',
 					style_class : 'link-title',
 					meta_tag : 'og:title',
-					on_meta_tag_not_found : function(indexedTags) {
-						return indexedTags['element_title'];
+					on_meta_tag_not_found : function(indexedTags, input) {
+						return _.has(indexedTags, 'element_title') ? indexedTags['element_title'] : input.text;
 					},
 				},
 				link_text : {
 					default_text : 'Detailed Link Description',
 					style_class : 'link-text',
 					meta_tag : 'og:description',
-					on_meta_tag_not_found : function(indexedTags) {
-						return indexedTags['description'];
+					on_meta_tag_not_found : function(indexedTags, input) {
+						return _.has(indexedTags, 'description') ? indexedTags['description'] : input.text;
 					},
 				},
 			},
@@ -123,7 +123,7 @@ inputBuilder = {
 				input.text = linkData[input.meta_tag];
 			} else {
 				if (_.has(input, 'on_meta_tag_not_found')) {
-					input.text = input.on_meta_tag_not_found(linkData);
+					input.text = input.on_meta_tag_not_found(linkData, input);
 				}
 			}
 			
