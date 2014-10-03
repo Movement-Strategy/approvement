@@ -16,6 +16,13 @@ facebookHandler = {
 	linkEntered : function() {
 		return Session.get('current_facebook_link') && !Session.get('link_is_loading');	
 	},
+	
+	// If this is a facebook link type item
+	// that existed before facebook links were required
+	isLegacyLink : function() {
+		var currentContents = Session.get('current_item_contents');
+		return !detailsHandler.creatingNewItem() && !_.has(currentContents, 'facebook_link') && contentTypeBuilder.isType('link');
+	},
 	onLinkInputKeydown : function(event) {
 		this.handleEnterPress(event);
 		this.handleEscapePress(event);

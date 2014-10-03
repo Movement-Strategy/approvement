@@ -2,7 +2,16 @@ detailsHandler = {
 	isPreviewShown : function() {
 		var isPreviewShown = false;
 		if(contentTypeBuilder.isType('link')) {
-			isPreviewShown = facebookHandler.linkEntered();
+			
+			// if this is an item that existed before links were required, 
+			// show the preview by default
+			// otherwise, require that a link be entered before showing the preview
+			if(facebookHandler.isLegacyLink()) {
+				return true;
+			} else {
+				isPreviewShown = facebookHandler.linkEntered();
+			}
+			
 		} else {
 			isPreviewShown = contentTypeBuilder.isContentTypeChosen();
 		}
