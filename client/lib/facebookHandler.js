@@ -23,32 +23,59 @@ facebookHandler = {
 	handleEnterPress : function(event) {
 		if(event.which == 13) {
 			var linkURL = $('.facebook-link-input').val();
-			this.updateFacebookLink(linkURL);
+			if(linkURL != Session.get('current_facebook_link')) {
+				this.updateFacebookLink(linkURL);
+			} else {
+				Session.set('editing_link', false);
+				Meteor.flush();
+				$('.facebook-link-display').transition('pulse', onHide = function(){
+					Session.set('details_can_close', true);
+				});
+			}
 		}
 	},
 	updateFacebookLink : function(linkURL) {
 		if(linkURL != '') {
+			linkURL = this.addHTTPToUrl(linkURL);
 			Session.set('current_facebook_link', linkURL);
 			Session.set('editing_link', false);
 			Session.set('link_is_loading', true);
-			Meteor.call('getLinkData', linkURL, function(error, response){
-				var linkData = facebookHandler.convertResponseIntoLinkData(response);
+			Meteor.call('getLinkResponse', linkURL, function(error, response){
+				var linkData = {};
+				if(error == null) {
+					var linkData = facebookHandler.convertResponseIntoLinkData(response);
+				}
 				facebookHandler.onLinkDataReturned(linkData);
 			});
 		}
 	},
+	addHTTPToUrl : function(linkURL) {
+		if (!/^(f|ht)tps?:\/\//i.test(linkURL)) {
+			linkURL = "http://" + linkURL;
+		}
+		return linkURL;	
+   },
+   getLinkToDisplay : function() {
+		var link = this.getFacebookLink();
+		if(link.length > 60) {
+			link = link.substring(0, 60) + "...";
+		}
+		return link;
+   },
 	convertResponseIntoLinkData : function(response) {
-		var metaDiv = document.createElement("div");
-        responseText = result.content;
-		metaDiv.innerHTML = responseText;
-		var titleElement = metaDiv.getElementsByTagName("title");
-		var title = titleElement.length ? titleElement[0].innerHTML : 'None';
-		var metaTags = metaDiv.getElementsByTagName("meta");
 		var indexedTags = {};
-		_.map(metaTags, function(metaTag){
-			indexedTags[metaTag.getAttribute('property')] = metaTag.getAttribute('content');
-		});
-		console.log(indexedTags);
+		var metaDiv = document.createElement("div");
+        if(_.has(response, 'content')){
+	        responseText = response.content;
+			metaDiv.innerHTML = responseText;
+			var titleElement = metaDiv.getElementsByTagName("title");
+			var title = titleElement.length ? titleElement[0].innerHTML : 'None';
+			var metaTags = metaDiv.getElementsByTagName("meta");
+			_.map(metaTags, function(metaTag){
+				indexedTags[metaTag.getAttribute('property')] = metaTag.getAttribute('content');
+			});
+        }
+		return indexedTags;
 	},
 	onLinkDataReturned : function(linkData) {
 		Session.set('current_facebook_link_data', linkData);

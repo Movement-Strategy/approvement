@@ -9,7 +9,7 @@ Template['facebookLinkInput'].helpers({
 		return contentTypeBuilder.isType('link');
 	},
 	facebook_link : function() {
-		return facebookHandler.getFacebookLink();
+		return facebookHandler.getLinkToDisplay();
 	},
 	loader_class : function(){
 		return Session.get('link_is_loading') ? 'active' : '';
