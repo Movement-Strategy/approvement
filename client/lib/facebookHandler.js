@@ -36,11 +36,7 @@ facebookHandler = {
 			if(linkURL != Session.get('current_facebook_link')) {
 				this.updateFacebookLink(linkURL);
 			} else {
-				Session.set('editing_link', false);
-				Meteor.flush();
-				$('.facebook-link-display').transition('pulse', onHide = function(){
-					Session.set('details_can_close', true);
-				});
+				this.cancelLinkEdit();
 			}
 		}
 	},
@@ -91,16 +87,20 @@ facebookHandler = {
 			var titleElement = metaDiv.getElementsByTagName("title");
 			var title = titleElement.length ? titleElement[0].innerHTML : 'None';
 			indexedTags['element_title'] = title;
-			var metaTags = metaDiv.getElementsByTagName("meta");
-			_.map(metaTags, function(metaTag){
-				var key = metaTag.getAttribute('property');
-				var content = metaTag.getAttribute('content');
-				if(key == null) {
-					key = metaTag.getAttribute('name');
-				}
-				indexedTags[key] = content;
-			});
+			indexedTags = this.addMetaTagsToIndexedTags(indexedTags, metaDiv);
         }
+		return indexedTags;
+	},
+	addMetaTagsToIndexedTags : function(indexedTags, metaDiv) {
+		var metaTags = metaDiv.getElementsByTagName("meta");
+		_.map(metaTags, function(metaTag){
+			var key = metaTag.getAttribute('property');
+			var content = metaTag.getAttribute('content');
+			if(key == null) {
+				key = metaTag.getAttribute('name');
+			}
+			indexedTags[key] = content;
+		});
 		return indexedTags;
 	},
 	onLinkDataReturned : function(linkData) {
