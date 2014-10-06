@@ -5,6 +5,7 @@ inputBuilder = {
 				description : {
 					default_text : 'Choose some text for the post',
 					style_class : 'link-description',
+					input_category : 'primary_text',
 				},
 				link_body : {
 					default_text : 'Title Included with Link',
@@ -13,6 +14,7 @@ inputBuilder = {
 					on_meta_tag_not_found : function(indexedTags, input) {
 						return _.has(indexedTags, 'element_title') ? indexedTags['element_title'] : input.text;
 					},
+					input_category : 'title_of_external_link',
 				},
 				link_text : {
 					default_text : 'Detailed Link Description',
@@ -21,6 +23,7 @@ inputBuilder = {
 					on_meta_tag_not_found : function(indexedTags, input) {
 						return _.has(indexedTags, 'description') ? indexedTags['description'] : input.text;
 					},
+					input_category : 'description_of_external_link',
 				},
 			},
 			inputs_by_content_type : {
@@ -42,6 +45,7 @@ inputBuilder = {
 				tweet_body : {
 					default_text : "Choose some text for your tweet",
 					style_class : 'twitter-body',
+					input_category : 'primary_text',
 				},
 			},
 			inputs_by_content_type : {
@@ -58,6 +62,7 @@ inputBuilder = {
 				instagram_caption : {
 					default_text : "The caption you would like to included with your instagram post",
 					style_class : 'instagram-comment-input',
+					input_category : 'primary_text',
 				},
 			},
 			inputs_by_content_type : {
@@ -71,14 +76,17 @@ inputBuilder = {
 				linked_content_title : {
 					default_text : "The title of the article that you would like to share",
 					style_class : 'linked-title',
+					input_category : 'title_of_external_link',
+					
 				},
 				linked_description : {
 					default_text : "Some thoughts on whatever content you're posting",
 					style_class : 'linked-description',
+					input_category : 'primary_text',
 				},
 				linked_body : {
 					default_text : "This is where the main body of the text describing the link goes.  Feel free to really go sick here.  Just dive into the content in a way that really gets to the heart of things",
-					style_class : 'linked-details',
+					style_class : 'description_of_external_link',
 				},
 				
 			},
