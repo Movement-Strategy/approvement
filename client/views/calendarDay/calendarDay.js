@@ -10,9 +10,6 @@ Template['calendarDay'].helpers({
 	is_today_class : function() {
 		return this.day.is_today && !calendarBuilder.dayIsDraggedOver(this) ? 'is-today' : '';
 	},
-	updateReactiveVariables : function() {
-		commentHandler.setCommentsFromDayContext(this);
-	},
 	day : function() {
 		return calendarBuilder.getDayFromContext(this);
 	},

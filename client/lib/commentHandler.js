@@ -1,12 +1,6 @@
 commentHandler = {
-	setCommentsFromDayContext : function(context) {
-		var comments = _.has(context, 'comments') ? context.comments : [];
-		if(context._id == Session.get('current_item_id')) {
-			Session.set('current_comments', comments);
-		}
-	},
 	getCurrentComments : function() {
-		return Comment.find({client_id : Session.get('selected_client_id'), approval_item_id : Session.get('current_item_id')}).fetch();
+		return Comment.find({client_id : Session.get('selected_client_id'), approval_item_id : Session.get('current_item_id')}, {sort: {created_time: 1}}).fetch();
 	},
 	onKeydown : function(event) {
 		if($(".comment-input").is(":focus") && event.which == 13) {
