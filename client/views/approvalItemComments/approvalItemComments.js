@@ -30,6 +30,9 @@ Template['approvalItemComments'].helpers({
 	input_class : function() {
 		return "comment-input-" + this._id;
 	},
+	edit_class : function() {
+		return commentHandler.commentCanBeEdited(this) ? 'comment-display-text' : '';
+	}
 });
 
 Template['approvalItemComments'].events({

@@ -25,6 +25,9 @@ commentHandler = {
 			$(selector).blur();
 		}
 	},
+	commentCanBeEdited : function(context) {
+		return context.name == Session.get('user_name');
+	},
 	handleEditEnter : function(event) {
 		if(event.which == 13) {
 			var selector = this.getElementSelector('input');
