@@ -27,6 +27,9 @@ Template['approvalItemComments'].events({
 	'keydown' : function(event) {
 		commentHandler.onKeydown(event);
 	},
+	'click .delete-comment' : function() {
+		commentHandler.deleteComment(this);
+	},
 	'focus' : function(event) {
 		commentHandler.onFocus();
 	},

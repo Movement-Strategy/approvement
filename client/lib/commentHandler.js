@@ -24,6 +24,10 @@ commentHandler = {
 	emptyCommentInput : function() {
 		$(".comment-input").val("");
 	},
+	deleteComment : function(context) {
+		Session.set("comment_id_to_delete", context._id);
+		promptModalHandler.show('comment');
+	},
 	buildComment : function(commentText) {
 		var timestamp = new Date().getTime();
 		return {
