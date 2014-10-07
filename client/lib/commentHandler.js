@@ -6,14 +6,14 @@ commentHandler = {
 		}
 	},
 	getCurrentComments : function() {
-		return Session.get('current_comments');	
+		return Comment.find({client_id : Session.get('selected_client_id'), approval_item_id : Session.get('current_item_id')}).fetch();
 	},
 	onKeydown : function(event) {
 		if($(".comment-input").is(":focus") && event.which == 13) {
 			var commentText = $(".comment-input").val();			
 			if(commentText != '') {
 				var comment = this.buildComment(commentText);
-				Meteor.call('addComment', Session.get('current_item_id'), comment);
+				Meteor.call('insertComment', comment);
 				this.emptyCommentInput();
 				Meteor.defer(function(){
 					$(".comment-input").blur();
@@ -35,6 +35,8 @@ commentHandler = {
 		return {
 			text : commentText,
 			created_time : timestamp,
+			approval_item_id : Session.get('current_item_id'),
+			client_id : Session.get('selected_client_id'),
 			name : Session.get('user_name'),
 			avatar : Session.get('user_picture'),
 		};
