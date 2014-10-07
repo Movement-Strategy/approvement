@@ -35,13 +35,7 @@ keyStrokeHandler = {
 		if(Session.get('current_prompt_type') != null && event.which == 13) {
 			promptModalHandler.handleDelete();
 		}
-		
-		// Close the prompt modal on escape if its open
-/*
-		if(Session.get('current_prompt_type') != null && event.which == 27) {
-			promptModalHandler.hide();
-		}
-*/
+			
 	}
 	
 };
