@@ -34,7 +34,7 @@ detailsHandler = {
 		this.closeShownPopup();
 		this.setDefaultsOnShow(context, creatingNewItem);
 		if(!creatingNewItem) {
-			this.configureDetailsForNewItem(context);
+			this.configureDetailsForExistingItem(context);
 		}
 		Session.set('details_shown', true);
 	},
@@ -109,6 +109,7 @@ detailsHandler = {
 	},
 	generateNewApprovalItemFromContents : function(itemContents) {
 		return {
+			_id : Session.get('current_item_id'),
 			contents : itemContents,
 			scheduled_time : Session.get('current_scheduled_time'),
 			content_type : Session.get('current_content_type'),
@@ -175,7 +176,8 @@ detailsHandler = {
 		Session.set('time_to_post', null);
 		Session.set('editing_time', true);
 		Session.set('uploaded_image_url', null);
-		Session.set('current_item_id', context._id);
+		var itemID = creatingNewItem ? new Meteor.Collection.ObjectID()._str : context._id;
+		Session.set('current_item_id', itemID);
 		Session.set('current_scope', context.scope);
 		Session.set('current_content_type', null);
 		Session.set('current_network_type', null);
@@ -187,7 +189,7 @@ detailsHandler = {
 		}
 		Session.set('current_item_contents', currentItemContents);
 	},
-	configureDetailsForNewItem: function(context) {
+	configureDetailsForExistingItem: function(context) {
 		Session.set('time_to_post', context.time_to_post);
 		if(context.time_to_post != null) {
 			Session.set('editing_time', false);
