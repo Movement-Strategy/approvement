@@ -55,9 +55,20 @@ detailsHandler = {
 		commentHandler.emptyCommentInput();
 		Session.set('details_shown', false);
 	},
+	deleteRelatedContentIfNeeded : function() {
+		if(this.creatingNewItem()) {
+			var itemID = Session.get('current_item_id');
+			Meteor.call('removeAllAssetsForApprovalItem', itemID);
+			Meteor.call('removeAllCommentsForApprovalItem', itemID);
+		}
+	},
 	getDynamicContents : function() {
 		itemContents = this.getDynamicContentFromDetails();
 		return itemContents;		
+	},
+	onBack : function() {
+		this.deleteRelatedContentIfNeeded();
+		this.hideDetails();
 	},
 	onCreatingNewItem : function(itemContents) {
 		var approvalItem = this.generateNewApprovalItemFromContents(itemContents);

@@ -3,7 +3,7 @@ keyStrokeHandler = {
 		
 		// if details is hide creation modal submit update on cancel press
 		if(Session.get('details_shown') && event.which == 27 && Session.get('details_can_close')) {
-			detailsHandler.hideDetails();
+			detailsHandler.onBack();
 		}
 		
 		// if details is open submit update on enter press

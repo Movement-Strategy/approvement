@@ -60,7 +60,7 @@ Template['approvalItemDetails'].events({
 		stateManager.changeToState('commented');
 	},
 	'click .back.icon' : function() {
-		detailsHandler.hideDetails();
+		detailHandler.onBack();
 	},
 	'click .update.button' : function() {
 		stateManager.changeToState('updated');

@@ -110,7 +110,10 @@ promptModalHandler = {
 		promptModalHandler.hide();
 	},
 	deleteApprovalItem : function() {
-		Meteor.call('removeItem', Session.get('current_item_id'));
+		var itemID = Session.get('current_item_id');
+		Meteor.call('removeItem', itemID);
+		Meteor.call('removeAllCommentsForApprovalItem', itemID);
+		Meteor.call('removeAllAssetsForApprovalItem', itemID);
 		detailsHandler.hideDetails();
 		promptModalHandler.hide();
 	}
