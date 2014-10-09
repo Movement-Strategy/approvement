@@ -85,8 +85,6 @@ calendarBuilder = {
 		}
 	},
 	onDragOverArrowColumn : function(event, columnType)  {
-		event.preventDefault();
-		event.originalEvent.dataTransfer.dropEffect = "move";
 		if(Session.get('allow_date_change')) {
 			this.useColumnTypeToChangeDate(columnType);
 			Session.set('allow_date_change', false);

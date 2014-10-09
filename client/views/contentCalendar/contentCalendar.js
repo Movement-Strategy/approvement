@@ -12,6 +12,15 @@ Template['contentCalendar'].helpers({
 	show_class : function() {
 		return detailsHandler.detailsShown() ? 'hidden' : '';
 	},
+	initializeDroppables : function() {
+		Meteor.defer(function(){
+			$('.forward.arrow.column').droppable({
+				over : function() {
+					calendarBuilder.onDragOverArrowColumn(event, 'forward');
+				},
+			});	
+		});
+	},
 });
 
 Template['contentCalendar'].events({
@@ -21,6 +30,8 @@ Template['contentCalendar'].events({
 	'click .left.arrow' : function(event) {
 		timeHandler.changeToLastWeek();
 	},
+	
+/*
 	'dragenter .forward.arrow.column' : function(event) {
 		event.preventDefault();
 	},
@@ -39,6 +50,7 @@ Template['contentCalendar'].events({
 	'dragleave .back.arrow.column' : function() {
 		event.preventDefault();
 	}
+*/
 	
 });
 
