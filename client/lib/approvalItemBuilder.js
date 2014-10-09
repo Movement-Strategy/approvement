@@ -1,25 +1,23 @@
 approvalItemBuilder = {
 	onApprovalItemsReady : function()  {
-		Deps.autorun(function () {
-			if(Session.get('clients_are_ready')) {
-				approvalItemBuilder.setItemsByDay();
-				calendarBuilder.buildAndSetCalendarDays();
-			}
-		});	
+		 
 	},
-	setItemsByDay : function() {
-		var query = this.getFindQuery();
-		var items = ApprovalItem.find(query).fetch();
+	getApprovalItemsByDay : function() {
 		var itemsByDay = {};
-		_.map(items, function(item){
-			var scheduledDate = moment(item.scheduled_time);
-			var dayIndex = scheduledDate.isoWeekday();
-			if(!_.has(itemsByDay, dayIndex)) {
-				itemsByDay[dayIndex] = [];
-			}
-			itemsByDay[dayIndex].push(item);
-		});
-		Session.set('approval_items_by_day', itemsByDay);
+		if(Session.get('clients_are_ready')) {
+			var query = this.getFindQuery();
+			var items = ApprovalItem.find(query).fetch();
+			_.map(items, function(item){
+				var scheduledDate = moment(item.scheduled_time);
+				var dayIndex = scheduledDate.isoWeekday();
+				if(!_.has(itemsByDay, dayIndex)) {
+					itemsByDay[dayIndex] = [];
+				}
+				itemsByDay[dayIndex].push(item);
+			});
+		}
+		
+		return itemsByDay;
 	},
 	iconMap : {
 		facebook : 'facebook',
@@ -38,6 +36,7 @@ approvalItemBuilder = {
 		calendarBuilder.resetDraggedOverDay();	
 	},
 	getFindQuery : function() {
+		
 		var startOfWeek = timeHandler.getStartOfWeek();
 		var startTime = startOfWeek.format('X') * 1000;
 		var endDate = startOfWeek;

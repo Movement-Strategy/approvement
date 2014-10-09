@@ -1,50 +1,59 @@
 calendarBuilder = {
-	buildAndSetCalendarDays : function() {
-		var approvalItemsByDay = Session.get('approval_items_by_day');
-		var calendarDays = _.map(Session.get('current_days'), function(day, dayIndex){
-			day['day_name'] = day.name;
-			return approvalItemBuilder.addItemsToCalendarDay(day, dayIndex + 1, approvalItemsByDay);
+	handleCalendarDays : function() {
+		Deps.autorun(function(){
+			calendarBuilder.setCurrentCalendarDays();
+		});
+	},
+	setCurrentCalendarDays : function() {
+		var timestamp = Session.get('timestamp_for_current_date');
+		var dateObject = moment(timestamp);
+		var approvalItemsByDay = approvalItemBuilder.getApprovalItemsByDay();
+		var calendarDays = _.map(this.getDefaultCurrentDays(), function(day, dayIndex){
+			day = calendarBuilder.addContextToCalendarDay(day, dayIndex, dateObject);
+			var newDayIndex = parseInt(dayIndex);
+			day = approvalItemBuilder.addItemsToCalendarDay(day, newDayIndex, approvalItemsByDay);
+			return day;
 		});
 		Session.set('calendar_days', calendarDays);
 		Session.set('approval_items_are_ready', true);
 	},
-	defaultCurrentDays : {
-		1 : {
-			name : 'Monday',
-		},
-		2 : {
-			name : 'Tuesday',
-		},
-		3 : {
-			name : 'Wednesday',
-		},
-		4 : {
-			name : 'Thursday',
-		},
-		5 : {
-			name : 'Friday',
-		},
-		6 : {
-			name : 'Saturday',
-		},
-		7 : {
-			name : 'Sunday',
-		},
-	},
-	setCurrentDays : function(currentDate) {
+	addContextToCalendarDay : function(day, dayIndex, dateObject) {
+		var newDay = day;
+		var isoDate = dateObject;
 		
-		// Iterate over the default days and set the full date based on what the current date is
-		currentDays = _.map(this.defaultCurrentDays, function(day, dayIndex){
-			var isoDate = currentDate;
-			
-			// convert the day index into the correct date
-			isoDate.isoWeekday(dayIndex);
-			day['full_date'] = isoDate.format("MM/DD/YYYY");
-			day['is_today'] = day['full_date'] == moment().format("MM/DD/YYYY");
-			day['scheduled_time'] = isoDate.format("X") * 1000;
-			return day;
-		});
-		Session.set('current_days', currentDays);
+		// convert the day index into the correct date
+		isoDate.isoWeekday(dayIndex);
+		newDay['day_name'] = newDay.name;
+		newDay['full_date'] = isoDate.format("MM/DD/YYYY");
+		newDay['is_today'] = newDay['full_date'] == moment().format("MM/DD/YYYY");
+		newDay['scheduled_time'] = isoDate.format("X") * 1000;
+		return newDay;
+	},
+	getDefaultCurrentDays : function() {
+		var defaultDays = {
+			1 : {
+				name : 'Monday',
+			},
+			2 : {
+				name : 'Tuesday',
+			},
+			3 : {
+				name : 'Wednesday',
+			},
+			4 : {
+				name : 'Thursday',
+			},
+			5 : {
+				name : 'Friday',
+			},
+			6 : {
+				name : 'Saturday',
+			},
+			7 : {
+				name : 'Sunday',
+			},
+		};
+		return defaultDays;
 	},
 	dayIsDraggedOver : function(context) {
 		return Session.equals('dragged_over_day', context.day.full_date) && this.dayIsRightScope(context);
@@ -103,7 +112,11 @@ calendarBuilder = {
 	},
 	dayIsRightScope : function(context) {
 		var approvalItem = Session.get('dragged_item');
-		return isRightScope = context.is_external ? approvalItem.scope == 'external' : approvalItem.scope == 'internal';
+		if(approvalItem != null) {
+			return isRightScope = context.is_external ? approvalItem.scope == 'external' : approvalItem.scope == 'internal';
+		} else {
+			return false;
+		}
 	},
 	getCalendarDays : function() {
 		return Session.get('calendar_days');
