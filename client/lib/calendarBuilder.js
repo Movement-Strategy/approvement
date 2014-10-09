@@ -49,6 +49,10 @@ calendarBuilder = {
 	dayIsDraggedOver : function(context) {
 		return Session.equals('dragged_over_day', context.day.full_date) && this.dayIsRightScope(context);
 	},
+	dayIsRightScope : function(context) {
+		var approvalItem = Session.get('dragged_item');
+		return isRightScope = context.is_external ? approvalItem.scope == 'external' : approvalItem.scope == 'internal';
+	},
 	resetDraggedOverDay : function() {
 		Session.set('dragged_over_day', null);
 	},
@@ -100,10 +104,6 @@ calendarBuilder = {
 			Session.set('dragged_over_day', draggedOverDay);
 		}
 		event.preventDefault();
-	},
-	dayIsRightScope : function(context) {
-		var approvalItem = Session.get('dragged_item');
-		return isRightScope = context.is_external ? approvalItem.scope == 'external' : approvalItem.scope == 'internal';
 	},
 	getCalendarDays : function() {
 		return Session.get('calendar_days');

@@ -15,7 +15,20 @@ Template['calendarDay'].helpers({
 	},
 	drag_class : function() {
 		return calendarBuilder.dayIsDraggedOver(this) ? 'dragged-over' : '';
-	}
+	},
+	initializeDroppable : function() {
+		Meteor.defer(function(){
+			$('.calendar-day').droppable({
+				drop : function(event, ui) {
+					var draggedItemData = UI.getElementData(ui.draggable[0]);
+					
+				},
+				over : function(event, ui) {
+					calendarBuilder.onDragEnter(event);
+				}
+			});
+		});	
+	},
 	
 });
 
@@ -24,15 +37,5 @@ Template['calendarDay'].events({
 		var creatingNew = true;
 		detailsHandler.showDetails(this, creatingNew);
 	},
-	'dragover .calendar-day' : function(event) {
-		calendarBuilder.onDraggedOver(event);
-	},
-	'dragleave .calendar-day' : function(event) {
-		calendarBuilder.onDragLeave();
-		event.preventDefault();
-	},
-	'drop .calendar-day' : function(event) {
-		calendarBuilder.onDrop(event);
-	}
 });
 
