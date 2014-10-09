@@ -51,7 +51,11 @@ calendarBuilder = {
 	},
 	dayIsRightScope : function(context) {
 		var approvalItem = Session.get('dragged_item');
-		return isRightScope = context.is_external ? approvalItem.scope == 'external' : approvalItem.scope == 'internal';
+		if(approvalItem != null) {
+			return context.is_external ? approvalItem.scope == 'external' : approvalItem.scope == 'internal';
+		} else {
+			return false;
+		}
 	},
 	resetDraggedOverDay : function() {
 		Session.set('dragged_over_day', null);
@@ -69,8 +73,9 @@ calendarBuilder = {
 		var calendarDayData = UI.getElementData(event.target);
 		var newScheduledTime = calendarDayData.day.scheduled_time;
 		Meteor.call('updateStatus', approvalItemData._id, {scheduled_time : newScheduledTime});
-		Session.set('dragged_item', null);
-		event.preventDefault();
+		Meteor.defer(function(){
+			Session.set('dragged_item', null);
+		});
 	},
 	onDraggedOver : function(event) {
 		event.originalEvent.dataTransfer.dropEffect = "move";
