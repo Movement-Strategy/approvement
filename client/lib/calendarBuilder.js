@@ -7,8 +7,7 @@ calendarBuilder = {
 	setCurrentCalendarDays : function() {
 		var timestamp = Session.get('timestamp_for_current_date');
 		var dateObject = moment(timestamp);
-		
-		var approvalItemsByDay = Session.get('use_cached_approval_items') ? Session.get('cached_approval_items'):  approvalItemBuilder.getApprovalItemsByDay();
+		var approvalItemsByDay = Session.get('cached_day_index') != null ? this.getCachedApprovalItems():  approvalItemBuilder.getApprovalItemsByDay();
 		var calendarDays = _.map(this.getDefaultCurrentDays(), function(day, dayIndex){
 			day = calendarBuilder.addContextToCalendarDay(day, dayIndex, dateObject);
 			var newDayIndex = parseInt(dayIndex);
@@ -17,6 +16,13 @@ calendarBuilder = {
 		});
 		Session.set('calendar_days', calendarDays);
 		Session.set('approval_items_are_ready', true);
+	},
+	getCachedApprovalItems : function() {
+		var cachedApprovalItems = Session.get('cached_approval_items');
+		var approvalItems = approvalItemBuilder.getApprovalItemsByDay();
+		var cachedIndex = Session.get('cached_day_index');
+		approvalItems[cachedIndex] = cachedApprovalItems[cachedIndex];
+		return approvalItems;
 	},
 	addContextToCalendarDay : function(day, dayIndex, dateObject) {
 		var newDay = day;
@@ -86,6 +92,7 @@ calendarBuilder = {
 		Meteor.call('updateStatus', approvalItemData._id, {scheduled_time : newScheduledTime});
 		Meteor.defer(function(){
 			Session.set('dragged_item', null);
+			Session.set('cached_day_index', null);
 		});
 	},
 	onDraggedOver : function(event) {
@@ -97,6 +104,7 @@ calendarBuilder = {
 	},
 	onDragOverArrowColumn : function(event, columnType)  {
 		if(Session.get('allow_date_change')) {
+			Session.set('cached_day_index', Session.get('dragged_item')['day']['index']);
 			this.useColumnTypeToChangeDate(columnType);
 			Session.set('allow_date_change', false);
 			Meteor.setTimeout(function(){

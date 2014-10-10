@@ -17,7 +17,9 @@ approvalItemBuilder = {
 			});
 		}
 		
-		Session.set('cached_approval_items', itemsByDay);
+		if(Session.get('cached_day_index') == null) {
+			Session.set('cached_approval_items', itemsByDay);
+		}
 		
 		return itemsByDay;
 	},
@@ -32,7 +34,7 @@ approvalItemBuilder = {
 		
 		var elementID = 'label_' + approvalItem._id;
 		$('#' . elementID).popup('destroy');
-		Session.set('use_cached_approval_items', true);
+		
 		Session.set('dragged_item', approvalItem);
 		detailsHandler.closeShownPopup();
 		popupContent.disablePopups();
