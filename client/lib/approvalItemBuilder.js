@@ -23,6 +23,16 @@ approvalItemBuilder = {
 		
 		return itemsByDay;
 	},
+	draggedItemShouldRevert : function(droppedOn) {
+		shouldRevert = true;
+		if(droppedOn) {
+			var targetDay = UI.getElementData(droppedOn[0]);
+			if(targetDay.day.index != Session.get('dragged_item').day.index) {
+				shouldRevert = false;
+			}
+		}
+		return shouldRevert;	
+	},
 	iconMap : {
 		facebook : 'facebook',
 		twitter : 'twitter',
@@ -34,6 +44,11 @@ approvalItemBuilder = {
 		Session.set('dragged_item', approvalItem);
 		detailsHandler.closeShownPopup();
 		popupContent.disablePopups();
+	},
+	onDragStop : function(event) {
+		Meteor.defer(function(){
+			Session.set('dragged_over_day', null);
+		});
 	},
 	onDragEnd : function() {
 		Session.set('dragged_item', null);

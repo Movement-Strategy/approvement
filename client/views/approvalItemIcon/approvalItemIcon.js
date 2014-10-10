@@ -16,9 +16,15 @@ Template['approvalItemIcon'].helpers({
 		Meteor.defer(function(){
 			var labelElement = '#label_' + that._id;
 			var params = {
-				start : function(event, ui) {
+				revert : function(droppedOn) {
+					return approvalItemBuilder.draggedItemShouldRevert(droppedOn);
+				},
+ 				start : function(event, ui) {
 					approvalItemBuilder.onDragStart(event);
 				},
+				stop : function(event, ui) {
+					approvalItemBuilder.onDragStop(event);
+				}
 			};
 			$(labelElement).draggable(params);
 		});	
