@@ -33,7 +33,6 @@ approvalItemBuilder = {
 		var approvalItem = UI.getElementData(event.target);
 		
 		var elementID = 'label_' + approvalItem._id;
-		$('#' . elementID).popup('destroy');
 		
 		Session.set('dragged_item', approvalItem);
 		detailsHandler.closeShownPopup();

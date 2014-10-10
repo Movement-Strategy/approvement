@@ -17,7 +17,26 @@ Template['contentCalendar'].helpers({
 			$('.forward.arrow.column').droppable({
 				over : function() {
 					calendarBuilder.onDragOverArrowColumn(event, 'forward');
+					calendarBuilder.intervalHandler = Meteor.setInterval(function(){
+						calendarBuilder.onDragOverArrowColumn(event, 'forward');
+					}, 250);
 				},
+				out : function() {
+					Meteor.clearInterval(calendarBuilder.intervalHandler);
+					calendarBuilder.intervalHandler = null;
+				}
+			});
+			$('.back.arrow.column').droppable({
+				over : function() {
+					calendarBuilder.onDragOverArrowColumn(event, 'back');
+					calendarBuilder.intervalHandler = Meteor.setInterval(function(){
+						calendarBuilder.onDragOverArrowColumn(event, 'back');
+					}, 250);
+				},
+				out : function() {
+					Meteor.clearInterval(calendarBuilder.intervalHandler);
+					calendarBuilder.intervalHandler = null;
+				}
 			});	
 		});
 	},

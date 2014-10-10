@@ -35,6 +35,10 @@ popupContent = {
 					position : 'top center',
 				});
 			});
+		} else {
+			Meteor.defer(function(){
+				$('#label_' + context._id).popup('destroy');
+			});
 		}
 	},
 	getContentKey : function(key, currentContents) {

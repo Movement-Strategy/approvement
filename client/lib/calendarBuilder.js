@@ -1,4 +1,5 @@
 calendarBuilder = {
+	intervalHandler : null,
 	handleCalendarDays : function() {
 		Deps.autorun(function(){
 			calendarBuilder.setCurrentCalendarDays();
@@ -103,14 +104,8 @@ calendarBuilder = {
 		}
 	},
 	onDragOverArrowColumn : function(event, columnType)  {
-		if(Session.get('allow_date_change')) {
-			Session.set('cached_day_index', Session.get('dragged_item')['day']['index']);
-			this.useColumnTypeToChangeDate(columnType);
-			Session.set('allow_date_change', false);
-			Meteor.setTimeout(function(){
-				Session.set('allow_date_change', true);
-			}, 500);
-		}
+		Session.set('cached_day_index', Session.get('dragged_item')['day']['index']);
+		this.useColumnTypeToChangeDate(columnType);
 	},
 	useColumnTypeToChangeDate : function(columnType) {
 		if(columnType == 'forward') {
