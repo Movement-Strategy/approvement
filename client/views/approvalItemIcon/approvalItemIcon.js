@@ -23,6 +23,7 @@ Template['approvalItemIcon'].helpers({
 					approvalItemBuilder.onDragStart(event);
 				},
 				stop : function(event, ui) {
+					Session.set('popups_disabled', false);
 					approvalItemBuilder.onDragStop(event);
 				}
 			};
