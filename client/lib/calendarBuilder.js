@@ -7,7 +7,8 @@ calendarBuilder = {
 	setCurrentCalendarDays : function() {
 		var timestamp = Session.get('timestamp_for_current_date');
 		var dateObject = moment(timestamp);
-		var approvalItemsByDay = approvalItemBuilder.getApprovalItemsByDay();
+		
+		var approvalItemsByDay = Session.get('use_cached_approval_items') ? Session.get('cached_approval_items'):  approvalItemBuilder.getApprovalItemsByDay();
 		var calendarDays = _.map(this.getDefaultCurrentDays(), function(day, dayIndex){
 			day = calendarBuilder.addContextToCalendarDay(day, dayIndex, dateObject);
 			var newDayIndex = parseInt(dayIndex);
@@ -23,6 +24,7 @@ calendarBuilder = {
 		
 		// convert the day index into the correct date
 		isoDate.isoWeekday(dayIndex);
+		newDay['index'] = dayIndex;
 		newDay['day_name'] = newDay.name;
 		newDay['full_date'] = isoDate.format("MM/DD/YYYY");
 		newDay['is_today'] = newDay['full_date'] == moment().format("MM/DD/YYYY");

@@ -17,6 +17,8 @@ approvalItemBuilder = {
 			});
 		}
 		
+		Session.set('cached_approval_items', itemsByDay);
+		
 		return itemsByDay;
 	},
 	iconMap : {
@@ -27,8 +29,10 @@ approvalItemBuilder = {
 	},
 	onDragStart : function(event) {
 		var approvalItem = UI.getElementData(event.target);
+		
 		var elementID = 'label_' + approvalItem._id;
 		$('#' . elementID).popup('destroy');
+		Session.set('use_cached_approval_items', true);
 		Session.set('dragged_item', approvalItem);
 		detailsHandler.closeShownPopup();
 		popupContent.disablePopups();
@@ -78,6 +82,7 @@ approvalItemBuilder = {
 		processedItem['day'] = {
 			scheduled_time : day.scheduled_time,
 			is_today : day.is_today,
+			index : day.index,
 		};
 		day['approval_items'][scope].push(processedItem);
 		
