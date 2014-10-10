@@ -21,13 +21,15 @@ keyStrokeHandler = {
 			pendingItemHandler.goToPendingItem(Session.get('pending_item_index'));
 		}
 		
-		// If details is open change to last week on left press
+		// If details is not open change to last week on left press
 		if(!Session.get('details_shown') && event.which == 37) {
+			detailsHandler.closeShownPopup();
 			timeHandler.changeToLastWeek();
 		}
 		
-		// If details is open change to next week on right press
+		// If details is not open change to next week on right press
 		if(!Session.get('details_shown') && event.which == 39) {
+			detailsHandler.closeShownPopup();
 			timeHandler.changeToNextWeek();
 		}
 		
