@@ -16,7 +16,6 @@ Template['approvalItemIcon'].helpers({
 		Meteor.defer(function(){
 			var labelElement = '#label_' + that._id;
 			var params = {
-				revert : true,
 				start : function(event, ui) {
 					approvalItemBuilder.onDragStart(event);
 				},

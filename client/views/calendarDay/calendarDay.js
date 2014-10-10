@@ -20,9 +20,15 @@ Template['calendarDay'].helpers({
 		Meteor.defer(function(){
 			$('.calendar-day').droppable({
 				drop : function(event, ui) {
+					$(ui.draggable[0]).draggable('option', 'revert', false);
+					
 					calendarBuilder.onDrop(event);
 				},
+				out : function(event, ui) {
+					$(ui.draggable[0]).draggable('option', 'revert', true);
+				},
 				over : function(event, ui) {
+					$(ui.draggable[0]).draggable('option', 'revert', false);
 					calendarBuilder.onDragEnter(event);
 				}
 			});
