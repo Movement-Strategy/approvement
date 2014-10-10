@@ -1,22 +1,26 @@
 timeHandler = {
 	getStartOfWeek : function() {
-		var currentDays = Session.get('current_days');
+		var currentDays = Session.get('calendar_days');
 		var startOfWeekTime = currentDays[0]['scheduled_time'];
 		var dateString = moment(startOfWeekTime).format('DD-MM-YYYY');
 		return moment(dateString, 'DD-MM-YYYY');
 	},
 	createMomentDate : function() {
 		var dateObject = new Date().add;
-		momentDate = moment(dateObject);
-		calendarBuilder.setCurrentDays(momentDate);
+		momentDate = moment();
+		this.setCurrentTimestampFromDateObject(momentDate);
+	},
+	setCurrentTimestampFromDateObject : function(dateObject) {
+		Session.set('timestamp_for_current_date', this.convertDateToTimestamp(momentDate));
+	},
+	convertDateToTimestamp : function(dateObject) {
+		return dateObject.format('X') * 1000;
 	},
 	alterCurrentDate : function(alterFunction) {
 		var startOfWeek = timeHandler.getStartOfWeek();
 		startOfWeek = alterFunction(startOfWeek);
 		momentDate = startOfWeek;
-		calendarBuilder.setCurrentDays(momentDate);
-		calendarBuilder.buildAndSetCalendarDays();
-		approvalItemBuilder.setItemsByDay();
+		this.setCurrentTimestampFromDateObject(momentDate);
 	},
 	changeToNextWeek : function() {
 		timeHandler.alterCurrentDate(function(date){

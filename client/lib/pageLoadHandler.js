@@ -6,6 +6,7 @@ pageLoadHandler = {
 		assetHandler.handleAssetID();
 		assetHandler.updateCurrentAssets();
 		gifHandler.handleSuccessGif();
+		calendarBuilder.handleCalendarDays();
 	},
 	checkIfPageIsReady : function() {
 		Deps.autorun(function(){
