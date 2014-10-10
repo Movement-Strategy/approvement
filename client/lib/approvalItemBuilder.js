@@ -31,9 +31,6 @@ approvalItemBuilder = {
 	},
 	onDragStart : function(event) {
 		var approvalItem = UI.getElementData(event.target);
-		
-		var elementID = 'label_' + approvalItem._id;
-		
 		Session.set('dragged_item', approvalItem);
 		detailsHandler.closeShownPopup();
 		popupContent.disablePopups();
