@@ -24,7 +24,9 @@ Template['calendarDay'].helpers({
 		Meteor.defer(function(){
 			$('.calendar-day').droppable({
 				drop : function(event, ui) {
-					calendarBuilder.onDrop(event);
+					if(!calendarBuilder.plusIsDraggedOver()) {
+						calendarBuilder.onDrop(event);
+					}
 				},
 				over : function(event, ui) {
 					calendarBuilder.onDragEnter(event);
