@@ -25,6 +25,15 @@ calendarBuilder = {
 		approvalItems[cachedIndex] = cachedApprovalItems[cachedIndex];
 		return approvalItems;
 	},
+	plusIsDraggedOver : function() {
+		return Session.get('plus_is_dragged_over');	
+	},
+	onDragOverPlusButton : function() {
+		Session.set('plus_is_dragged_over', true);
+	},
+	onDragExitPlusButton : function() {
+		Session.set('plus_is_dragged_over', false);
+	},
 	addContextToCalendarDay : function(day, dayIndex, dateObject) {
 		var newDay = day;
 		var isoDate = dateObject;
