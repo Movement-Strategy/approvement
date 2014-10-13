@@ -77,7 +77,10 @@ calendarBuilder = {
 		return defaultDays;
 	},
 	dayIsDraggedOver : function(context) {
-		return Session.equals('dragged_over_day', context.day.full_date) && this.dayIsRightScope(context);
+		var draggedOverDay = Session.get('dragged_over_day');
+		var draggedOverDate = draggedOverDay != null ? Session.get('dragged_over_day').full_date : null;
+		
+		return draggedOverDate == context.day.full_date && this.dayIsRightScope(context);
 	},
 	dayIsRightScope : function(context) {
 		var approvalItem = Session.get('dragged_item');
@@ -128,9 +131,8 @@ calendarBuilder = {
 	},
  	setDraggedOverDay : function(event) {
 		var context = UI.getElementData(event.target);
-		var draggedOverDay = context.day.full_date;
 		if(this.dayIsRightScope(context)) {
-			Session.set('dragged_over_day', draggedOverDay);
+			Session.set('dragged_over_day', context.day);
 		}
 		event.preventDefault();
 	},
