@@ -38,7 +38,10 @@ Template['calendarDay'].helpers({
 				},
 				out : function(event, ui) {
 					calendarBuilder.onDragExitPlusButton();				
-				}
+				},
+				drop : function(event, ui) {
+					calendarBuilder.onDropOverPlusButton();
+				} 
 			})
 		});	
 	},

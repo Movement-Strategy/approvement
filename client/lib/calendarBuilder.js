@@ -31,6 +31,9 @@ calendarBuilder = {
 	onDragOverPlusButton : function() {
 		Session.set('plus_is_dragged_over', true);
 	},
+	onDropOverPlusButton : function() {
+		console.log(Session.get('dragged_over_day'));	
+	},
 	onDragExitPlusButton : function() {
 		Session.set('plus_is_dragged_over', false);
 	},
