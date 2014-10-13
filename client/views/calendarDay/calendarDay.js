@@ -41,7 +41,7 @@ Template['calendarDay'].helpers({
 				},
 				drop : function(event, ui) {
 					calendarBuilder.onDropOverPlusButton();
-				} 
+				}
 			})
 		});	
 	},

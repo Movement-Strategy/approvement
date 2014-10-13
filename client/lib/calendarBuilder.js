@@ -36,6 +36,9 @@ calendarBuilder = {
 		var context = Session.get('dragged_over_day');
 		Session.set('item_to_copy', Session.get('dragged_item'));
 		detailsHandler.showDetails(context, creatingNew);
+		Meteor.defer(function(){
+			Session.set('plus_is_dragged_over', false);
+		});
 	},
 	onDragExitPlusButton : function() {
 		Session.set('plus_is_dragged_over', false);

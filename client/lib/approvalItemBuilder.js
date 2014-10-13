@@ -25,7 +25,7 @@ approvalItemBuilder = {
 	},
 	draggedItemShouldRevert : function(droppedOn) {
 		shouldRevert = true;
-		if(droppedOn) {
+		if(droppedOn && !calendarBuilder.plusIsDraggedOver()) {
 			var targetDay = UI.getElementData(droppedOn[0]);
 			if(targetDay.day.index != Session.get('dragged_item').day.index) {
 				shouldRevert = false;

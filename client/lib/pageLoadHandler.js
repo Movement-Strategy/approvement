@@ -45,7 +45,8 @@ pageLoadHandler = {
 		link_is_loading : false,
 		current_facebook_link_data : {},
 		current_facebook_link : "",	
-		item_to_copy : null,	
+		item_to_copy : null,
+		plus_is_dragged_over : false,		
 	},
 	setSessionDefaults : function() {
 		_.map(this.defaultSessionValueMap, function(value, key){
