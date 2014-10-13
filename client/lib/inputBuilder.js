@@ -167,7 +167,6 @@ inputBuilder = {
 					input.text = input.on_meta_tag_not_found(linkData, input);
 				}
 			}
-			
 		}
 		return input;
 	},
