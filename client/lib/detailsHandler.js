@@ -54,6 +54,7 @@ detailsHandler = {
 	},
 	onHideDetails : function() {
 		commentHandler.emptyCommentInput();
+		Session.set('item_to_copy', null);
 		Session.set('details_shown', false);
 	},
 	deleteRelatedContentIfNeeded : function() {

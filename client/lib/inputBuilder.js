@@ -119,10 +119,43 @@ inputBuilder = {
 			input.text = _.has(currentItemContents, inputName) ? currentItemContents[inputName] : input.default_text;
 			input.id = inputName;
 			input = inputBuilder.updateInputFromLinkData(input);
+			input = inputBuilder.updateInputWithCopiedData(input);
 			processedInputs[inputName] = input;
 		});
 		
 		Session.set('clickable_inputs', processedInputs);
+	},
+	itemIsBeingCopied : function() {
+		return !Session.equals('item_to_copy', null);	
+	},
+	updateInputWithCopiedData : function(input) {
+		if(this.itemIsBeingCopied()) {
+			var contentToCopy = this.getContentToCopyForInput(input);
+			if(contentToCopy) {
+				input.text = contentToCopy;
+			}
+		}
+		return input;
+	},
+	getContentToCopyForInput : function(input) {
+		var itemToCopy = Session.get('item_to_copy');
+		var inputCategory = input.input_category;
+		var inputToCopy = this.getInputToCopyBasedOnCategory(inputCategory);
+		
+		// if there is a corresponding input to copy, return it, otherwise return false
+		return inputToCopy ? itemToCopy['contents'][inputToCopy] : false;		
+	},
+	getInputToCopyBasedOnCategory : function(inputCategory) {
+		var itemToCopy = Session.get('item_to_copy');
+		var copiedNetworkType = itemToCopy.type;
+		var copiedContentType = itemToCopy.content_type;
+		
+		inputsForCopiedItem = this.inputMap[copiedNetworkType]['inputs_by_content_type'][copiedContentType];
+		
+		return _.find(inputsForCopiedItem, function(inputName){
+			var input = inputBuilder.inputMap[copiedNetworkType]['input_types'][inputName];
+			return inputCategory == input.input_category;
+		});
 	},
 	updateInputFromLinkData : function(input) {
 		var linkData = Session.get('current_facebook_link_data');
