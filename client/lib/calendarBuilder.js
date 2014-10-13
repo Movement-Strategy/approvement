@@ -32,7 +32,10 @@ calendarBuilder = {
 		Session.set('plus_is_dragged_over', true);
 	},
 	onDropOverPlusButton : function() {
-		console.log(Session.get('dragged_over_day'));	
+		var creatingNew = true;
+		var context = Session.get('dragged_over_day');
+		Session.set('item_to_copy', Session.get('dragged_item'));
+		detailsHandler.showDetails(context, creatingNew);
 	},
 	onDragExitPlusButton : function() {
 		Session.set('plus_is_dragged_over', false);
@@ -78,8 +81,7 @@ calendarBuilder = {
 	},
 	dayIsDraggedOver : function(context) {
 		var draggedOverDay = Session.get('dragged_over_day');
-		var draggedOverDate = draggedOverDay != null ? Session.get('dragged_over_day').full_date : null;
-		
+		var draggedOverDate = draggedOverDay != null ? Session.get('dragged_over_day').day.full_date : null;
 		return draggedOverDate == context.day.full_date && this.dayIsRightScope(context);
 	},
 	dayIsRightScope : function(context) {
@@ -132,7 +134,7 @@ calendarBuilder = {
  	setDraggedOverDay : function(event) {
 		var context = UI.getElementData(event.target);
 		if(this.dayIsRightScope(context)) {
-			Session.set('dragged_over_day', context.day);
+			Session.set('dragged_over_day', context);
 		}
 		event.preventDefault();
 	},

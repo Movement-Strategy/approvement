@@ -17,6 +17,7 @@ detailsHandler = {
 		}
 		return isPreviewShown;
 	},
+	
 	showDropdowns : function() {
 		if(contentTypeBuilder.isType('link')) {
 			return false;
