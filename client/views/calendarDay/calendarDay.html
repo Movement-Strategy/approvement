@@ -7,12 +7,10 @@
 		<div class="content-container">
 			{{#if is_external}}
 				{{#each day.approval_items.external}}
-					{{updateReactiveVariables}}
 					{{> approvalItemIcon}}
 				{{/each}}
 			{{else}}
 				{{#each day.approval_items.internal}}
-					{{updateReactiveVariables}}
 					{{> approvalItemIcon}}
 				{{/each}}
 				<a class="ui large grey circular label create-item-button">
@@ -21,6 +19,7 @@
 				<p class="day-name hide {{drag_class}}">{{day.day_name}}</p>
 			{{/if}}
 		</div>
+		{{initializeDroppable}}
 	</div>
 </template>
 

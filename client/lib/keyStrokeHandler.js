@@ -3,7 +3,7 @@ keyStrokeHandler = {
 		
 		// if details is hide creation modal submit update on cancel press
 		if(Session.get('details_shown') && event.which == 27 && Session.get('details_can_close')) {
-			detailsHandler.hideDetails();
+			detailsHandler.onBack();
 		}
 		
 		// if details is open submit update on enter press
@@ -21,13 +21,15 @@ keyStrokeHandler = {
 			pendingItemHandler.goToPendingItem(Session.get('pending_item_index'));
 		}
 		
-		// If details is open change to last week on left press
+		// If details is not open change to last week on left press
 		if(!Session.get('details_shown') && event.which == 37) {
+			detailsHandler.closeShownPopup();
 			timeHandler.changeToLastWeek();
 		}
 		
-		// If details is open change to next week on right press
+		// If details is not open change to next week on right press
 		if(!Session.get('details_shown') && event.which == 39) {
+			detailsHandler.closeShownPopup();
 			timeHandler.changeToNextWeek();
 		}
 		
@@ -35,13 +37,7 @@ keyStrokeHandler = {
 		if(Session.get('current_prompt_type') != null && event.which == 13) {
 			promptModalHandler.handleDelete();
 		}
-		
-		// Close the prompt modal on escape if its open
-/*
-		if(Session.get('current_prompt_type') != null && event.which == 27) {
-			promptModalHandler.hide();
-		}
-*/
+			
 	}
 	
 };

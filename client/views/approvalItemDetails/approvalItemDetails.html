@@ -31,11 +31,8 @@
 						{{#with preview_content}}
 					    	{{> UI.dynamic template=preview_template data=clickable_inputs}}
 					    {{/with}}
-					    {{#if creating_new_item}}
-						{{else}}
-							{{> creationAccordion}}
-							{{initializeAccordion}}
-						{{/if}}
+						{{> creationAccordion}}
+						{{initializeAccordion}}
 					{{/if}}
 				    
 					{{#if details_shown}}

@@ -1,6 +1,7 @@
 @import '../../stylesheets/variables.less'; 
 @import '../../stylesheets/elements.less'; 
 
+
 .item-preview > {
 	.preview-content > {
 		.comments  {
@@ -9,6 +10,10 @@
 			font-size: 11px;
 		}
 		.comment > {
+			.comment-display-text:hover {
+				background-color : rgba(220,220,220,0.97);
+				cursor : pointer;
+			}
 			.ui.input {
 				width : 100%;
 			}

@@ -11,9 +11,17 @@
 					    </a>
 					    <div class="metadata">
 						    <span class="date">{{formatted_date}}</span>
+						    <i class="close icon link icon delete-comment"></i>
 					    </div>
 					    <div class="text">
-						    {{text}}
+						    {{#if being_edited}}
+							    <div class="text">
+									<textarea class="comment-input comment-edit {{input_class}}" placeholder = "Enter a comment">{{text}}</textarea>
+									{{initializeTextarea}}
+							    </div>
+							{{else}}
+								<span class='{{edit_class}} comment-edit {{display_class}}'>{{text}}</span>
+							{{/if}}
 					    </div>
 				    </div>
 			    </div>
@@ -27,7 +35,7 @@
 					    {{user_name}}
 				    </a>
 				    <div class="text">
-						<textarea class="comment-input" placeholder = "Enter a comment"></textarea>
+						<textarea class="comment-input comment-create" placeholder = "Enter a comment"></textarea>
 						{{initializeTextarea}}
 				    </div>
 			    </div>

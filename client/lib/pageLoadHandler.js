@@ -6,12 +6,13 @@ pageLoadHandler = {
 		assetHandler.handleAssetID();
 		assetHandler.updateCurrentAssets();
 		gifHandler.handleSuccessGif();
+		calendarBuilder.handleCalendarDays();
 	},
 	checkIfPageIsReady : function() {
 		Deps.autorun(function(){
 			
 			// as the page is loading, make sure all of the content thats required from collections is ready before loading
-			if(Session.get('approval_items_are_ready') && Session.get('clients_are_ready')) {
+			if(Session.get('approval_items_are_ready') && Session.get('clients_are_ready') && Session.get('comments_are_ready')) {
 				Session.set('page_is_ready', true);
 			}
 		});

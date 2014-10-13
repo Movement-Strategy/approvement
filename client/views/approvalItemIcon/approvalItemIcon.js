@@ -10,7 +10,26 @@ Template['approvalItemIcon'].helpers({
 	},
 	label_id : function() {
 		return this._id;
-	}
+	},
+	initializeDraggable : function() {
+		var that = this;
+		Meteor.defer(function(){
+			var labelElement = '#label_' + that._id;
+			var params = {
+				revert : function(droppedOn) {
+					return approvalItemBuilder.draggedItemShouldRevert(droppedOn);
+				},
+ 				start : function(event, ui) {
+					approvalItemBuilder.onDragStart(event);
+				},
+				stop : function(event, ui) {
+					Session.set('popups_disabled', false);
+					approvalItemBuilder.onDragStop(event);
+				}
+			};
+			$(labelElement).draggable(params);
+		});	
+	},
 });
 
 Template['approvalItemIcon'].events({
@@ -19,16 +38,7 @@ Template['approvalItemIcon'].events({
 		detailsHandler.showDetails(this, creatingNew);
 	},
 	'mouseenter .approval-item' : function(event) {
-		Session.set('shown_popup_id', event.currentTarget.id);
+		popupContent.onMouseEnter(event);
 	},
-	'dragstart .approval-item' : function(event) {
-		approvalItemBuilder.onDragStart(event);
-	},
-	'drag .approval-item' : function(event) {
-		event.preventDefault();	
-	},
-	'dragend .approval-item' : function() {
-		approvalItemBuilder.onDragEnd();
-	}
 });
 

@@ -59,6 +59,16 @@ promptModalHandler = {
 				'delete',
 			],
 		},
+		comment : {
+			on_delete : function() {
+				promptModalHandler.deleteComment();
+			},
+			message : "Are you sure you want to delete this comment? It can't be undone",
+			buttons : [
+				'undo',
+				'delete',
+			],
+		},
 		exit_asset : {
 			on_exit : function() {
 				detailsHandler.onHideDetails();
@@ -70,6 +80,7 @@ promptModalHandler = {
 				'exit',
 			],
 		},
+		
 	},
 	promptButtonMap : {
 		'delete' : {
@@ -88,13 +99,21 @@ promptModalHandler = {
 	handleExit : function() {
 		this.promptMap[Session.get('current_prompt_type')]['on_exit']();
 	},
+	deleteComment : function() {
+		Meteor.call('removeComment', Session.get('comment_id_to_delete'));
+		Session.set('comment_id_to_delete', null);
+		promptModalHandler.hide();
+	},
 	deleteAsset : function() {
 		Meteor.call('removeAsset', Session.get('current_asset_id'));
 		assetHandler.resetAssetTemplate();
 		promptModalHandler.hide();
 	},
 	deleteApprovalItem : function() {
-		Meteor.call('removeItem', Session.get('current_item_id'));
+		var itemID = Session.get('current_item_id');
+		Meteor.call('removeItem', itemID);
+		Meteor.call('removeAllCommentsForApprovalItem', itemID);
+		Meteor.call('removeAllAssetsForApprovalItem', itemID);
 		detailsHandler.hideDetails();
 		promptModalHandler.hide();
 	}

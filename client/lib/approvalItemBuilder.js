@@ -1,25 +1,37 @@
 approvalItemBuilder = {
 	onApprovalItemsReady : function()  {
-		Deps.autorun(function () {
-			if(Session.get('clients_are_ready')) {
-				approvalItemBuilder.setItemsByDay();
-				calendarBuilder.buildAndSetCalendarDays();
-			}
-		});	
+		 
 	},
-	setItemsByDay : function() {
-		var query = this.getFindQuery();
-		var items = ApprovalItem.find(query).fetch();
+	getApprovalItemsByDay : function() {
 		var itemsByDay = {};
-		_.map(items, function(item){
-			var scheduledDate = moment(item.scheduled_time);
-			var dayIndex = scheduledDate.isoWeekday();
-			if(!_.has(itemsByDay, dayIndex)) {
-				itemsByDay[dayIndex] = [];
+		if(Session.get('clients_are_ready')) {
+			var query = this.getFindQuery();
+			var items = ApprovalItem.find(query).fetch();
+			_.map(items, function(item){
+				var scheduledDate = moment(item.scheduled_time);
+				var dayIndex = scheduledDate.isoWeekday();
+				if(!_.has(itemsByDay, dayIndex)) {
+					itemsByDay[dayIndex] = [];
+				}
+				itemsByDay[dayIndex].push(item);
+			});
+		}
+		
+		if(Session.get('cached_day_index') == null) {
+			Session.set('cached_approval_items', itemsByDay);
+		}
+		
+		return itemsByDay;
+	},
+	draggedItemShouldRevert : function(droppedOn) {
+		shouldRevert = true;
+		if(droppedOn) {
+			var targetDay = UI.getElementData(droppedOn[0]);
+			if(targetDay.day.index != Session.get('dragged_item').day.index) {
+				shouldRevert = false;
 			}
-			itemsByDay[dayIndex].push(item);
-		});
-		Session.set('approval_items_by_day', itemsByDay);
+		}
+		return shouldRevert;	
 	},
 	iconMap : {
 		facebook : 'facebook',
@@ -29,15 +41,21 @@ approvalItemBuilder = {
 	},
 	onDragStart : function(event) {
 		var approvalItem = UI.getElementData(event.target);
-		var elementID = 'label_' + approvalItem._id;
 		Session.set('dragged_item', approvalItem);
 		detailsHandler.closeShownPopup();
+		popupContent.disablePopups();
+	},
+	onDragStop : function(event) {
+		Meteor.defer(function(){
+			Session.set('dragged_over_day', null);
+		});
 	},
 	onDragEnd : function() {
 		Session.set('dragged_item', null);
 		calendarBuilder.resetDraggedOverDay();	
 	},
 	getFindQuery : function() {
+		
 		var startOfWeek = timeHandler.getStartOfWeek();
 		var startTime = startOfWeek.format('X') * 1000;
 		var endDate = startOfWeek;
@@ -77,6 +95,7 @@ approvalItemBuilder = {
 		processedItem['day'] = {
 			scheduled_time : day.scheduled_time,
 			is_today : day.is_today,
+			index : day.index,
 		};
 		day['approval_items'][scope].push(processedItem);
 		

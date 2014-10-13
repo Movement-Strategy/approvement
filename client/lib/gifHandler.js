@@ -27,11 +27,7 @@ gifHandler = {
 		return allFinished;
 	},
 	gifShouldBeShown : function() {
-		if(!userHandler.userIsType('client')) {
-			return Session.get('show_gif');
-		} else {
-			return false;
-		}
+		return Session.get('show_gif');
 	},
 	getGifURL : function(){
 		return this.gifs[Math.floor(Math.random() * this.gifs.length)];

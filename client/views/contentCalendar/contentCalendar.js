@@ -12,6 +12,34 @@ Template['contentCalendar'].helpers({
 	show_class : function() {
 		return detailsHandler.detailsShown() ? 'hidden' : '';
 	},
+	initializeDroppables : function() {
+		Meteor.defer(function(){
+			$('.forward.arrow.column').droppable({
+				over : function() {
+					calendarBuilder.onDragOverArrowColumn(event, 'forward');
+					calendarBuilder.intervalHandler = Meteor.setInterval(function(){
+						calendarBuilder.onDragOverArrowColumn(event, 'forward');
+					}, 250);
+				},
+				out : function() {
+					Meteor.clearInterval(calendarBuilder.intervalHandler);
+					calendarBuilder.intervalHandler = null;
+				}
+			});
+			$('.back.arrow.column').droppable({
+				over : function() {
+					calendarBuilder.onDragOverArrowColumn(event, 'back');
+					calendarBuilder.intervalHandler = Meteor.setInterval(function(){
+						calendarBuilder.onDragOverArrowColumn(event, 'back');
+					}, 250);
+				},
+				out : function() {
+					Meteor.clearInterval(calendarBuilder.intervalHandler);
+					calendarBuilder.intervalHandler = null;
+				}
+			});	
+		});
+	},
 });
 
 Template['contentCalendar'].events({
@@ -21,6 +49,8 @@ Template['contentCalendar'].events({
 	'click .left.arrow' : function(event) {
 		timeHandler.changeToLastWeek();
 	},
+	
+/*
 	'dragenter .forward.arrow.column' : function(event) {
 		event.preventDefault();
 	},
@@ -39,6 +69,7 @@ Template['contentCalendar'].events({
 	'dragleave .back.arrow.column' : function() {
 		event.preventDefault();
 	}
+*/
 	
 });
 

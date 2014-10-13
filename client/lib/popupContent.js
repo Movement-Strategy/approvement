@@ -13,12 +13,31 @@ popupContent = {
 		return output;
 		
 	},
+	onMouseEnter : function(event) {
+		if(!this.popupsDisabled()) {
+			this.setShownPopupID(event);	
+		}
+	},
+	disablePopups : function() {
+		Session.set('popups_disabled', true);
+		Session.set('shown_popup_id', null);
+	},
+	popupsDisabled : function() {
+		return Session.get('popups_disabled');
+	},
+	setShownPopupID : function(event) {
+		Session.set('shown_popup_id', event.currentTarget.id);
+	},
 	initializePopup : function(context) {
-		if(Session.get('show_popups')) {
+		if(!this.popupsDisabled()) {
 			Meteor.defer(function(){
 				$('#label_' + context._id).popup({
 					position : 'top center',
 				});
+			});
+		} else {
+			Meteor.defer(function(){
+				$('#label_' + context._id).popup('destroy');
 			});
 		}
 	},
