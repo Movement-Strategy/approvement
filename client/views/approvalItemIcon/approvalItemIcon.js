@@ -5,6 +5,20 @@ Template['approvalItemIcon'].helpers({
 		popupContent.initializePopup(that);
 		return content;
 	},
+	label_color : function() {
+		if(calendarBuilder.itemIsDraggedOutsideOfCalendar(this)) {
+			return 'red';
+		} else {
+			return this.label_color;
+		}
+	},
+	label_icon : function() {
+		if(calendarBuilder.itemIsDraggedOutsideOfCalendar(this)) {
+			return 'trash';
+		} else {
+			return this.label_icon;
+		}
+	},
 	popup_title : function() {
 		return popupContent.getContent(this.type, this.content_type, this.contents).title;
 	},

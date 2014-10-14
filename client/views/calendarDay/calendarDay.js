@@ -31,6 +31,9 @@ Template['calendarDay'].helpers({
 				over : function(event, ui) {
 					calendarBuilder.onDragEnter(event);
 				},
+				out : function(event, ui) {
+					calendarBuilder.onDragExit(event);
+				}
 			});
 			
 			$('.create-item-button').droppable({

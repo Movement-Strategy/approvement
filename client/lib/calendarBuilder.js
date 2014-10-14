@@ -95,6 +95,15 @@ calendarBuilder = {
 			return false;
 		}
 	},
+	itemIsDraggedOutsideOfCalendar : function(context) {
+		var draggedItem = Session.get('dragged_item');
+		var draggedID = null;
+		if(draggedItem) {
+			var draggedID = _.has(draggedItem, '_id') ? draggedItem._id : null;
+		}
+		var isCurrentItem = draggedID == context._id;
+		return Session.get('is_dragged_outside_of_calendar') && isCurrentItem;
+	},
 	resetDraggedOverDay : function() {
 		Session.set('dragged_over_day', null);
 	},
@@ -102,7 +111,16 @@ calendarBuilder = {
 		event.preventDefault();
 		this.resetDraggedOverDay();	
 	},
+	onDragExit : function() {
+		Session.set('is_dragged_outside_of_calendar', true);
+		Meteor.defer(function(){
+			
+		});
+	},
 	onDragEnter : function(event) {
+		Meteor.defer(function(){
+			Session.set('is_dragged_outside_of_calendar', false);
+		});
 		this.setDraggedOverDay(event)
 	},
 	onDrop : function(event) {
@@ -124,6 +142,9 @@ calendarBuilder = {
 		}
 	},
 	onDragOverArrowColumn : function(event, columnType)  {
+		Meteor.defer(function(){
+			Session.set('is_dragged_outside_of_calendar', false);
+		});
 		Session.set('cached_day_index', Session.get('dragged_item')['day']['index']);
 		this.useColumnTypeToChangeDate(columnType);
 	},
