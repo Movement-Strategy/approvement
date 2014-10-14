@@ -1,4 +1,3 @@
-
 statusColorMap = {
 	approved : 'green',
 	rejected : 'red',
@@ -21,6 +20,7 @@ Template['calendarDay'].helpers({
 		}
 	},
 	initializeDroppable : function() {
+		
 		Meteor.defer(function(){
 			$('.calendar-day').droppable({
 				drop : function(event, ui) {
@@ -32,6 +32,7 @@ Template['calendarDay'].helpers({
 					calendarBuilder.onDragEnter(event);
 				},
 			});
+			
 			$('.create-item-button').droppable({
 				over : function(event, ui) {
 					calendarBuilder.onDragOverPlusButton();
@@ -42,7 +43,7 @@ Template['calendarDay'].helpers({
 				drop : function(event, ui) {
 					calendarBuilder.onDropOverPlusButton();
 				}
-			})
+			});
 		});	
 	},
 	

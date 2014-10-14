@@ -17,6 +17,11 @@ pageLoadHandler = {
 			}
 		});
 	},
+	setLogVariable : function(variableName) {
+		Deps.autorun(function(){
+			console.log(Session.get(variableName));
+		});
+	},
 	pageIsReady : function() {
 		return Session.get('page_is_ready');
 	},
