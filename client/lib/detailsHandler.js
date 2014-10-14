@@ -196,10 +196,18 @@ detailsHandler = {
 		Session.set('current_network_type', null);
 		Session.set('current_scheduled_time', context.day.scheduled_time);
 		Session.set('creating_new_item', creatingNewItem);
+		var copiedItemContents = Session.get('item_to_copy') != null ? Session.get('item_to_copy').contents : {};
 		var currentItemContents = creatingNewItem ? {} : context.contents;
+		
 		if(_.has(currentItemContents, 'facebook_link')) {
 			Session.set('current_facebook_link', currentItemContents.facebook_link);
 		}
+		
+		// set the facebook link from the copied item contents
+		if(_.has(copiedItemContents, 'facebook_link')) {
+			Session.set('current_facebook_link', copiedItemContents.facebook_link);
+		}
+				
 		Session.set('current_item_contents', currentItemContents);
 	},
 	configureDetailsForExistingItem: function(context) {

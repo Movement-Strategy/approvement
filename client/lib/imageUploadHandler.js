@@ -28,15 +28,17 @@ imageUploadHandler = {
 			var itemToCopy = Session.get('item_to_copy');
 			var linkData = Session.get('current_facebook_link_data');
 			var metaTagURL = _.has(linkData , 'og:image') ?  linkData['og:image'] : null;
+			
 			if(metaTagURL && Session.get('uploaded_image_url') == null) {
 				Session.set('uploaded_image_url', metaTagURL);
 			}
 			
-			if(itemToCopy) {
+			if(itemToCopy && metaTagURL == null) {
 				if(_.has(itemToCopy.contents, 'image_url')) {
 					Session.set('uploaded_image_url', itemToCopy.contents.image_url);
 				}
 			}
+			
 			
 			return Session.get('uploaded_image_url') == null ? currentURL : Session.get('uploaded_image_url');
 		} else {
