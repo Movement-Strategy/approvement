@@ -46,6 +46,12 @@ approvalItemBuilder = {
 		popupContent.disablePopups();
 	},
 	onDragStop : function(event) {
+		if(Session.get('is_dragged_outside_of_calendar')) {
+			Session.set('is_dragged_outside_of_calendar', false);
+			Session.set('current_item_id', Session.get('dragged_item')._id);
+			promptModalHandler.show('approval_item');
+		}
+		Session.set('popups_disabled', false);
 		Meteor.defer(function(){
 			Session.set('dragged_over_day', null);
 		});

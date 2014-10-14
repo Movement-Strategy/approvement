@@ -31,6 +31,7 @@ Template['approvalItemIcon'].helpers({
 			var labelElement = '#label_' + that._id;
 			var params = {
 				refreshPositions : true,
+				revertDuration : 5,
 				revert : function(droppedOn) {
 					return approvalItemBuilder.draggedItemShouldRevert(droppedOn);
 				},
@@ -38,7 +39,6 @@ Template['approvalItemIcon'].helpers({
 					approvalItemBuilder.onDragStart(event);
 				},
 				stop : function(event, ui) {
-					Session.set('popups_disabled', false);
 					approvalItemBuilder.onDragStop(event);
 				}
 			};
