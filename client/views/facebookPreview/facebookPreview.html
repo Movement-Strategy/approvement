@@ -20,10 +20,7 @@
 			{{#if is_status_type}}
 				
 			{{else}}
-				{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
-					<input id='image-input' type="file">
-				{{/S3}}
-	
+				<input id='image_input' type="file" class="file_bag">
 				<label for="image-input">
 					<div class="link-image-container {{fixed_class}}">
 						<img class="ui image link-image edit-target {{fixed_class}}" src="{{image_url}}">

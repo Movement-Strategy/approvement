@@ -23,6 +23,12 @@ Template['facebookPreview'].helpers({
 });
 
 Template['facebookPreview'].events({
+	'click .link-image' : function() {
+		$('#image_input').click();
+	},
+	'change #image_input' : function(event) {
+		imageUploadHandler.onFileChange(event);
+	}
 	
 });
 

@@ -45,6 +45,12 @@ imageUploadHandler = {
 			return null;
 		}
 	},
+	onFileChange : function(event) {
+		var files = $(event.target)[0].files;
+		S3.upload(files,"/subfolder",function(e,r){
+           	imageUploadHandler.onImageUpload(r.url);
+        });
+	},
 	onImageUpload : function(url) {
 		Session.set('uploaded_image_url', url);
 		var selectorMap = {
