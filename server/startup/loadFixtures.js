@@ -1,3 +1,4 @@
+/*
 function loadFixture(fixtures, collection) {
     var i;
 
@@ -10,3 +11,4 @@ function loadFixture(fixtures, collection) {
 Meteor.startup(function () {
     //loadFixture(Fixtures['dummyFixture'], dummyCollection);
 });
+*/

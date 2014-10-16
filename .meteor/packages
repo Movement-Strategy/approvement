@@ -8,9 +8,7 @@ less
 jquery
 underscore
 handlebar-helpers
-iron-router
 accounts-ui
-iron-router-progress
 semantic-ui
 collection2
 moment
@@ -18,4 +16,4 @@ s3
 accounts-facebook
 accounts-password
 email
-
+iron:router
