@@ -20,12 +20,11 @@
 			{{#if is_status_type}}
 				
 			{{else}}
-				<input id='image_input' type="file" class="file_bag">
-				<label for="image-input">
+				{{#dynamicImage}}
 					<div class="link-image-container {{fixed_class}}">
-						<img class="ui image link-image edit-target {{fixed_class}}" src="{{image_url}}">
+						<img class="ui image image-click-target link-image edit-target {{fixed_class}}" src="{{image_url}}">
 					</div>
-				</label>
+				{{/dynamicImage}}
 			{{/if}}
 			{{#if is_photo_type}}
 				

@@ -21,15 +21,11 @@
 			{{/if}}
 			
 			{{#if show_image}}
-				{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
-					<input id='image-input' type="file">
-				{{/S3}}
-			
-				<label for="image-input">
+				{{#dynamicImage}}
 				    <div class="twitter-image-container">
-					    <img class="ui image twitter-image edit-target" src="{{image_url}}">
+					    <img class="ui image image-click-target twitter-image edit-target" src="{{image_url}}">
 				    </div>
-				</label>
+				{{/dynamicImage}}
 			
 			{{/if}}
 		    <div class="twitter-actions">

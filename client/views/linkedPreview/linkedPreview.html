@@ -14,15 +14,12 @@
 			{{/if}}
 			{{#if has_picture}}
 				<div class="linked-post">
-					{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
-						<input id='image-input' type="file">
-					{{/S3}}
-		
-					<label for="image-input">
+					
+					{{#dynamicImage}}
 						<div class="linked-image-container">
-							<img class="ui image linked-image edit-target" src="{{image_url}}">
+							<img class="ui image linked-image image-click-target edit-target" src="{{image_url}}">
 						</div>
-					</label>
+					{{/dynamicImage}}
 					<div class="linked-body">
 						{{#with linked_content_title}}
 							{{#clickableInput}}

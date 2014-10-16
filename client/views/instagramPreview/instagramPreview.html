@@ -1,14 +1,13 @@
 <template name="instagramPreview">
 	<div class="instagram-box">
-		{{#S3 callback="uploadImage" onUpload="setUploadURL"}}
-			<input id='image-input' type="file">
-		{{/S3}}
-
-		<label for="image-input">
+		
+		
+		{{#dynamicImage}}
 			<div class="instagram-image-container">
-				<img class="ui image instagram-image edit-target" src="{{image_url}}">
+				<img class="ui image instagram-image image-click-target edit-target" src="{{image_url}}">
 			</div>
-		</label>
+		{{/dynamicImage}}
+    	
     	<div class="instagram-likes">
 	    	<a href="" class="like-button">
 	    	</a>
