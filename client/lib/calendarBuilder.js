@@ -126,7 +126,7 @@ calendarBuilder = {
 	onDrop : function(event) {
 		// get the meteor context data associated with that element
 		var approvalItemData = Session.get('dragged_item');
-		var calendarDayData = UI.getElementData(event.target);
+		var calendarDayData = UI.getData(event.target);
 		var newScheduledTime = calendarDayData.day.scheduled_time;
 		Meteor.call('updateStatus', approvalItemData._id, {scheduled_time : newScheduledTime});
 		Meteor.defer(function(){
@@ -156,7 +156,7 @@ calendarBuilder = {
 		}
 	},
  	setDraggedOverDay : function(event) {
-		var context = UI.getElementData(event.target);
+		var context = UI.getData(event.target);
 		if(this.dayIsRightScope(context)) {
 			Session.set('dragged_over_day', context);
 		}

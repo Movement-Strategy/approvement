@@ -26,7 +26,7 @@ approvalItemBuilder = {
 	draggedItemShouldRevert : function(droppedOn) {
 		shouldRevert = true;
 		if(droppedOn && !calendarBuilder.plusIsDraggedOver()) {
-			var targetDay = UI.getElementData(droppedOn[0]);
+			var targetDay = UI.getData(droppedOn[0]);
 			if(targetDay.day.index != Session.get('dragged_item').day.index) {
 				shouldRevert = false;
 			}
@@ -40,7 +40,7 @@ approvalItemBuilder = {
 		linked : 'linkedin',
 	},
 	onDragStart : function(event) {
-		var approvalItem = UI.getElementData(event.target);
+		var approvalItem = UI.getData(event.target);
 		Session.set('dragged_item', approvalItem);
 		detailsHandler.closeShownPopup();
 		popupContent.disablePopups();
