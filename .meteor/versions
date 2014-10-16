@@ -13,7 +13,6 @@ blaze@2.0.2
 boilerplate-generator@1.0.1
 callback-hook@1.0.1
 check@1.0.2
-coffeescript@1.0.4
 collection2@0.0.0
 ctl-helper@1.0.4
 ctl@1.0.2
@@ -36,8 +35,6 @@ iron:layout@0.4.1
 iron:router@0.9.4
 jquery@1.0.1
 json@1.0.1
-lepozepo:s3@4.0.0
-lepozepo:streams@0.2.0
 less@1.0.10
 livedata@1.0.11
 localstorage@1.0.1
@@ -61,6 +58,7 @@ reactive-var@1.0.3
 reload@1.1.1
 retry@1.0.1
 routepolicy@1.0.2
+s3@0.0.0
 semantic-ui@0.0.0
 service-configuration@1.0.2
 session@1.0.3
