@@ -12,8 +12,9 @@ accounts-ui
 semantic-ui
 collection2
 moment
-s3
 accounts-facebook
 accounts-password
 email
 iron:router
+lepozepo:s3
+
