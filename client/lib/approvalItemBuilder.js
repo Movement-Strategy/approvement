@@ -27,7 +27,7 @@ approvalItemBuilder = {
 		shouldRevert = true;
 		if(droppedOn && !calendarBuilder.plusIsDraggedOver()) {
 			var targetDay = UI.getData(droppedOn[0]);
-			if(targetDay.day.index != Session.get('dragged_item').day.index) {
+			if(targetDay && targetDay.day.index != Session.get('dragged_item').day.index) {
 				shouldRevert = false;
 			}
 		}
@@ -51,9 +51,12 @@ approvalItemBuilder = {
 			Session.set('current_item_id', Session.get('dragged_item')._id);
 			promptModalHandler.show('approval_item');
 		}
+		
 		Session.set('popups_disabled', false);
+		calendarBuilder.stopChangingDates();
 		Meteor.defer(function(){
 			Session.set('dragged_over_day', null);
+			
 		});
 	},
 	onDragEnd : function() {

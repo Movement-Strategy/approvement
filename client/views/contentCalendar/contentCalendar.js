@@ -22,8 +22,7 @@ Template['contentCalendar'].helpers({
 					}, 250);
 				},
 				out : function() {
-					Meteor.clearInterval(calendarBuilder.intervalHandler);
-					calendarBuilder.intervalHandler = null;
+					calendarBuilder.stopChangingDates();
 				}
 			});
 			$('.back.arrow.column').droppable({
@@ -34,8 +33,7 @@ Template['contentCalendar'].helpers({
 					}, 250);
 				},
 				out : function() {
-					Meteor.clearInterval(calendarBuilder.intervalHandler);
-					calendarBuilder.intervalHandler = null;
+					calendarBuilder.stopChangingDates();
 				}
 			});	
 		});

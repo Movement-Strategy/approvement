@@ -56,6 +56,12 @@ calendarBuilder = {
 		newDay['scheduled_time'] = isoDate.format("X") * 1000;
 		return newDay;
 	},
+	stopChangingDates : function() {
+		if(calendarBuilder.intervalHandler != null) {
+			Meteor.clearInterval(calendarBuilder.intervalHandler);
+			calendarBuilder.intervalHandler = null;
+		}
+	},
 	getDefaultCurrentDays : function() {
 		var defaultDays = {
 			1 : {
