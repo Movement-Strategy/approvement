@@ -60,6 +60,7 @@ calendarBuilder = {
 		if(calendarBuilder.intervalHandler != null) {
 			Meteor.clearInterval(calendarBuilder.intervalHandler);
 			calendarBuilder.intervalHandler = null;
+			Session.set('cached_day_index', null);
 		}
 	},
 	getDefaultCurrentDays : function() {
@@ -119,9 +120,6 @@ calendarBuilder = {
 	},
 	onDragExit : function() {
 		Session.set('is_dragged_outside_of_calendar', true);
-		Meteor.defer(function(){
-			
-		});
 	},
 	onDragEnter : function(event) {
 		Meteor.defer(function(){

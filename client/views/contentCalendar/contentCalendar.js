@@ -46,28 +46,6 @@ Template['contentCalendar'].events({
 	},
 	'click .left.arrow' : function(event) {
 		timeHandler.changeToLastWeek();
-	},
-	
-/*
-	'dragenter .forward.arrow.column' : function(event) {
-		event.preventDefault();
-	},
-	'dragover .forward.arrow.column' : function(event) {
-		calendarBuilder.onDragOverArrowColumn(event, 'forward');
-	},
-	'dragleave .forward.arrow.column' : function() {
-		event.preventDefault();
-	},
-	'dragenter .back.arrow.column' : function(event) {
-		event.preventDefault();
-	},
-	'dragover .back.arrow.column' : function(event) {
-		calendarBuilder.onDragOverArrowColumn(event, 'back');
-	},
-	'dragleave .back.arrow.column' : function() {
-		event.preventDefault();
-	}
-*/
-	
+	},	
 });
 
