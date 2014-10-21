@@ -56,6 +56,8 @@ detailsHandler = {
 		commentHandler.emptyCommentInput();
 		Session.set('item_to_copy', null);
 		Session.set('details_shown', false);
+		Session.set('approval_item_context', null);
+		Router.go('/client/' + Session.get('selected_client_id') + '/week/' + timeHandler.getCurrentWeek());
 	},
 	deleteRelatedContentIfNeeded : function() {
 		if(this.creatingNewItem()) {
