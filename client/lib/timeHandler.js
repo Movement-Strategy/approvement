@@ -10,6 +10,9 @@ timeHandler = {
 		momentDate = moment();
 		this.setCurrentTimestampFromDateObject(momentDate);
 	},
+	getCurrentWeek : function() {
+		return moment(Session.get('time_stamp_for_current_date')).format('DD-MM-YYYY');
+	},
 	setCurrentTimestampFromDateObject : function(dateObject) {
 		Session.set('timestamp_for_current_date', this.convertDateToTimestamp(momentDate));
 	},

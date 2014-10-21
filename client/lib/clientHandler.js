@@ -98,7 +98,7 @@ clientHandler = {
 			var selectedClientID = Session.get('selected_client_id');
 			if(Session.get('clients_by_id') != {}) {
 				if(selectedClientID == null) {
-					Session.set('selected_client_id', clients[0]);
+					Router.go('/client/' + clients[0] + '/week/' + timeHandler.getCurrentWeek());
 				}
 				clientHandler.setSelectedClient();
 				Session.set('clients_are_ready', true);
