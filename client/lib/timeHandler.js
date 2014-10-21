@@ -32,11 +32,20 @@ timeHandler = {
 	},
 	changeToTargetTime : function(targetTime) {
 		timeHandler.alterCurrentDate(function(date){
-			var currentTime = date.format('X') * 1000;
-			var targetIsBeforeCurrent = targetTime > currentTime; 
-			var daysBetween = moment.duration(Math.abs(currentTime - targetTime)).asDays();
-			return targetIsBeforeCurrent ? date.add(daysBetween, 'days') : date.subtract(daysBetween, 'days')
+			return timeHandler.getDateObjectForBeginningOfWeek(targetTime, date);
 		});
+	},
+	getDateObjectForBeginningOfWeek : function(targetTime, currentDateObject) {
+		var currentTime = currentDateObject.format('X') * 1000;
+		var targetIsBeforeCurrent = targetTime > currentTime; 
+		var daysBetween = moment.duration(Math.abs(currentTime - targetTime)).asDays();
+		return targetIsBeforeCurrent ? currentDateObject.add(daysBetween, 'days') : currentDateObject.subtract(daysBetween, 'days');
+	},
+	setCurrentTimeStampFromDateString : function(dateString) {
+		var dateObject = moment();
+		var targetTime = moment(dateString, 'DD-MM-YYYY').format('X') * 1000;
+		var beginningOfWeek = timeHandler.getDateObjectForBeginningOfWeek(targetTime, dateObject);
+		Session.set('timestamp_for_current_date', beginningOfWeek.format('X') * 1000);
 	},
 	changeToLastWeek : function() {
 		timeHandler.alterCurrentDate(function(date){

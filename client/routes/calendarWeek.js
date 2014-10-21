@@ -9,10 +9,8 @@ if(Meteor.isClient) {
 	        controller :  HomeController,
 	        onRun : function() {
 		        Session.set('selected_client_id', this.params.client);
-				var targetTime = moment(this.params.week, 'DD-MM-YYYY').format('X') * 1000;
-				timeHandler.changeToTargetTime(targetTime);
-				
-	        },	
+				timeHandler.setCurrentTimeStampFromDateString(this.params.week);
+	        },
 	    });
 	});
 }
