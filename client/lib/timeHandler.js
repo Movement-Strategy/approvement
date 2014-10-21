@@ -46,7 +46,7 @@ timeHandler = {
 		return dateObject.format('X') * 1000;
 	},
 	alterCurrentDate : function(alterFunction) {
-		var startOfWeek = timeHandler.getStartOfWeek();
+		startOfWeek = this.convertDateObjectToStartOfWeek(momentDate);
 		updatedDate = alterFunction(startOfWeek);
 		momentDate = updatedDate;
 		Router.go('/client/' + Session.get('selected_client_id') + '/week/' + updatedDate.format('DD-MM-YYYY'));
