@@ -47,7 +47,7 @@ clientHandler = {
 	},
 	onChangeClientDropdown : function(event) {
 		Session.set('there_were_pending_items', false);
-		Session.set('selected_client_id', event.target.value);
+		Router.go('/client/' + event.target.value + '/week/' + timeHandler.getCurrentWeek());
 	},
 	clientDropdownShouldBeShown : function() {
 		return !Session.get('details_shown') && Session.get('current_clients').length > 1;
