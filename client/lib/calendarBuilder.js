@@ -6,7 +6,7 @@ calendarBuilder = {
 		});
 	},
 	setCurrentCalendarDays : function() {
-		var timestamp = Session.get('timestamp_for_current_date');
+		var timestamp = timeHandler.getTimestampForCurrentDate();
 		var dateObject = moment(timestamp);
 		var approvalItemsByDay = Session.get('cached_day_index') != null ? this.getCachedApprovalItems():  approvalItemBuilder.getApprovalItemsByDay();
 		var calendarDays = _.map(this.getDefaultCurrentDays(), function(day, dayIndex){

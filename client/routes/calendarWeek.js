@@ -9,7 +9,7 @@ if(Meteor.isClient) {
 	        controller :  HomeController,
 	        onRun : function() {
 		        Session.set('selected_client_id', this.params.client);
-				timeHandler.setCurrentTimeStampFromDateString(this.params.week);
+				timeHandler.setCurrentTimestampToStartOfWeekForDateString(this.params.week);
 	        },
 	    });
 	});

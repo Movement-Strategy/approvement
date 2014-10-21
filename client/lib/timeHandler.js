@@ -1,20 +1,46 @@
 timeHandler = {
-	getStartOfWeek : function() {
-		var currentDays = Session.get('calendar_days');
-		var startOfWeekTime = currentDays[0]['scheduled_time'];
-		var dateString = moment(startOfWeekTime).format('DD-MM-YYYY');
+	getTimestampForCurrentDate : function() {
+		return Session.get('time_stamp_for_current_date');	
+	},
+	dateStringToObject : function(dateString) {
 		return moment(dateString, 'DD-MM-YYYY');
+	},
+	dateObjectToTimestamp : function(dateObject) {
+		return dateObject.format('X') * 1000;
+	},
+	dateStringToTimestamp : function(dateString) {
+		var dateObject = this.dateStringToObject(dateString);
+		var timestamp = this.dateObjectToTimestamp(dateObject);
+		return timestamp;
+	},
+	dateStringToStartOfWeekDateObject : function(dateString) {
+		var dateObject = this.dateStringToObject(dateString);
+		var startOfWeekObject = this.convertDateObjectToStartOfWeek(dateObject);
+		return startOfWeekObject;
+	},
+	convertDateObjectToStartOfWeek : function(dateObject) {
+		var startOfWeekObject = dateObject.isoWeekday(1);
+		return startOfWeekObject;
+	},
+	dateObjectToDateString : function(dateObject) {
+		return dateObject.format('DD-MM-YYYY');	
+	},
+	dateStringToStartOfWeekTimestamp : function(dateString) {
+		var startOfWeekObject = this.dateStringToStartOfWeekDateObject(dateString);
+		return this.dateObjectToTimestamp(startOfWeekObject);	
+	},
+	getStartOfWeek : function() {
+		return this.convertDateObjectToStartOfWeek(moment());
 	},
 	createMomentDate : function() {
 		var dateObject = new Date().add;
 		momentDate = moment();
-		this.setCurrentTimestampFromDateObject(momentDate);
 	},
 	getCurrentWeek : function() {
 		return this.getStartOfWeek().format('DD-MM-YYYY');
 	},
 	setCurrentTimestampFromDateObject : function(dateObject) {
-		Session.set('timestamp_for_current_date', this.convertDateToTimestamp(momentDate));
+		Session.set('time_stamp_for_current_date', this.convertDateToTimestamp(momentDate));
 	},
 	convertDateToTimestamp : function(dateObject) {
 		return dateObject.format('X') * 1000;
@@ -41,11 +67,8 @@ timeHandler = {
 		var daysBetween = moment.duration(Math.abs(currentTime - targetTime)).asDays();
 		return targetIsBeforeCurrent ? currentDateObject.add(daysBetween, 'days') : currentDateObject.subtract(daysBetween, 'days');
 	},
-	setCurrentTimeStampFromDateString : function(dateString) {
-		var dateObject = moment();
-		var targetTime = moment(dateString, 'DD-MM-YYYY').format('X') * 1000;
-		var beginningOfWeek = timeHandler.getDateObjectForBeginningOfWeek(targetTime, dateObject);
-		Session.set('timestamp_for_current_date', beginningOfWeek.format('X') * 1000);
+	setCurrentTimestampToStartOfWeekForDateString : function(dateString) {
+		Session.set('time_stamp_for_current_date', this.dateStringToStartOfWeekTimestamp(dateString));
 	},
 	changeToLastWeek : function() {
 		timeHandler.alterCurrentDate(function(date){

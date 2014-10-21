@@ -64,8 +64,7 @@ approvalItemBuilder = {
 		calendarBuilder.resetDraggedOverDay();	
 	},
 	getFindQuery : function() {
-		var startTime = Session.get('time_stamp_for_current_date');
-		timeHandler.debugTime(startTime, 'test');
+		var startTime = timeHandler.getTimestampForCurrentDate();
 		var startOfWeek = moment(startTime);
 		var endDate = startOfWeek;
 		endDate.add(7, 'days');
