@@ -11,7 +11,7 @@ timeHandler = {
 		this.setCurrentTimestampFromDateObject(momentDate);
 	},
 	getCurrentWeek : function() {
-		return moment(Session.get('time_stamp_for_current_date')).format('DD-MM-YYYY');
+		return this.getStartOfWeek().format('DD-MM-YYYY');
 	},
 	setCurrentTimestampFromDateObject : function(dateObject) {
 		Session.set('timestamp_for_current_date', this.convertDateToTimestamp(momentDate));
@@ -21,9 +21,9 @@ timeHandler = {
 	},
 	alterCurrentDate : function(alterFunction) {
 		var startOfWeek = timeHandler.getStartOfWeek();
-		startOfWeek = alterFunction(startOfWeek);
-		momentDate = startOfWeek;
-		this.setCurrentTimestampFromDateObject(momentDate);
+		updatedDate = alterFunction(startOfWeek);
+		momentDate = updatedDate;
+		Router.go('/client/' + Session.get('selected_client_id') + '/week/' + updatedDate.format('DD-MM-YYYY'));
 	},
 	changeToNextWeek : function() {
 		timeHandler.alterCurrentDate(function(date){
