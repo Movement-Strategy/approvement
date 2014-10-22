@@ -13,6 +13,17 @@ timeHandler = {
 		var timestamp = this.dateObjectToTimestamp(dateObject);
 		return timestamp;
 	},
+	timestampToStartOfWeekTimestamp : function(timestamp) {
+		var dateString = this.timestampToDateString(timestamp);
+		return this.dateStringToStartOfWeekTimestamp(dateString);
+	},
+	timestampToDateString : function(timestamp) {
+		var dateObject = moment(timestamp);
+		return this.dateObjectToDateString(dateObject);
+	},
+	setCurrentTimestampFromScheduledTime : function(scheduledTime) {
+		Session.set('timestamp_for_current_date', this.timestampToStartOfWeekTimestamp(scheduledTime));	
+	},
 	dateStringToStartOfWeekDateObject : function(dateString) {
 		var dateObject = this.dateStringToObject(dateString);
 		var startOfWeekObject = this.convertDateObjectToStartOfWeek(dateObject);

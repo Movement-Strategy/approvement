@@ -44,12 +44,16 @@ detailsHandler = {
 		// if we're coming from a route, where we don't have access to the context
 		// we need to fill in data
 		if(!_.has(context, 'type')) {
-			
-			context = ApprovalItem.find({_id : context._id}).fetch();
+			var results = ApprovalItem.find({_id : context._id}).fetch();
+			context = results[0];
+			console.log(context);
+			Session.set('selected_client_id', context.client_id);
+			timeHandler.setCurrentTimestampFromScheduledTime(context.scheduled_time);
 			
 		}
 		return context;	
 	},
+	
 	getPreviewContent : function() {
 		return {
 			clickable_inputs : Session.get('clickable_inputs'),

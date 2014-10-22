@@ -6,7 +6,15 @@ if(Meteor.isClient) {
 	Router.map(function () {
 	    this.route('home', {
 	        path :  '/',
-	        controller :  HomeController
+	        controller :  HomeController,
+	        onRun : function() {
+		        Deps.autorun(function(){
+					if(Session.get('page_is_ready')) {
+						var clients = Session.get('current_clients');
+						Router.go('/client/' + clients[0] + '/week/' + timeHandler.getCurrentWeek());
+					}
+		        });
+	        }
 	    });
 	});
 }

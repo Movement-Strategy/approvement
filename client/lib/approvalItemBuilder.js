@@ -1,6 +1,6 @@
 approvalItemBuilder = {
 	onApprovalItemsReady : function()  {
-		
+		calendarBuilder.handleCalendarDays();
 	},
 	getApprovalItemsByDay : function() {
 		var itemsByDay = {};

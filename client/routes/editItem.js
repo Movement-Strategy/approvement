@@ -8,9 +8,14 @@ if(Meteor.isClient) {
 	        path :  '/content/edit/:id',
 	        controller :  HomeController,
 	        onRun : function() {
-	        	var creatingNew = false;
-	        	var context = Session.get('approval_item_context') ? Session.get('approval_item_context') : {_id : this.params.id};
-	        	detailsHandler.showDetails(context, creatingNew);
+	        	var that = this;
+	        	Deps.autorun(function(){
+		        	if(Session.get('page_is_ready')) {
+			        	var creatingNew = false;
+			        	var context = Session.get('approval_item_context') ? Session.get('approval_item_context') : {_id : that.params.id};
+			        	detailsHandler.showDetails(context, creatingNew);
+		        	}
+	        	});
 	        },
 	    });
 	});
