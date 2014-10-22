@@ -1,6 +1,6 @@
 approvalItemBuilder = {
 	onApprovalItemsReady : function()  {
-		 
+		
 	},
 	getApprovalItemsByDay : function() {
 		var itemsByDay = {};

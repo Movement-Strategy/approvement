@@ -32,12 +32,23 @@ detailsHandler = {
 		return Session.get('creating_new_item');
 	},
 	showDetails : function(context, creatingNewItem) {
+		context = this.fillInMissingContextData(context);
 		this.closeShownPopup();
 		this.setDefaultsOnShow(context, creatingNewItem);
 		if(!creatingNewItem) {
 			this.configureDetailsForExistingItem(context);
 		}
 		Session.set('details_shown', true);
+	},
+	fillInMissingContextData : function(context) {
+		// if we're coming from a route, where we don't have access to the context
+		// we need to fill in data
+		if(!_.has(context, 'type')) {
+			
+			context = ApprovalItem.find({_id : context._id}).fetch();
+			
+		}
+		return context;	
 	},
 	getPreviewContent : function() {
 		return {

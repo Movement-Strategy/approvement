@@ -9,8 +9,8 @@ if(Meteor.isClient) {
 	        controller :  HomeController,
 	        onRun : function() {
 	        	var creatingNew = false;
-	        	var context = Session.get('approval_item_context')
-	        	detailsHandler.showDetails(Session.get('approval_item_context'), creatingNew);
+	        	var context = Session.get('approval_item_context') ? Session.get('approval_item_context') : {_id : this.params.id};
+	        	detailsHandler.showDetails(context, creatingNew);
 	        },
 	    });
 	});
