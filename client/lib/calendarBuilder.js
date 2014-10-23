@@ -2,12 +2,21 @@ calendarBuilder = {
 	intervalHandler : null,
 	handleCalendarDays : function() {
 		Deps.autorun(function(){
-			calendarBuilder.setCurrentCalendarDays();
+			selectedClientID = Session.get('selected_client_id');
+			currentTimestamp = Session.get('time_stamp_for_current_date');
+			
+			if(selectedClientID != null && currentTimestamp != null) {
+				calendarBuilder.setCurrentCalendarDays();
+			}
 		});
+	},
+	goToNewWeek : function(clientID, weekID) {
+		Router.go('/client/' + clientID + '/week/' + weekID);	
 	},
 	setCurrentCalendarDays : function() {
 		var timestamp = timeHandler.getTimestampForCurrentDate();
 		var dateObject = moment(timestamp);
+
 		var approvalItemsByDay = Session.get('cached_day_index') != null ? this.getCachedApprovalItems():  approvalItemBuilder.getApprovalItemsByDay();
 		var calendarDays = _.map(this.getDefaultCurrentDays(), function(day, dayIndex){
 			day = calendarBuilder.addContextToCalendarDay(day, dayIndex, dateObject);
@@ -17,6 +26,10 @@ calendarBuilder = {
 		});
 		Session.set('calendar_days', calendarDays);
 		Session.set('approval_items_are_ready', true);
+	},
+	initializeCalendarWeek : function(clientID, weekName) {
+        Session.set('selected_client_id', clientID);
+		timeHandler.setCurrentTimestampToStartOfWeekForDateString(weekName);
 	},
 	getCachedApprovalItems : function() {
 		var cachedApprovalItems = Session.get('cached_approval_items');
@@ -34,11 +47,14 @@ calendarBuilder = {
 	onDropOverPlusButton : function() {
 		var creatingNew = true;
 		var context = Session.get('dragged_over_day');
+		var clientID = Session.get('selected_client_id');
+		var weekID = timeHandler.getWeekForSelectedTime();
 		Session.set('item_to_copy', Session.get('dragged_item'));
-		detailsHandler.showDetails(context, creatingNew);
+		Session.set('approval_item_context', context);
 		Meteor.defer(function(){
 			Session.set('plus_is_dragged_over', false);
 		});
+		Router.go('/client/' + clientID + '/week/' + weekID + '/content/create');
 	},
 	onDragExitPlusButton : function() {
 		Session.set('plus_is_dragged_over', false);
@@ -60,7 +76,6 @@ calendarBuilder = {
 		if(calendarBuilder.intervalHandler != null) {
 			Meteor.clearInterval(calendarBuilder.intervalHandler);
 			calendarBuilder.intervalHandler = null;
-			Session.set('cached_day_index', null);
 		}
 	},
 	getDefaultCurrentDays : function() {

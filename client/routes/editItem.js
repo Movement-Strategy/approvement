@@ -5,17 +5,22 @@ if(Meteor.isClient) {
 		
 	Router.map(function () {
 	    this.route('editItem', {
-	        path :  '/content/edit/:id',
+	        path :  'client/:client/week/:week/content/edit/:id',
 	        controller :  HomeController,
 	        onRun : function() {
-	        	var that = this;
-	        	Deps.autorun(function(){
-		        	if(Session.get('page_is_ready')) {
-			        	var creatingNew = false;
-			        	var context = Session.get('approval_item_context') ? Session.get('approval_item_context') : {_id : that.params.id};
-			        	detailsHandler.showDetails(context, creatingNew);
-		        	}
-	        	});
+	        	if(loginHandler.isLoggedIn()) {
+		        	var that = this;
+		        	Deps.autorun(function(){
+			        	calendarBuilder.initializeCalendarWeek(that.params.client, that.params.week);
+			        	if(Session.get('page_is_ready')) {
+							var creatingNew = false;
+							var context = Session.get('approval_item_context') ? Session.get('approval_item_context') : {_id : that.params.id};
+							detailsHandler.showDetails(context, creatingNew);
+			        	}
+		        	});	        	
+	        	} else {
+		        	Router.go('/login');
+	        	}
 	        },
 	    });
 	});

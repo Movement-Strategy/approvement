@@ -36,8 +36,7 @@ userHandler = {
 		});
 	},
 	signUserOut : function() {
-		Meteor.logout();
-		Session.set('clients_are_ready', false);
+		Router.go('/login');
 	}
 	
 };

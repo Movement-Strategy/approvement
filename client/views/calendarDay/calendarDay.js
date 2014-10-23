@@ -54,8 +54,10 @@ Template['calendarDay'].helpers({
 
 Template['calendarDay'].events({
 	'click .create-item-button' : function(event) {
-		var creatingNew = true;
-		detailsHandler.showDetails(this, creatingNew);
+		Session.set('approval_item_context', this);
+		var clientID = Session.get('selected_client_id');
+		var weekID = timeHandler.getWeekForSelectedTime();
+		Router.go('/client/' + clientID + '/week/' + weekID + '/content/create');
 	},
 });
 

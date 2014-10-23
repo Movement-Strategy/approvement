@@ -44,12 +44,20 @@ detailsHandler = {
 		// if we're coming from a route, where we don't have access to the context
 		// we need to fill in data
 		if(!_.has(context, 'type')) {
-			var results = ApprovalItem.find({_id : context._id}).fetch();
-			context = results[0];
-			console.log(context);
-			Session.set('selected_client_id', context.client_id);
-			timeHandler.setCurrentTimestampFromScheduledTime(context.scheduled_time);
-			
+			var calendarDays = Session.get('calendar_days');
+			_.map(calendarDays, function(calendarDay){
+				if(_.has(calendarDay, 'approval_items')) {
+					var approvalItems = [];
+					var allApprovalItems = calendarDay['approval_items'];
+					var approvalItems = _.flatten(calendarDay['approval_items']);
+					foundItem = _.find(approvalItems, function(item){
+						return item['_id'] == context['_id'];
+					});
+					if(foundItem) {
+						context = foundItem;
+					}
+				}
+			});
 		}
 		return context;	
 	},
@@ -72,7 +80,9 @@ detailsHandler = {
 		Session.set('item_to_copy', null);
 		Session.set('details_shown', false);
 		Session.set('approval_item_context', null);
-		Router.go('/client/' + Session.get('selected_client_id') + '/week/' + timeHandler.getCurrentWeek());
+		var clientID = Session.get('selected_client_id');
+		var weekID = timeHandler.getWeekForSelectedTime();
+		calendarBuilder.goToNewWeek(clientID, weekID);
 	},
 	deleteRelatedContentIfNeeded : function() {
 		if(this.creatingNewItem()) {

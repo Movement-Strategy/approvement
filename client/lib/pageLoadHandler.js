@@ -1,7 +1,6 @@
 pageLoadHandler = {
 	
 	onStartUp : function() {
-		timeHandler.createMomentDate();
 		clientHandler.setSelectedClient();
 		assetHandler.handleAssetID();
 		assetHandler.updateCurrentAssets();

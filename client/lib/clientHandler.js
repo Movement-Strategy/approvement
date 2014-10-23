@@ -21,11 +21,16 @@ clientHandler = {
 	},
 	setSelectedClient : function(){
 		Deps.autorun(function(){
-			if(Session.get('clients_are_ready')) {
+			if(Session.get('clients_are_ready') && Session.get('selected_client_id') != null) {
 				var clientID = Session.get('selected_client_id');
 				clientHandler.setUsersToNotifyForClient();
 				var clientsByID = Session.get('clients_by_id');
-				Session.set('selected_client', clientsByID[clientID]);
+				if(_.has(clientsByID, clientID)) {
+					Session.set('selected_client', clientsByID[clientID]);
+				} else {
+					Router.go('/login');
+				}
+				
 			}
 		});
 	},

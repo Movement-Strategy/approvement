@@ -3,7 +3,7 @@ timeHandler = {
 		return Session.get('time_stamp_for_current_date');	
 	},
 	dateStringToObject : function(dateString) {
-		return moment(dateString, 'DD-MM-YYYY');
+		return moment(dateString, 'MM-DD-YYYY');
 	},
 	dateObjectToTimestamp : function(dateObject) {
 		return dateObject.format('X') * 1000;
@@ -34,21 +34,20 @@ timeHandler = {
 		return startOfWeekObject;
 	},
 	dateObjectToDateString : function(dateObject) {
-		return dateObject.format('DD-MM-YYYY');	
+		return dateObject.format('MM-DD-YYYY');	
 	},
 	dateStringToStartOfWeekTimestamp : function(dateString) {
 		var startOfWeekObject = this.dateStringToStartOfWeekDateObject(dateString);
 		return this.dateObjectToTimestamp(startOfWeekObject);	
 	},
+	getCurrentDateObject : function() {
+		return moment(Session.get('time_stamp_for_current_date'));	
+	},
 	getStartOfWeek : function() {
 		return this.convertDateObjectToStartOfWeek(moment());
 	},
-	createMomentDate : function() {
-		var dateObject = new Date().add;
-		momentDate = moment();
-	},
 	getCurrentWeek : function() {
-		return this.getStartOfWeek().format('DD-MM-YYYY');
+		return this.getStartOfWeek().format('MM-DD-YYYY');
 	},
 	setCurrentTimestampFromDateObject : function(dateObject) {
 		Session.set('time_stamp_for_current_date', this.convertDateToTimestamp(momentDate));
@@ -56,20 +55,34 @@ timeHandler = {
 	convertDateToTimestamp : function(dateObject) {
 		return dateObject.format('X') * 1000;
 	},
+	getDateStringForStartOfThisWeek : function() {
+		var currentDateObject = moment();
+		var startOfWeekObject = this.convertDateObjectToStartOfWeek(currentDateObject);
+		var dateString = this.dateObjectToDateString(startOfWeekObject);
+		return dateString;
+	},
+	getWeekForSelectedTime : function() {
+		var dateString = this.timestampToDateString(Session.get('time_stamp_for_current_date'));
+		var startOfWeekObject = this.dateStringToStartOfWeekDateObject(dateString);
+		dateString = this.dateObjectToDateString(startOfWeekObject);
+		return dateString;
+	},
 	alterCurrentDate : function(alterFunction) {
-		startOfWeek = this.convertDateObjectToStartOfWeek(momentDate);
+		var currentDateObject = this.getCurrentDateObject();
+		startOfWeek = this.convertDateObjectToStartOfWeek(currentDateObject);
 		updatedDate = alterFunction(startOfWeek);
-		momentDate = updatedDate;
-		Router.go('/client/' + Session.get('selected_client_id') + '/week/' + updatedDate.format('DD-MM-YYYY'));
+		newWeekID = this.dateObjectToDateString(updatedDate);
+		var clientID = Session.get('selected_client_id');
+		calendarBuilder.goToNewWeek(clientID, newWeekID);
 	},
 	changeToNextWeek : function() {
 		timeHandler.alterCurrentDate(function(date){
-			return date.add('days', 7);
+			return date.add(7, 'days');
 		});
 	},
 	changeToTargetTime : function(targetTime) {
 		timeHandler.alterCurrentDate(function(date){
-			return timeHandler.getDateObjectForBeginningOfWeek(targetTime, date);
+			return timeHandler.convertDateObjectToStartOfWeek(date);
 		});
 	},
 	getDateObjectForBeginningOfWeek : function(targetTime, currentDateObject) {
@@ -83,7 +96,7 @@ timeHandler = {
 	},
 	changeToLastWeek : function() {
 		timeHandler.alterCurrentDate(function(date){
-			return date.subtract('days', 7);
+			return date.subtract(7, 'days');
 		});
 	},
 	debugTime : function(time, name) {

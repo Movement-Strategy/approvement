@@ -34,7 +34,6 @@ notificationModalHandler = {
 		});
 		return selectedUsernames;
 	},
-	
 	sendNotifications : function(template) {
 		var selectedUsernames = this.getSelectedUsernamesFromModal(template);
 		_.map(selectedUsernames, function(username){
@@ -44,6 +43,9 @@ notificationModalHandler = {
 	},
 	getCustomNotificationText : function() {
 		return $(".custom-notification").val();
+	},
+	getEmailURL : function() {
+		return 'http://mvmt-approve.herokuapp.com/client/' + Session.get('selected_client_id') + '/week/' + timeHandler.getWeekForSelectedTime();
 	},
 	buildEmailFromUsername : function(userName) {
 		var userToNotify = Session.get('users_to_notify')[userName];
@@ -55,7 +57,7 @@ notificationModalHandler = {
 		
 		var body = "Hi " + userToNotify['name'].split(" ")[0] + ',\n'
 			+ "\n"
-			+ "Please go to http://mvmt-approve.meteor.com to see the items that are pending for " + displayName + "\n"
+			+ "Please go to " + this.getEmailURL() + " to see the items that are pending for " + displayName + "\n"
 			+ "\n";
 		
 		if(customText != '') {

@@ -23,6 +23,11 @@ approvalItemBuilder = {
 		
 		return itemsByDay;
 	},
+	onEditApprovalItem : function(context) {
+		var creatingNew = false;
+		Session.set('approval_item_context', context);
+		Router.go('/client/' + Session.get('selected_client_id') + '/week/' + timeHandler.getWeekForSelectedTime() + '/content/edit/' + context._id);
+	},
 	draggedItemShouldRevert : function(droppedOn) {
 		shouldRevert = true;
 		if(droppedOn && !calendarBuilder.plusIsDraggedOver()) {

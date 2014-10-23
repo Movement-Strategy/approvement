@@ -12,9 +12,12 @@ loginHandler = {
 				Session.set('login_error', error.reason);
 			} else {
 				Session.set('login_error', null);
+				Router.go('/');
 			}
+			
 		};
 		Meteor.loginWithPassword(userName, password, onLogin);
+		
 	},
 	triggerLoginOnEnterPress : function(event){
 		if(event.which == 13) {

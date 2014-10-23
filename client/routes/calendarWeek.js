@@ -8,8 +8,15 @@ if(Meteor.isClient) {
 	        path :  '/client/:client/week/:week',
 	        controller :  HomeController,
 	        onRun : function() {
-		        Session.set('selected_client_id', this.params.client);
-				timeHandler.setCurrentTimestampToStartOfWeekForDateString(this.params.week);
+	        	if(loginHandler.isLoggedIn()) {
+		        	var that = this;
+		        	Deps.autorun(function(){
+			        	calendarBuilder.initializeCalendarWeek(that.params.client, that.params.week);
+			        	detailsHandler.hideDetails();
+		        	});	        	
+	        	} else {
+		        	Router.go('/login');
+	        	}
 	        },
 	    });
 	});

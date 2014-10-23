@@ -49,9 +49,7 @@ Template['approvalItemIcon'].helpers({
 
 Template['approvalItemIcon'].events({
 	'click' : function() {
-		var creatingNew = false;
-		Session.set('approval_item_context', this);
-		Router.go('/content/edit/' + this._id);
+		approvalItemBuilder.onEditApprovalItem(this);
 	},
 	'mouseenter .approval-item' : function(event) {
 		popupContent.onMouseEnter(event);
