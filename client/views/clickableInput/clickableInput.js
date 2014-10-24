@@ -4,8 +4,9 @@ Template['clickableInput'].helpers({
 		return inputBuilder.beingEditted(this.id);
 	},
 	text_to_display : function() {
-		return inputBuilder.inputTextIsDefault(this) ? "" : this.text;
-	}
+		var textToDisplay = inputBuilder.inputTextIsDefault(this) ? "" : this.text;
+		return textToDisplay;
+	},
 });
 
 Template['clickableInput'].events({
@@ -14,6 +15,9 @@ Template['clickableInput'].events({
 	},
 	'keydown' : function() {
 		inputBuilder.onInputKeydown(this);
+	},
+	'keyup' : function() {
+		inputBuilder.onInputKeyup(this);
 	},
 	'blur .input-text' : function(event) {
 		inputBuilder.onInputBlur(this);

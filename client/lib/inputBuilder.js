@@ -232,9 +232,23 @@ inputBuilder = {
 		this.setLengthOfInputElement(elementID, inputElement);
 		this.handleEnterPress(elementID, inputElement);
 		this.handleEscapePress(elementID);
+		this.handleShiftPress();
+	},
+	onInputKeyup : function(context) {
+		this.handleShiftRelease();	
+	},
+	handleShiftPress : function() {
+		if(event.which == 16) {
+			Session.set('shift_pressed', true);
+		}
+	},
+	handleShiftRelease : function() {
+		if(event.which == 16) {
+			Session.set('shift_pressed', false);
+		}
 	},
 	handleEnterPress : function(elementID, inputElement) {
-		if(inputBuilder.beingEditted(elementID) && event.which == 13) {
+		if(inputBuilder.beingEditted(elementID) && event.which == 13 && !Session.get('shift_pressed')) {
 			var displayElement = '#' + elementID + '_display';
 			inputBuilder.setEditStateForInput(elementID, false, $(inputElement).val());
 			Session.set('edited_input_id', null);
