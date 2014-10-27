@@ -47,6 +47,7 @@ imageUploadHandler = {
 	},
 	onFileChange : function(event) {
 		var files = $(event.target)[0].files;
+		Session.set('image_is_loading', true);
 		S3.upload(files,"/subfolder",function(e,r){
            	imageUploadHandler.onImageUpload(r.url);
         });
@@ -61,6 +62,7 @@ imageUploadHandler = {
 		};
 		var selector = selectorMap[Session.get('current_network_type')];
 		selector = '.' + selector;
+		Session.set('image_is_loading', false);
 		$(selector).transition('tada');
 	}
 	

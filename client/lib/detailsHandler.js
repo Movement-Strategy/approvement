@@ -17,7 +17,9 @@ detailsHandler = {
 		}
 		return isPreviewShown;
 	},
-	
+	imageIsLoading : function() {
+		return Session.get('image_is_loading');	
+	},
 	showDropdowns : function() {
 		if(contentTypeBuilder.isType('link')) {
 			return false;
