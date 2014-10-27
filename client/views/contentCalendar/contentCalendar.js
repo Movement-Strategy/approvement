@@ -9,6 +9,9 @@ Template['contentCalendar'].helpers({
 	is_not_client : function() {
 		return !userHandler.userIsType('client');
 	},
+	is_manager : function() {
+		return userHandler.userIsType('social_media_manager');
+	},
 	show_class : function() {
 		return detailsHandler.detailsShown() ? 'hidden' : '';
 	},

@@ -6,6 +6,16 @@ statusColorMap = {
 };
 
 Template['calendarDay'].helpers({
+	is_external : function() {
+		console.log(this.day_type);
+		return this.day_type == 'external';	
+	},
+	is_internal : function() {
+		return this.day_type == 'internal';
+	},
+	is_private : function() {
+		return this.day_type == 'private';
+	},
 	is_today_class : function() {
 		return this.day.is_today && !calendarBuilder.dayIsDraggedOver(this) ? 'is-today' : '';
 	},

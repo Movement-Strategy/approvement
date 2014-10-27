@@ -9,14 +9,22 @@
 				{{#each day.approval_items.external}}
 					{{> approvalItemIcon}}
 				{{/each}}
-			{{else}}
+			{{/if}}
+			
+			{{#if is_internal}}
 				{{#each day.approval_items.internal}}
+					{{> approvalItemIcon}}
+				{{/each}}
+				<p class="day-name hide {{drag_class}}">{{day.day_name}}</p>
+			{{/if}}
+			
+			{{#if is_private}}
+				{{#each day.approval_items.private}}
 					{{> approvalItemIcon}}
 				{{/each}}
 				<a class="ui large grey circular label create-item-button">
 				  <i class="plus create-icon icon"></i>
 				</a>
-				<p class="day-name hide {{drag_class}}">{{day.day_name}}</p>
 			{{/if}}
 		</div>
 		{{initializeDroppable}}

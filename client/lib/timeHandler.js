@@ -10,9 +10,13 @@ timeHandler = {
 			7 : 'Sunday',
 		};
 		var currentDay = Session.get('current_day');
-		var date = moment(moment(currentDay['scheduled_time']));
-		var dateString = date.format('MM/DD/YYYY');
-		return dateMap[date.isoWeekday()] + " " + dateString;
+		if(currentDay) {
+			var date = moment(moment(currentDay['scheduled_time']));
+			var dateString = date.format('MM/DD/YYYY');
+			return dateMap[date.isoWeekday()] + " " + dateString;
+		} else {
+			'';
+		}
 	},
 	getTimestampForCurrentDate : function() {
 		return Session.get('time_stamp_for_current_date');	
