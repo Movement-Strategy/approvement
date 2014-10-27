@@ -1,4 +1,19 @@
 timeHandler = {
+	getDayDescription : function() {
+		var dateMap = {
+			1 : 'Monday',
+			2 : 'Tuesday',
+			3 : 'Wednesday',
+			4 : 'Thurdsay',
+			5 : 'Friday',
+			6 : 'Saturday',
+			7 : 'Sunday',
+		};
+		var currentDay = Session.get('current_day');
+		var date = moment(moment(currentDay['scheduled_time']));
+		var dateString = date.format('MM/DD/YYYY');
+		return dateMap[date.isoWeekday()] + " " + dateString;
+	},
 	getTimestampForCurrentDate : function() {
 		return Session.get('time_stamp_for_current_date');	
 	},

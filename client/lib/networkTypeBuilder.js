@@ -1,6 +1,7 @@
 networkTypeBuilder = {
 	getTypeName : function() {
-		return this.typeMap[Session.get('current_network_type')];
+		var typeName = this.typeMap[Session.get('current_network_type')];
+		return typeName == null ? 'content' : typeName;
 	},
 	typeMap : {
 		facebook : 'facebook post',

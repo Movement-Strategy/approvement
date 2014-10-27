@@ -1,5 +1,8 @@
 
 Template['approvalItemDetails'].helpers({
+	day_description : function() {
+		return timeHandler.getDayDescription();
+	},
 	preview_content : function() {
 		return detailsHandler.getPreviewContent();
 	},
