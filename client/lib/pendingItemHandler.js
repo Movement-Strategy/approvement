@@ -32,10 +32,14 @@ pendingItemHandler = {
 				internal : [
 					'commented',
 				],
+				private : [
+					'created',
+				],
 			},
 			relevant_scopes : [
 				'external',
-				'internal'
+				'internal',
+				'private',
 			],
 		},
 	},

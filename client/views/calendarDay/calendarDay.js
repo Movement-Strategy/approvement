@@ -3,6 +3,7 @@ statusColorMap = {
 	rejected : 'red',
 	submitted : 'grey',
 	commented : 'orange',
+	created : 'grey',
 };
 
 Template['calendarDay'].helpers({

@@ -7,6 +7,11 @@ actionMap = {
 		external : [
 			'update',
 		],
+		private : [
+			'delete',
+			'finalize',
+			'edit',
+		],
 	},
 	client : {
 		external : [
@@ -55,6 +60,14 @@ buttonMap = {
 	approve : {
 		color : 'green',
 		display : 'Approve',
+	},
+	edit : {
+		color : 'blue',
+		display : 'Update',
+	},
+	finalize : {
+		color : 'purple',
+		display : 'Finalize',
 	},
 };
 

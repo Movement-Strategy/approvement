@@ -5,23 +5,27 @@ loginHandler = {
 	attemptLogin : function() {
 		var userName = $('.username-input').val();
 		var password = $('.password-input').val();
+		Session.set('logging_in', true);
 		var onLogin = function(error) {
+			
 			// set the session variable to be used by the view if theres
 			// an error message returned
 			if(error != null) {
 				Session.set('login_error', error.reason);
 			} else {
 				Session.set('login_error', null);
+				Session.set('logging_in', false);
 				Router.go('/');
 			}
-			
 		};
 		Meteor.loginWithPassword(userName, password, onLogin);
 		
 	},
 	triggerLoginOnEnterPress : function(event){
 		if(event.which == 13) {
-			this.attemptLogin();
+			if(!Session.get('logging_in')) {
+				this.attemptLogin();
+			}
 		}
 	},
 	hasError : function() {

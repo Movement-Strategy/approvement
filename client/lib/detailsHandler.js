@@ -17,6 +17,9 @@ detailsHandler = {
 		}
 		return isPreviewShown;
 	},
+	getEnterPressState : function() {
+		return Session.get('current_scope') == 'private' ? 'edited' : 'updated';
+	},
 	imageIsLoading : function() {
 		return Session.get('image_is_loading');	
 	},
@@ -155,8 +158,9 @@ detailsHandler = {
 			contents : itemContents,
 			scheduled_time : Session.get('current_scheduled_time'),
 			content_type : Session.get('current_content_type'),
-			scope : 'internal',
-			status : 'submitted',
+			scope : 'private',
+			status : 'created',
+			created_by : Meteor.userId(),
 			created_time : moment().format("X") * 1000,
 			client_id : Session.get('selected_client_id'),
 			type : Session.get('current_network_type'),

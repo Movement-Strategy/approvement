@@ -62,6 +62,12 @@ Template['approvalItemDetails'].events({
 	'click .comment.button' : function() {
 		stateManager.changeToState('commented');
 	},
+	'click .finalize.button' : function() {
+		stateManager.changeToState('finalized');
+	},
+	'click .edit.button' : function() {
+		stateManager.changeToState('edited');
+	},
 	'click .back.icon' : function() {
 		detailsHandler.onBack();
 	},

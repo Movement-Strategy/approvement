@@ -17,6 +17,11 @@ stateMap = {
 			contents : 'set',
 		},
 	},
+	edited : {
+		social_media_manager : {
+			contents : 'set',
+		}
+	},
 	updated : {
 		creative_director : {
 			contents : 'set',
@@ -37,6 +42,13 @@ stateMap = {
 		},
 		client : {
 			status : 'approved',
+			contents : 'set',
+		},
+	},
+	finalized : {
+		social_media_manager : {
+			status : 'submitted',
+			scope : 'internal',
 			contents : 'set',
 		},
 	},

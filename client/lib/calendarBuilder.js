@@ -112,7 +112,7 @@ calendarBuilder = {
 	dayIsRightScope : function(context) {
 		var approvalItem = Session.get('dragged_item');
 		if(approvalItem != null) {
-			return context.is_external ? approvalItem.scope == 'external' : approvalItem.scope == 'internal';
+			return context.day_type == approvalItem.scope;
 		} else {
 			return false;
 		}

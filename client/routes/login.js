@@ -8,8 +8,11 @@ if(Meteor.isClient) {
 	        path :  'login',
 	        controller :  HomeController,
 	        onRun : function() {
-				Meteor.logout();
-				Session.set('clients_are_ready', false);
+				if(!Session.get('logging_in')) {
+					Meteor.logout();
+					Session.set('clients_are_ready', false);
+					Session.set('there_were_pending_items', false);
+				}
 	        },
 	    });
 	});
