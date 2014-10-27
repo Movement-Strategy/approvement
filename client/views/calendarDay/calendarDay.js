@@ -7,7 +7,6 @@ statusColorMap = {
 
 Template['calendarDay'].helpers({
 	is_external : function() {
-		console.log(this.day_type);
 		return this.day_type == 'external';	
 	},
 	is_internal : function() {
