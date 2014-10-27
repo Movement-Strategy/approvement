@@ -9,8 +9,11 @@ Template['contentCalendar'].helpers({
 	is_not_client : function() {
 		return !userHandler.userIsType('client');
 	},
-	is_manager : function() {
-		return userHandler.userIsType('social_media_manager');
+	is_not_art_director : function() {
+		return !userHandler.userIsType('art_director');	
+	},
+	can_see_private_row : function() {
+		return userHandler.userIsType('social_media_manager') || userHandler.userIsType('art_director');
 	},
 	show_class : function() {
 		return detailsHandler.detailsShown() ? 'hidden' : '';

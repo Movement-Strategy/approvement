@@ -22,9 +22,11 @@
 				{{#each day.approval_items.private}}
 					{{> approvalItemIcon}}
 				{{/each}}
-				<a class="ui large grey circular label create-item-button">
-				  <i class="plus create-icon icon"></i>
-				</a>
+				{{#if is_not_art_director}}
+					<a class="ui large grey circular label create-item-button">
+					  <i class="plus create-icon icon"></i>
+					</a>
+				{{/if}}
 			{{/if}}
 		</div>
 		{{initializeDroppable}}

@@ -22,6 +22,20 @@ stateMap = {
 			contents : 'set',
 		}
 	},
+	creative_updated : {
+		art_director : {
+			contents : 'set',
+			status : 'created',
+		},
+	},
+	creative_needed : {
+		creative_director : {
+			status : 'creative_needed',
+		},
+		social_media_manager : {
+			status : 'creative_needed',
+		}
+	},
 	updated : {
 		creative_director : {
 			contents : 'set',

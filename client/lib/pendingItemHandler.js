@@ -42,6 +42,16 @@ pendingItemHandler = {
 				'private',
 			],
 		},
+		art_director : {
+			pending_conditions : {
+				private : [
+					'creative_needed',
+				],
+			},
+			relevant_scopes : [
+				'private',
+			],
+		},
 	},
 	setPendingItemCount : function() {
 		var query = this.getPendingItemQuery();
