@@ -116,7 +116,8 @@ inputBuilder = {
 		var contentType = Session.get('current_content_type');
 		_.map(inputBuilder.inputMap[networkType]['inputs_by_content_type'][contentType], function(inputName){
 			var input = inputBuilder.inputMap[networkType]['input_types'][inputName];
-			input.text = _.has(currentItemContents, inputName) ? currentItemContents[inputName] : input.default_text;
+			var text = _.has(currentItemContents, inputName) ? currentItemContents[inputName] : input.default_text;
+			input = inputBuilder.setTextInInput(text, input);
 			input.id = inputName;
 			input = inputBuilder.updateInputFromLinkData(input);
 			input = inputBuilder.updateInputWithCopiedData(input);
@@ -125,6 +126,11 @@ inputBuilder = {
 		
 		Session.set('clickable_inputs', processedInputs);
 	},
+	setTextInInput : function(text, input) {
+		input.text = text;
+		input.display_text = input.text.replace(/\r?\n/g, '<br />');
+		return input;
+	},
 	itemIsBeingCopied : function() {
 		return !Session.equals('item_to_copy', null);	
 	},
@@ -132,7 +138,7 @@ inputBuilder = {
 		if(this.itemIsBeingCopied()) {
 			var contentToCopy = this.getContentToCopyForInput(input);
 			if(contentToCopy) {
-				input.text = contentToCopy;
+				input = this.setTextInInput(contentToCopy, input);
 			}
 		}
 		return input;
@@ -149,7 +155,6 @@ inputBuilder = {
 		var itemToCopy = Session.get('item_to_copy');
 		var copiedNetworkType = itemToCopy.type;
 		var copiedContentType = itemToCopy.content_type;
-		
 		inputsForCopiedItem = this.inputMap[copiedNetworkType]['inputs_by_content_type'][copiedContentType];
 		
 		return _.find(inputsForCopiedItem, function(inputName){
@@ -159,14 +164,18 @@ inputBuilder = {
 	},
 	updateInputFromLinkData : function(input) {
 		var linkData = Session.get('current_facebook_link_data');
+		var newText = null;
 		if(_.has(input, 'meta_tag')) {
 			if(_.has(linkData, input.meta_tag)) {
-				input.text = linkData[input.meta_tag];
+				newText = linkData[input.meta_tag];
 			} else {
 				if (_.has(input, 'on_meta_tag_not_found')) {
-					input.text = input.on_meta_tag_not_found(linkData, input);
+					newText = input.on_meta_tag_not_found(linkData, input);
 				}
 			}
+		}
+		if(newText) {
+			var input = this.setTextInInput(newText, input);
 		}
 		return input;
 	},
@@ -179,7 +188,7 @@ inputBuilder = {
 		inputs[input_id].being_editted = isBeingEditted;
 		if(text != null && text != '') {
 			this.handleChangesMade(text, inputs, input_id);
-			inputs[input_id].text = text;
+			inputs[input_id] = inputBuilder.setTextInInput(text, inputs[input_id]);
 		}
 		
 		Session.set('clickable_inputs', inputs);

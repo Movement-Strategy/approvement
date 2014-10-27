@@ -8,7 +8,7 @@
 			{{#if has_description}}
 				{{#with linked_description}}
 					{{#clickableInput}}
-							<span id="{{id}}_display" class="linked-description edit-target">{{text}}</span>
+							<span id="{{id}}_display" class="linked-description edit-target">{{{display_text}}}</span>
 					{{/clickableInput}}
 				{{/with}}
 			{{/if}}
@@ -23,14 +23,14 @@
 					<div class="linked-body">
 						{{#with linked_content_title}}
 							{{#clickableInput}}
-									<span id="{{id}}_display" class="linked-title edit-target">{{text}}</span>
+									<span id="{{id}}_display" class="linked-title edit-target">{{{display_text}}}</span>
 							{{/clickableInput}}
 						{{/with}}
 						<p class='details-container'>
 							<span class='linked-source'>{{display_name}} on LinkedIn</span> 
 								{{#with linked_body}}
 									{{#clickableInput}}
-											<span id="{{id}}_display" class="linked-details edit-target">{{text}}</span>
+											<span id="{{id}}_display" class="linked-details edit-target">{{{display_text}}}</span>
 									{{/clickableInput}}
 								{{/with}}
 						</p>

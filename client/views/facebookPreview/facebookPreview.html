@@ -11,7 +11,7 @@
 		
 		{{#with description}}
 			{{#clickableInput}}
-				<p id="{{id}}_display" class='edit-target link-description'>{{text}}</p>
+				<p id="{{id}}_display" class='edit-target link-description'>{{{display_text}}}</p>
 			{{/clickableInput}}
 		{{/with}}
 		
@@ -33,14 +33,14 @@
 					
 					{{#with link_body}}
 						{{#clickableInput}}
-								<a id="{{id}}_display" class="link-title edit-target">{{text}}</a>
+								<a id="{{id}}_display" class="link-title edit-target">{{{display_text}}}</a>
 						{{/clickableInput}}
 					{{/with}}
 					{{#with link_text}}
 						{{#clickableInput}}
 							<div class="link-text-container">
 								<div id="{{id}}_display" class="link-text edit-target">
-									{{text}}
+									{{{display_text}}}
 								</div>
 							</div>
 						{{/clickableInput}}
