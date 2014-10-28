@@ -15,7 +15,7 @@ timeHandler = {
 			var dateString = date.format('MM/DD/YYYY');
 			return dateMap[date.isoWeekday()] + " " + dateString;
 		} else {
-			'';
+			return "";
 		}
 	},
 	getTimestampForCurrentDate : function() {
