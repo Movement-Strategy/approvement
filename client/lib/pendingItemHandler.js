@@ -70,14 +70,8 @@ pendingItemHandler = {
 		if(pendingItems.length > 0) {
 			var pendingItem = pendingItems[itemOffset];
 			var targetTime = pendingItem['scheduled_time'];
-			timeHandler.changeToTargetTime(targetTime);
-			Meteor.flush();
-			var isoDay = moment(targetTime).isoWeekday();
-			var currentDays = Session.get('calendar_days');
-			var currentDay = currentDays[isoDay - 1];
-			pendingItem['day'] = currentDay;
-			var creatingNew = false;
-			detailsHandler.showDetails(pendingItem, creatingNew);
+			var weekID = timeHandler.timestampToStartOfWeekDateString(targetTime);
+			approvalItemBuilder.editItem(pendingItem['_id'], pendingItem['client_id'], weekID);
 		}
 	},
 	getRelevantItemQuery : function() {

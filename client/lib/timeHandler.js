@@ -32,6 +32,10 @@ timeHandler = {
 		var timestamp = this.dateObjectToTimestamp(dateObject);
 		return timestamp;
 	},
+	timestampToStartOfWeekDateString : function(timestamp) {
+		var startOfWeekTimestamp = this.timestampToStartOfWeekTimestamp(timestamp);
+		return this.timestampToDateString(startOfWeekTimestamp);
+	},
 	timestampToStartOfWeekTimestamp : function(timestamp) {
 		var dateString = this.timestampToDateString(timestamp);
 		return this.dateStringToStartOfWeekTimestamp(dateString);
