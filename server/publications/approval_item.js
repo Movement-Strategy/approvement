@@ -29,7 +29,12 @@ Meteor.publish('approval_items_for_this_user', function (userID, userType) {
 		    	},
 		    	{
 			    	scope : 'private',
-			    	status : 'creative_needed',
+			    	status : {
+				    	$in : [
+				    		'creative_needed',
+				    		'creative_updated',
+				    	],
+			    	},
 		    	},
 		    ],
 	    };

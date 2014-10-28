@@ -34,6 +34,7 @@ pendingItemHandler = {
 				],
 				private : [
 					'created',
+					'creative_updated',
 				],
 			},
 			relevant_scopes : [

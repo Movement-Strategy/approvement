@@ -5,6 +5,7 @@ statusColorMap = {
 	commented : 'orange',
 	created : 'grey',
 	creative_needed : 'purple',
+	creative_updated : 'blue',
 };
 
 Template['calendarDay'].helpers({
