@@ -42,8 +42,16 @@ detailsHandler = {
 		this.setDefaultsOnShow(context, creatingNewItem);
 		if(!creatingNewItem) {
 			this.configureDetailsForExistingItem(context);
+		} else {
+			this.handleCopiedAssets();
 		}
 		Session.set('details_shown', true);
+	},
+	handleCopiedAssets : function() { 
+		if(Session.get('item_to_copy')) {
+			var itemToCopy = Session.get('item_to_copy');
+			Meteor.call('copyAllAssetsFromApprovalItem', itemToCopy['_id'], Session.get('current_item_id'));
+		}	
 	},
 	fillInMissingContextData : function(context) {
 		// if we're coming from a route, where we don't have access to the context
