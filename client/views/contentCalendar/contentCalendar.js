@@ -19,7 +19,7 @@ Template['contentCalendar'].helpers({
 					calendarBuilder.onDragOverArrowColumn(event, 'forward');
 					calendarBuilder.intervalHandler = Meteor.setInterval(function(){
 						calendarBuilder.onDragOverArrowColumn(event, 'forward');
-					}, 250);
+					}, 750);
 				},
 				out : function() {
 					calendarBuilder.stopChangingDates();
@@ -30,7 +30,7 @@ Template['contentCalendar'].helpers({
 					calendarBuilder.onDragOverArrowColumn(event, 'back');
 					calendarBuilder.intervalHandler = Meteor.setInterval(function(){
 						calendarBuilder.onDragOverArrowColumn(event, 'back');
-					}, 250);
+					}, 750);
 				},
 				out : function() {
 					calendarBuilder.stopChangingDates();
