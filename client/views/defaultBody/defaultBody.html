@@ -4,10 +4,15 @@
 	    	{{#if page_is_ready}}
 	    		{{#if show_gif}}
 	    			{{> successGif}}
-	    		{{else}}
-			    	{{> contentCalendar}}
+	    		{{else}}					
+			    	{{#if show_draft_board}}
+			    		{{> draftBoard}}
+			    	{{else}}	
+			    		{{> contentCalendar}}
+			    	{{/if}}
 			    {{/if}}
 		    	<div class="ui small modal notification-modal">
+		    		
 		    		{{> notificationModal}}
 		    	</div>
 		    	{{initializeModal}}
