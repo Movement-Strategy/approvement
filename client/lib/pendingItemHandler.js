@@ -4,9 +4,11 @@ pendingItemHandler = {
 			pending_conditions : {
 				internal : [
 					'submitted',
+					'creative_updated',
 				],
 				external : [
 					'commented',
+					'creative_updated',
 				],
 			},
 			relevant_scopes : [
@@ -18,6 +20,7 @@ pendingItemHandler = {
 			pending_conditions : {
 				external : [
 					'submitted',
+					'creative_updated',
 				],
 			},
 			relevant_scopes : [
@@ -48,9 +51,17 @@ pendingItemHandler = {
 				private : [
 					'creative_needed',
 				],
+				internal : [
+					'creative_needed',
+				],
+				external : [
+					'creative_needed',
+				],
 			},
 			relevant_scopes : [
 				'private',
+				'external',
+				'internal',
 			],
 		},
 	},

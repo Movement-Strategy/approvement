@@ -35,6 +35,9 @@ stateMap = {
 		},
 		social_media_manager : {
 			status : 'creative_needed',
+		},
+		client : {
+			status : 'creative_needed',
 		}
 	},
 	updated : {
