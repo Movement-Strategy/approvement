@@ -18,7 +18,11 @@ detailsHandler = {
 		return isPreviewShown;
 	},
 	getEnterPressState : function() {
-		return Session.get('current_scope') == 'private' ? 'edited' : 'updated';
+		if(!userHandler.userIsType('art_director')) {
+			return Session.get('current_scope') == 'private' ? 'edited' : 'updated';
+		} else {
+			return 'creative_updated';
+		}
 	},
 	imageIsLoading : function() {
 		return Session.get('image_is_loading');	
