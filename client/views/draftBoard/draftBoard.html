@@ -1,87 +1,83 @@
 <template name="draftBoard">
-    <div class="ui center aligned three column grid">
-    	<div class="calendar row">
-	    	<div class="draft column">
-	    		<div class="ui draft-item segment">
-  					<div class="ui top blue attached label"><i class="large linkedin icon"></i>Follow friday</div>
-  					<div class="ui segment">
-	  					<p>On Book Lovers Day, we just have to ask -- what's your favorite book</p>
-  					</div>
-  					<div class="ui segment">
-	  					<p>On Book Lovers Day, we just have to ask -- what's your favorite book to curl up with? </p>
-  					</div>
-	    		</div>
-	    	</div>
-	    	<div class="draft column">
-	    		<div class="ui draft-item segment">
-  					<div class="ui top blue attached label"><i class="large linkedin icon"></i>Follow friday</div>
-  					<div class="ui segment">
-	  					<p>Some stuff</p>
-  					</div>
-  					<div class="ui segment">
-	  					<p>On Book Lovers Day, we just have to ask -- what's your favorite book to curl up with? On Book Lovers Day, we just have to ask -- what's your favorite book to curl up with? </p>
-  					</div>
-  					<div class="ui segment">
-	  					<p>On Book Lovers Day, we just have to ask -- what's your favorite book to curl up with? </p>
-  					</div>
-  					<div class="ui segment">
-	  					<p>On Book Lovers Day, we just have to ask -- what's your favorite book to curl up with? </p>
-  					</div>
-	    		</div>
-	    	</div>
-	    	<div class="draft column">
-	    		<div class="ui draft-item segment">
-  					<div class="ui top blue attached label"><i class="large linkedin icon"></i>Follow friday</div>
-  					<div class="ui segment">
-	  					<p>Some stuff</p>
-  					</div>
-  					<div class="ui segment">
-	  					<p>On Book Lovers Day, we just have to ask -- what's your favorite book to curl up with? </p>
-  					</div>
-	    		</div>
-	    	</div>
-    	</div>
-    	<div class="calendar row">
-	    	<div class="draft column">
-	    		<div class="ui draft-item segment">
-  					<div class="ui top blue attached label"><i class="large linkedin icon"></i>Follow friday</div>
-  					<div class="ui segment">
-	  					<p>On Book Lovers Day, we just have to ask -- what's your favorite book</p>
-  					</div>
-  					<div class="ui segment">
-	  					<p>On Book Lovers Day, we just have to ask -- what's your favorite book to curl up with? </p>
-  					</div>
-	    		</div>
-	    	</div>
-	    	<div class="draft column">
-	    		<div class="ui draft-item segment">
-  					<div class="ui top blue attached label"><i class="large linkedin icon"></i>Follow friday</div>
-  					<div class="ui segment">
-	  					<p>Some stuff</p>
-  					</div>
-  					<div class="ui segment">
-	  					<p>On Book Lovers Day, we just have to ask -- what's your favorite book to curl up with? On Book Lovers Day, we just have to ask -- what's your favorite book to curl up with? </p>
-  					</div>
-  					<div class="ui segment">
-	  					<p>On Book Lovers Day, we just have to ask -- what's your favorite book to curl up with? </p>
-  					</div>
-  					<div class="ui segment">
-	  					<p>On Book Lovers Day, we just have to ask -- what's your favorite book to curl up with? </p>
-  					</div>
-	    		</div>
-	    	</div>
-	    	<div class="draft column">
-	    		<div class="ui draft-item segment">
-  					<div class="ui top blue attached label"><i class="large linkedin icon"></i>Follow friday</div>
-  					<div class="ui segment">
-	  					<p>Some stuff</p>
-  					</div>
-  					<div class="ui segment">
-	  					<p>On Book Lovers Day, we just have to ask -- what's your favorite book to curl up with? </p>
-  					</div>
-	    		</div>
-	    	</div>
-    	</div>
-	</div>
+	<table class="ui table segment draft-table">
+		<thead class='draft-header'>
+			<tr>
+				{{#each draft_columns}}
+					<th>{{display}}</th>
+				{{/each}}
+			</tr>
+		</thead>
+		<tbody>
+<!--
+			<tr class="positive">
+				<td>Throwback Thursday</td>
+				<td>
+					<textarea class="content-input" placeholder = "Enter a comment"></textarea>
+					{{initializeTextArea}}
+				</td>
+				<td class= "network-type-column">
+					<div class="ui inline dropdown network-type-inline">
+						<div class="text">Facebook</div>
+						<i class="dropdown icon"></i>
+						<div class="menu">
+							<div class="item active" data-text="facebook">Facebook</div>
+							<div class="item active" data-text="twitter">Twitter</div>
+							<div class="item active" data-text="instagram">Instagram</div>
+							<div class="item active" data-text="linkedin">LinkedIN</div>
+						</div>
+					</div>
+					{{initializeDropdown}}
+				</td>
+				<td>Photo</td>
+				<td>Monday</td>
+				<td>10PM</td>
+				<td>
+					<textarea class="content-input" placeholder = "Enter a comment"></textarea>
+					{{initializeTextArea}}
+				</td>
+			</tr>
+			<tr>
+				<td>Something else</td>
+				<td>		
+					<textarea class="content-input" placeholder = "Enter a comment"></textarea>
+					{{initializeTextArea}}
+				</td>
+				<td>Facebook</td>
+				<td>Photo</td>
+				<td>Monday</td>
+				<td>10PM</td>
+				<td>
+					<textarea class="content-input" placeholder = "Enter a comment"></textarea>
+					{{initializeTextArea}}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Other one
+				</td>
+				<td>
+					<i class="plus icon"></i>
+				</td>
+				<td>Facebook</td>
+				<td>Photo</td>
+				<td>Monday</td>
+				<td>10PM</td>
+				<td>
+					<textarea class="content-input" placeholder = "Enter a comment"></textarea>
+					{{initializeTextArea}}
+				</td>
+			</tr>
+-->
+		</tbody>
+		<tfoot>
+			<tr>
+				<th>
+					<div class="ui blue labeled icon button">
+						<i class="plus icon"></i>Convert All
+					</div>
+				</th>
+			</tr>
+		</tfoot>
+	</table>
 </template>
 
