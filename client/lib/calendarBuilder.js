@@ -28,8 +28,17 @@ calendarBuilder = {
 		Session.set('approval_items_are_ready', true);
 	},
 	initializeCalendarWeek : function(clientID, weekName) {
-        Session.set('selected_client_id', clientID);
-		timeHandler.setCurrentTimestampToStartOfWeekForDateString(weekName);
+        if(clientID != Session.get('selected_client_id')) {
+	        Session.set('approval_items_are_ready', false);
+	        Session.set('selected_client_id', clientID);
+        }
+        
+		var newTimestamp = timeHandler.dateStringToStartOfWeekTimestamp(weekName);
+		var currentTimestamp = timeHandler.getTimestampForCurrentDate();
+		if(currentTimestamp != newTimestamp) {
+			Session.set('approval_items_are_ready', false);
+			timeHandler.setCurrentTimestampToStartOfWeekForDateString(weekName);
+		}
 	},
 	getCachedApprovalItems : function() {
 		var cachedApprovalItems = Session.get('cached_approval_items');

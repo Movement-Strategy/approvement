@@ -17,7 +17,7 @@ if(Meteor.isClient) {
 							var context = Session.get('approval_item_context') ? Session.get('approval_item_context') : {_id : that.params.id};
 							detailsHandler.showDetails(context, creatingNew);
 			        	}
-		        	});	        	
+		        	});        	
 	        	} else {
 		        	Router.go('/login');
 	        	}

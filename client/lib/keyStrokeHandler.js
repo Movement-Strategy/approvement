@@ -19,13 +19,13 @@ keyStrokeHandler = {
 		
 		// If details aren't open, go the next pending item on tab press
 		if(!Session.get('details_shown') && event.which == 9) {	
-			Session.set('approval_items_are_ready', false);
 			pendingItemHandler.goToPendingItem(Session.get('pending_item_index'));
 		}
 		
 		// If details is not open change to last week on left press
 		if(!Session.get('details_shown') && event.which == 37) {
 			detailsHandler.closeShownPopup();
+			console.log('change event');
 			timeHandler.changeToLastWeek();
 		}
 		

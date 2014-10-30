@@ -4,7 +4,7 @@ if(Meteor.isClient) {
 	});
 		
 	Router.map(function () {
-	    this.route('editItem', {
+	    this.route('login', {
 	        path :  'login',
 	        controller :  HomeController,
 	        onRun : function() {
