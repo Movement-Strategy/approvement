@@ -8,14 +8,17 @@ if(Meteor.isClient) {
 	        path :  'client/:client/week/:week/content/edit/:id',
 	        controller :  HomeController,
 	        onRun : function() {
+	        	var detailsLoaded = false;
 	        	if(loginHandler.isLoggedIn()) {
 		        	var that = this;
 		        	Deps.autorun(function(){
 			        	calendarBuilder.initializeCalendarWeek(that.params.client, that.params.week);
-			        	if(Session.get('page_is_ready') && Session.get('approval_items_are_ready')) {
+			        	if(Session.get('page_is_ready') && Session.get('approval_items_are_ready') && !detailsLoaded) {
+							console.log('running');
 							var creatingNew = false;
 							var context = Session.get('approval_item_context') ? Session.get('approval_item_context') : {_id : that.params.id};
 							detailsHandler.showDetails(context, creatingNew);
+							detailsLoaded = true;
 			        	}
 		        	});        	
 	        	} else {

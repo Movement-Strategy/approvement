@@ -42,6 +42,7 @@ facebookHandler = {
 	},
 	updateFacebookLink : function(linkURL) {
 		if(linkURL != '') {
+		
 			linkURL = this.addHTTPToUrl(linkURL);
 			Session.set('current_facebook_link', linkURL);
 			Session.set('editing_link', false);
