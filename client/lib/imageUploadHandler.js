@@ -63,6 +63,7 @@ imageUploadHandler = {
 		var selector = selectorMap[Session.get('current_network_type')];
 		selector = '.' + selector;
 		Session.set('image_is_loading', false);
+		Session.set('changes_made', true);
 		$(selector).transition('tada');
 	}
 	
