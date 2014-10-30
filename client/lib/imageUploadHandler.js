@@ -39,7 +39,6 @@ imageUploadHandler = {
 				}
 			}
 			
-			
 			return Session.get('uploaded_image_url') == null ? currentURL : Session.get('uploaded_image_url');
 		} else {
 			return null;
