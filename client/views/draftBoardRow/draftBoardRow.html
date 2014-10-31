@@ -1,7 +1,7 @@
 <template name="draftBoardRow">
 	<tr>
 		{{#each draft_variables}}
-			{{> draftBoardCell}}
+			{{> UI.dynamic template=cell_template data=this}}
 		{{/each}}
 	</tr>
 </template>

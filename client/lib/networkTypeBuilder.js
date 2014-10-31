@@ -14,6 +14,12 @@ networkTypeBuilder = {
 			$('.network-type-dropdown').dropdown();
 		});
 	},
+	dropdownNameMap : {
+		facebook : 'Facebook',
+		linked : 'LinkedIN',
+		instagram : 'Instagram',
+		twitter : 'Twitter',
+	},
 	handleNetworkWithSingleContentType : function() {
 		if(contentTypeBuilder.hasOnlyOneContentType()) {
 			var contentTypes = contentTypeBuilder.networkTypeMap[Session.get('current_network_type')];

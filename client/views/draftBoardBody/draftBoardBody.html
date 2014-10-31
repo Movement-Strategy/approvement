@@ -3,6 +3,7 @@
 			{{#each content_buckets}}
 				{{> draftBoardRow}}
 			{{/each}}
+			{{initializeDropdowns}}
 			
 			
 <!--
@@ -13,17 +14,6 @@
 					{{initializeTextArea}}
 				</td>
 				<td class= "network-type-column">
-					<div class="ui inline dropdown network-type-inline">
-						<div class="text">Facebook</div>
-						<i class="dropdown icon"></i>
-						<div class="menu">
-							<div class="item active" data-text="facebook">Facebook</div>
-							<div class="item active" data-text="twitter">Twitter</div>
-							<div class="item active" data-text="instagram">Instagram</div>
-							<div class="item active" data-text="linkedin">LinkedIN</div>
-						</div>
-					</div>
-					{{initializeDropdown}}
 				</td>
 				<td>Photo</td>
 				<td>Monday</td>

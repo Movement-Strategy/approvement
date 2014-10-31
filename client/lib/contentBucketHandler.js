@@ -3,10 +3,47 @@ contentBucketHandler = {
 		return {
 			description : {
 				display : "Content Bucket",
+				cell_template : 'draftBoardCell',
 			},
+			network : {
+				display : "Network",
+				cell_template : "dropdownCell",
+				params : {
+					default_value : 'Select',
+					dropdown_options : [
+						{
+							value : 'facebook',
+							display : 'Facebook',
+						},
+						{
+							value : 'instagram',
+							display : 'Instagram',
+						},
+					],
+				},
+			},
+			content_type : {
+				display : "Content Type",
+				cell_template : "dropdownCell",
+				params : {
+					default_value : 'Select',
+					dropdown_options : [
+						{
+							value : 'with_photo',
+							display : 'Photo',
+						},
+						{
+							value : 'without_photo',
+							display : 'Without Photo',
+						},
+					],
+				},
+			},
+/*
 			content : {
 				display : "Content",
 			},
+*/
 /*
 			network : {
 				display : "Network"
@@ -33,7 +70,8 @@ contentBucketHandler = {
 			{
 				_id : '_1',
 				draft_variables : {
-					description : "Throwback Thursday",	
+					description : "Throwback Thursday",
+					/* network : 'instagram', */
 				},
 			},
 		];
@@ -45,6 +83,11 @@ contentBucketHandler = {
 		
 		Session.set('content_buckets_by_id', contentBucketsByID);
 		
+	},
+	updateContentBucket : function() {
+		var contentBucketsByID = Session.get('content_buckets_by_id');
+		contentBucketsByID['_1']['draft_variables']['network']['value'] = 'instagram';
+		Session.set('content_buckets_by_id', contentBucketsByID);
 	},
 	setContentBucketByID : function(bucket, contentBucketsByID, contentBuckets) {
 		
