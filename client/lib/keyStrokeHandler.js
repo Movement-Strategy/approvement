@@ -25,7 +25,6 @@ keyStrokeHandler = {
 		// If details is not open change to last week on left press
 		if(!Session.get('details_shown') && event.which == 37) {
 			detailsHandler.closeShownPopup();
-			console.log('change event');
 			timeHandler.changeToLastWeek();
 		}
 		
