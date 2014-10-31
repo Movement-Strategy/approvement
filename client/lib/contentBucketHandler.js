@@ -5,6 +5,10 @@ contentBucketHandler = {
 				display : "Content Bucket",
 				cell_template : 'draftBoardCell',
 			},
+			content : {
+				display : "Content",
+				cell_template : 'textAreaCell',
+			},
 			network : {
 				display : "Network",
 				cell_template : "dropdownCell",
@@ -71,7 +75,9 @@ contentBucketHandler = {
 				_id : '_1',
 				draft_variables : {
 					description : "Throwback Thursday",
-					/* network : 'instagram', */
+					network : 'instagram',
+					content_type : 'without_photo',
+					content : "Test this is some content",
 				},
 			},
 		];
