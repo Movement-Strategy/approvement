@@ -1,6 +1,6 @@
 Template['draftBoardRow'].helpers({
 	draft_variables : function() {
-		return _.values(this.draft_variables);	
+		return contentBucketHandler.getDraftVariablesForRow(this);
 	},
 });
 

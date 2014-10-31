@@ -123,5 +123,10 @@ contentBucketHandler = {
 		var contentBucketsByID = Session.get('content_buckets_by_id');
 		return _.values(contentBucketsByID);
 	},
+	getDraftVariablesForRow : function(row) {
+		return _.map(contentBucketHandler.getDraftVariableMap(), function(variable, variableName){
+			return row.draft_variables[variableName];
+		});
+	},
 	
 };
