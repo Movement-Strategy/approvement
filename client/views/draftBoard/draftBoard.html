@@ -2,12 +2,19 @@
 	<table class="ui table segment draft-table">
 		<thead class='draft-header'>
 			<tr>
-				{{#each draft_columns}}
+				{{#each table_headers}}
 					<th>{{display}}</th>
 				{{/each}}
 			</tr>
 		</thead>
 		<tbody>
+			{{#each content_buckets}}
+				<tr>
+					{{#each draft_variables}}
+						<td>{{value}}</td>
+					{{/each}}
+				</tr>
+			{{/each}}
 <!--
 			<tr class="positive">
 				<td>Throwback Thursday</td>
