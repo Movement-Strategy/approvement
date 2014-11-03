@@ -1,7 +1,7 @@
 <template name="dropdownCell">
 	<td>
-		<div class="ui inline dropdown inline-dropdown">
-			<div class="text">{{value}}</div>
+		<div class="ui inline dropdown inline-dropdown {{style_class}}">
+			<div class="text" data-value="{{value}}">{{value}}</div>
 			<i class="dropdown icon"></i>
 			<div class="menu">
 				{{#each dropdown_options}}

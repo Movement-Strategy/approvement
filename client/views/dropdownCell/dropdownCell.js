@@ -9,6 +9,9 @@ Template['dropdownCell'].helpers({
 			return this.params.default_value;
 		}
 	},
+	style_class : function() {
+		return this.params.style_class;
+	},
 });
 
 Template['dropdownCell'].events({

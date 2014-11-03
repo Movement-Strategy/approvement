@@ -1,4 +1,10 @@
 contentBucketHandler = {
+	valueMap : {
+		dropdown : function(variableDetails) {
+			var styleClass = '.' + variableDetails['params']['style_class'];
+			console.log($(styleClass).dropdown().data());
+		},
+	},
 	getDraftVariableMap : function() {
 		return {
 			description : {
@@ -12,7 +18,9 @@ contentBucketHandler = {
 			network : {
 				display : "Network",
 				cell_template : "dropdownCell",
+				get_value_type : 'dropdown',
 				params : {
+					style_class : 'draft-network-dropdown',
 					default_value : 'Select',
 					dropdown_options : [
 						{
@@ -30,6 +38,7 @@ contentBucketHandler = {
 				display : "Content Type",
 				cell_template : "dropdownCell",
 				params : {
+					style_class : 'draft-content-dropdown',
 					default_value : 'Select',
 					dropdown_options : [
 						{
@@ -90,10 +99,18 @@ contentBucketHandler = {
 		Session.set('content_buckets_by_id', contentBucketsByID);
 		
 	},
-	updateContentBucket : function() {
-		var contentBucketsByID = Session.get('content_buckets_by_id');
-		contentBucketsByID['_1']['draft_variables']['network']['value'] = 'instagram';
-		Session.set('content_buckets_by_id', contentBucketsByID);
+	updateContentBuckets : function() {
+		var newContentBucketsByID = {};
+		_.map(Session.get('content_buckets_by_id'), function(bucket, id){
+			_.map(bucket['draft_variables'], function(variableDetails, variableName){
+				
+				if(_.has(variableDetails, 'get_value_type')) {
+					var valueType = variableDetails['get_value_type'];
+					var valueFunction = contentBucketHandler.valueMap[valueType];
+					var value = valueFunction(variableDetails);
+				}
+			});
+		});
 	},
 	setContentBucketByID : function(bucket, contentBucketsByID, contentBuckets) {
 		
