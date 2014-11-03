@@ -141,6 +141,7 @@ contentBucketHandler = {
 		return _.values(contentBucketsByID);
 	},
 	getDraftVariablesForRow : function(row) {
+		console.log(row);
 		return _.map(contentBucketHandler.getDraftVariableMap(), function(variable, variableName){
 			return row.draft_variables[variableName];
 		});
