@@ -77,18 +77,8 @@ contentBucketHandler = {
 		};	
 	},
 	initializeContentBuckets : function() {
-		var contentBuckets = [
-			{
-				_id : '_1',
-				draft_variables : {
-					description : "Throwback Thursday",
-					network : 'instagram',
-					content_type : 'without_photo',
-					content : "Test this is some content",
-				},
-			},
-		];
 		
+		var contentBuckets = ContentBucket.find().fetch();
 		var contentBucketsByID = {};
 		_.map(contentBuckets, function(bucket){
 			contentBucketsByID = contentBucketHandler.setContentBucketByID(bucket, contentBucketsByID, contentBuckets);
@@ -99,7 +89,17 @@ contentBucketHandler = {
 	},
 	updateContentBuckets : function() {
 		var variablesToUpdate = Session.get('draft_variables_to_update');
-		console.log(variablesToUpdate);
+		_.map(variablesToUpdate, function(variablesForBucket, bucketID){
+			var query = {
+				$set : {},
+			};
+			_.map(variablesForBucket, function(value, key){
+				var setKey = 'draft_variables.' + key;
+				query['$set'][setKey] = value; 
+			});
+			
+			Meteor.call('updateContentBucket', bucketID, query);
+		});
 	},
 	setDraftVariableToUpdate : function(newValue, variableID, bucketID) {
 		var variablesToUpdate = Session.get('draft_variables_to_update');

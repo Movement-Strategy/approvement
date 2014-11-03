@@ -5,7 +5,6 @@ pageLoadHandler = {
 		assetHandler.handleAssetID();
 		assetHandler.updateCurrentAssets();
 		gifHandler.handleSuccessGif();
-		contentBucketHandler.initializeContentBuckets();
 	},
 	checkIfPageIsReady : function() {
 		Deps.autorun(function(){
