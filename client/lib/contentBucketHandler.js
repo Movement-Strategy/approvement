@@ -1,10 +1,4 @@
 contentBucketHandler = {
-	valueMap : {
-		dropdown : function(variableDetails) {
-			var styleClass = '.' + variableDetails['params']['style_class'];
-			console.log($(styleClass).dropdown().data());
-		},
-	},
 	getDraftVariableMap : function() {
 		return {
 			description : {
@@ -51,6 +45,10 @@ contentBucketHandler = {
 						},
 					],
 				},
+			},
+			reference : {
+				display : "Reference",
+				cell_template : 'textAreaCell',
 			},
 /*
 			content : {
@@ -100,17 +98,16 @@ contentBucketHandler = {
 		
 	},
 	updateContentBuckets : function() {
-		var newContentBucketsByID = {};
-		_.map(Session.get('content_buckets_by_id'), function(bucket, id){
-			_.map(bucket['draft_variables'], function(variableDetails, variableName){
-				
-				if(_.has(variableDetails, 'get_value_type')) {
-					var valueType = variableDetails['get_value_type'];
-					var valueFunction = contentBucketHandler.valueMap[valueType];
-					var value = valueFunction(variableDetails);
-				}
-			});
-		});
+		var variablesToUpdate = Session.get('draft_variables_to_update');
+		console.log(variablesToUpdate);
+	},
+	setDraftVariableToUpdate : function(newValue, variableID, bucketID) {
+		var variablesToUpdate = Session.get('draft_variables_to_update');
+		if(!_.has(variablesToUpdate, bucketID)) {
+			variablesToUpdate[bucketID] = {};
+		}
+		variablesToUpdate[bucketID][variableID] = newValue;
+		Session.set('draft_variables_to_update', variablesToUpdate);
 	},
 	setContentBucketByID : function(bucket, contentBucketsByID, contentBuckets) {
 		
@@ -124,6 +121,14 @@ contentBucketHandler = {
 		bucket['draft_variables'] = draftVariables;
 		contentBucketsByID[bucket['_id']] = bucket;
 		return contentBucketsByID;
+	},
+	onDropdownChange : function(value, text, element) {
+		var context = UI.getData(element);
+		this.setDraftVariableToUpdate(value, context['variable_id'], context['content_bucket_id']);
+	},
+	onTextAreaKeyup : function(event) {
+		var context = UI.getData(event.target);
+		this.setDraftVariableToUpdate(event.target.value, context['variable_id'], context['content_bucket_id']);
 	},
 	configureDraftVariable : function(variableDetails, variableName, draftVariables) {
 		if(_.has(draftVariables, variableName)) {
@@ -141,10 +146,12 @@ contentBucketHandler = {
 		return _.values(contentBucketsByID);
 	},
 	getDraftVariablesForRow : function(row) {
-		console.log(row);
+		var contentBucketID = row['_id'];
 		return _.map(contentBucketHandler.getDraftVariableMap(), function(variable, variableName){
-			return row.draft_variables[variableName];
+			var draftVariable = row.draft_variables[variableName];
+			draftVariable['content_bucket_id'] = contentBucketID;
+			draftVariable['variable_id'] = variableName;
+			return draftVariable;
 		});
-	},
-	
+	},	
 };

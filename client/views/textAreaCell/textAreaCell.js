@@ -7,5 +7,8 @@ Template['textAreaCell'].helpers({
 });
 
 Template['textAreaCell'].events({
+	'keyup .content-input' : function(event) {
+		contentBucketHandler.onTextAreaKeyup(event);
+	}
 });
 
