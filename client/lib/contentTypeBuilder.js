@@ -1,7 +1,7 @@
 contentTypeBuilder = {
-	getContentTypes : function() {
+	getContentTypes : function(networkType) {
 		contentTypes = [];
-		var networkType = Session.get('current_network_type');
+		var networkType = networkType;
 		if(networkType != null) {
 			contentTypes = contentTypeBuilder.networkTypeMap[networkType];
 		}
