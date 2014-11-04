@@ -1,6 +1,7 @@
 <template name="contentTypeDropdownCell">
 	<td>
-		<div class="ui inline dropdown inline-dropdown {{style_class}}">
+		{{#if show_dropdown}}
+		<div class="ui inline dropdown switching-dropdown {{style_class}}">
 			<div class="text"></div>
 			<i class="dropdown icon"></i>
 			<div class="menu">
@@ -9,6 +10,10 @@
 				{{/each}}
 			</div>
 		</div>
+		{{else}}
+			{{reset_dropdowns}}
+		{{/if}}
+			
 	</td>
 </template>
 

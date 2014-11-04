@@ -1,0 +1,14 @@
+<template name="networkTypeDropdownCell">
+	<td>
+		<div class="ui inline dropdown network-inline-dropdown {{style_class}}">
+			<div class="text">{{value}}</div>
+			<i class="dropdown icon"></i>
+			<div class="menu">
+				{{#each dropdown_options}}
+					<div class="item" data-value="{{value}}" data-text="{{display}}">{{display}}</div>
+				{{/each}}
+			</div>
+		</div>
+	</td>
+</template>
+

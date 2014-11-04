@@ -24,6 +24,7 @@ pageLoadHandler = {
 		return Session.get('page_is_ready');
 	},
 	defaultSessionValueMap : {
+		show_network_type_dropdown : true,
 		draft_variables_to_update : {},
 		show_popups : true,
 		approval_items_are_ready : false,

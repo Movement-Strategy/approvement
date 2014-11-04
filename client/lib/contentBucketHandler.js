@@ -11,7 +11,7 @@ contentBucketHandler = {
 			},
 			network : {
 				display : "Network",
-				cell_template : "dropdownCell",
+				cell_template : "networkTypeDropdownCell",
 				get_value_type : 'dropdown',
 				params : {
 					style_class : 'draft-network-dropdown',
