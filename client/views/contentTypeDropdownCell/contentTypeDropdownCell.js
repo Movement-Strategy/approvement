@@ -1,27 +1,15 @@
 dropdownSet = false;
 Template['contentTypeDropdownCell'].helpers({
-	reset_dropdowns : function() {
-		Session.set('show_network_type_dropdown', true);
-		dropdownSet = false;
-	},
-	show_dropdown : function() {
-		return Session.get('show_network_type_dropdown');	
-	},
 	dropdown_options : function() {
-		console.log('firing');
 		var networkType = contentBucketHandler.getDraftVariableValue('network', this.content_bucket_id);
-		if(dropdownSet) {
-			Session.set('show_network_type_dropdown', false);
-		} else {
-			Meteor.defer(function(){
-				$('.switching-dropdown').dropdown({'onChange' : function(value, text){
-					contentBucketHandler.onDropdownChange(value, text, this);
-					dropdownSet = true;
-				}});
-			});
-		}
 		return contentTypeBuilder.getContentTypes(networkType);
 	},
+	initializeDropdown : function() {
+		Meteor.defer(function(){
+			$('.content-type-dropdown-cell').dropdown('restore default text');
+		});
+	},
+/*
 	text_display : function() {
 		var networkType = contentBucketHandler.getDraftVariableValue('network', this.content_bucket_id);
 		var contentTypes = contentTypeBuilder.getContentTypes(networkType);
@@ -43,11 +31,17 @@ Template['contentTypeDropdownCell'].helpers({
 			return this.params.default_value;
 		}
 	},
+*/
 	style_class : function() {
 		return this.params.style_class;
 	},
 });
 
 Template['contentTypeDropdownCell'].events({
+	'click .content-type-item' : function(event) {
+		var value = $(event.currentTarget).attr('data-value');
+		$('.content-type-dropdown-cell').dropdown('hide');
+		console.log(value);
+	},
 });
 

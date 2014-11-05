@@ -1,19 +1,16 @@
 <template name="contentTypeDropdownCell">
 	<td>
-		{{#if show_dropdown}}
-		<div class="ui inline dropdown switching-dropdown {{style_class}}">
-			<div class="text"></div>
+		<div class="ui inline dropdown content-type-dropdown-cell {{style_class}}">
+			<input type="hidden" name="content type">
+			<div class="text">Content Type</div>
 			<i class="dropdown icon"></i>
 			<div class="menu">
 				{{#each dropdown_options}}
-					<div class="item" data-value="{{output_value}}" data-text="{{display}}">{{display}}</div>
+					{{initializeDropdown}}
+					<div class="item content-type-item" data-value="{{value}}">{{display}}</div>
 				{{/each}}
 			</div>
-		</div>
-		{{else}}
-			{{reset_dropdowns}}
-		{{/if}}
-			
+		</div>			
 	</td>
 </template>
 
