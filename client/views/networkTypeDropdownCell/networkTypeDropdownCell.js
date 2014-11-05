@@ -3,6 +3,7 @@ Template['networkTypeDropdownCell'].helpers({
 		var that = this;
 		Meteor.defer(function(){
 			$('.network-inline-dropdown').dropdown({'onChange' : function(value, text){
+				console.log('firing');
 				contentBucketHandler.setDraftVariableToUpdate(null, 'content_type', that.content_bucket_id);
 				contentBucketHandler.onDropdownChange(value, text, this);
 			}});

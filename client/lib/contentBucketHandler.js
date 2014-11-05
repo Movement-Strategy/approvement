@@ -88,10 +88,12 @@ contentBucketHandler = {
 		
 	},
 	getValueFromContentBucket : function(variableID, bucketID) {
+		
 		var value = null
 		var contentBucketsByID = Session.get('content_buckets_by_id');
 		if(_.has(contentBucketsByID, bucketID)) {
 			var contentBucket = contentBucketsByID[bucketID];
+			
 			if(_.has(contentBucket['draft_variables'], variableID)) {
 				var draftVariable = contentBucket['draft_variables'][variableID];
 				value = _.has(draftVariable, 'value') ? draftVariable['value'] : null;
