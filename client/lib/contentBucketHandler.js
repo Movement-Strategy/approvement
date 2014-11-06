@@ -8,11 +8,22 @@ contentBucketHandler = {
 			content : {
 				display : "Content",
 				cell_template : 'textAreaCell',
+				add_to_approval_item : function(item, draftValue, bucket) {
+					var contentType = bucket['draft_variables']['content_type']['value'];
+					var networkType = bucket['draft_variables']['network']['value'];
+					var inputName = inputBuilder.getInputNameForContentBucket(networkType, contentType);
+					item['contents'] = {};
+					item['contents'][inputName] = draftValue;
+					return item;
+				},
 			},
 			network : {
 				display : "Network",
 				cell_template : "networkTypeDropdownCell",
-				get_value_type : 'dropdown',
+				add_to_approval_item : function(item, draftValue) {
+					item['type'] = draftValue;
+					return item;
+				},
 				params : {
 					style_class : 'draft-network-dropdown',
 					default_value : 'Select',
@@ -39,6 +50,10 @@ contentBucketHandler = {
 			content_type : {
 				display : "Content Type",
 				cell_template : "contentTypeDropdownCell",
+				add_to_approval_item : function(item, draftValue) {
+					item['content_type'] = draftValue;
+					return item;
+				},
 				params : {
 					style_class : 'draft-content-dropdown',
 					default_value : 'Select',
@@ -51,6 +66,11 @@ contentBucketHandler = {
 			day_of_week : {
 				display : "Day of week",
 				cell_template : "dropdownCell",
+				add_to_approval_item : function(item, dayIndex) {
+					var scheduledTime = timeHandler.getTimestampForDayIndexOfCurrentWeek(dayIndex);
+					item['scheduled_time'] = scheduledTime;
+					return item;
+				},
 				default_value : 'Day',
 				params : {
 					style_class : 'day-cell-dropdown',
@@ -130,6 +150,39 @@ contentBucketHandler = {
 			value = this.getValueFromContentBucket(variableID, bucketID);
 		}
 		return value == 'unset' ? null : value;
+	},
+	convertAllContentBucketsIntoApprovalItems : function() {
+		var contentBucketsByID = Session.get('content_buckets_by_id');
+		_.map(contentBucketsByID, function(bucket, bucketID){
+			var approvalItem = contentBucketHandler.convertBucketIntoApprovalItem(bucket);
+			Meteor.call('insertApprovalItem', approvalItem);
+		});
+		
+	},
+	convertBucketIntoApprovalItem : function(bucket) {
+		var approvalItem = {};
+		_.map(bucket['draft_variables'], function(draftVariable, variableID){
+			var draftValue = draftVariable['value'];
+			approvalItem = contentBucketHandler.addDraftVariableToApprovalItem(approvalItem, draftValue, variableID, bucket);
+		});
+		
+		approvalItem = this.addFinalConfigurationToApprovalItem(approvalItem);
+		return approvalItem;
+	},
+	addFinalConfigurationToApprovalItem : function(approvalItem) {
+		approvalItem['scope'] = 'private';
+		approvalItem['client_id'] = Session.get('selected_client_id');
+		approvalItem['created_time'] = timeHandler.convertDateToTimestamp(moment());
+		approvalItem['status'] = 'created';
+		approvalItem['created_by'] = Meteor.userId();
+		return approvalItem;
+	},
+	addDraftVariableToApprovalItem : function(approvalItem, draftVariable, variableID, bucket) {
+		var variableMap = this.getDraftVariableMap();
+		if(_.has(variableMap[variableID], 'add_to_approval_item')) {
+			approvalItem = variableMap[variableID]['add_to_approval_item'](approvalItem, draftVariable, bucket);
+		}
+		return approvalItem;
 	},
 	updateContentBuckets : function() {
 		var variablesToUpdate = Session.get('draft_variables_to_update');

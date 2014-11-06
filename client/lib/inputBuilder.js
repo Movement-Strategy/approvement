@@ -1,6 +1,11 @@
 inputBuilder = {
 	inputMap : {
 		facebook : {
+			inputs_for_content_bucket : {
+				link : 'description',
+				photo : 'description',
+				status : 'description',
+			},
 			input_types : {
 				description : {
 					default_text : 'Choose some text for the post',
@@ -41,6 +46,10 @@ inputBuilder = {
 			},
 		},
 		twitter : {
+			inputs_for_content_bucket : {
+				with_picture : 'tweet_body',
+				without_picture : 'tweet_body',
+			},
 			input_types : {
 				tweet_body : {
 					default_text : "Choose some text for your tweet",
@@ -58,6 +67,9 @@ inputBuilder = {
 			},
 		},
 		instagram : {
+			inputs_for_content_bucket : {
+				standard : 'instagram_caption',
+			},
 			input_types : {
 				instagram_caption : {
 					default_text : "The caption you would like to included with your instagram post",
@@ -72,6 +84,11 @@ inputBuilder = {
 			},
 		},
 		linked : {
+			inputs_for_content_bucket : {
+				picture_with_description : 'linked_description',
+				picture_without_description : 'linked_body',
+				without_picture : 'linked_description',
+			},
 			input_types : {
 				linked_content_title : {
 					default_text : "The title of the article that you would like to share",
@@ -125,6 +142,9 @@ inputBuilder = {
 		});
 		
 		Session.set('clickable_inputs', processedInputs);
+	},
+	getInputNameForContentBucket: function(networkType, contentType){
+		return this.inputMap[networkType]['inputs_for_content_bucket'][contentType];
 	},
 	setTextInInput : function(text, input) {
 		input.text = text;

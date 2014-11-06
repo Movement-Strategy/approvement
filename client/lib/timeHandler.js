@@ -99,6 +99,13 @@ timeHandler = {
 			return date.add(7, 'days');
 		});
 	},
+	getTimestampForDayIndexOfCurrentWeek : function(dayIndex) {
+		var currentTimestamp = Session.get('time_stamp_for_current_date');
+		var dateObject = moment(currentTimestamp);
+		var updatedDateObject = dateObject.isoWeekday(dayIndex);
+		return this.dateObjectToTimestamp(updatedDateObject);
+	},
+	
 	changeToTargetTime : function(targetTime) {
 		timeHandler.alterCurrentDate(function(date){
 			return timeHandler.convertDateObjectToStartOfWeek(date);
