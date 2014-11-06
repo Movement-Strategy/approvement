@@ -11,7 +11,6 @@ Template['contentTypeDropdownCell'].helpers({
 	},
 	initializeDropdown : function() {
 		var contentType = contentBucketHandler.getDraftVariableValue('content_type', this.bucket.content_bucket_id);
-		console.log(contentType);
 		Meteor.defer(function(){
 			if(contentType != null) {
 				$('.content-type-dropdown-cell').dropdown('set selected', contentType);
