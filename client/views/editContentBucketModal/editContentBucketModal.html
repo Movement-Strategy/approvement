@@ -1,0 +1,23 @@
+<template name="editContentBucketModal">
+    <div class="header">Edit Content Bucket</div>
+    <div class="content">
+		
+		<div class="content-bucket-form ui form">
+			<div class="field">
+				<label>Description</label>
+				<input type="text"/>
+			</div>
+			<div class="inline field">
+				<div class="ui toggle checkbox">
+					<input type="checkbox">
+					<label>Should Repeat</label>
+				</div>
+			</div>		
+  		</div>
+  		{{initializeToggle}}
+    </div>
+    <div class="bucket-actions actions">
+	    <div class="green ui button">Edit</div>
+    </div>
+</template>
+

@@ -3,6 +3,9 @@ Template['draftBoardBody'].helpers({
 		var contentBuckets = contentBucketHandler.getContentBuckets();
 		return contentBuckets;
 	},
+	initializeModal : function() {
+		contentBucketModalHandler.initializeModal();	
+	},
 });
 
 Template['draftBoardBody'].events({
