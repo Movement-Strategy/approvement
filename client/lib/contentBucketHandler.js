@@ -157,7 +157,6 @@ contentBucketHandler = {
 			var approvalItem = contentBucketHandler.convertBucketIntoApprovalItem(bucket);
 			Meteor.call('insertApprovalItem', approvalItem);
 		});
-		
 	},
 	convertBucketIntoApprovalItem : function(bucket) {
 		var approvalItem = {};
