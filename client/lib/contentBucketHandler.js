@@ -22,8 +22,16 @@ contentBucketHandler = {
 							display : 'Facebook',
 						},
 						{
+							value : 'twitter',
+							display : 'Twitter',
+						},
+						{
 							value : 'instagram',
 							display : 'Instagram',
+						},
+						{
+							value : 'linked',
+							display : 'LinkedIN',
 						},
 					],
 				},
@@ -34,16 +42,6 @@ contentBucketHandler = {
 				params : {
 					style_class : 'draft-content-dropdown',
 					default_value : 'Select',
-					dropdown_options : [
-						{
-							value : 'with_photo',
-							display : 'Photo',
-						},
-						{
-							value : 'without_photo',
-							display : 'Without Photo',
-						},
-					],
 				},
 			},
 			reference : {
@@ -88,31 +86,6 @@ contentBucketHandler = {
 					],
 				},
 			},
-			
-/*
-			content : {
-				display : "Content",
-			},
-*/
-/*
-			network : {
-				display : "Network"
-			},
-*/
-/*
-			content_type : {
-				display : "Content Type"
-			},
-			day_of_week : {
-				display : "Day of week"
-			},
-			scheduled_time : {
-				display : "Scheduled Time"
-			},
-			reference : {
-				display : "Reference"
-			},
-*/
 		};	
 	},
 	initializeContentBuckets : function() {
