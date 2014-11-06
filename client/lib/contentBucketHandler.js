@@ -55,6 +55,7 @@ contentBucketHandler = {
 				cell_template : "dropdownCell",
 				default_value : 'Day',
 				params : {
+					style_class : 'day-cell-dropdown',
 					dropdown_options : [
 						{
 							value : 1,

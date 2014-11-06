@@ -1,12 +1,12 @@
 <template name="dropdownCell">
 	<td>
+		{{initializeDropdown}}
 		<div class="ui inline dropdown inline-dropdown {{style_class}}">
 			<input type="hidden" name="{{default_text}}">
 			<div class="default text">{{default_value}}</div>
 			<i class="dropdown icon"></i>
 			<div class="menu">
 				{{#each dropdown_options}}
-					{{initiailizeDropdown}}
 					<div class="item" data-value="{{value}}">{{display}}</div>
 				{{/each}}
 			</div>
