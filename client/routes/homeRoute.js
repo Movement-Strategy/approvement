@@ -18,7 +18,6 @@ if(Meteor.isClient) {
 							
 							// get the start of the current week
 							var weekID = timeHandler.getDateStringForStartOfThisWeek();
-							
 							// navigate to that week
 							calendarBuilder.goToNewWeek(clientID, weekID);
 							

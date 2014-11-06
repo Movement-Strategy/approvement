@@ -17,6 +17,29 @@ stateMap = {
 			contents : 'set',
 		},
 	},
+	edited : {
+		social_media_manager : {
+			contents : 'set',
+			status : 'created',
+		}
+	},
+	creative_updated : {
+		art_director : {
+			contents : 'set',
+			status : 'creative_updated',
+		},
+	},
+	creative_needed : {
+		creative_director : {
+			status : 'creative_needed',
+		},
+		social_media_manager : {
+			status : 'creative_needed',
+		},
+		client : {
+			status : 'creative_needed',
+		}
+	},
 	updated : {
 		creative_director : {
 			contents : 'set',
@@ -37,6 +60,13 @@ stateMap = {
 		},
 		client : {
 			status : 'approved',
+			contents : 'set',
+		},
+	},
+	finalized : {
+		social_media_manager : {
+			status : 'submitted',
+			scope : 'internal',
 			contents : 'set',
 		},
 	},

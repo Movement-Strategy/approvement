@@ -8,7 +8,8 @@ keyStrokeHandler = {
 		
 		// if details is open submit update on enter press
 		if(Session.get('details_shown') && event.which == 13 && Session.get('details_can_close')) {
-			stateManager.changeToState('updated');
+			var enterPressState = detailsHandler.getEnterPressState();
+			stateManager.changeToState(enterPressState);
 		}
 		
 		// if an asset is open cancel editted on escape

@@ -9,6 +9,12 @@ Template['contentCalendar'].helpers({
 	is_not_client : function() {
 		return !userHandler.userIsType('client');
 	},
+	is_not_art_director : function() {
+		return !userHandler.userIsType('art_director');	
+	},
+	can_see_private_row : function() {
+		return userHandler.userIsType('social_media_manager') || userHandler.userIsType('art_director');
+	},
 	show_class : function() {
 		return detailsHandler.detailsShown() ? 'hidden' : '';
 	},
@@ -19,7 +25,7 @@ Template['contentCalendar'].helpers({
 					calendarBuilder.onDragOverArrowColumn(event, 'forward');
 					calendarBuilder.intervalHandler = Meteor.setInterval(function(){
 						calendarBuilder.onDragOverArrowColumn(event, 'forward');
-					}, 250);
+					}, 750);
 				},
 				out : function() {
 					calendarBuilder.stopChangingDates();
@@ -30,7 +36,7 @@ Template['contentCalendar'].helpers({
 					calendarBuilder.onDragOverArrowColumn(event, 'back');
 					calendarBuilder.intervalHandler = Meteor.setInterval(function(){
 						calendarBuilder.onDragOverArrowColumn(event, 'back');
-					}, 250);
+					}, 750);
 				},
 				out : function() {
 					calendarBuilder.stopChangingDates();

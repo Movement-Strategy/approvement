@@ -4,9 +4,11 @@ pendingItemHandler = {
 			pending_conditions : {
 				internal : [
 					'submitted',
+					'creative_updated',
 				],
 				external : [
 					'commented',
+					'creative_updated',
 				],
 			},
 			relevant_scopes : [
@@ -18,6 +20,7 @@ pendingItemHandler = {
 			pending_conditions : {
 				external : [
 					'submitted',
+					'creative_updated',
 				],
 			},
 			relevant_scopes : [
@@ -32,10 +35,33 @@ pendingItemHandler = {
 				internal : [
 					'commented',
 				],
+				private : [
+					'created',
+					'creative_updated',
+				],
 			},
 			relevant_scopes : [
 				'external',
-				'internal'
+				'internal',
+				'private',
+			],
+		},
+		art_director : {
+			pending_conditions : {
+				private : [
+					'creative_needed',
+				],
+				internal : [
+					'creative_needed',
+				],
+				external : [
+					'creative_needed',
+				],
+			},
+			relevant_scopes : [
+				'private',
+				'external',
+				'internal',
 			],
 		},
 	},
@@ -56,14 +82,8 @@ pendingItemHandler = {
 		if(pendingItems.length > 0) {
 			var pendingItem = pendingItems[itemOffset];
 			var targetTime = pendingItem['scheduled_time'];
-			timeHandler.changeToTargetTime(targetTime);
-			Meteor.flush();
-			var isoDay = moment(targetTime).isoWeekday();
-			var currentDays = Session.get('calendar_days');
-			var currentDay = currentDays[isoDay - 1];
-			pendingItem['day'] = currentDay;
-			var creatingNew = false;
-			detailsHandler.showDetails(pendingItem, creatingNew);
+			var weekID = timeHandler.timestampToStartOfWeekDateString(targetTime);
+			approvalItemBuilder.editItem(pendingItem['_id'], pendingItem['client_id'], weekID);
 		}
 	},
 	getRelevantItemQuery : function() {

@@ -5,21 +5,41 @@ actionMap = {
 			'update',
 		],
 		external : [
+			'needs_creative',
 			'update',
+		],
+		private : [
+			'delete',
+			'needs_creative',
+			'finalize',
+			'edit',
 		],
 	},
 	client : {
 		external : [
 			'comment',
+			'needs_creative',
 			'reject',
 			'approve',
 			'update',
+		],
+	},
+	art_director : {
+		internal : [
+			'update_creative',
+		],
+		external : [
+			'update_creative',
+		],
+		private : [
+			'update_creative',
 		],
 	},
 	creative_director : {
 		internal : [
 			'delete',
 			'comment',
+			'needs_creative',
 			'reject',
 			'approve',
 			'update',
@@ -55,6 +75,22 @@ buttonMap = {
 	approve : {
 		color : 'green',
 		display : 'Approve',
+	},
+	update_creative : {
+		color : 'blue',
+		display : 'Update Creative',
+	},
+	edit : {
+		color : 'blue',
+		display : 'Update',
+	},
+	finalize : {
+		color : 'green',
+		display : 'Finalize',
+	},
+	needs_creative : {
+		color : 'purple',
+		display : 'Creative',
 	},
 };
 

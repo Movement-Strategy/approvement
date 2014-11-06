@@ -23,10 +23,13 @@ approvalItemBuilder = {
 		
 		return itemsByDay;
 	},
+	editItem : function(itemID, clientID, weekID) {
+		Router.go('/client/' + clientID + '/week/' + weekID + '/content/edit/' + itemID);
+	},
 	onEditApprovalItem : function(context) {
 		var creatingNew = false;
 		Session.set('approval_item_context', context);
-		Router.go('/client/' + Session.get('selected_client_id') + '/week/' + timeHandler.getWeekForSelectedTime() + '/content/edit/' + context._id);
+		this.editItem(context._id, Session.get('selected_client_id'), timeHandler.getWeekForSelectedTime());
 	},
 	draggedItemShouldRevert : function(droppedOn) {
 		shouldRevert = true;

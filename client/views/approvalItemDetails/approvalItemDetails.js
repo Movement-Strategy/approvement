@@ -49,6 +49,11 @@ Template.approvalItemDetails.created = function() {
     $(document).on('keydown', keyStrokeHandler.handleKeyStrokes);
 };
 
+Template.approvalItemDetails.destroyed = function() {
+    $(document).unbind('keydown');
+};
+
+
 Template['approvalItemDetails'].events({
 	'click .submit.button' : function() {
 		stateManager.changeToState('updated');
@@ -62,8 +67,20 @@ Template['approvalItemDetails'].events({
 	'click .comment.button' : function() {
 		stateManager.changeToState('commented');
 	},
+	'click .finalize.button' : function() {
+		stateManager.changeToState('finalized');
+	},
+	'click .edit.button' : function() {
+		stateManager.changeToState('edited');
+	},
 	'click .back.icon' : function() {
 		detailsHandler.onBack();
+	},
+	'click .update_creative.button' : function() {
+		stateManager.changeToState('creative_updated');	
+	},
+	'click .needs_creative.button' : function() {
+		stateManager.changeToState('creative_needed');	
 	},
 	'click .update.button' : function() {
 		stateManager.changeToState('updated');
