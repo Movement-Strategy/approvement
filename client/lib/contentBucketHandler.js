@@ -117,7 +117,7 @@ contentBucketHandler = {
 		if(value == null) {
 			value = this.getValueFromContentBucket(variableID, bucketID);
 		}
-		return value;
+		return value == 'unset' ? null : value;
 	},
 	updateContentBuckets : function() {
 		var variablesToUpdate = Session.get('draft_variables_to_update');
@@ -126,6 +126,9 @@ contentBucketHandler = {
 				$set : {},
 			};
 			_.map(variablesForBucket, function(value, key){
+				if(value == 'unset') {
+					value = null;
+				}
 				var setKey = 'draft_variables.' + key;
 				query['$set'][setKey] = value; 
 			});
