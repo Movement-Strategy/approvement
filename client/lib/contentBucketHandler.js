@@ -50,6 +50,44 @@ contentBucketHandler = {
 				display : "Reference",
 				cell_template : 'textAreaCell',
 			},
+			day_of_week : {
+				display : "Day of week",
+				cell_template : "dropdownCell",
+				default_value : 'Day',
+				params : {
+					dropdown_options : [
+						{
+							value : 1,
+							display : 'Monday',
+						},
+						{
+							value : 2,
+							display : 'Tuesday',
+						},
+						{
+							value : 3,
+							display : 'Wednesday',
+						},
+						{
+							value : 4,
+							display : 'Thursday',
+						},
+						{
+							value : 5,
+							display : 'Friday',
+						},
+						{
+							value : 6,
+							display : 'Saturday',
+						},
+						{
+							value : 7,
+							display : 'Sunday',
+						},
+					],
+				},
+			},
+			
 /*
 			content : {
 				display : "Content",

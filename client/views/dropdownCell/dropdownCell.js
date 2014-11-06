@@ -1,4 +1,7 @@
 Template['dropdownCell'].helpers({
+	default_text : function() {
+		return this.params.default_value;	
+	},
 	dropdown_options : function() {
 		return this.params.dropdown_options;
 	},
