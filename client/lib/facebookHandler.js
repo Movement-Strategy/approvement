@@ -42,6 +42,7 @@ facebookHandler = {
 	},
 	updateFacebookLink : function(linkURL) {
 		if(linkURL != '') {
+		
 			linkURL = this.addHTTPToUrl(linkURL);
 			Session.set('current_facebook_link', linkURL);
 			Session.set('editing_link', false);
@@ -111,6 +112,7 @@ facebookHandler = {
 		// we need to set it as null here
 		Session.set('uploaded_image_url', null);
 		Session.set('link_is_loading', false);
+		Session.set('changes_made', true);
 		Meteor.flush();
 		$('.facebook-link-display').transition('pulse', onHide = function(){
 			Session.set('details_can_close', true);

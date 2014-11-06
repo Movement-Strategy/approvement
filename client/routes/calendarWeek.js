@@ -10,10 +10,8 @@ if(Meteor.isClient) {
 	        onRun : function() {
 	        	if(loginHandler.isLoggedIn()) {
 		        	var that = this;
-		        	Deps.autorun(function(){
-			        	calendarBuilder.initializeCalendarWeek(that.params.client, that.params.week);
-			        	detailsHandler.hideDetails();
-		        	});	        	
+		        	calendarBuilder.initializeCalendarWeek(that.params.client, that.params.week);
+		        	detailsHandler.hideDetails();
 	        	} else {
 		        	Router.go('/login');
 	        	}

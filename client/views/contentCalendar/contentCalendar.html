@@ -6,7 +6,7 @@
 	    		<a><i class="large left arrow icon"></i></a>
 	    	</div>
     		{{#each calendar_days}}
-    			{{> calendarDay is_external=true day=this}}
+    			{{> calendarDay day_type='external' day=this}}
     		{{/each}}
 	    	<div class="forward arrow column">
 	    		<a><i class="large right arrow icon"></i></a>
@@ -17,11 +17,22 @@
 		    	<div class="back arrow column">
 		    	</div>
 	    		{{#each calendar_days}}
-	    			{{> calendarDay is_external=false day=this}}
+	    			{{> calendarDay day_type='internal' day=this}}
 	    		{{/each}}
 		    	<div class="forward arrow column">
 		    	</div>
 	    	</div>
+			{{#if can_see_private_row}}
+		    	<div class="bottom calendar row">
+			    	<div class="back arrow column">
+			    	</div>
+		    		{{#each calendar_days}}
+		    			{{> calendarDay day_type='private' day=this}}
+		    		{{/each}}
+			    	<div class="forward arrow column">
+			    	</div>
+		    	</div>
+	    	{{/if}}
 	    {{/if}}
 	</div>
 	{{initializeDroppables}}

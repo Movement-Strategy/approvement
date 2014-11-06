@@ -3,9 +3,24 @@ statusColorMap = {
 	rejected : 'red',
 	submitted : 'grey',
 	commented : 'orange',
+	created : 'grey',
+	creative_needed : 'purple',
+	creative_updated : 'blue',
 };
 
 Template['calendarDay'].helpers({
+	is_external : function() {
+		return this.day_type == 'external';	
+	},
+	is_internal : function() {
+		return this.day_type == 'internal';
+	},
+	is_private : function() {
+		return this.day_type == 'private';
+	},
+	is_not_art_director : function() {
+		return !userHandler.userIsType('art_director');	
+	},
 	is_today_class : function() {
 		return this.day.is_today && !calendarBuilder.dayIsDraggedOver(this) ? 'is-today' : '';
 	},

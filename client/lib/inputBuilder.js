@@ -136,6 +136,7 @@ inputBuilder = {
 			var text = _.has(currentItemContents, inputName) ? currentItemContents[inputName] : input.default_text;
 			input = inputBuilder.setTextInInput(text, input);
 			input.id = inputName;
+			
 			input = inputBuilder.updateInputFromLinkData(input);
 			input = inputBuilder.updateInputWithCopiedData(input);
 			processedInputs[inputName] = input;

@@ -17,6 +17,13 @@ detailsHandler = {
 		}
 		return isPreviewShown;
 	},
+	getEnterPressState : function() {
+		if(!userHandler.userIsType('art_director')) {
+			return Session.get('current_scope') == 'private' ? 'edited' : 'updated';
+		} else {
+			return 'creative_updated';
+		}
+	},
 	imageIsLoading : function() {
 		return Session.get('image_is_loading');	
 	},
@@ -39,8 +46,16 @@ detailsHandler = {
 		this.setDefaultsOnShow(context, creatingNewItem);
 		if(!creatingNewItem) {
 			this.configureDetailsForExistingItem(context);
+		} else {
+			this.handleCopiedAssets();
 		}
 		Session.set('details_shown', true);
+	},
+	handleCopiedAssets : function() { 
+		if(Session.get('item_to_copy')) {
+			var itemToCopy = Session.get('item_to_copy');
+			Meteor.call('copyAllAssetsFromApprovalItem', itemToCopy['_id'], Session.get('current_item_id'));
+		}	
 	},
 	fillInMissingContextData : function(context) {
 		// if we're coming from a route, where we don't have access to the context
@@ -155,8 +170,9 @@ detailsHandler = {
 			contents : itemContents,
 			scheduled_time : Session.get('current_scheduled_time'),
 			content_type : Session.get('current_content_type'),
-			scope : 'internal',
-			status : 'submitted',
+			scope : 'private',
+			status : 'created',
+			created_by : Meteor.userId(),
 			created_time : moment().format("X") * 1000,
 			client_id : Session.get('selected_client_id'),
 			type : Session.get('current_network_type'),
