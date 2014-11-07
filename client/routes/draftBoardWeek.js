@@ -7,7 +7,19 @@ if(Meteor.isClient) {
 	    this.route('calendarWeek', {
 	        path :  '/client/:client/week/:week/draft',
 	        controller :  HomeController,
-	        onRun : function() {
+	        loadingTemplate : 'loader',
+	        waitOn : function() {
+		      	 return [
+		      	 	Meteor.subscribe('draft_item', onReady = function(){
+			      		console.log('draft_item_ready');
+				  	}),
+					Meteor.subscribe('content_bucket', onReady = function(){
+						console.log('content_bucket_ready');
+					/* 	contentBucketHandler.initializeContentBuckets(); */
+					})
+		      	 ]; 
+	        },
+	        action : function() {
 	        	if(loginHandler.isLoggedIn()) {
 		        	var that = this;
 		        	Deps.autorun(function(){
@@ -17,6 +29,7 @@ if(Meteor.isClient) {
 	        	} else {
 		        	Router.go('/login');
 	        	}
+		    	this.render('defaultBody');    
 	        },
 	    });
 	});
