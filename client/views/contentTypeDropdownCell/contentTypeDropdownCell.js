@@ -30,8 +30,9 @@ Template['contentTypeDropdownCell'].events({
 	'click .content-type-item' : function(event) {
 		var context = UI.getData($(event.currentTarget).parent().parent()[0]);
 		var value = $(event.currentTarget).attr('data-value');
+		var selector = '.content-type-dropdown-cell.' + context.content_bucket_id;
 		contentBucketHandler.setDraftVariableToUpdate(value, context.variable_id, context.content_bucket_id);
-		$('.content-type-dropdown-cell').dropdown('hide').dropdown('set text', $(event.currentTarget).text());		
+		$(selector).dropdown('hide').dropdown('set text', $(event.currentTarget).text());		
 	},
 });
 
