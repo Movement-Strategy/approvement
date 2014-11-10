@@ -224,12 +224,7 @@ contentBucketHandler = {
 	updateContentBuckets : function() {
 		var variablesToUpdate = Session.get('draft_variables_to_update');
 		_.map(variablesToUpdate, function(bucket, bucketID){
-			var draftItemID = contentBucketHandler.getDraftItemIDForContentBucket(bucketID);
-			if(draftItemID == null) {
-				draftItemHandler.updateDraftItem(bucket, draftItemID, bucketID);
-			} else {
-				draftItemHandler.insertDraftItem(bucket, draftItemID, bucketID);
-			}
+			draftItemHandler.updateDraftItemForContentBucket(bucket, bucketID);
 		});
 	},
 	onDropdownChange : function(value, text, element) {
