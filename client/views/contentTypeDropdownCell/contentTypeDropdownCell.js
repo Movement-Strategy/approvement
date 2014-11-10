@@ -10,12 +10,14 @@ Template['contentTypeDropdownCell'].helpers({
 		});
 	},
 	initializeDropdown : function() {
-		var contentType = contentBucketHandler.getDraftVariableValue('content_type', this.bucket.draft_item_id, this.bucket.content_bucket_id);
+		
+		var contentType = contentBucketHandler.getValueForDraftVariable('content_type', this.bucket.draft_item_id, this.bucket.content_bucket_id);
+		var selector = '.content-type-dropdown-cell.' + this.bucket.content_bucket_id;
 		Meteor.defer(function(){
 			if(contentType != null) {
-				$('.content-type-dropdown-cell').dropdown('set selected', contentType);
+				$(selector).dropdown('set selected', contentType);
 			} else {
-				$('.content-type-dropdown-cell').dropdown('restore default text');
+				$(selector).dropdown('restore default text');
 			}
 		});
 	},
