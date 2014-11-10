@@ -1,7 +1,7 @@
 Template['dropdownCell'].helpers({
 	initializeDropdown : function() {
 		var selector = '.' + this.params.style_class;
-		var draftValue = contentBucketHandler.getDraftVariableValue(this.variable_id, this.content_bucket_id);
+		var draftValue = contentBucketHandler.getValueForDraftVariable(this.variable_id, this.draft_item_id, this.content_bucket_id);
 		Meteor.defer(function(){
 			if(draftValue != null) {
 				$(selector).dropdown('set selected', draftValue).dropdown('setting', {onChange : function(value, text){

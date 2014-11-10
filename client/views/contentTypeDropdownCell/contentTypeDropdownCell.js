@@ -1,7 +1,7 @@
 dropdownSet = false;
 Template['contentTypeDropdownCell'].helpers({
 	dropdown_options : function() {
-		var networkType = contentBucketHandler.getDraftVariableValue('network', this.content_bucket_id);
+		var networkType = contentBucketHandler.getValueForDraftVariable('network',this.draft_item_id, this.content_bucket_id);
 		var bucket = this;
 		var types = contentTypeBuilder.getContentTypes(networkType);
 		return _.map(types, function(type){
@@ -10,7 +10,7 @@ Template['contentTypeDropdownCell'].helpers({
 		});
 	},
 	initializeDropdown : function() {
-		var contentType = contentBucketHandler.getDraftVariableValue('content_type', this.bucket.content_bucket_id);
+		var contentType = contentBucketHandler.getDraftVariableValue('content_type', this.bucket.draft_item_id, this.bucket.content_bucket_id);
 		Meteor.defer(function(){
 			if(contentType != null) {
 				$('.content-type-dropdown-cell').dropdown('set selected', contentType);

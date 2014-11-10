@@ -4,6 +4,9 @@ contentBucketHandler = {
 			description : {
 				display : "Content Bucket",
 				cell_template : 'draftBoardCell',
+				get_value : function(draftItemID, bucketID) {
+					return Session.get('content_buckets_by_id')[bucketID]['description'];
+				},
 			},
 			content : {
 				display : "Content",
@@ -108,16 +111,23 @@ contentBucketHandler = {
 			},
 		};	
 	},
+	autoRunHandler : null,
+	handleContentBuckets : function() {
+		if(this.autoRunHandler != null) {
+			this.autoRunHandler.stop();
+		} else {
+			this.autoRunHandler = Tracker.autorun(function(){
+				contentBucketHandler.initializeContentBuckets();
+			});
+		}	
+	},
 	initializeContentBuckets : function() {
-		
 		var contentBuckets = ContentBucket.find().fetch();
 		var contentBucketsByID = {};
 		_.map(contentBuckets, function(bucket){
-			contentBucketsByID = contentBucketHandler.setContentBucketByID(bucket, contentBucketsByID, contentBuckets);
+			contentBucketsByID[bucket['_id']] = bucket;
 		});
-		
 		Session.set('content_buckets_by_id', contentBucketsByID);
-		
 	},
 	getValueFromContentBucket : function(variableID, bucketID) {
 		
@@ -208,19 +218,6 @@ contentBucketHandler = {
 		variablesToUpdate[bucketID][variableID] = newValue;
 		Session.set('draft_variables_to_update', variablesToUpdate);
 	},
-	setContentBucketByID : function(bucket, contentBucketsByID, contentBuckets) {
-		
-		draftVariables = _.has(bucket, 'draft_variables') ? bucket['draft_variables'] : {};
-		
-		// mix in any required details from draft variable map
-		_.map(contentBucketHandler.getDraftVariableMap(), function(variableDetails, variableName){
-			draftVariables = contentBucketHandler.configureDraftVariable(variableDetails, variableName, draftVariables);
-		});
-		
-		bucket['draft_variables'] = draftVariables;
-		contentBucketsByID[bucket['_id']] = bucket;
-		return contentBucketsByID;
-	},
 	onDropdownChange : function(value, text, element) {
 		var context = UI.getData(element);
 		this.setDraftVariableToUpdate(value, context['variable_id'], context['content_bucket_id']);
@@ -240,17 +237,74 @@ contentBucketHandler = {
 		draftVariables[variableName] = variableDetails;
 		return draftVariables;
 	},
+	getDraftItemIDForContentBucket : function(bucketID) {
+		var draftItemsByBucketID = Session.get('draft_items_by_bucket_id');
+		return _.has(draftItemsByBucketID, bucketID) ? draftItemsByBucketID[bucketID] : null;
+	},
 	getContentBuckets : function() {
+		return _.map(Session.get('content_buckets_by_id'), function(bucket, bucketID){
+			var draftItemID = contentBucketHandler.getDraftItemIDForContentBucket(bucketID);
+			var draftVariables = contentBucketHandler.getDraftVariablesForBucket(bucketID, draftItemID);
+			bucket['draft_variables'] = draftVariables;
+			bucket['content_bucket_id'] = bucketID;
+			bucket['draft_item_id'] = draftItemID;
+			return bucket;
+		});
+/*
 		var contentBucketsByID = Session.get('content_buckets_by_id');
 		return _.values(contentBucketsByID);
+*/
+	},
+	getDraftVariablesForBucket : function(bucketID, draftItemID) {
+		var draftVariables = {};
+		_.map(this.getDraftVariableMap(), function(variableDetails, variableID){
+			var value = contentBucketHandler.getValueForDraftVariable(variableID, draftItemID, bucketID);
+			draftVariables[variableID] = value;
+		});
+		return draftVariables;
+	},
+	getValueForDraftVariable : function(variableID, draftItemID, bucketID) {
+		var value = null;
+		if(_.has(this.getDraftVariableMap()[variableID], 'get_value')) {
+			value = this.getDraftVariableMap()[variableID]['get_value'](draftItemID, bucketID);
+		} else {
+			var draftVariablesToUpdate = Session.get('draft_variables_to_update');
+			value = this.getValueFromArrayWithBucketID(draftVariablesToUpdate, variableID, bucketID);
+			if(value == null) {
+				var draftItemsByBucketID = Session.get('draft_items_by_bucket_id');
+				value = this.getValueFromArrayWithBucketID(draftItemsByBucketID, variableID, bucketID);
+				if(value == null) {
+					var contentBucketsByID = Session.get('content_buckets_by_id');
+					value = this.getValueFromArrayWithBucketID(contentBucketsByID, variableID, bucketID);
+				}
+			}
+		}
+		return value;
+	},
+	getValueFromArrayWithBucketID : function(array, variableID, bucketID) {
+		var value = null;
+		if(_.has(array, bucketID)){
+			var subArray = array[bucketID];
+			if(_.has(subArray, 'draft_variables')) {
+				var draftVariables = subArray['draft_variables'];
+				if(_.has(draftVariables, variableID)){
+					value = subArray[variableID];
+				}
+			}
+		}
+		return value;
 	},
 	getDraftVariablesForRow : function(row) {
 		var contentBucketID = row['_id'];
-		return _.map(contentBucketHandler.getDraftVariableMap(), function(variable, variableName){
-			var draftVariable = row.draft_variables[variableName];
+		var draftVariables = _.has(row, 'draft_variables') ?  row['draft_variables'] : [];
+		draftVariables = _.map(row.draft_variables, function(variable, variableName){
+			var draftVariable = contentBucketHandler.getDraftVariableMap()[variableName];
+			draftVariable['value'] = variable;
+			draftVariable['draft_item_id'] = row.draft_item_id;
 			draftVariable['content_bucket_id'] = contentBucketID;
 			draftVariable['variable_id'] = variableName;
 			return draftVariable;
 		});
-	},	
+		return draftVariables;
+	},
 };

@@ -1,7 +1,6 @@
 Template['draftBoardBody'].helpers({
 	content_buckets : function() {
-/* 		var contentBuckets = contentBucketHandler.getContentBuckets(); */
-		return [];
+		return contentBuckets = contentBucketHandler.getContentBuckets();
 	},
 	initializeModal : function() {
 		contentBucketModalHandler.initializeModal();	

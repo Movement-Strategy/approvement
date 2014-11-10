@@ -13,7 +13,6 @@ if(Meteor.isClient) {
 		      	 	Meteor.subscribe('draft_item', onReady = function(){
 				  	}),
 					Meteor.subscribe('content_bucket', onReady = function(){
-					/* 	contentBucketHandler.initializeContentBuckets(); */
 					})
 		      	 ]; 
 	        },
@@ -23,7 +22,8 @@ if(Meteor.isClient) {
 		        	Deps.autorun(function(){
 			        	calendarBuilder.initializeCalendarWeek(that.params.client, that.params.week);
 			        	Session.set('draft_board_is_shown', true);
-			        	
+			        	contentBucketHandler.handleContentBuckets();
+			        	draftItemHandler.handleDraftItems();
 		        	});	        	
 	        	} else {
 		        	Router.go('/login');

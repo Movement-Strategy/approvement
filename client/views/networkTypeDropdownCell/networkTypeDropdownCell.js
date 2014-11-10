@@ -10,7 +10,7 @@ Template['networkTypeDropdownCell'].helpers({
 		return this.params.dropdown_options;
 	},
 	value : function() {
-		if(_.has(this, 'value')) {
+		if(this.value != null) {
 			return this.value;
 		} else {
 			return this.params.default_value;
