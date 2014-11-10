@@ -1,7 +1,7 @@
 <template name="dropdownCell">
 	<td>
 		{{initializeDropdown}}
-		<div class="ui inline dropdown inline-dropdown {{style_class}}">
+		<div class="ui inline dropdown inline-dropdown {{content_bucket_id}} {{style_class}}">
 			<input type="hidden" name="{{default_text}}">
 			<div class="default text">{{default_value}}</div>
 			<i class="dropdown icon"></i>

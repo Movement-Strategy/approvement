@@ -22,14 +22,17 @@ contentBucketHandler = {
 			},
 			network : {
 				display : "Network",
-				cell_template : "networkTypeDropdownCell",
+				cell_template : "dropdownCell",
 				add_to_approval_item : function(item, draftValue) {
 					item['type'] = draftValue;
 					return item;
 				},
+				default_value : 'Select',
 				params : {
 					style_class : 'draft-network-dropdown',
-					default_value : 'Select',
+					on_change : function(value, context) {
+						contentBucketHandler.setDraftVariableToUpdate('unset', 'content_type', context.content_bucket_id);
+					},
 					dropdown_options : [
 						{
 							value : 'facebook',
@@ -229,7 +232,14 @@ contentBucketHandler = {
 	},
 	onDropdownChange : function(value, text, element) {
 		var context = UI.getData(element);
+		this.handleVariableChange(context['variable_id'], value, context);
 		this.setDraftVariableToUpdate(value, context['variable_id'], context['content_bucket_id']);
+	},
+	handleVariableChange : function(variableID, value, context) {
+		var params = _.has(this.getDraftVariableMap()[variableID], 'params') ? this.getDraftVariableMap()[variableID]['params'] : {};
+		if(_.has(params, 'on_change')) {
+			params['on_change'](value, context);
+		}
 	},
 	onTextAreaKeyup : function(event) {
 		var context = UI.getData(event.target);
@@ -285,7 +295,7 @@ contentBucketHandler = {
 				}
 			}
 		}
-		return value;
+		return value == 'unset' ? null : value;
 	},
 	getValueFromArrayWithBucketID : function(array, variableID, bucketID) {
 		var value = null;
