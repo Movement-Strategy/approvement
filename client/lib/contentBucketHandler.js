@@ -121,8 +121,24 @@ contentBucketHandler = {
 			});
 		}	
 	},
+	getContentBucketQuery : function() {
+		var baseQuery = {
+			week : timeHandler.timestampToDateString(timeHandler.getTimestampForCurrentDate()),
+			client_id : Session.get('selected_client_id'),
+		};
+		return {
+			$or : [
+				baseQuery,
+				{
+					client_id : Session.get('selected_client_id'),
+					repeats : true,
+				},
+			],
+		};
+	},
 	initializeContentBuckets : function() {
-		var contentBuckets = ContentBucket.find().fetch();
+		var query = this.getContentBucketQuery();
+		var contentBuckets = ContentBucket.find(query).fetch();
 		var contentBucketsByID = {};
 		_.map(contentBuckets, function(bucket){
 			contentBucketsByID[bucket['_id']] = bucket;
@@ -193,30 +209,28 @@ contentBucketHandler = {
 		}
 		return approvalItem;
 	},
-	updateContentBuckets : function() {
-		var variablesToUpdate = Session.get('draft_variables_to_update');
-		_.map(variablesToUpdate, function(variablesForBucket, bucketID){
-			var query = {
-				$set : {},
-			};
-			_.map(variablesForBucket, function(value, key){
-				if(value == 'unset') {
-					value = null;
-				}
-				var setKey = 'draft_variables.' + key;
-				query['$set'][setKey] = value; 
-			});
-			
-			Meteor.call('updateContentBucket', bucketID, query);
-		});
-	},
 	setDraftVariableToUpdate : function(newValue, variableID, bucketID) {
 		var variablesToUpdate = Session.get('draft_variables_to_update');
 		if(!_.has(variablesToUpdate, bucketID)) {
 			variablesToUpdate[bucketID] = {};
 		}
-		variablesToUpdate[bucketID][variableID] = newValue;
+		if(!_.has(variablesToUpdate[bucketID], 'draft_variables')) {
+			variablesToUpdate[bucketID]['draft_variables'] = {};
+		}
+		
+		variablesToUpdate[bucketID]['draft_variables'][variableID] = newValue;
 		Session.set('draft_variables_to_update', variablesToUpdate);
+	},
+	updateContentBuckets : function() {
+		var variablesToUpdate = Session.get('draft_variables_to_update');
+		_.map(variablesToUpdate, function(bucket, bucketID){
+			var draftItemID = contentBucketHandler.getDraftItemIDForContentBucket(bucketID);
+			if(draftItemID == null) {
+				draftItemHandler.updateDraftItem(bucket, draftItemID, bucketID);
+			} else {
+				draftItemHandler.insertDraftItem(bucket, draftItemID, bucketID);
+			}
+		});
 	},
 	onDropdownChange : function(value, text, element) {
 		var context = UI.getData(element);
@@ -301,7 +315,7 @@ contentBucketHandler = {
 			draftVariable['content_bucket_id'] = contentBucketID;
 			draftVariable['variable_id'] = variableName;
 			return draftVariable;
-		});
+		});		
 		return draftVariables;
 	},
 };

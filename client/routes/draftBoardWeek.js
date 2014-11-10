@@ -24,7 +24,7 @@ if(Meteor.isClient) {
 			        	Session.set('draft_board_is_shown', true);
 			        	contentBucketHandler.handleContentBuckets();
 			        	draftItemHandler.handleDraftItems();
-		        	});	        	
+		        	});	
 	        	} else {
 		        	Router.go('/login');
 	        	}

@@ -10,11 +10,44 @@ draftItemHandler = {
 		}	
 	},
 	initializeDraftItems : function() {
-		var draftItems = DraftItem.find().fetch();
+		var query = this.getDraftItemQuery();
+		var draftItems = DraftItem.find(query).fetch();
 		var draftItemsByBucketID = {};
 		_.map(draftItems, function(item){
 			draftItemsByBucketID[item['content_bucket_id']] = item;
 		});
 		Session.set('draft_items_by_bucket_id', draftItemsByBucketID);
+	},
+	updateDraftItem : function(bucket, draftItemID, bucketID) {
+		if(_.has(bucket, 'draft_variables')) {
+			var variablesForBucket = bucket['draft_variables'];
+			var query = {
+				$set : {},
+			};
+			_.map(variablesForBucket, function(value, key){
+				if(value == 'unset') {
+					value = null;
+				}
+				var setKey = 'draft_variables.' + key;
+				query['$set'][setKey] = value; 
+			});
+			Meteor.call('updateDraftItem', draftItemID, bucketID, query);
+		}
+	},
+	insertDraftItem : function(bucket, draftItemID, bucketID) {
+		var draftItem = {};
+		draftVariables = _.has(bucket, 'draft_variables') ? bucket['draft_variables'] : {};
+		draftItem['draft_variables'] = draftVariables;
+		draftItem['content_bucket_id'] = bucketID;
+		draftItem['week'] = timeHandler.timestampToDateString(timeHandler.getTimestampForCurrentDate()),
+		draftItem['client_id'] = Session.get('selected_client_id');
+		draftItem['created_by'] = Meteor.userId();
+		Meteor.call('insertDraftItem', draftItem);
+	},
+	getDraftItemQuery : function() {
+		return {
+			week : timeHandler.timestampToDateString(timeHandler.getTimestampForCurrentDate()),
+			client_id : Session.get('selected_client_id'),
+		};
 	},
 };
