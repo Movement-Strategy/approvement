@@ -238,8 +238,9 @@ contentBucketHandler = {
 		return draftVariables;
 	},
 	getDraftItemIDForContentBucket : function(bucketID) {
+		
 		var draftItemsByBucketID = Session.get('draft_items_by_bucket_id');
-		return _.has(draftItemsByBucketID, bucketID) ? draftItemsByBucketID[bucketID] : null;
+		return _.has(draftItemsByBucketID, bucketID) ? draftItemsByBucketID[bucketID]['_id'] : null;
 	},
 	getContentBuckets : function() {
 		return _.map(Session.get('content_buckets_by_id'), function(bucket, bucketID){
@@ -250,10 +251,6 @@ contentBucketHandler = {
 			bucket['draft_item_id'] = draftItemID;
 			return bucket;
 		});
-/*
-		var contentBucketsByID = Session.get('content_buckets_by_id');
-		return _.values(contentBucketsByID);
-*/
 	},
 	getDraftVariablesForBucket : function(bucketID, draftItemID) {
 		var draftVariables = {};
@@ -288,7 +285,7 @@ contentBucketHandler = {
 			if(_.has(subArray, 'draft_variables')) {
 				var draftVariables = subArray['draft_variables'];
 				if(_.has(draftVariables, variableID)){
-					value = subArray[variableID];
+					value = draftVariables[variableID];
 				}
 			}
 		}
