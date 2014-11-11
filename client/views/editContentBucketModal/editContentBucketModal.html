@@ -5,11 +5,11 @@
 		<div class="content-bucket-form ui form">
 			<div class="field">
 				<label>Description</label>
-				<input type="text"/>
+				<input type="text" class="description-input" value="{{description}}">
 			</div>
 			<div class="inline field">
-				<div class="ui toggle checkbox">
-					<input type="checkbox">
+				<div class="repeats-toggle ui toggle checkbox">
+					<input type="checkbox" name="repeats" id="repeats">
 					<label>Should Repeat</label>
 				</div>
 			</div>		
@@ -17,7 +17,7 @@
   		{{initializeToggle}}
     </div>
     <div class="bucket-actions actions">
-	    <div class="green ui button">Edit</div>
+	    <div class="green ui button edit">Edit</div>
     </div>
 </template>
 

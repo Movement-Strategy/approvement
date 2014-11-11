@@ -118,11 +118,13 @@ contentBucketHandler = {
 	handleContentBuckets : function() {
 		if(this.autoRunHandler != null) {
 			this.autoRunHandler.stop();
-		} else {
-			this.autoRunHandler = Tracker.autorun(function(){
-				contentBucketHandler.initializeContentBuckets();
-			});
-		}	
+		}
+		this.autoRunHandler = Tracker.autorun(function(){
+			contentBucketHandler.initializeContentBuckets();
+		});
+	},
+	getBucketByID : function(bucketID) {
+		return Session.get('content_buckets_by_id')[bucketID];	
 	},
 	getContentBucketQuery : function() {
 		var baseQuery = {
@@ -138,6 +140,13 @@ contentBucketHandler = {
 				},
 			],
 		};
+	},
+	initializeModalToggle : function() {
+		var isRepeating = Session.get('current_content_bucket')['repeats'];
+		var onStart = isRepeating ? 'enable' : 'disable';
+		Meteor.defer(function(){
+			$('.ui.checkbox').checkbox(onStart);
+		});
 	},
 	initializeContentBuckets : function() {
 		var query = this.getContentBucketQuery();

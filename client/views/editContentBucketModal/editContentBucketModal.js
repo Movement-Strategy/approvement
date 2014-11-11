@@ -1,11 +1,16 @@
 Template['editContentBucketModal'].helpers({
+	description : function() {
+		var bucket = Session.get('current_content_bucket');
+		return bucket['description'];	
+	},
 	initializeToggle : function() {
-		Meteor.defer(function(){
-			$('.ui.checkbox').checkbox();
-		});
+		contentBucketHandler.initializeModalToggle();
 	}
 });
 
 Template['editContentBucketModal'].events({
+	'click .edit.button' : function(event) {
+		contentBucketModalHandler.onEditContentBucket(event);
+	}
 });
 

@@ -3,11 +3,25 @@ draftItemHandler = {
 	handleDraftItems : function() {
 		if(this.autoRunHandler != null) {
 			this.autoRunHandler.stop();
-		} else {
-			this.autoRunHandler = Tracker.autorun(function(){
-				draftItemHandler.initializeDraftItems();
-			});
-		}	
+		}
+		this.autoRunHandler = Tracker.autorun(function(){
+			draftItemHandler.initializeDraftItems();
+		});	
+	},
+	initializeVariableDropdown : function(context) {
+		var selector = '.' + context.params.style_class + '.' + context.content_bucket_id;
+		var draftValue = contentBucketHandler.getValueForDraftVariable(context.variable_id, context.draft_item_id, context.content_bucket_id);
+		Meteor.defer(function(){
+			if(draftValue != null) {
+				$(selector).dropdown('set selected', draftValue).dropdown('setting', {onChange : function(value, text){
+					contentBucketHandler.onDropdownChange(value, text, this);
+				}});
+			} else {
+				$(selector).dropdown({onChange : function(value, text){
+					contentBucketHandler.onDropdownChange(value, text, this);
+				}});
+			}
+		});	
 	},
 	initializeDraftItems : function() {
 		var query = this.getDraftItemQuery();

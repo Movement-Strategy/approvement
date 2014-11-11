@@ -53,6 +53,7 @@ pageLoadHandler = {
 		item_to_copy : null,
 		plus_is_dragged_over : false,
 		approval_item_context : null,
+		current_content_bucket : {},
 	},
 	setSessionDefaults : function() {
 		_.map(this.defaultSessionValueMap, function(value, key){

@@ -1,18 +1,6 @@
 Template['dropdownCell'].helpers({
 	initializeDropdown : function() {
-		var selector = '.' + this.params.style_class + '.' + this.content_bucket_id;
-		var draftValue = contentBucketHandler.getValueForDraftVariable(this.variable_id, this.draft_item_id, this.content_bucket_id);
-		Meteor.defer(function(){
-			if(draftValue != null) {
-				$(selector).dropdown('set selected', draftValue).dropdown('setting', {onChange : function(value, text){
-					contentBucketHandler.onDropdownChange(value, text, this);
-				}});
-			} else {
-				$(selector).dropdown({onChange : function(value, text){
-					contentBucketHandler.onDropdownChange(value, text, this);
-				}});
-			}
-		});
+		draftItemHandler.initializeVariableDropdown(this);
 	},
 	default_text : function() {
 		return this.params.default_value;	
