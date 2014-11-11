@@ -16,4 +16,3 @@ Template['contentTypeDropdownCell'].events({
 	},
 });
 
-
