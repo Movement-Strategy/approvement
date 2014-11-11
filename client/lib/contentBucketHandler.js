@@ -11,9 +11,9 @@ contentBucketHandler = {
 			content : {
 				display : "Content",
 				cell_template : 'textAreaCell',
-				add_to_approval_item : function(item, draftValue, bucket) {
-					var contentType = bucket['draft_variables']['content_type']['value'];
-					var networkType = bucket['draft_variables']['network']['value'];
+				add_to_approval_item : function(item, draftValue, draftItemID, bucketID) {
+					var contentType = contentBucketHandler.getValueForDraftVariable('content_type', draftItemID, bucketID);
+					var networkType = contentBucketHandler.getValueForDraftVariable('network', draftItemID, bucketID);
 					var inputName = inputBuilder.getInputNameForContentBucket(networkType, contentType);
 					item['contents'] = {};
 					item['contents'][inputName] = draftValue;
@@ -180,21 +180,29 @@ contentBucketHandler = {
 		}
 		return value == 'unset' ? null : value;
 	},
-	convertAllContentBucketsIntoApprovalItems : function() {
+	convertAllDraftItemsToApprovalItems : function() {
 		var contentBucketsByID = Session.get('content_buckets_by_id');
 		_.map(contentBucketsByID, function(bucket, bucketID){
-			var approvalItem = contentBucketHandler.convertBucketIntoApprovalItem(bucket);
+			var draftItemID = contentBucketHandler.getDraftItemIDForContentBucket(bucketID);
+			var approvalItem = contentBucketHandler.convertDraftItemIntoApprovalItem(draftItemID, bucketID);
 			Meteor.call('insertApprovalItem', approvalItem);
 		});
 	},
-	convertBucketIntoApprovalItem : function(bucket) {
+	convertDraftItemIntoApprovalItem : function(draftItemID, bucketID) {
 		var approvalItem = {};
-		_.map(bucket['draft_variables'], function(draftVariable, variableID){
-			var draftValue = draftVariable['value'];
-			approvalItem = contentBucketHandler.addDraftVariableToApprovalItem(approvalItem, draftValue, variableID, bucket);
+		_.map(this.getDraftVariableMap(), function(variable, variableID){
+			var draftValue = contentBucketHandler.getValueForDraftVariable(variableID, draftItemID, bucketID);
+			approvalItem = contentBucketHandler.addDraftVariableToApprovalItem(approvalItem, draftValue, variableID, draftItemID, bucketID);
 		});
 		
 		approvalItem = this.addFinalConfigurationToApprovalItem(approvalItem);
+		return approvalItem;
+	},
+	addDraftVariableToApprovalItem : function(approvalItem, draftValue, variableID, draftItemID, bucketID) {
+		var variableMap = this.getDraftVariableMap();
+		if(_.has(variableMap[variableID], 'add_to_approval_item')) {
+			approvalItem = variableMap[variableID]['add_to_approval_item'](approvalItem, draftValue, draftItemID, bucketID);
+		}
 		return approvalItem;
 	},
 	addFinalConfigurationToApprovalItem : function(approvalItem) {
@@ -203,13 +211,6 @@ contentBucketHandler = {
 		approvalItem['created_time'] = timeHandler.convertDateToTimestamp(moment());
 		approvalItem['status'] = 'created';
 		approvalItem['created_by'] = Meteor.userId();
-		return approvalItem;
-	},
-	addDraftVariableToApprovalItem : function(approvalItem, draftVariable, variableID, bucket) {
-		var variableMap = this.getDraftVariableMap();
-		if(_.has(variableMap[variableID], 'add_to_approval_item')) {
-			approvalItem = variableMap[variableID]['add_to_approval_item'](approvalItem, draftVariable, bucket);
-		}
 		return approvalItem;
 	},
 	setDraftVariableToUpdate : function(newValue, variableID, bucketID) {
