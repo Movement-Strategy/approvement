@@ -123,6 +123,23 @@ contentBucketHandler = {
 			contentBucketHandler.initializeContentBuckets();
 		});
 	},
+	onClickApplyChanges : function(event) {
+		var context = UI.getData(event.target);
+		var bucketID = context['content_bucket_id'];
+		this.applyChangesToContentBucket(bucketID);
+	},
+	applyChangesToContentBucket : function(bucketID) {
+		var draftItemID = contentBucketHandler.getDraftItemIDForContentBucket(bucketID);
+		var updatedValues = {};
+		_.map(this.getDraftVariableMap(), function(variable, variableID){
+			var updatedValue = contentBucketHandler.getValueForDraftVariable(variableID, draftItemID, bucketID);
+			if(updatedValue != null) {
+				updatedValues[variableID] = updatedValue;
+			}
+		});
+		var updateQuery = draftItemHandler.convertIndexedArrayIntoUpdateQuery(updatedValues);
+		Meteor.call('updateContentBucket', bucketID, updateQuery);
+	},
 	getBucketByID : function(bucketID) {
 		return Session.get('content_buckets_by_id')[bucketID];	
 	},

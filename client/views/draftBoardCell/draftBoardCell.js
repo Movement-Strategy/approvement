@@ -6,5 +6,8 @@ Template['draftBoardCell'].events({
 		var context = UI.getData(event.target);
 		contentBucketModalHandler.showModal(context);	
 	},
+	'click .apply-action' : function(event){
+		contentBucketHandler.onClickApplyChanges(event);
+	} 
 });
 

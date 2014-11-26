@@ -43,18 +43,22 @@ draftItemHandler = {
 	updateDraftItem : function(bucket, draftItemID, bucketID) {
 		if(_.has(bucket, 'draft_variables')) {
 			var variablesForBucket = bucket['draft_variables'];
-			var query = {
-				$set : {},
-			};
-			_.map(variablesForBucket, function(value, key){
-				if(value == 'unset') {
-					value = null;
-				}
-				var setKey = 'draft_variables.' + key;
-				query['$set'][setKey] = value; 
-			});
+			var query = this.convertIndexedArrayIntoUpdateQuery(variablesForBucket);
 			Meteor.call('updateDraftItem', draftItemID, bucketID, query);
 		}
+	},
+	convertIndexedArrayIntoUpdateQuery : function(array) {
+		var query = {
+			$set : {},
+		};
+		_.map(array, function(value, key){
+			if(value == 'unset') {
+				value = null;
+			}
+			var setKey = 'draft_variables.' + key;
+			query['$set'][setKey] = value; 
+		});
+		return query;
 	},
 	insertDraftItem : function(bucket, draftItemID, bucketID) {
 		var draftItem = {};
