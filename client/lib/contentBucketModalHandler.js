@@ -44,7 +44,12 @@ contentBucketModalHandler = {
 	},
 	getVariablesFromModal : function(event) {
 		var description = $('.description-input').val();
-		var repeats = $('.ui.form.content-bucket-form').form('setting', {debug : false}).form('get field', 'repeats').prop('checked');
+		var formElement = $('.ui.form.content-bucket-form');
+		var repeats = false;
+		if(formElement.form === 'function') {
+			var repeats = formElement.form('setting', {debug : false}).form('get field', 'repeats').prop('checked');		
+		}
+
 		return {
 			description : description,
 			repeats : repeats,
