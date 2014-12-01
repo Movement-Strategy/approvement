@@ -30,6 +30,7 @@ keyStrokeHandler = {
 		
 		// If details is not open change to next week on right press
 		if(!Session.get('details_shown') && event.which == 39) {
+			event.preventDefault();
 			detailsHandler.closeShownPopup();
 			timeHandler.changeToNextWeek();
 		}
