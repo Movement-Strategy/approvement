@@ -20,6 +20,7 @@ if(Meteor.isClient) {
 	        	if(loginHandler.isLoggedIn()) {
 		        	var that = this;
 		        	Deps.autorun(function(){
+			        	
 			        	calendarBuilder.initializeCalendarWeek(that.params.client, that.params.week);
 			        	Session.set('draft_board_is_shown', true);
 			        	contentBucketHandler.handleContentBuckets();

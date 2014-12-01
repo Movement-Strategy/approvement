@@ -13,6 +13,15 @@ calendarBuilder = {
 	goToNewWeek : function(clientID, weekID) {
 		Router.go('/client/' + clientID + '/week/' + weekID);	
 	},
+	onModeChangeClick : function() {
+		var clientID = Session.get('selected_client_id');
+		var weekID = timeHandler.getWeekForSelectedTime();
+		if(Session.get('draft_board_is_shown')) {
+			calendarBuilder.goToNewWeek(clientID, weekID);
+		} else {
+			draftItemHandler.goToDraftWeek(clientID, weekID);
+		}
+	},
 	setCurrentCalendarDays : function() {
 		var timestamp = timeHandler.getTimestampForCurrentDate();
 		var dateObject = moment(timestamp);

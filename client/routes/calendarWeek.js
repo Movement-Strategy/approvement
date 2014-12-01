@@ -8,6 +8,7 @@ if(Meteor.isClient) {
 	        path :  '/client/:client/week/:week',
 	        controller :  HomeController,
 	        onRun : function() {
+	        	Session.set('draft_board_is_shown', false);
 	        	if(loginHandler.isLoggedIn()) {
 		        	var that = this;
 		        	calendarBuilder.initializeCalendarWeek(that.params.client, that.params.week);
