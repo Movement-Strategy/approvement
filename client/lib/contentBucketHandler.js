@@ -159,6 +159,7 @@ contentBucketHandler = {
 		};
 	},
 	initializeModalToggle : function() {
+		
 		var isRepeating = Session.get('current_content_bucket')['repeats'];
 		var onStart = isRepeating ? 'enable' : 'disable';
 		Meteor.defer(function(){

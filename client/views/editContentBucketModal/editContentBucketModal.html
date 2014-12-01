@@ -17,7 +17,11 @@
   		{{initializeToggle}}
     </div>
     <div class="bucket-actions actions">
-	    <div class="green ui button edit">Edit</div>
+	    {{#if creating_new}}
+	    	<div class="blue ui button create">Create</div>
+	    {{else}}
+	    	<div class="green ui button edit">Edit</div>
+	    {{/if}}
     </div>
 </template>
 

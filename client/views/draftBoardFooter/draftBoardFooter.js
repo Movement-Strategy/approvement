@@ -8,5 +8,8 @@ Template['draftBoardFooter'].events({
 	'click .save.button' : function() {
 		contentBucketHandler.updateContentBuckets();	
 	},
+	'click .create.button' : function() {
+		contentBucketModalHandler.showModal({}, true);
+	},
 });
 
