@@ -96,7 +96,11 @@ timeHandler = {
 		updatedDate = alterFunction(startOfWeek);
 		newWeekID = this.dateObjectToDateString(updatedDate);
 		var clientID = Session.get('selected_client_id');
-		calendarBuilder.goToNewWeek(clientID, newWeekID);
+		if(Session.get('draft_board_is_shown')) {
+			draftItemHandler.goToDraftWeek(clientID, newWeekID);
+		} else {
+			calendarBuilder.goToNewWeek(clientID, newWeekID);
+		}
 	},
 	changeToNextWeek : function() {
 		timeHandler.alterCurrentDate(function(date){

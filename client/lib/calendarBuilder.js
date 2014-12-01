@@ -42,6 +42,8 @@ calendarBuilder = {
 	        Session.set('selected_client_id', clientID);
         }
         
+        Session.set('draft_variables_to_update', {});
+        
 		var newTimestamp = timeHandler.dateStringToStartOfWeekTimestamp(weekName);
 		var currentTimestamp = timeHandler.getTimestampForCurrentDate();
 		if(currentTimestamp != newTimestamp) {

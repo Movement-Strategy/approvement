@@ -1,8 +1,18 @@
 <template name="draftBoard">
-	<table class="ui table segment draft-table">
-		{{> draftBoardHeaders}}
-		{{> draftBoardBody}}
-		{{> draftBoardFooter}}
-	</table>
+	<div class="ui grid">
+		<div class="one wide column center aligned draft-arrow-column">
+			<a><i class="large left last-week arrow icon"></i></a>		
+		</div>
+		<div class="fourteen wide column">
+			<table class="ui table segment draft-table">
+				{{> draftBoardHeaders}}
+				{{> draftBoardBody}}
+				{{> draftBoardFooter}}
+			</table>
+		</div>
+		<div class="one wide column center aligned draft-arrow-column">
+			<a><i class="large right next-week arrow icon"></i></a>
+		</div>
+	</div>
 </template>
 
