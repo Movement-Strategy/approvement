@@ -20,7 +20,7 @@ draftItemHandler = {
 					contentBucketHandler.onDropdownChange(value, text, this);
 				}});
 			} else {
-				$(selector).dropdown({onChange : function(value, text){
+				$(selector).dropdown('restore defaults').dropdown('setting', {onChange : function(value, text){
 					contentBucketHandler.onDropdownChange(value, text, this);
 				}});
 			}
