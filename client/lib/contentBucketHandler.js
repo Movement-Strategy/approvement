@@ -300,6 +300,7 @@ contentBucketHandler = {
 		return _.has(draftItemsByBucketID, bucketID) ? draftItemsByBucketID[bucketID]['_id'] : null;
 	},
 	getContentBuckets : function() {
+		console.log('firing');
 		return _.map(Session.get('content_buckets_by_id'), function(bucket, bucketID){
 			var draftItemID = contentBucketHandler.getDraftItemIDForContentBucket(bucketID);
 			var draftVariables = contentBucketHandler.getDraftVariablesForBucket(bucketID, draftItemID);

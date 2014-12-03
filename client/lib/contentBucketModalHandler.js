@@ -43,12 +43,12 @@ contentBucketModalHandler = {
 			$set : variablesFromModal,
 		};
 		Meteor.call('updateContentBucket', Session.get('current_content_bucket')['_id'], query);
-// 		this.hideModal();
+		this.hideModal();
 	},
 	onCreateContentBucket : function(event) {
 		var bucket = this.buildNewBucket(event);
 		Meteor.call('insertContentBucket', bucket);
-// 		this.hideModal();
+		this.hideModal();
 	},
 	buildNewBucket : function(event) {
 		var bucket = this.getVariablesFromModal(event);	
