@@ -12,7 +12,7 @@ Template['defaultBody'].helpers({
 		return draftBoardHandler.isShown();
 	},
 	initializeModal : function() {
-		notificationModalHandler.initializeModal();
+// 		notificationModalHandler.initializeModal();
 	}
 });
 

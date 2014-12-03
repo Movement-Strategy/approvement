@@ -3,7 +3,7 @@ Template['draftBoardBody'].helpers({
 		return contentBuckets = contentBucketHandler.getContentBuckets();
 	},
 	initializeModal : function() {
-		contentBucketModalHandler.initializeModal();	
+	contentBucketModalHandler.initializeModal();	
 	},
 });
 

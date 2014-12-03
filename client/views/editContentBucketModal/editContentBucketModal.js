@@ -12,11 +12,12 @@ Template['editContentBucketModal'].helpers({
 });
 
 Template['editContentBucketModal'].events({
-	'click .edit.button' : function(event) {
+	'click .edit-bucket.button' : function(event) {
 		contentBucketModalHandler.onEditContentBucket(event);
 	},
-	'click .create.button' : function(event) {
-		contentBucketModalHandler.onCreateContentBucket(event);
+	'click .create-bucket.button' : function(event) {
+			
+			contentBucketModalHandler.onCreateContentBucket(event);
 	}
 });
 

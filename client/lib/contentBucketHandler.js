@@ -159,12 +159,22 @@ contentBucketHandler = {
 		};
 	},
 	initializeModalToggle : function() {
+		var bucket = Session.get('current_content_bucket');
 		
-		var isRepeating = Session.get('current_content_bucket')['repeats'];
-		var onStart = isRepeating ? 'enable' : 'disable';
-		Meteor.defer(function(){
-			$('.ui.checkbox').checkbox(onStart);
-		});
+		if(bucket) {
+			var isRepeating = bucket['repeats'];
+			var onStart = isRepeating ? 'enable' : 'disable';
+			Meteor.defer(function(){
+				var onEnable = function() {
+					Session.set('bucket_is_repeating', true);	
+				};
+				var onDisable = function() {
+					Session.set('bucket_is_repeating', false);	
+				};
+				
+				$('.ui.checkbox.repeats-toggle').checkbox(onStart).checkbox('setting', {onEnable : onEnable, onDisable : onDisable});
+			});
+		}
 	},
 	initializeContentBuckets : function() {
 		var query = this.getContentBucketQuery();

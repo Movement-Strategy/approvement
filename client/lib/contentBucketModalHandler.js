@@ -1,16 +1,31 @@
 contentBucketModalHandler = {
 	modalSelector : '.content-bucket-modal',
+	
+	modalInitSettings : {
+		selector : {
+			close : '.none', 
+			approve : '.none', 
+			deny : '.none',
+		},
+		detachable : false,
+	},
 	initializeModal : function() {
 		Meteor.defer(function(){
 			$(this.modalSelector).modal();
 		});
 	},
+	handleModal : function(params) {
+		var that = this;
+		Meteor.defer(function(){
+			$(that.modalSelector).modal(params);
+		});
+	},
 	showModal : function(context, creatingNew) {
 		this.setSessionVariablesOnShow(context, creatingNew);
-		$(this.modalSelector).modal('show');
+		this.handleModal('show');
 	},
 	hideModal : function() {
-		$(this.modalSelector).modal('hide');
+		this.handleModal('hide');
 	},
 	setSessionVariablesOnShow : function(context, creatingNew) {
 		Session.set('creating_new_bucket', creatingNew);
@@ -28,12 +43,12 @@ contentBucketModalHandler = {
 			$set : variablesFromModal,
 		};
 		Meteor.call('updateContentBucket', Session.get('current_content_bucket')['_id'], query);
-		this.hideModal();
+// 		this.hideModal();
 	},
 	onCreateContentBucket : function(event) {
 		var bucket = this.buildNewBucket(event);
 		Meteor.call('insertContentBucket', bucket);
-		this.hideModal();
+// 		this.hideModal();
 	},
 	buildNewBucket : function(event) {
 		var bucket = this.getVariablesFromModal(event);	
@@ -44,12 +59,7 @@ contentBucketModalHandler = {
 	},
 	getVariablesFromModal : function(event) {
 		var description = $('.description-input').val();
-		var formElement = $('.ui.form.content-bucket-form');
-		var repeats = false;
-		if(formElement.form === 'function') {
-			var repeats = formElement.form('setting', {debug : false}).form('get field', 'repeats').prop('checked');		
-		}
-
+		var repeats = Session.get('bucket_is_repeating');
 		return {
 			description : description,
 			repeats : repeats,
