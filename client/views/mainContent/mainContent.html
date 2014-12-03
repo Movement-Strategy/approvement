@@ -1,0 +1,12 @@
+<template name="mainContent">
+	{{#if show_gif}}
+		{{> successGif}}
+	{{else}}					
+    	{{#if show_draft_board}}
+    		{{> draftBoard}}
+    	{{else}}	
+    		{{> contentCalendar}}
+    	{{/if}}
+    {{/if}}
+</template>
+

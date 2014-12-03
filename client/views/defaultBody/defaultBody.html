@@ -1,21 +1,14 @@
 <template name="defaultBody">
     <div class="default">
     	{{#if logged_in}}
+	    	{{> mainContent}}
 	    	{{#if page_is_ready}}
-	    		{{#if show_gif}}
-	    			{{> successGif}}
-	    		{{else}}					
-			    	{{#if show_draft_board}}
-			    		{{> draftBoard}}
-			    	{{else}}	
-			    		{{> contentCalendar}}
-			    	{{/if}}
-			    {{/if}}
 		    	<div class="ui small modal notification-modal">
-		    		
 		    		{{> notificationModal}}
 		    	</div>
-		    	{{initializeModal}}
+				<div class="ui modal content-bucket-modal">
+					{{> editContentBucketModal}}
+				</div>
 		    	
 		    {{else}}
 				<div class="ui active dimmer">
