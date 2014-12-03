@@ -8,6 +8,7 @@ if(Meteor.isClient) {
 	    this.route('calendarWeek', {
 	        path :  '/client/:client/week/:week/draft',
 	        controller :  HomeController,
+/*
 			waitOn: function() {
 		      	 return [
 		      	 	Meteor.subscribe('draft_item', onReady = function(){
@@ -16,7 +17,8 @@ if(Meteor.isClient) {
 					})
 		      	 ]; 
 	        },
-	        action : function() {
+*/
+	        onRun : function() {
 	        	if(loginHandler.isLoggedIn()) {
 		        	var that = this;
 		        	Deps.autorun(function(){
@@ -29,7 +31,6 @@ if(Meteor.isClient) {
 	        	} else {
 		        	Router.go('/login');
 	        	}
-		    	this.render();    
 	        },
 	    });
 	});
