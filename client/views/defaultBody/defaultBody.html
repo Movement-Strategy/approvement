@@ -3,12 +3,7 @@
     	{{#if logged_in}}
 	    	{{> mainContent}}
 	    	{{#if page_is_ready}}
-		    	<div class="ui small modal notification-modal">
-		    		{{> notificationModal}}
-		    	</div>
-				<div class="ui modal content-bucket-modal">
-					{{> editContentBucketModal}}
-				</div>
+		    	
 		    	
 		    {{else}}
 				<div class="ui active dimmer">
@@ -17,7 +12,14 @@
 			{{/if}}  
 		{{else}}
 			{{> basicLogin}}
-		{{/if}}  	
+		{{/if}} 
+    	<div class="ui small modal notification-modal">
+    		{{renderTest}}
+    		{{> notificationModal}}
+    	</div>
+		<div class="ui modal content-bucket-modal">
+			{{> editContentBucketModal}}
+		</div>
     </div>
 </template>
 
