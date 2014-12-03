@@ -1,19 +1,5 @@
 contentBucketModalHandler = {
 	modalSelector : '.content-bucket-modal',
-	
-	modalInitSettings : {
-		selector : {
-			close : '.none', 
-			approve : '.none', 
-			deny : '.none',
-		},
-		detachable : false,
-	},
-	initializeModal : function() {
-		Meteor.defer(function(){
-			$(this.modalSelector).modal();
-		});
-	},
 	handleModal : function(params) {
 		var that = this;
 		Meteor.defer(function(){

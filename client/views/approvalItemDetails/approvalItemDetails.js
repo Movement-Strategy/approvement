@@ -9,9 +9,6 @@ Template['approvalItemDetails'].helpers({
 	show_dropdowns : function() {
 		return detailsHandler.showDropdowns();	
 	},
-	initializeModal : function() {
-		promptModalHandler.initializeModal();
-	},
 	initializeAccordion : function() {
 		detailsHandler.initializeAccordion();
 	},

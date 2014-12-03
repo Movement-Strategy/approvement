@@ -14,10 +14,9 @@ Template['editContentBucketModal'].helpers({
 Template['editContentBucketModal'].events({
 	'click .edit-bucket.button' : function(event) {
 		contentBucketModalHandler.onEditContentBucket(event);
-	},
+	},	
 	'click .create-bucket.button' : function(event) {
-			
-			contentBucketModalHandler.onCreateContentBucket(event);
-	}
-});
+		contentBucketModalHandler.onCreateContentBucket(event);
+	}	
+});		
 
