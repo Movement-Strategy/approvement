@@ -1,4 +1,7 @@
 Template['draftBoardCell'].helpers({
+	completed_class : function() {
+		
+	},
 });
 
 Template['draftBoardCell'].events({

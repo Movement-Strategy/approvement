@@ -1,5 +1,6 @@
 <template name="draftBoardRow">
-	<tr>
+	<tr class='draft-row {{completed_class}}'>
+		
 		{{#each draft_variables}}
 			{{> UI.dynamic template=cell_template data=this}}
 		{{/each}}

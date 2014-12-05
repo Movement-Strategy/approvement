@@ -2,6 +2,7 @@ contentBucketHandler = {
 	getDraftVariableMap : function() {
 		return {
 			description : {
+				required : false,
 				display : "Content Bucket",
 				cell_template : 'draftBoardCell',
 				get_value : function(draftItemID, bucketID) {
@@ -9,6 +10,7 @@ contentBucketHandler = {
 				},
 			},
 			content : {
+				required : true,
 				display : "Content",
 				cell_template : 'textAreaCell',
 				add_to_approval_item : function(item, draftValue, draftItemID, bucketID) {
@@ -21,6 +23,7 @@ contentBucketHandler = {
 				},
 			},
 			network : {
+				required : true,
 				display : "Network",
 				cell_template : "dropdownCell",
 				add_to_approval_item : function(item, draftValue) {
@@ -54,6 +57,7 @@ contentBucketHandler = {
 				},
 			},
 			content_type : {
+				required : true,
 				display : "Content Type",
 				cell_template : "contentTypeDropdownCell",
 				add_to_approval_item : function(item, draftValue) {
@@ -66,10 +70,12 @@ contentBucketHandler = {
 				},
 			},
 			reference : {
+				required : false,
 				display : "Reference",
 				cell_template : 'textAreaCell',
 			},
 			day_of_week : {
+				required : true,
 				display : "Day of week",
 				cell_template : "dropdownCell",
 				add_to_approval_item : function(item, dayIndex) {
@@ -175,6 +181,18 @@ contentBucketHandler = {
 				$('.ui.checkbox.repeats-toggle').checkbox(onStart).checkbox('setting', {onEnable : onEnable, onDisable : onDisable});
 			});
 		}
+	},
+	rowIsCompleted : function(row) {
+		var draftVariablesForRow = this.getDraftVariablesForRow(row);
+		var allVariablesFilledIn = true;
+		_.map(draftVariablesForRow, function(variable, variableName){
+			if(allVariablesFilledIn && variable['required']) {
+				var variableMissing = variable['value'] == null || variable['value'] = '';
+				allVariablesFilledIn = variableMissing;
+			}
+		});
+		console.log(allVariablesFilledIn);
+		return allVariablesFilledIn;
 	},
 	initializeContentBuckets : function() {
 		var query = this.getContentBucketQuery();
@@ -358,7 +376,7 @@ contentBucketHandler = {
 			draftVariable['content_bucket_id'] = contentBucketID;
 			draftVariable['variable_id'] = variableName;
 			return draftVariable;
-		});		
+		});	
 		return draftVariables;
 	},
 };
