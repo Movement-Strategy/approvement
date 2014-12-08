@@ -187,8 +187,10 @@ contentBucketHandler = {
 		var allVariablesFilledIn = true;
 		_.map(draftVariablesForRow, function(variable, variableName){
 			if(allVariablesFilledIn && variable['required']) {
-				var variableMissing = variable['value'] == null || variable['value'] = '';
-				allVariablesFilledIn = variableMissing;
+				var variableMissing = variable['value'] == null || variable['value'] == '';
+				if(allVariablesFilledIn && variableMissing) {
+					allVariablesFilledIn = false;
+				}
 			}
 		});
 		console.log(allVariablesFilledIn);
