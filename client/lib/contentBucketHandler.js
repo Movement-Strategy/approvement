@@ -193,7 +193,6 @@ contentBucketHandler = {
 				}
 			}
 		});
-		console.log(allVariablesFilledIn);
 		return allVariablesFilledIn;
 	},
 	initializeContentBuckets : function() {
