@@ -55,6 +55,7 @@ pageLoadHandler = {
 		approval_item_context : null,
 		current_content_bucket : {},
 		creating_new_bucket : true,
+		warning_message : null,
 	},
 	setSessionDefaults : function() {
 		_.map(this.defaultSessionValueMap, function(value, key){
