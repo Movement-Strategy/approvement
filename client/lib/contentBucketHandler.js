@@ -217,6 +217,12 @@ contentBucketHandler = {
 		}
 		return value == 'unset' ? null : value;
 	},
+	afterConvertingDraftItems : function() {
+		calendarBuilder.onModeChangeClick();
+		Meteor.defer(function(){
+			warningMessageHandler.showMessage("Draft items converted successfully", "success");
+		});
+	},
 	convertAllDraftItemsToApprovalItems : function() {
 		var contentBucketsByID = Session.get('content_buckets_by_id');
 		_.map(contentBucketsByID, function(bucket, bucketID){
@@ -224,6 +230,7 @@ contentBucketHandler = {
 			var approvalItem = contentBucketHandler.convertDraftItemIntoApprovalItem(draftItemID, bucketID);
 			Meteor.call('insertApprovalItem', approvalItem);
 		});
+		this.afterConvertingDraftItems();
 	},
 	convertDraftItemIntoApprovalItem : function(draftItemID, bucketID) {
 		var approvalItem = {};
