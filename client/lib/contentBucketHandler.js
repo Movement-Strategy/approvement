@@ -243,23 +243,42 @@ contentBucketHandler = {
 		});
 	},
 	convertAllDraftItemsToApprovalItems : function() {
+		Session.set('error_on_convert', false);
 		var contentBucketsByID = Session.get('content_buckets_by_id');
 		_.map(contentBucketsByID, function(bucket, bucketID){
 			var draftItemID = contentBucketHandler.getDraftItemIDForContentBucket(bucketID);
 			var approvalItem = contentBucketHandler.convertDraftItemIntoApprovalItem(draftItemID, bucketID);
-			Meteor.call('insertApprovalItem', approvalItem);
+			if(approvalItem && !Session.get('error_on_convert')) {
+				Meteor.call('insertApprovalItem', approvalItem);
+			} else {
+				Session.set('error_on_convert', true);
+			}
 		});
-		this.afterConvertingDraftItems();
+		if(!Session.get('error_on_convert')) {
+			this.afterConvertingDraftItems();
+		} else {
+			warningMessageHandler.showMessage("Conversion Failed : Please fill in any highlighted missing options", "error");
+		}
 	},
 	convertDraftItemIntoApprovalItem : function(draftItemID, bucketID) {
+		var hasError = false;
 		var approvalItem = {};
 		_.map(this.getDraftVariableMap(), function(variable, variableID){
 			var draftValue = contentBucketHandler.getValueForDraftVariable(variableID, draftItemID, bucketID);
-			approvalItem = contentBucketHandler.addDraftVariableToApprovalItem(approvalItem, draftValue, variableID, draftItemID, bucketID);
+			if(variable['required']) {
+				hasError = draftValue == null || draftValue == '';
+			}
+			if(!hasError) {
+				approvalItem = contentBucketHandler.addDraftVariableToApprovalItem(approvalItem, draftValue, variableID, draftItemID, bucketID);
+			}
 		});
 		
-		approvalItem = this.addFinalConfigurationToApprovalItem(approvalItem);
-		return approvalItem;
+		if(hasError) {
+			return false;
+		} else {
+			approvalItem = this.addFinalConfigurationToApprovalItem(approvalItem);
+			return approvalItem;
+		}
 	},
 	addDraftVariableToApprovalItem : function(approvalItem, draftValue, variableID, draftItemID, bucketID) {
 		var variableMap = this.getDraftVariableMap();
