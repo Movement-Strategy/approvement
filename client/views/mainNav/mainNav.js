@@ -5,6 +5,9 @@ Template['mainNav'].helpers({
 	user_picture : function() {
 		return userHandler.getPicture();
 	},
+	is_manager : function() {
+		return userHandler.userIsType('social_media_manager');	
+	},
 	signed_in : function() {
 		return userHandler.userSignedIn();
 	},

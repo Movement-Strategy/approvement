@@ -3,7 +3,9 @@
 		<a class="item main-title">MVMT APPROVE</a>
 		{{#if signed_in}}
 			<div class="right menu">
-	    		{{> modeChangeButton}}
+	    		{{#if is_manager}}
+	    			{{> modeChangeButton}}
+	    		{{/if}}
 	    		{{> notificationButton}}
 		    	{{> progressBar}}
 		    	<a class="ui dropdown item user-image-container">

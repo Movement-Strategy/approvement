@@ -12,10 +12,14 @@ if(Meteor.isClient) {
 	        	if(loginHandler.isLoggedIn()) {
 		        	var that = this;
 		        	Deps.autorun(function(){
-			        	calendarBuilder.initializeCalendarWeek(that.params.client, that.params.week);
-			        	Session.set('draft_board_is_shown', true);
-			        	contentBucketHandler.handleContentBuckets();
-			        	draftItemHandler.handleDraftItems();
+			        	if(!userHandler.userIsType('social_media_manager')) {
+				        	calendarBuilder.goToNewWeek(that.params.client, that.params.week);
+			        	} else {
+				        	calendarBuilder.initializeCalendarWeek(that.params.client, that.params.week);
+				        	Session.set('draft_board_is_shown', true);
+				        	contentBucketHandler.handleContentBuckets();
+				        	draftItemHandler.handleDraftItems();
+			        	}
 		        	});	
 	        	} else {
 		        	Router.go('/login');
