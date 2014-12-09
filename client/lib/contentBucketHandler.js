@@ -306,12 +306,14 @@ contentBucketHandler = {
 		
 		variablesToUpdate[bucketID]['draft_variables'][variableID] = newValue;
 		Session.set('draft_variables_to_update', variablesToUpdate);
+		this.updateContentBuckets();
 	},
 	updateContentBuckets : function() {
 		var variablesToUpdate = Session.get('draft_variables_to_update');
 		_.map(variablesToUpdate, function(bucket, bucketID){
 			draftItemHandler.updateDraftItemForContentBucket(bucket, bucketID);
 		});
+		Session.set('draft_variables_to_update', {});
 	},
 	onDropdownChange : function(value, text, element) {
 		var context = UI.getData(element);
