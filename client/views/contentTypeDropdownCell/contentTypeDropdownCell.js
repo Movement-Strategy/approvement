@@ -5,6 +5,9 @@ Template['contentTypeDropdownCell'].helpers({
 	dropdown_options : function() {
 		return contentTypeBuilder.getCellDropdownOptions(this);
 	},
+	network_type_chosen : function() {
+		return networkTypeBuilder.networkTypeChosenForContentBucket(this);	
+	},
 	initializeDropdown : function() {
 		contentTypeBuilder.initializeCellDropdown(this);
 	},

@@ -35,5 +35,9 @@ networkTypeBuilder = {
 	},
 	networkTypeChosen : function() {
 		return Session.get('current_network_type') != null;
-	}
+	},
+	networkTypeChosenForContentBucket : function(context) {
+		var networkType = contentBucketHandler.getValueForDraftVariable('network',context.draft_item_id, context.content_bucket_id);
+		return networkType != null;	
+	},
 };
