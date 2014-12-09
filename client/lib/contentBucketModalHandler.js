@@ -6,11 +6,14 @@ contentBucketModalHandler = {
 			$(that.modalSelector).modal(params);
 		});
 	},
+	isShown : false,
 	showModal : function(context, creatingNew) {
+		this.isShown = true;
 		this.setSessionVariablesOnShow(context, creatingNew);
 		this.handleModal('show');
 	},
 	hideModal : function() {
+		this.isShown = false;
 		this.handleModal('hide');
 	},
 	setSessionVariablesOnShow : function(context, creatingNew) {
@@ -23,27 +26,34 @@ contentBucketModalHandler = {
 			$('.description-input').val('');
 		}
 	},
-	onEditContentBucket : function(event) {
-		var variablesFromModal = this.getVariablesFromModal(event);
+	handleEnter : function() {
+		if(Session.get('creating_new_bucket')) {
+			this.onCreateContentBucket();
+		} else {
+			this.onEditContentBucket();
+		}
+	},
+	onEditContentBucket : function() {
+		var variablesFromModal = this.getVariablesFromModal();
 		var query = {
 			$set : variablesFromModal,
 		};
 		Meteor.call('updateContentBucket', Session.get('current_content_bucket')['_id'], query);
 		this.hideModal();
 	},
-	onCreateContentBucket : function(event) {
-		var bucket = this.buildNewBucket(event);
+	onCreateContentBucket : function() {
+		var bucket = this.buildNewBucket();
 		Meteor.call('insertContentBucket', bucket);
 		this.hideModal();
 	},
 	buildNewBucket : function(event) {
-		var bucket = this.getVariablesFromModal(event);	
+		var bucket = this.getVariablesFromModal();	
 		bucket['client_id'] = Session.get('selected_client_id');
 		bucket['draft_variables'] = {};
 		bucket['week'] = timeHandler.getWeekForSelectedTime();
 		return bucket;
 	},
-	getVariablesFromModal : function(event) {
+	getVariablesFromModal : function() {
 		var description = $('.description-input').val();
 		var repeats = Session.get('bucket_is_repeating');
 		return {

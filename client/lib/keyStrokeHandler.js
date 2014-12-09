@@ -1,6 +1,5 @@
 keyStrokeHandler = {
 	handleKeyStrokes : function(event) {
-		
 		// if details is hide creation modal submit update on cancel press
 		if(Session.get('details_shown') && event.which == 27 && Session.get('details_can_close')) {
 			detailsHandler.onBack();
@@ -38,6 +37,11 @@ keyStrokeHandler = {
 		// Submit delete on enter if the prompt modal is open
 		if(Session.get('current_prompt_type') != null && event.which == 13) {
 			promptModalHandler.handleDelete();
+		}
+		
+		// Submit change on enter press if content bucket modal is shown
+		if(contentBucketModalHandler.isShown && event.which == 13) {
+			contentBucketModalHandler.handleEnter();
 		}
 			
 	}
