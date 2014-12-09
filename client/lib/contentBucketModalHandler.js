@@ -38,12 +38,16 @@ contentBucketModalHandler = {
 		var query = {
 			$set : variablesFromModal,
 		};
-		Meteor.call('updateContentBucket', Session.get('current_content_bucket')['_id'], query);
+		Meteor.call('updateContentBucket', Session.get('current_content_bucket')['_id'], query, function(error, result){
+			warningMessageHandler.showMessage("Bucket Updated", "success");
+		});
 		this.hideModal();
 	},
 	onCreateContentBucket : function() {
 		var bucket = this.buildNewBucket();
-		Meteor.call('insertContentBucket', bucket);
+		Meteor.call('insertContentBucket', bucket, function(error, result){
+			warningMessageHandler.showMessage("Bucket Created", "success");
+		});
 		this.hideModal();
 	},
 	buildNewBucket : function(event) {
