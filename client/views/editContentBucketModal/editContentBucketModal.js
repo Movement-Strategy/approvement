@@ -18,5 +18,8 @@ Template['editContentBucketModal'].events({
 	'click .create-bucket.button' : function(event) {
 		contentBucketModalHandler.onCreateContentBucket();
 	},
+	'click .back-bucket.button' : function(){
+		contentBucketModalHandler.hideModal();
+	},
 });		
 
