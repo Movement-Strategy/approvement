@@ -21,6 +21,9 @@ contentBucketHandler = {
 					item['contents'][inputName] = draftValue;
 					return item;
 				},
+				params : {
+					placeholder : "Enter content here",
+				},
 			},
 			network : {
 				required : true,
@@ -73,6 +76,9 @@ contentBucketHandler = {
 				required : false,
 				display : "Reference",
 				cell_template : 'textAreaCell',
+				params : {
+					placeholder : "References here",
+				},
 			},
 			day_of_week : {
 				required : true,
