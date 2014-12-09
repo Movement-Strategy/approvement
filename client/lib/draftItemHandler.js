@@ -9,6 +9,9 @@ draftItemHandler = {
 		});	
 	},
 	goToDraftWeek : function(clientID, weekID) {
+		
+		// if we try to change weeks while the popups are open, they don't get closed, so we close them manually here
+		draftBoardHandler.hideAllPopups();
 		Router.go('/client/' + clientID + '/week/' + weekID + '/draft');	
 	},
 	initializeVariableDropdown : function(context) {

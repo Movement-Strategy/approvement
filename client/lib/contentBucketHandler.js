@@ -144,7 +144,10 @@ contentBucketHandler = {
 			}
 		});
 		var updateQuery = draftItemHandler.convertIndexedArrayIntoUpdateQuery(updatedValues);
-		Meteor.call('updateContentBucket', bucketID, updateQuery);
+		Meteor.call('updateContentBucket', bucketID, updateQuery, function(error, result){
+			warningMessageHandler.showMessage("Repeating Bucket Updated", "success");
+			draftBoardHandler.hideAllPopups();
+		});
 	},
 	getBucketByID : function(bucketID) {
 		return Session.get('content_buckets_by_id')[bucketID];	
