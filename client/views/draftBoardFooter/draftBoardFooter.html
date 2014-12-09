@@ -6,9 +6,11 @@
 					<div class="create ui blue labeled icon button">
 						<i class="plus icon"></i>Create New
 					</div>
-					<div class="convert ui purple labeled icon button">
-						<i class="magic icon"></i>Convert All
-					</div>
+					{{#if there_are_buckets}}
+						<div class="convert ui purple labeled icon button">
+							<i class="magic icon"></i>Convert All
+						</div>
+					{{/if}}
 				</div>
 			</th>
 		</tr>
