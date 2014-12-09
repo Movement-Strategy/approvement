@@ -1,21 +1,16 @@
 Meteor.publish('approval_items_for_this_user', function (userID, userType) {
+    var query = {};
     if(userType != 'art_director') {
-	    var query = {
-		    $or : [
-		    	{
-			    	scope : {
-				    	$in : [
-				    		'internal',
-				    		'external',
-				    	],
-			    	}
-		    	},
-		    	{
-			    	scope : 'private',
-			    	created_by : userID,
-		    	},
-		    ],
-	    };
+	   if(userType != 'social_media_manager') {
+		   	query = {
+		    	scope : {
+			    	$in : [
+			    		'internal',
+			    		'external',
+			    	],
+		    	}
+			};
+	   }
     } else {
 	    var query = {
 		    $or : [
