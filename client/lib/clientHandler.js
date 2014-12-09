@@ -52,7 +52,13 @@ clientHandler = {
 	},
 	onChangeClientDropdown : function(event) {
 		Session.set('there_were_pending_items', false);
-		Router.go('/client/' + event.target.value + '/week/' + timeHandler.getCurrentWeek());
+		var weekID = timeHandler.getWeekForSelectedTime();
+		var clientID = event.target.value;
+		if(draftBoardHandler.isShown()) {
+			draftItemHandler.goToDraftWeek(clientID, weekID);
+		} else {
+			calendarBuilder.goToNewWeek(clientID, weekID);
+		}
 	},
 	clientDropdownShouldBeShown : function() {
 		return !Session.get('details_shown') && Session.get('current_clients').length > 1;
