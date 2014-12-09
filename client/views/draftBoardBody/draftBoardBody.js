@@ -1,6 +1,8 @@
 Template['draftBoardBody'].helpers({
 	content_buckets : function() {
-		return contentBuckets = contentBucketHandler.getContentBuckets();
+		var contentBuckets = contentBucketHandler.getContentBuckets();
+		draftBoardHandler.initializeRowPopups();
+		return contentBuckets;
 	},
 });
 

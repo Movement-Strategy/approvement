@@ -8,4 +8,9 @@ draftBoardHandler = {
 			return variable;
 		});	
 	},
+	initializeRowPopups : function() {
+		Meteor.defer(function(){
+			$('.draft-action').popup();
+		});
+	},
 };
