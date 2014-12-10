@@ -25,8 +25,17 @@ contentBucketHandler = {
 				params : {
 					placeholder : "Enter content here",
 				},
-				width : 'one',
+				width : 'two',
 			},
+			link : {
+				required : false,
+				display : "Link",
+				cell_template : 'textAreaCell',
+				params : {
+					placeholder : "www.link.com",
+				},
+				width : 'one',
+			},			
 			network : {
 				required : true,
 				display : "Network",
