@@ -1,4 +1,7 @@
 Template['contentTypeDropdownCell'].helpers({
+	variable_class : function() {
+		return draftItemHandler.getDraftVariableClass(this);
+	},
 	error_class : function() {
 		return draftItemHandler.itemHasError(this) ? 'error' : '';
 	},

@@ -1,4 +1,5 @@
 Template['draftBoardHeaders'].helpers({
+	
 	headers : function() {
 		return draftBoardHandler.getTableHeaders();
 	},

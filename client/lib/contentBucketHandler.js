@@ -8,6 +8,7 @@ contentBucketHandler = {
 				get_value : function(draftItemID, bucketID) {
 					return Session.get('content_buckets_by_id')[bucketID]['description'];
 				},
+				width : 'two',
 			},
 			content : {
 				required : true,
@@ -24,6 +25,7 @@ contentBucketHandler = {
 				params : {
 					placeholder : "Enter content here",
 				},
+				width : 'one',
 			},
 			network : {
 				required : true,
@@ -58,6 +60,7 @@ contentBucketHandler = {
 						},
 					],
 				},
+				width : 'one',
 			},
 			content_type : {
 				required : true,
@@ -71,6 +74,7 @@ contentBucketHandler = {
 					style_class : 'draft-content-dropdown',
 					default_value : 'Select',
 				},
+				width : 'one',
 			},
 			reference : {
 				required : false,
@@ -79,6 +83,7 @@ contentBucketHandler = {
 				params : {
 					placeholder : "References here",
 				},
+				width : 'one',
 			},
 			day_of_week : {
 				required : true,
@@ -123,6 +128,7 @@ contentBucketHandler = {
 						},
 					],
 				},
+				width : 'one',
 			},
 		};	
 	},

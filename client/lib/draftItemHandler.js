@@ -14,6 +14,9 @@ draftItemHandler = {
 		draftBoardHandler.hideAllPopups();
 		Router.go('/client/' + clientID + '/week/' + weekID + '/draft');	
 	},
+	getDraftVariableClass : function(context) {
+		return context.variable_id + '_cell';
+	},
 	initializeVariableDropdown : function(context) {
 		var selector = '.' + context.params.style_class + '.' + context.content_bucket_id;
 		var draftValue = contentBucketHandler.getValueForDraftVariable(context.variable_id, context.draft_item_id, context.content_bucket_id);

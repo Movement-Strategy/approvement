@@ -1,4 +1,7 @@
 Template['dropdownCell'].helpers({
+	variable_class : function() {
+		return draftItemHandler.getDraftVariableClass(this);
+	},
 	initializeDropdown : function() {
 		draftItemHandler.initializeVariableDropdown(this);
 	},
