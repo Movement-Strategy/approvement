@@ -10,6 +10,12 @@ contentBucketHandler = {
 				},
 				width : 'two',
 			},
+			actions : {
+				required : false,
+				display : "Actions",
+				cell_template : "actionCell",
+				width : 'one',
+			},
 			content : {
 				required : true,
 				display : "Content",
