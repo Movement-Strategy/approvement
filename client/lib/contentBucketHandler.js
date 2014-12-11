@@ -27,6 +27,12 @@ contentBucketHandler = {
 				},
 				width : 'two',
 			},
+			image : {
+				required : false,
+				display : "Image",
+				cell_template : 'imageCell',
+				width : 'one',
+			},			
 			link : {
 				required : false,
 				display : "Link",
@@ -35,7 +41,7 @@ contentBucketHandler = {
 					placeholder : "www.link.com",
 				},
 				width : 'one',
-			},			
+			},
 			network : {
 				required : true,
 				display : "Network",

@@ -51,6 +51,15 @@ imageUploadHandler = {
            	imageUploadHandler.onImageUpload(r.url);
         });
 	},
+	onDraftFileChange : function(event, context) {
+		var files = $(event.target)[0].files;
+		S3.upload(files,"/subfolder",function(e,r){
+           	imageUploadHandler.onDraftImageUpload(r.url, context);
+        });
+	},
+	onDraftImageUpload : function(url, context) {
+		contentBucketHandler.setDraftVariableToUpdate(url, 'image', context.content_bucket_id);
+	},
 	onImageUpload : function(url) {
 		Session.set('uploaded_image_url', url);
 		var selectorMap = {
