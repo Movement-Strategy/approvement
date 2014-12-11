@@ -43,6 +43,14 @@ keyStrokeHandler = {
 		if(contentBucketModalHandler.isShown && event.which == 13) {
 			contentBucketModalHandler.handleEnter();
 		}
+		
+		if(Session.get('edited_draft_link') != null && event.which == 27) {
+			draftLinkHandler.handleEscape();
+		}
+		
+		if(Session.get('edited_draft_link') != null && event.which == 13) {
+			draftLinkHandler.handleEnter();
+		}
 			
 	}
 	

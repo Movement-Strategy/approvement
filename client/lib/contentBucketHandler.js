@@ -36,7 +36,7 @@ contentBucketHandler = {
 			link : {
 				required : false,
 				display : "Link",
-				cell_template : 'textAreaCell',
+				cell_template : 'assetCell',
 				params : {
 					placeholder : "www.link.com",
 				},

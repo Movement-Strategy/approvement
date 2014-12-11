@@ -1,0 +1,14 @@
+<template name="assetCell">
+	<td>
+		{{#if being_edited}}
+			<textarea id="{{content_bucket_id}}" class="draft-link-input" placeholder = "Test">{{value}}</textarea>
+			{{initializeTextArea}}
+
+		{{else}}
+			<i id="{{content_bucket_id}}" class="square {{icon_class}} icon link edit-draft-link"></i>
+			
+		{{/if}}
+	</td>
+			
+</template>
+
