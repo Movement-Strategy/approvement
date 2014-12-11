@@ -31,7 +31,7 @@ contentBucketHandler = {
 				required : false,
 				display : "Image",
 				cell_template : 'imageCell',
-				width : 'one',
+				width : 'two',
 			},			
 			link : {
 				required : false,
