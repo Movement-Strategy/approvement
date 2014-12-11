@@ -11,6 +11,7 @@ Template['textAreaCell'].helpers({
 	initializeTextArea : function() {
 		Meteor.defer(function(){
 			$('textarea.content-input').autosize();
+			$('textarea.content-input').trigger('autosize.resize');
 		});
 	},
 });
