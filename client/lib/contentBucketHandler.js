@@ -25,7 +25,7 @@ contentBucketHandler = {
 				params : {
 					placeholder : "Enter content here",
 				},
-				width : 'two',
+				width : 'three',
 			},
 			image : {
 				required : false,
@@ -88,15 +88,6 @@ contentBucketHandler = {
 				params : {
 					style_class : 'draft-content-dropdown',
 					default_value : 'Select',
-				},
-				width : 'one',
-			},
-			reference : {
-				required : false,
-				display : "Reference",
-				cell_template : 'textAreaCell',
-				params : {
-					placeholder : "References here",
 				},
 				width : 'one',
 			},
