@@ -10,6 +10,100 @@ contentBucketHandler = {
 				},
 				width : 'two',
 			},
+			day_of_week : {
+				required : true,
+				display : "Day of week",
+				cell_template : "dropdownCell",
+				add_to_approval_item : function(item, dayIndex) {
+					var scheduledTime = timeHandler.getTimestampForDayIndexOfCurrentWeek(dayIndex);
+					item['scheduled_time'] = scheduledTime;
+					return item;
+				},
+				default_value : 'Day',
+				params : {
+					style_class : 'day-cell-dropdown',
+					dropdown_options : [
+						{
+							value : 1,
+							display : 'Monday',
+						},
+						{
+							value : 2,
+							display : 'Tuesday',
+						},
+						{
+							value : 3,
+							display : 'Wednesday',
+						},
+						{
+							value : 4,
+							display : 'Thursday',
+						},
+						{
+							value : 5,
+							display : 'Friday',
+						},
+						{
+							value : 6,
+							display : 'Saturday',
+						},
+						{
+							value : 7,
+							display : 'Sunday',
+						},
+					],
+				},
+				width : 'one',
+			},
+			network : {
+				required : true,
+				display : "Network",
+				cell_template : "dropdownCell",
+				add_to_approval_item : function(item, draftValue) {
+					item['type'] = draftValue;
+					return item;
+				},
+				default_value : 'Select',
+				params : {
+					style_class : 'draft-network-dropdown',
+					on_change : function(value, context) {
+						contentBucketHandler.setDraftVariableToUpdate('unset', 'content_type', context.content_bucket_id);
+					},
+					dropdown_options : [
+						{
+							value : 'facebook',
+							display : 'Facebook',
+						},
+						{
+							value : 'twitter',
+							display : 'Twitter',
+						},
+						{
+							value : 'instagram',
+							display : 'Instagram',
+						},
+						{
+							value : 'linked',
+							display : 'LinkedIN',
+						},
+					],
+				},
+				width : 'one',
+			},
+			content_type : {
+				required : true,
+				display : "Content Type",
+				cell_template : "contentTypeDropdownCell",
+				add_to_approval_item : function(item, draftValue) {
+					item['content_type'] = draftValue;
+					return item;
+				},
+				params : {
+					style_class : 'draft-content-dropdown',
+					default_value : 'Select',
+				},
+				width : 'one',
+			},
 			actions : {
 				required : false,
 				display : "Actions",
@@ -65,100 +159,6 @@ contentBucketHandler = {
 					}
 					item['contents']['facebook_link'] = draftValue;
 					return item;
-				},
-				width : 'one',
-			},
-			network : {
-				required : true,
-				display : "Network",
-				cell_template : "dropdownCell",
-				add_to_approval_item : function(item, draftValue) {
-					item['type'] = draftValue;
-					return item;
-				},
-				default_value : 'Select',
-				params : {
-					style_class : 'draft-network-dropdown',
-					on_change : function(value, context) {
-						contentBucketHandler.setDraftVariableToUpdate('unset', 'content_type', context.content_bucket_id);
-					},
-					dropdown_options : [
-						{
-							value : 'facebook',
-							display : 'Facebook',
-						},
-						{
-							value : 'twitter',
-							display : 'Twitter',
-						},
-						{
-							value : 'instagram',
-							display : 'Instagram',
-						},
-						{
-							value : 'linked',
-							display : 'LinkedIN',
-						},
-					],
-				},
-				width : 'one',
-			},
-			content_type : {
-				required : true,
-				display : "Content Type",
-				cell_template : "contentTypeDropdownCell",
-				add_to_approval_item : function(item, draftValue) {
-					item['content_type'] = draftValue;
-					return item;
-				},
-				params : {
-					style_class : 'draft-content-dropdown',
-					default_value : 'Select',
-				},
-				width : 'one',
-			},
-			day_of_week : {
-				required : true,
-				display : "Day of week",
-				cell_template : "dropdownCell",
-				add_to_approval_item : function(item, dayIndex) {
-					var scheduledTime = timeHandler.getTimestampForDayIndexOfCurrentWeek(dayIndex);
-					item['scheduled_time'] = scheduledTime;
-					return item;
-				},
-				default_value : 'Day',
-				params : {
-					style_class : 'day-cell-dropdown',
-					dropdown_options : [
-						{
-							value : 1,
-							display : 'Monday',
-						},
-						{
-							value : 2,
-							display : 'Tuesday',
-						},
-						{
-							value : 3,
-							display : 'Wednesday',
-						},
-						{
-							value : 4,
-							display : 'Thursday',
-						},
-						{
-							value : 5,
-							display : 'Friday',
-						},
-						{
-							value : 6,
-							display : 'Saturday',
-						},
-						{
-							value : 7,
-							display : 'Sunday',
-						},
-					],
 				},
 				width : 'one',
 			},
