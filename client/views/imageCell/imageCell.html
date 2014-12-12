@@ -1,15 +1,15 @@
 <template name="imageCell">
     <td class='main-image-cell center-cell'>
-		{{#if show_image}}
-			{{#dynamicCellImage}}
+		{{#dynamicCellImage}}
+			{{#if show_image}}
 				<div class="cell-image-container">
 					<img class="ui image  image-click-target cell-image" src="{{image_url}}">
 				</div>
-				
-			{{/dynamicCellImage}}	    
-		{{else}}
-			<i class="square plus icon link edit-draft-link"></i>
-		{{/if}}
+			{{else}}
+				<i class="square plus icon link image-click-target"></i>
+			{{/if}}
+			
+		{{/dynamicCellImage}}	    
 	</td>
 </template>
 
