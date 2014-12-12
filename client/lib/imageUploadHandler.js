@@ -27,8 +27,8 @@ imageUploadHandler = {
 			currentURL = _.has(currentItemContents, 'image_url') ? currentItemContents['image_url'] : sampleURL;
 			var itemToCopy = Session.get('item_to_copy');
 			var linkData = Session.get('current_facebook_link_data');
-			var metaTagURL = _.has(linkData , 'og:image') ?  linkData['og:image'] : null;
 			
+			var metaTagURL = this.getImageURLFromLinkData(linkData);
 			if(metaTagURL && Session.get('uploaded_image_url') == null) {
 				Session.set('uploaded_image_url', metaTagURL);
 			}
@@ -43,6 +43,10 @@ imageUploadHandler = {
 		} else {
 			return null;
 		}
+	},
+	getImageURLFromLinkData : function(linkData) {
+		var imageURL = _.has(linkData , 'og:image') ?  linkData['og:image'] : null;
+		return imageURL;
 	},
 	onFileChange : function(event) {
 		var files = $(event.target)[0].files;

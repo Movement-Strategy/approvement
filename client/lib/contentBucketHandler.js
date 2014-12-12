@@ -24,7 +24,9 @@ contentBucketHandler = {
 					var contentType = contentBucketHandler.getValueForDraftVariable('content_type', draftItemID, bucketID);
 					var networkType = contentBucketHandler.getValueForDraftVariable('network', draftItemID, bucketID);
 					var inputName = inputBuilder.getInputNameForContentBucket(networkType, contentType);
-					item['contents'] = {};
+					if(!_.has(item, 'contents')) {
+						item['contents'] = {};
+					}
 					item['contents'][inputName] = draftValue;
 					return item;
 				},
@@ -38,6 +40,15 @@ contentBucketHandler = {
 				display : "Image",
 				cell_template : 'imageCell',
 				width : 'two',
+				add_to_approval_item : function(item, draftValue, draftItemID, bucketID) {
+					if(!_.has(item, 'contents')) {
+						item['contents'] = {};
+					}
+					if(draftValue != null) {
+						item['contents']['image_url'] = draftValue;
+					}
+					return item;
+				}
 			},			
 			link : {
 				required : {
@@ -47,8 +58,13 @@ contentBucketHandler = {
 				},
 				display : "Link",
 				cell_template : 'assetCell',
-				params : {
-					placeholder : "www.link.com",
+				add_to_approval_item : function(item, draftValue, draftItemID, bucketID) {
+					var draftValueMissing = draftValue == 'null' || draftValue == '';
+					if(!_.has(item, 'contents')) {
+						item['contents'] = {};
+					}
+					item['contents']['facebook_link'] = draftValue;
+					return item;
 				},
 				width : 'one',
 			},

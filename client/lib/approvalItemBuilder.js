@@ -13,7 +13,11 @@ approvalItemBuilder = {
 				if(!_.has(itemsByDay, dayIndex)) {
 					itemsByDay[dayIndex] = [];
 				}
-				itemsByDay[dayIndex].push(item);
+				if(approvalItemBuilder.isLinkTypeWithoutDataPopulated(item)) {
+					approvalItemBuilder.fillInMissingDataForFacebookLink(item);
+				} else {
+					itemsByDay[dayIndex].push(item);
+				}
 			});
 		}
 		
@@ -22,6 +26,44 @@ approvalItemBuilder = {
 		}
 		
 		return itemsByDay;
+	},
+	fillInMissingDataForFacebookLink : function(item) {
+			var linkURL = item['contents']['facebook_link'];
+			Meteor.call('getLinkResponse', linkURL, function(error, response){
+				if(error == null) {
+					var linkData = facebookHandler.convertResponseIntoLinkData(response);
+					approvalItemBuilder.updateApprovalItemWithLinkData(item, linkData);
+				}
+			});
+	},
+	updateApprovalItemWithLinkData : function(item, linkData) {
+			var updatedContents = item['contents'];	
+			var inputsToUpdate = {
+				link_text : inputBuilder.inputMap['facebook']['input_types']['link_text'],
+				link_body : inputBuilder.inputMap['facebook']['input_types']['link_body'],
+			};
+			
+			_.map(inputsToUpdate, function(input, inputName){
+				input = inputBuilder.updateInputFromLinkData(input, linkData);
+				updatedContents[inputName] = input['text'];
+			});
+			
+			var imageURL = imageUploadHandler.getImageURLFromLinkData(linkData);
+			if(imageURL != null) {
+				updatedContents['image_url'] = imageURL;
+			}
+			Meteor.call('updateStatus', item['_id'], {contents : updatedContents});
+	},
+	isLinkTypeWithoutDataPopulated : function(item) {
+		
+		if(_.has(item, 'contents')) {
+			var contents = item['contents'];
+			var hasLink = _.has(contents, 'facebook_link');
+			var bodyMissing = !_.has(contents, 'link_body');
+			var titleMissing = !_.has(contents, 'link_text');
+		}
+		
+		return  bodyMissing && titleMissing && hasLink;
 	},
 	editItem : function(itemID, clientID, weekID) {
 		Router.go('/client/' + clientID + '/week/' + weekID + '/content/edit/' + itemID);

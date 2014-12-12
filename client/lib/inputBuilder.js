@@ -136,8 +136,8 @@ inputBuilder = {
 			var text = _.has(currentItemContents, inputName) ? currentItemContents[inputName] : input.default_text;
 			input = inputBuilder.setTextInInput(text, input);
 			input.id = inputName;
-			
-			input = inputBuilder.updateInputFromLinkData(input);
+			var linkData = Session.get('current_facebook_link_data');
+			input = inputBuilder.updateInputFromLinkData(input, linkData);
 			input = inputBuilder.updateInputWithCopiedData(input);
 			processedInputs[inputName] = input;
 		});
@@ -183,8 +183,7 @@ inputBuilder = {
 			return inputCategory == input.input_category;
 		});
 	},
-	updateInputFromLinkData : function(input) {
-		var linkData = Session.get('current_facebook_link_data');
+	updateInputFromLinkData : function(input, linkData) {
 		var newText = null;
 		if(_.has(input, 'meta_tag')) {
 			if(_.has(linkData, input.meta_tag)) {
