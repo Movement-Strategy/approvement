@@ -40,7 +40,11 @@ contentBucketHandler = {
 				width : 'two',
 			},			
 			link : {
-				required : false,
+				required : {
+					facebook : [
+						'link',
+					],
+				},
 				display : "Link",
 				cell_template : 'assetCell',
 				params : {
@@ -144,6 +148,31 @@ contentBucketHandler = {
 			},
 		};	
 	},
+	variableIsRequired : function(variable) {
+		var required = false;
+		var requiredStatus = variable.required;
+		if(typeof requiredStatus === 'object') {
+			required = this.variableIsRequiredForNetworkAndType(requiredStatus, variable.draft_item_id, variable.content_bucket_id);
+		} else {
+			required = requiredStatus;
+		}
+		
+		return required;
+	},
+	variableIsRequiredForNetworkAndType : function(requiredStatus, draftItemID, bucketID) {
+		var required = false;
+		var networkType = this.getValueForDraftVariable('network', draftItemID, bucketID);
+		var contentType = this.getValueForDraftVariable('content_type', draftItemID, bucketID);
+		if(_.has(requiredStatus, networkType)) {
+			var requiredForNetwork = requiredStatus[networkType];
+			
+			// check if the content is in the required for network array
+			if(requiredForNetwork.indexOf(contentType) > -1) {
+				var required = true;
+			}
+		}
+		return required;
+	},
 	autoRunHandler : null,
 	handleContentBuckets : function() {
 		if(this.autoRunHandler != null) {
@@ -213,7 +242,7 @@ contentBucketHandler = {
 		var draftVariablesForRow = this.getDraftVariablesForRow(row);
 		var allVariablesFilledIn = true;
 		_.map(draftVariablesForRow, function(variable, variableName){
-			if(allVariablesFilledIn && variable['required']) {
+			if(allVariablesFilledIn && contentBucketHandler.variableIsRequired(variable)) {
 				var variableMissing = variable['value'] == null || variable['value'] == '';
 				if(allVariablesFilledIn && variableMissing) {
 					allVariablesFilledIn = false;
@@ -292,7 +321,7 @@ contentBucketHandler = {
 		var approvalItem = {};
 		_.map(this.getDraftVariableMap(), function(variable, variableID){
 			var draftValue = contentBucketHandler.getValueForDraftVariable(variableID, draftItemID, bucketID);
-			if(variable['required']) {
+			if(contentBucketHandler.variableIsRequired(variable)) {
 				hasError = draftValue == null || draftValue == '';
 			}
 			if(!hasError) {

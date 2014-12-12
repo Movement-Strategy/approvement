@@ -1,5 +1,5 @@
 <template name="assetCell">
-	<td class ='center-cell'>
+	<td class ='center-cell {{error_class}}'>
 		{{#if being_edited}}
 			<textarea id="{{content_bucket_id}}" class="draft-link-input" placeholder = "Test">{{value}}</textarea>
 			{{initializeTextArea}}
