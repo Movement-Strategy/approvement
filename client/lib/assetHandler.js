@@ -89,6 +89,8 @@ assetHandler = {
 			return asset;
 		});
 		
+		Session.set('asset_count', assets.length);
+		
 		return assets;
 	},
 	createOrUpdateAsset : function(url){
