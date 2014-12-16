@@ -4,6 +4,11 @@
 		    <i class="comment icon"></i>
 		    Comments
 		    <i class="dropdown icon"></i>
+		    {{#if there_are_comments}}
+				<a class="ui blue circular label count-label">
+					{{comment_count}}
+				</a>
+			{{/if}}
 	    </div>
 	    <div class="content">
 		   	{{> approvalItemComments}}
@@ -12,6 +17,11 @@
 		    <i class="attachment icon"></i>
 		    Assets
 		    <i class="dropdown icon"></i>
+		    {{#if there_are_assets}}
+				<a class="ui blue circular label count-label">
+					{{asset_count}}
+				</a>
+			{{/if}}
 	    </div>
 	    <div class="content">
 		   	{{> creationAssets}}

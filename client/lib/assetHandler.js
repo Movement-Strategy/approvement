@@ -75,7 +75,7 @@ assetHandler = {
 		Session.set('details_can_close', false);
 	},
 	editingAsset : function() {
-		return Session.get('current_asset_type') != null;
+		return Session.get('current_asset_type') != null && !userHandler.userIsType('client');
 	},
 	resetAssetState : function() {
 		Session.set('current_asset_id', null);
@@ -88,6 +88,8 @@ assetHandler = {
 			asset['display_name'] = assetHandler.assetMap[asset['type']]['display_name'];
 			return asset;
 		});
+		
+		Session.set('asset_count', assets.length);
 		
 		return assets;
 	},
@@ -130,9 +132,26 @@ assetHandler = {
 				var asset = currentAssets[assetID];
 				Session.set('current_asset', asset);
 				Session.set('current_asset_type', asset.type);
+				assetHandler.handleClientClick(asset);
 			}
 		});
 	},
+	handleClientClick : function(asset) {
+		if(userHandler.userIsType('client')) {
+			var url = _.has(asset, 'url') ? asset.url : '';
+			url = this.addHttp(url);
+			var windowHandler = window.open(url, '_blank');
+			windowHandler.focus();
+			Session.set('details_can_close', true);
+			this.resetAssetState();
+		}	
+	},
+	addHttp : function(url){
+	   if (!/^(f|ht)tps?:\/\//i.test(url)) {
+	      url = "http://" + url;
+	   }
+	   return url;
+	},	
 	assetMap : {
 		image : {
 			icon : 'photo',
