@@ -8,15 +8,8 @@ approvalItemBuilder = {
 			var query = this.getFindQuery();
 			var items = ApprovalItem.find(query).fetch();
 			_.map(items, function(item){
-				var scheduledDate = moment(item.scheduled_time);
-/*
-				var	utcDate = scheduledDate;
-				var utcString = utcDate.utc().format('YYYY-MM-DD HH:mm');
-				var fullString = utcString + ' -05:00';
-				var updatedDate = moment(fullString, 'YYYY-MM-DD HH:mm Z');
-*/
-// 				console.log(updatedDate.format('YYYY-MM-DD HH:mm'));
-				var dayIndex = scheduledDate.utc().isoWeekday();
+ 				var scheduledDate = moment(item.scheduled_time).add(4, 'hours');
+				var dayIndex = scheduledDate.isoWeekday();
 				if(!_.has(itemsByDay, dayIndex)) {
 					itemsByDay[dayIndex] = [];
 				}
