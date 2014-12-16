@@ -1,11 +1,9 @@
 draftItemHandler = {
-	autoRunHandler : null,
 	handleDraftItems : function() {
-		if(this.autoRunHandler != null) {
-			this.autoRunHandler.stop();
-		}
-		this.autoRunHandler = Tracker.autorun(function(){
-			draftItemHandler.initializeDraftItems();
+		Tracker.autorun(function(){
+			if(Session.get('draft_board_is_shown')) {
+				draftItemHandler.initializeDraftItems();
+			}
 		});	
 	},
 	goToDraftWeek : function(clientID, weekID) {

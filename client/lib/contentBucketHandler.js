@@ -189,13 +189,13 @@ contentBucketHandler = {
 		}
 		return required;
 	},
-	autoRunHandler : null,
 	handleContentBuckets : function() {
-		if(this.autoRunHandler != null) {
-			this.autoRunHandler.stop();
-		}
-		this.autoRunHandler = Tracker.autorun(function(){
-			contentBucketHandler.initializeContentBuckets();
+		Tracker.autorun(function(){
+			if(Session.get('draft_board_is_shown')) {
+				var query = contentBucketHandler.getContentBucketQuery();
+				var contentBuckets = ContentBucket.find(query).fetch();
+				contentBucketHandler.initializeContentBuckets(contentBuckets);
+			}
 		});
 	},
 	onClickApplyChanges : function(event) {
@@ -267,9 +267,7 @@ contentBucketHandler = {
 		});
 		return allVariablesFilledIn;
 	},
-	initializeContentBuckets : function() {
-		var query = this.getContentBucketQuery();
-		var contentBuckets = ContentBucket.find(query).fetch();
+	initializeContentBuckets : function(contentBuckets) {
 		var contentBucketsByID = {};
 		_.map(contentBuckets, function(bucket){
 			contentBucketsByID[bucket['_id']] = bucket;

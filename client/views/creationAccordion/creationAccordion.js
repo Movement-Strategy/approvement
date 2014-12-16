@@ -17,5 +17,6 @@ Template['creationAccordion'].helpers({
 });
 
 Template['creationAccordion'].events({
+	
 });
 

@@ -10,17 +10,16 @@ if(Meteor.isClient) {
 	        controller :  HomeController,
 	        onRun : function() {
 	        	if(loginHandler.isLoggedIn()) {
+		        	Session.set('draft_variables_to_update', {});
 		        	var that = this;
-		        	Deps.autorun(function(){
+// 		        	Deps.autorun(function(){
 			        	if(!userHandler.userIsType('social_media_manager')) {
 				        	calendarBuilder.goToNewWeek(that.params.client, that.params.week);
 			        	} else {
 				        	calendarBuilder.initializeCalendarWeek(that.params.client, that.params.week);
-				        	Session.set('draft_board_is_shown', true);
-				        	contentBucketHandler.handleContentBuckets();
-				        	draftItemHandler.handleDraftItems();
+				        	Session.set('draft_board_is_shown', true);				        	
 			        	}
-		        	});	
+// 		        	});	
 	        	} else {
 		        	Router.go('/login');
 	        	}
