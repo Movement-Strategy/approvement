@@ -1,6 +1,8 @@
 commentHandler = {
 	getCurrentComments : function() {
-		return Comment.find({client_id : Session.get('selected_client_id'), approval_item_id : Session.get('current_item_id')}, {sort: {created_time: 1}}).fetch();
+		var comments = Comment.find({client_id : Session.get('selected_client_id'), approval_item_id : Session.get('current_item_id')}, {sort: {created_time: 1}}).fetch();
+		Session.set('comment_count', comments.length);
+		return comments;
 	},
 	onCreateKeydown : function(event) {
 		if($(".comment-input").is(":focus") && event.which == 13) {
