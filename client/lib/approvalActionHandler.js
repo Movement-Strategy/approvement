@@ -5,6 +5,7 @@ actionMap = {
 			'update',
 		],
 		external : [
+			'delete',
 			'needs_creative',
 			'update',
 		],
