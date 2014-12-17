@@ -16,8 +16,13 @@ contentTypeBuilder = {
 		});
 	},
 	onClickCellDropdownOption : function(event) {
+		
 		var context = UI.getData($(event.currentTarget).parent().parent()[0]);
+		var network = contentBucketHandler.getValueForDraftVariable('network', context.draft_item_id, context.content_bucket_id);
 		var value = $(event.currentTarget).attr('data-value');
+		if(network == 'facebook' && value == 'link') {
+			contentBucketHandler.setDraftVariableToUpdate('unset', 'image', context.content_bucket_id);
+		}
 		var selector = '.content-type-dropdown-cell.' + context.content_bucket_id;
 		contentBucketHandler.setDraftVariableToUpdate(value, context.variable_id, context.content_bucket_id);
 		$(selector).dropdown('hide').dropdown('set text', $(event.currentTarget).text());		

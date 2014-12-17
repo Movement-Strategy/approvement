@@ -3,16 +3,20 @@
   		{{#if is_loading}}
 			<div class="ui active inline loader"></div>
 		{{else}}
-	  		{{#dynamicCellImage}}
-				{{#if show_image}}
-					<div class="cell-image-container">
-						<img class="ui image  image-click-target cell-image" src="{{value}}">
-					</div>
-				{{else}}
-					<i class="square plus icon link image-click-target"></i>
-				{{/if}}
-				
-			{{/dynamicCellImage}}
+	  		{{#if is_facebook_link}}
+				<p>Image populated from link</p>
+			{{else}}
+		  		{{#dynamicCellImage}}
+					{{#if show_image}}
+						<div class="cell-image-container">
+							<img class="ui image  image-click-target cell-image" src="{{value}}">
+						</div>
+					{{else}}
+						<i class="square plus icon link image-click-target"></i>
+					{{/if}}
+					
+				{{/dynamicCellImage}}
+			{{/if}}
 			
 		{{/if}}
 			    
