@@ -19,6 +19,14 @@ Template['textAreaCell'].helpers({
 Template['textAreaCell'].events({
 	'keyup .content-input' : function(event) {
 		contentBucketHandler.onTextAreaKeyup(event);
-	}
+	},
+	'focus .content-input' : function(event) {
+		Session.set('entering_draft_item_text', true);
+	},
+	'blur .content-input' : function(event) {
+		Session.set('entering_draft_item_text', false);
+	},
+	
+		
 });
 
