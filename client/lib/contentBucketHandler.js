@@ -274,38 +274,6 @@ contentBucketHandler = {
 		});
 		Session.set('content_buckets_by_id', contentBucketsByID);
 	},
-	getValueFromContentBucket : function(variableID, bucketID) {
-		
-		var value = null
-		var contentBucketsByID = Session.get('content_buckets_by_id');
-		if(_.has(contentBucketsByID, bucketID)) {
-			var contentBucket = contentBucketsByID[bucketID];
-			
-			if(_.has(contentBucket['draft_variables'], variableID)) {
-				var draftVariable = contentBucket['draft_variables'][variableID];
-				value = _.has(draftVariable, 'value') ? draftVariable['value'] : null;
-			}
-		}
-		return value;	
-	},
-	getValueFromDraftVariablesToUpdate : function(variableID, bucketID) {
-		var value = null;
-		var draftVariablesByID = Session.get('draft_variables_to_update');
-		if(_.has(draftVariablesByID, bucketID)) {
-			draftVariablesForBucket = draftVariablesByID[bucketID];
-			if(_.has(draftVariablesForBucket, variableID)) {
-				var value = draftVariablesForBucket[variableID];
-			}
-		}
-		return value;	
-	},
-	getDraftVariableValue : function(variableID, bucketID) {
-		var value = this.getValueFromDraftVariablesToUpdate(variableID, bucketID);
-		if(value == null) {
-			value = this.getValueFromContentBucket(variableID, bucketID);
-		}
-		return value == 'unset' ? null : value;
-	},
 	afterConvertingDraftItems : function() {
 		calendarBuilder.onModeChangeClick();
 		Meteor.defer(function(){
