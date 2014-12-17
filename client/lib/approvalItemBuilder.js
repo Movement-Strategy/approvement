@@ -8,7 +8,7 @@ approvalItemBuilder = {
 			var query = this.getFindQuery();
 			var items = ApprovalItem.find(query).fetch();
 			_.map(items, function(item){
-				var scheduledDate = moment(item.scheduled_time);
+ 				var scheduledDate = moment(item.scheduled_time).add(4, 'hours');
 				var dayIndex = scheduledDate.isoWeekday();
 				if(!_.has(itemsByDay, dayIndex)) {
 					itemsByDay[dayIndex] = [];
