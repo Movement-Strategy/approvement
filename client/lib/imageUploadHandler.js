@@ -57,7 +57,9 @@ imageUploadHandler = {
 	},
 	onDraftFileChange : function(event, context) {
 		var files = $(event.target)[0].files;
+		Session.set('loading_bucket_id', context.content_bucket_id);
 		S3.upload(files,"/subfolder",function(e,r){
+           	Session.set('loading_bucket_id', null);
            	imageUploadHandler.onDraftImageUpload(r.url, context);
         });
 	},
