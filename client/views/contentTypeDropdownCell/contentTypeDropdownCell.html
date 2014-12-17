@@ -7,12 +7,13 @@
 				<i class="dropdown icon"></i>
 				<div class="menu">
 					{{#each dropdown_options}}
-						{{initializeDropdown}}
 						<div class="item content-type-item" data-value="{{value}}">{{display}}</div>
 					{{/each}}
 				</div>
+				{{valueTest}}
 			</div>
-		{{/if}}			
+			{{initializeDropdown}}
+		{{/if}}
 	</td>
 </template>
 

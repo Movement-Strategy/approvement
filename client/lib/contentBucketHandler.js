@@ -442,15 +442,11 @@ contentBucketHandler = {
 		if(_.has(this.getDraftVariableMap()[variableID], 'get_value')) {
 			value = this.getDraftVariableMap()[variableID]['get_value'](draftItemID, bucketID);
 		} else {
-			var draftVariablesToUpdate = Session.get('draft_variables_to_update');
-			value = this.getValueFromArrayWithBucketID(draftVariablesToUpdate, variableID, bucketID);
+			var draftItemsByBucketID = Session.get('draft_items_by_bucket_id');
+			value = this.getValueFromArrayWithBucketID(draftItemsByBucketID, variableID, bucketID);
 			if(value == null) {
-				var draftItemsByBucketID = Session.get('draft_items_by_bucket_id');
-				value = this.getValueFromArrayWithBucketID(draftItemsByBucketID, variableID, bucketID);
-				if(value == null) {
-					var contentBucketsByID = Session.get('content_buckets_by_id');
-					value = this.getValueFromArrayWithBucketID(contentBucketsByID, variableID, bucketID);
-				}
+				var contentBucketsByID = Session.get('content_buckets_by_id');
+				value = this.getValueFromArrayWithBucketID(contentBucketsByID, variableID, bucketID);
 			}
 		}
 		return value == 'unset' ? null : value;

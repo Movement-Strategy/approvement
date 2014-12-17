@@ -35,8 +35,9 @@ contentTypeBuilder = {
 		return Session.equals('current_content_type', type);
 	},
 	initializeCellDropdown : function(context) {
-		var contentType = contentBucketHandler.getValueForDraftVariable('content_type', context.bucket.draft_item_id, context.bucket.content_bucket_id);
-		var selector = '.content-type-dropdown-cell.' + context.bucket.content_bucket_id;
+		
+		var contentType = contentBucketHandler.getValueForDraftVariable('content_type', context.draft_item_id, context.content_bucket_id);
+		var selector = '.content-type-dropdown-cell.' + context.content_bucket_id;
 		Meteor.defer(function(){
 			if(contentType != null) {
 				$(selector).dropdown('set selected', contentType);
