@@ -266,8 +266,9 @@ contentBucketHandler = {
 		Session.set('error_on_convert', false);
 		var contentBucketsByID = Session.get('content_buckets_by_id');
 		_.map(contentBucketsByID, function(bucket, bucketID){
+			var bucketIsRequired = _.has(bucket, 'required') ? bucket['required'] : false;
 			var draftItemID = contentBucketHandler.getDraftItemIDForContentBucket(bucketID);
-			var approvalItem = contentBucketHandler.convertDraftItemIntoApprovalItem(draftItemID, bucketID);
+			var approvalItem = contentBucketHandler.convertDraftItemIntoApprovalItem(draftItemID, bucketID, bucketIsRequired);
 			if(approvalItem && !Session.get('error_on_convert')) {
 				Meteor.call('insertApprovalItem', approvalItem);
 			} else {
@@ -280,7 +281,7 @@ contentBucketHandler = {
 			warningMessageHandler.showMessage("Conversion Failed : Please fill in any highlighted missing options", "error");
 		}
 	},
-	convertDraftItemIntoApprovalItem : function(draftItemID, bucketID) {
+	convertDraftItemIntoApprovalItem : function(draftItemID, bucketID, bucketIsRequired) {
 		var hasError = false;
 		var approvalItem = {};
 		_.map(this.getDraftVariableMap(), function(variable, variableID){
