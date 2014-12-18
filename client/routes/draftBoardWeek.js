@@ -11,6 +11,7 @@ if(Meteor.isClient) {
 	        onRun : function() {
 	        	if(loginHandler.isLoggedIn()) {
 		        	Session.set('draft_variables_to_update', {});
+		        	Session.set('error_on_convert', false);
 		        	var that = this;
 // 		        	Deps.autorun(function(){
 			        	if(!userHandler.userIsType('social_media_manager')) {
