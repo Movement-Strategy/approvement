@@ -26,6 +26,7 @@ keyStrokeHandler = {
 		var preventWeekChange = Session.get('draft_board_is_shown') && Session.get('entering_draft_item_text');
 		// If details is not open change to last week on left press
 		if(!Session.get('details_shown') && event.which == 37 && !preventWeekChange) {
+			event.preventDefault();
 			detailsHandler.closeShownPopup();
 			timeHandler.changeToLastWeek();
 		}
