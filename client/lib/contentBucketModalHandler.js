@@ -38,7 +38,7 @@ contentBucketModalHandler = {
 		var bucket = Session.get('current_content_bucket');
 		
 		if(bucket) {
-			var isRequired = true;
+			var isRequired = _.has(bucket, 'required') ? bucket['required'] : false;
 			var onStart = isRequired ? 'enable' : 'disable';
 			Meteor.defer(function(){
 				var onEnable = function() {
@@ -96,9 +96,11 @@ contentBucketModalHandler = {
 	getVariablesFromModal : function() {
 		var description = $('.description-input').val();
 		var repeats = Session.get('bucket_is_repeating');
+		var required = Session.get('bucket_is_required');
 		return {
 			description : description,
 			repeats : repeats,
+			required : required,
 		};
 	}
 };
