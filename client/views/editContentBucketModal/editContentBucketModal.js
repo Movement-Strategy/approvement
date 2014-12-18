@@ -6,9 +6,10 @@ Template['editContentBucketModal'].helpers({
 	creating_new : function() {
 		return Session.get('creating_new_bucket');
 	},
-	initializeToggle : function() {
-		contentBucketHandler.initializeModalToggle();
-	}
+	initializeToggles : function() {
+		contentBucketModalHandler.initializeRepeatsToggle();
+		contentBucketModalHandler.initializeRequiredToggle();
+	},
 });
 
 Template['editContentBucketModal'].events({

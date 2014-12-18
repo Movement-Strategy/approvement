@@ -236,24 +236,6 @@ contentBucketHandler = {
 			],
 		};
 	},
-	initializeModalToggle : function() {
-		var bucket = Session.get('current_content_bucket');
-		
-		if(bucket) {
-			var isRepeating = bucket['repeats'];
-			var onStart = isRepeating ? 'enable' : 'disable';
-			Meteor.defer(function(){
-				var onEnable = function() {
-					Session.set('bucket_is_repeating', true);	
-				};
-				var onDisable = function() {
-					Session.set('bucket_is_repeating', false);	
-				};
-				
-				$('.ui.checkbox.repeats-toggle').checkbox(onStart).checkbox('setting', {onEnable : onEnable, onDisable : onDisable});
-			});
-		}
-	},
 	rowIsCompleted : function(row) {
 		var draftVariablesForRow = this.getDraftVariablesForRow(row);
 		var allVariablesFilledIn = true;

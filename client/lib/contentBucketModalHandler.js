@@ -16,6 +16,42 @@ contentBucketModalHandler = {
 		this.isShown = false;
 		this.handleModal('hide');
 	},
+	initializeRepeatsToggle : function() {
+		var bucket = Session.get('current_content_bucket');
+		
+		if(bucket) {
+			var isRepeating = bucket['repeats'];
+			var onStart = isRepeating ? 'enable' : 'disable';
+			Meteor.defer(function(){
+				var onEnable = function() {
+					Session.set('bucket_is_repeating', true);	
+				};
+				var onDisable = function() {
+					Session.set('bucket_is_repeating', false);	
+				};
+				
+				$('.ui.checkbox.repeats-toggle').checkbox(onStart).checkbox('setting', {onEnable : onEnable, onDisable : onDisable});
+			});
+		}
+	},
+	initializeRequiredToggle : function() {
+		var bucket = Session.get('current_content_bucket');
+		
+		if(bucket) {
+			var isRequired = true;
+			var onStart = isRequired ? 'enable' : 'disable';
+			Meteor.defer(function(){
+				var onEnable = function() {
+					Session.set('bucket_is_required', true);	
+				};
+				var onDisable = function() {
+					Session.set('bucket_is_required', false);	
+				};
+				
+				$('.ui.checkbox.required-toggle').checkbox(onStart).checkbox('setting', {onEnable : onEnable, onDisable : onDisable});
+			});
+		}
+	},
 	setSessionVariablesOnShow : function(context, creatingNew) {
 		Session.set('creating_new_bucket', creatingNew);
 		if(!creatingNew) {
