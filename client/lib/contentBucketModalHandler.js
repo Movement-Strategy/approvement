@@ -56,6 +56,9 @@ contentBucketModalHandler = {
 		Session.set('creating_new_bucket', creatingNew);
 		if(!creatingNew) {
 			var bucket = contentBucketHandler.getBucketByID(context['content_bucket_id']);
+			Meteor.defer(function(){
+				$('.description-input').val(bucket.description);
+			});
 			Session.set('current_content_bucket', bucket);
 		} else {
 			Session.set('current_content_bucket', {});
@@ -63,40 +66,47 @@ contentBucketModalHandler = {
 		}
 	},
 	handleEnter : function() {
-		if(Session.get('creating_new_bucket')) {
-			this.onCreateContentBucket();
-		} else {
-			this.onEditContentBucket();
+		this.onBucketChange(Session.get('creating_new_bucket'));
+	},
+	onBucketChange : function(isInsert) {
+		Session.set('bucket_change_errors', {});
+		var variablesFromModal = this.getVariablesFromModal();	
+		if(_.size(Session.get('bucket_change_errors')) == 0){
+			if(isInsert) {
+				this.onInsertContentBucket(variablesFromModal);
+			} else {
+				this.onUpdateContentBucket(variablesFromModal);
+			}
+			this.hideModal();
+			Session.set('bucket_change_errors', {});	
 		}
 	},
-	onEditContentBucket : function() {
-		var variablesFromModal = this.getVariablesFromModal();
+	onUpdateContentBucket : function(variablesFromModal) {
 		var query = {
-			$set : variablesFromModal,
+			'$set' : variablesFromModal,
 		};
 		Meteor.call('updateContentBucket', Session.get('current_content_bucket')['_id'], query, function(error, result){
 			warningMessageHandler.showMessage("Bucket Updated", "success");
 		});
-		this.hideModal();
 	},
-	onCreateContentBucket : function() {
-		var bucket = this.buildNewBucket();
-		Meteor.call('insertContentBucket', bucket, function(error, result){
-			warningMessageHandler.showMessage("Bucket Created", "success");
-		});
-		this.hideModal();
-	},
-	buildNewBucket : function(event) {
-		var bucket = this.getVariablesFromModal();	
+	onInsertContentBucket : function(variablesFromModal) {
+		var bucket = variablesFromModal;
 		bucket['client_id'] = Session.get('selected_client_id');
 		bucket['draft_variables'] = {};
 		bucket['week'] = timeHandler.getWeekForSelectedTime();
-		return bucket;
+		Meteor.call('insertContentBucket', bucket, function(error, result){
+			warningMessageHandler.showMessage("Bucket Created", "success");
+		});
 	},
 	getVariablesFromModal : function() {
+		var bucketChangeErrors = Session.get('bucket_change_errors');
 		var description = $('.description-input').val();
 		var repeats = Session.get('bucket_is_repeating');
 		var required = Session.get('bucket_is_required');
+		if(description == '' || description == null) {
+			bucketChangeErrors['description'] = true;
+		}
+		Session.set('bucket_change_errors', bucketChangeErrors);
 		return {
 			description : description,
 			repeats : repeats,

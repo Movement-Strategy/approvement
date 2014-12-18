@@ -6,6 +6,9 @@
 			<div class="field">
 				<label>Description</label>
 				<input type="text" class="description-input" value="{{description}}">
+				{{#if description_has_error}}
+					<div class="ui red pointing above ui label">Enter a description</div>
+				{{/if}}
 			</div>
 			<div class="inline field">
 				<div class="repeats-toggle ui toggle checkbox">

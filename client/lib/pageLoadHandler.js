@@ -58,6 +58,7 @@ pageLoadHandler = {
 		creating_new_bucket : true,
 		warning_message : null,
 		bucket_count : 0,
+		bucket_change_errors : {},
 	},
 	setSessionDefaults : function() {
 		_.map(this.defaultSessionValueMap, function(value, key){

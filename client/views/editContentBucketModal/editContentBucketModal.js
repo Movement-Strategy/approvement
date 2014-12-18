@@ -1,4 +1,8 @@
 Template['editContentBucketModal'].helpers({
+	description_has_error : function() {
+		var bucketChangeErrors = Session.get('bucket_change_errors');
+		return _.has(bucketChangeErrors, 'description');
+	},
 	description : function() {
 		var bucket = Session.get('current_content_bucket');
 		return _.has(bucket, 'description') ? bucket['description'] : '';
@@ -14,10 +18,12 @@ Template['editContentBucketModal'].helpers({
 
 Template['editContentBucketModal'].events({
 	'click .edit-bucket.button' : function(event) {
-		contentBucketModalHandler.onEditContentBucket();
+		var isInsert = false;
+		contentBucketModalHandler.onBucketChange(isInsert);
 	},	
 	'click .create-bucket.button' : function(event) {
-		contentBucketModalHandler.onCreateContentBucket();
+		var isInsert = true;
+		contentBucketModalHandler.onBucketChange(isInsert);
 	},
 	'click .back-bucket.button' : function(){
 		contentBucketModalHandler.hideModal();
