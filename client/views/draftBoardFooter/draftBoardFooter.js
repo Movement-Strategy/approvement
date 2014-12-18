@@ -6,7 +6,7 @@ Template['draftBoardFooter'].helpers({
 
 Template['draftBoardFooter'].events({
 	'click .convert.button' : function() {
-		contentBucketHandler.convertAllDraftItemsToApprovalItems();
+		contentBucketHandler.tryToConvertBucketsToApprovalItems();
 	},
 	'click .create.button' : function() {
 		contentBucketModalHandler.showModal({}, true);

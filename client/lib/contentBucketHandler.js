@@ -256,49 +256,86 @@ contentBucketHandler = {
 		});
 		Session.set('content_buckets_by_id', contentBucketsByID);
 	},
+	tryToConvertBucketsToApprovalItems : function() {
+		Session.set('error_on_convert', false);
+		var contentBucketsByID = Session.get('content_buckets_by_id');
+		var bucketsHaveErrors = this.contentBucketsHaveErrors(contentBucketsByID);
+		if(!bucketsHaveErrors)  {
+			this.onSuccessfulBucketConversion(contentBucketsByID)	
+		} else {
+			this.onFailedBucketConversion();
+		}
+	},
+	onSuccessfulBucketConversion : function(contentBucketsByID) {
+		var bucketsToConvert = this.getBucketsToConvert(contentBucketsByID);
+		if(_.size(bucketsToConvert) > 0) {
+			this.convertCompletedBucketsToApprovalItems(bucketsToConvert);
+			this.afterConvertingDraftItems();
+		} else {
+			warningMessageHandler.showMessage("No buckets to convert", "info");
+		}
+	},
+	onFailedBucketConversion : function() {
+		Session.set('error_on_convert', true);
+		warningMessageHandler.showMessage("Conversion Failed : Please fill in any highlighted missing options", "error");
+	},
+	convertCompletedBucketsToApprovalItems : function(bucketsToConvert) {
+		_.map(bucketsToConvert, function(bucket, bucketID){
+			var draftItemID = contentBucketHandler.getDraftItemIDForContentBucket(bucketID);
+			var approvalItem = contentBucketHandler.convertBucketIntoApprovalItem(bucketID, draftItemID);
+			Meteor.call('insertApprovalItem', approvalItem);
+		});
+	},
+	convertBucketIntoApprovalItem : function(bucketID, draftItemID) {
+		var approvalItem = {};
+		approvalItem = this.addAllDraftVariablesToApprovalItem(approvalItem, bucketID, draftItemID);
+		approvalItem = this.addFinalConfigurationToApprovalItem(approvalItem);
+		return approvalItem;
+	},
+	addAllDraftVariablesToApprovalItem : function(approvalItem, bucketID, draftItemID) {
+		_.map(this.getDraftVariableMap(), function(variable, variableID){
+			var draftValue = contentBucketHandler.getValueForDraftVariable(variableID, draftItemID, bucketID);
+			approvalItem = contentBucketHandler.addDraftVariableToApprovalItem(approvalItem, draftValue, variableID, draftItemID, bucketID);
+		});
+		return approvalItem;
+	},
 	afterConvertingDraftItems : function() {
 		calendarBuilder.onModeChangeClick();
 		Meteor.defer(function(){
 			warningMessageHandler.showMessage("Draft items converted successfully", "success");
 		});
 	},
-	convertAllDraftItemsToApprovalItems : function() {
-		Session.set('error_on_convert', false);
-		var contentBucketsByID = Session.get('content_buckets_by_id');
+	getBucketsToConvert : function(contentBucketsByID) {
+		var bucketsToConvert = {};
 		_.map(contentBucketsByID, function(bucket, bucketID){
-			var bucketIsRequired = _.has(bucket, 'required') ? bucket['required'] : false;
 			var draftItemID = contentBucketHandler.getDraftItemIDForContentBucket(bucketID);
-			var approvalItem = contentBucketHandler.convertDraftItemIntoApprovalItem(draftItemID, bucketID, bucketIsRequired);
-			if(approvalItem && !Session.get('error_on_convert')) {
-				Meteor.call('insertApprovalItem', approvalItem);
-			} else {
-				Session.set('error_on_convert', true);
+			var bucketHasErrors = contentBucketHandler.bucketHasErrors(draftItemID, bucketID);
+			if(!bucketHasErrors) {
+				bucketsToConvert[bucketID] = bucket;
 			}
 		});
-		if(!Session.get('error_on_convert')) {
-			this.afterConvertingDraftItems();
-		} else {
-			warningMessageHandler.showMessage("Conversion Failed : Please fill in any highlighted missing options", "error");
-		}
+		return bucketsToConvert;
 	},
-	convertDraftItemIntoApprovalItem : function(draftItemID, bucketID, bucketIsRequired) {
-		var hasError = false;
-		var approvalItem = {};
-		_.map(this.getDraftVariableMap(), function(variable, variableID){
-			var draftValue = contentBucketHandler.getValueForDraftVariable(variableID, draftItemID, bucketID);
-			if(contentBucketHandler.variableIsRequired(variable)) {
-				hasError = draftValue == null || draftValue == '';
-			}
-			if(!hasError) {
-				approvalItem = contentBucketHandler.addDraftVariableToApprovalItem(approvalItem, draftValue, variableID, draftItemID, bucketID);
-			}
+	contentBucketsHaveErrors : function(contentBucketsByID) {
+		var bucketsWithErrors = _.filter(contentBucketsByID, function(bucket, bucketID){
+			var draftItemID = contentBucketHandler.getDraftItemIDForContentBucket(bucketID);
+			var bucketIsRequired = _.has(bucket, 'required') ? bucket['required'] : false;
+			return bucketIsRequired ? contentBucketHandler.bucketHasErrors(draftItemID, bucketID) : false;
 		});
-		
-		if(hasError) {
-			return false;
+		return bucketsWithErrors.length > 0;
+	},
+	bucketHasErrors : function(draftItemID, bucketID) {
+		var draftVariablesWithErrors = _.filter(this.getDraftVariableMap(), function(variable, variableID){
+			return contentBucketHandler.draftVariableHasError(variable, variableID, draftItemID, bucketID);
+		});
+		return draftVariablesWithErrors.length > 0;
+	},
+	draftVariableHasError : function(variable, variableID, draftItemID, bucketID) {
+		var draftValue = contentBucketHandler.getValueForDraftVariable(variableID, draftItemID, bucketID);
+		if(contentBucketHandler.variableIsRequired(variable)) {
+			return hasError = draftValue == null || draftValue == '';
 		} else {
-			approvalItem = this.addFinalConfigurationToApprovalItem(approvalItem);
-			return approvalItem;
+			return false;
 		}
 	},
 	addDraftVariableToApprovalItem : function(approvalItem, draftValue, variableID, draftItemID, bucketID) {
