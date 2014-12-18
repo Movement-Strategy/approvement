@@ -333,7 +333,7 @@ contentBucketHandler = {
 		approvalItem['created_by'] = Meteor.userId();
 		return approvalItem;
 	},
-	setDraftVariableToUpdate : function(newValue, variableID, bucketID) {
+	setDraftVariableToUpdate : function(newValue, variableID, bucketID, isDelayed) {
 		var variablesToUpdate = Session.get('draft_variables_to_update');
 		if(!_.has(variablesToUpdate, bucketID)) {
 			variablesToUpdate[bucketID] = {};
@@ -344,7 +344,24 @@ contentBucketHandler = {
 		
 		variablesToUpdate[bucketID]['draft_variables'][variableID] = newValue;
 		Session.set('draft_variables_to_update', variablesToUpdate);
-		this.updateContentBuckets();
+		if(isDelayed) {
+			this.delayBucketUpdate();
+		} else {
+			this.updateContentBuckets();
+		}
+	},
+	timeoutHandler : null,
+	delayBucketUpdate : function() {
+		if(this.timeoutHandler != null) {
+			Meteor.clearTimeout(this.timeoutHandler);
+		}
+		
+		this.timeoutHandler = Meteor.setTimeout(function(){
+			if(!Session.get('draft_item_updating')) {
+				contentBucketHandler.updateContentBuckets();
+				this.timeoutHandler = null;
+			}
+		}, 500);
 	},
 	updateContentBuckets : function() {
 		var variablesToUpdate = Session.get('draft_variables_to_update');
@@ -366,7 +383,8 @@ contentBucketHandler = {
 	},
 	onTextAreaKeyup : function(event) {
 		var context = UI.getData(event.target);
-		this.setDraftVariableToUpdate(event.target.value, context['variable_id'], context['content_bucket_id']);
+		var isDelayed = true;
+		contentBucketHandler.setDraftVariableToUpdate(event.target.value, context['variable_id'], context['content_bucket_id'], isDelayed);
 	},
 	configureDraftVariable : function(variableDetails, variableName, draftVariables) {
 		if(_.has(draftVariables, variableName)) {
