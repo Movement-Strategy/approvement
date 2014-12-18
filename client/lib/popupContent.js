@@ -18,6 +18,11 @@ popupContent = {
 			this.setShownPopupID(event);	
 		}
 	},
+	handlePopup : function(selector, params) {
+		Meteor.defer(function(){
+			$(selector).popup(params);
+		});
+	},	
 	disablePopups : function() {
 		Session.set('popups_disabled', true);
 		Session.set('shown_popup_id', null);

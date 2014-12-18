@@ -2,6 +2,10 @@ Template['assetCell'].helpers({
 	being_edited : function() {
 		return this.content_bucket_id == Session.get('edited_draft_link');	
 	},
+	popup_content : function() {
+		popupContent.handlePopup('.edit-draft-link', {});
+		return this.value == null ? 'Add Link' : this.value;
+	},
 	error_class : function() {
 		return draftItemHandler.itemHasError(this) ? 'error' : '';
 	},
@@ -19,6 +23,7 @@ Template['assetCell'].helpers({
 
 Template['assetCell'].events({
 	'click .edit-draft-link' : function(event) {
+		popupContent.handlePopup('.edit-draft-link', 'hide');
 		Session.set('edited_draft_link', event.target.id);
 	},
 });
