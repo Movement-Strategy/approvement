@@ -192,9 +192,7 @@ contentBucketHandler = {
 	handleContentBuckets : function() {
 		Tracker.autorun(function(){
 			if(Session.get('draft_board_is_shown')) {
-				var query = contentBucketHandler.getContentBucketQuery();
-				var contentBuckets = ContentBucket.find(query).fetch();
-				contentBucketHandler.initializeContentBuckets(contentBuckets);
+				contentBucketHandler.initializeContentBuckets();
 			}
 		});
 	},
@@ -249,7 +247,9 @@ contentBucketHandler = {
 		});
 		return allVariablesFilledIn;
 	},
-	initializeContentBuckets : function(contentBuckets) {
+	initializeContentBuckets : function() {
+		var query = contentBucketHandler.getContentBucketQuery();
+		var contentBuckets = ContentBucket.find(query).fetch();
 		var contentBucketsByID = {};
 		_.map(contentBuckets, function(bucket){
 			contentBucketsByID[bucket['_id']] = bucket;

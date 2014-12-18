@@ -45,6 +45,7 @@ draftItemHandler = {
 			draftItemsByBucketID[item['content_bucket_id']] = item;
 		});
 		Session.set('draft_items_by_bucket_id', draftItemsByBucketID);
+		contentBucketHandler.initializeContentBuckets();
 	},
 	updateDraftItemForContentBucket : function(bucket, bucketID) {
 		var draftItemID = contentBucketHandler.getDraftItemIDForContentBucket(bucketID);
