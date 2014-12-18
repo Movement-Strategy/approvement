@@ -1,6 +1,9 @@
 <template name="actionCell">
     <td class='center-cell'>
-	    <i class="draft-action edit icon link square" data-content="Edit Bucket"></i><i class="draft-action apply-action level up icon link square" data-content="Apply Selected Options To All Buckets"></i>
+	    <i class="draft-action edit icon link square" data-content="Edit Bucket"></i>
+	    {{#if bucket_repeats}}
+		    <i class="draft-action apply-action level up icon link square" data-content="Apply Selected Options To All Buckets"></i>
+		{{/if}}
     </td>
 </template>
 

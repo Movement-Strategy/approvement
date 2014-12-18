@@ -487,6 +487,7 @@ contentBucketHandler = {
 			draftVariable['draft_item_id'] = row.draft_item_id;
 			draftVariable['content_bucket_id'] = contentBucketID;
 			draftVariable['bucket_is_required'] = _.has(row, 'required') ? row['required'] : false;
+			draftVariable['bucket_repeats'] = _.has(row, 'repeats') ? row['repeats'] : false;
 			draftVariable['variable_id'] = variableName;
 			return draftVariable;
 		});	
