@@ -220,6 +220,8 @@ contentBucketHandler = {
 		return Session.get('content_buckets_by_id')[bucketID];	
 	},
 	getContentBucketQuery : function() {
+		var draftItemsByBucketID = Session.get('draft_items_by_bucket_id');
+		var bucketIDs = _.keys(draftItemsByBucketID);
 		var baseQuery = {
 			week : timeHandler.timestampToDateString(timeHandler.getTimestampForCurrentDate()),
 			client_id : Session.get('selected_client_id'),
@@ -231,6 +233,12 @@ contentBucketHandler = {
 					client_id : Session.get('selected_client_id'),
 					repeats : true,
 				},
+				{
+					_id : {
+						'$in' : bucketIDs,
+					},
+				},
+				
 			],
 		};
 	},
