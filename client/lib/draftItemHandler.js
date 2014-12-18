@@ -32,7 +32,7 @@ draftItemHandler = {
 	},
 	itemHasError : function(context) {
 		var hasError = false;
-		if(contentBucketHandler.variableIsRequired(context) && Session.get('error_on_convert')) {
+		if(contentBucketHandler.variableIsRequired(context) && Session.get('error_on_convert') && context.bucket_is_required) {
 			hasError = context.value == null || context.value == '';
 		}
 		return hasError;
