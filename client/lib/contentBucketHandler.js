@@ -196,10 +196,8 @@ contentBucketHandler = {
 			}
 		});
 	},
-	onClickApplyChanges : function(event) {
-		var context = UI.getData(event.target);
-		var bucketID = context['content_bucket_id'];
-		this.applyChangesToContentBucket(bucketID);
+	onClickApplyChanges : function() {
+		this.applyChangesToContentBucket(Session.get('bucket_id_to_apply'));
 	},
 	applyChangesToContentBucket : function(bucketID) {
 		var draftItemID = contentBucketHandler.getDraftItemIDForContentBucket(bucketID);

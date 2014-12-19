@@ -8,7 +8,10 @@ Template['actionCell'].events({
 		contentBucketModalHandler.showModal(context, false);	
 	},
 	'click .apply-action' : function(event){
-		contentBucketHandler.onClickApplyChanges(event);
+		var context = UI.getData(event.target);
+		var bucketID = context['content_bucket_id'];
+		Session.set('bucket_id_to_apply', bucketID);
+		promptModalHandler.show('apply_changes');
 	} 
 });
 

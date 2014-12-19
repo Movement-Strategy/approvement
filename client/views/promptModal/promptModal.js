@@ -19,6 +19,12 @@ Template['promptModal'].events({
 	},
 	'click .button.exit' : function() {
 		promptModalHandler.handleExit();
-	}
+	},
+	'click .button.cancel' : function() {
+		promptModalHandler.hide();
+	},
+	'click .button.confirm' : function() {
+		promptModalHandler.handleConfirm();
+	},
 });
 

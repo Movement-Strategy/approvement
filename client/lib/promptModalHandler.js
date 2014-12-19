@@ -80,12 +80,30 @@ promptModalHandler = {
 				'exit',
 			],
 		},
+		apply_changes : {
+			on_confirm : function() {
+				contentBucketHandler.onClickApplyChanges();
+			},
+			message : "Are you sure you want to apply changes to all buckets?",
+			buttons : [
+				'cancel',
+				'confirm',
+			],
+		},
 		
 	},
 	promptButtonMap : {
 		'delete' : {
 			color : 'red',
 			display : 'delete',
+		},
+		'cancel' : {
+			color : 'blue',
+			display : 'cancel',
+		},
+		'confirm' : {
+			color : 'green',
+			display : 'confirm',
 		},
 		'undo' : {
 			color : 'green',
@@ -98,6 +116,11 @@ promptModalHandler = {
 	},
 	handleExit : function() {
 		this.promptMap[Session.get('current_prompt_type')]['on_exit']();
+	},
+	handleConfirm : function() {
+		this.promptMap[Session.get('current_prompt_type')]['on_confirm']();
+		Session.set('bucket_id_to_apply', null);
+		promptModalHandler.hide();
 	},
 	deleteComment : function() {
 		Meteor.call('removeComment', Session.get('comment_id_to_delete'));
