@@ -1,4 +1,7 @@
 Template['editContentBucketModal'].helpers({
+	mode_name : function() {
+		return Session.get('creating_new_bucket') ? 'Create' : 'Edit';
+	},
 	description_has_error : function() {
 		var bucketChangeErrors = Session.get('bucket_change_errors');
 		return _.has(bucketChangeErrors, 'description');
