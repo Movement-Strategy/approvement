@@ -48,6 +48,7 @@ actionMap = {
 		external : [
 			'delete',
 			'update',
+			'unapprove',
 		],
 	},
 };
@@ -76,6 +77,10 @@ buttonMap = {
 	approve : {
 		color : 'green',
 		display : 'Approve',
+	},
+	unapprove : {
+		color : 'red',
+		display : 'Unapprove',
 	},
 	update_creative : {
 		color : 'blue',

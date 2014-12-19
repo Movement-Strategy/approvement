@@ -63,6 +63,13 @@ stateMap = {
 			contents : 'set',
 		},
 	},
+	unapproved : {
+		creative_director : {
+			status : 'submitted',
+			scope : 'internal',
+			contents : 'set',
+		},
+	},	
 	finalized : {
 		social_media_manager : {
 			status : 'submitted',
