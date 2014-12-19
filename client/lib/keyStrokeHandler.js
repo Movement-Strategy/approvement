@@ -24,12 +24,17 @@ keyStrokeHandler = {
 		}
 		
 		var preventWeekChange = Session.get('draft_board_is_shown') && Session.get('entering_draft_item_text');
+		
 		// If details is not open change to last week on left press
 		if(!Session.get('details_shown') && event.which == 37 && !preventWeekChange) {
 			popupContent.handlePopup('.edit-draft-link', 'hide');
 			event.preventDefault();
 			detailsHandler.closeShownPopup();
 			timeHandler.changeToLastWeek();
+		}
+		
+		if(Session.get('entering_draft_item_text') && event.which == 27) {
+			$('.content-input').blur();
 		}
 		
 		// If details is not open change to next week on right press
@@ -42,7 +47,6 @@ keyStrokeHandler = {
 		
 		// Submit delete on enter if the prompt modal is open
 		if(Session.get('current_prompt_type') != null && event.which == 13) {
-
 			promptModalHandler.handleDelete();
 		}
 		
