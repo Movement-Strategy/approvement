@@ -9,8 +9,8 @@ statusColorMap = {
 };
 
 Template['calendarDay'].helpers({
-	is_external : function() {
-		return this.day_type == 'external';	
+	show_date : function() {
+		return clientHandler.selectedClientIsInHouse() ? this.day_type == 'internal' : this.day_type == 'external';
 	},
 	is_internal : function() {
 		return this.day_type == 'internal';
