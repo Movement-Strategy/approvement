@@ -153,11 +153,15 @@ contentBucketHandler = {
 				display : "Link",
 				cell_template : 'assetCell',
 				add_to_approval_item : function(item, draftValue, draftItemID, bucketID) {
-					var draftValueMissing = draftValue == 'null' || draftValue == '';
+					var draftValueMissing = draftValue == null || draftValue == '';
 					if(!_.has(item, 'contents')) {
 						item['contents'] = {};
 					}
-					item['contents']['facebook_link'] = draftValue;
+					
+					if(!draftValueMissing) {
+						item['contents']['facebook_link'] = draftValue;
+					}
+					
 					return item;
 				},
 				width : 'one',
@@ -378,7 +382,6 @@ contentBucketHandler = {
 		var foundOption = _.find(options, function(option){
 			return option['value'] == value;
 		});
-		
 		return foundOption ? foundOption['display'] : "";
 	},
 	addFinalConfigurationToApprovalItem : function(approvalItem) {
