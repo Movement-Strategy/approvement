@@ -276,7 +276,7 @@ contentBucketHandler = {
 		var bucketsToConvert = this.getBucketsToConvert(contentBucketsByID);
 		if(_.size(bucketsToConvert) > 0) {
 			this.convertCompletedBucketsToApprovalItems(bucketsToConvert);
-			this.afterConvertingDraftItems();
+			this.afterConvertingDraftItems(bucketsToConvert);
 		} else {
 			warningMessageHandler.showMessage("No buckets to convert", "info");
 		}
@@ -305,18 +305,41 @@ contentBucketHandler = {
 		});
 		return approvalItem;
 	},
-	afterConvertingDraftItems : function() {
+	afterConvertingDraftItems : function(bucketsToConvert) {
+		this.setDraftItemsAsConverted(bucketsToConvert);
 		calendarBuilder.onModeChangeClick();
 		Meteor.defer(function(){
 			warningMessageHandler.showMessage("Draft items converted successfully", "success");
 		});
+	},
+	bucketHasBeenConverted : function(bucketID) {
+		var converted = false;
+		var draftItemsByBucketID = Session.get('draft_items_by_bucket_id');
+		var draftItem = _.has(draftItemsByBucketID, bucketID) ? draftItemsByBucketID[bucketID] : null;
+		if(draftItem) {
+			converted = _.has(draftItem, 'converted') ? draftItem['converted'] : false;
+		}
+		return converted;
+	},
+	setDraftItemsAsConverted : function(bucketsToConvert) {
+		var draftItemIDs = _.map(bucketsToConvert, function(bucket, bucketID){
+			return contentBucketHandler.getDraftItemIDForContentBucket(bucketID);
+		});
+		Meteor.call('setDraftItemsAsConverted', draftItemIDs);
+	},
+	thereAreBucketsToConvert : function() {
+		var contentBucketsByID = Session.get('content_buckets_by_id');
+		var nonConvertedBuckets = _.filter(contentBucketsByID, function(bucket, bucketID) {
+			return !contentBucketHandler.bucketHasBeenConverted(bucketID);
+		});
+		return _.size(nonConvertedBuckets) > 0;	
 	},
 	getBucketsToConvert : function(contentBucketsByID) {
 		var bucketsToConvert = {};
 		_.map(contentBucketsByID, function(bucket, bucketID){
 			var draftItemID = contentBucketHandler.getDraftItemIDForContentBucket(bucketID);
 			var bucketHasErrors = contentBucketHandler.bucketHasErrors(draftItemID, bucketID);
-			if(!bucketHasErrors) {
+			if(!bucketHasErrors && !contentBucketHandler.bucketHasBeenConverted(bucketID)) {
 				bucketsToConvert[bucketID] = bucket;
 			}
 		});
@@ -350,6 +373,13 @@ contentBucketHandler = {
 			approvalItem = variableMap[variableID]['add_to_approval_item'](approvalItem, draftValue, draftItemID, bucketID);
 		}
 		return approvalItem;
+	},
+	getDisplayForValue : function(value, options) {
+		var foundOption = _.find(options, function(option){
+			return option['value'] == value;
+		});
+		
+		return foundOption ? foundOption['display'] : "";
 	},
 	addFinalConfigurationToApprovalItem : function(approvalItem) {
 		approvalItem['scope'] = 'private';
@@ -484,6 +514,7 @@ contentBucketHandler = {
 			draftVariable['value'] = variable;
 			draftVariable['draft_item_id'] = row.draft_item_id;
 			draftVariable['content_bucket_id'] = contentBucketID;
+			draftVariable['converted'] = contentBucketHandler.bucketHasBeenConverted(contentBucketID);
 			draftVariable['bucket_is_required'] = _.has(row, 'required') ? row['required'] : false;
 			draftVariable['bucket_repeats'] = _.has(row, 'repeats') ? row['repeats'] : false;
 			draftVariable['variable_id'] = variableName;

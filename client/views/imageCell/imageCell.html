@@ -1,23 +1,32 @@
 <template name="imageCell">
     <td class='main-image-cell center-cell'>
-  		{{#if is_loading}}
-			<div class="ui active inline loader"></div>
-		{{else}}
-	  		{{#if is_facebook_link}}
-				<p>Image populated from link</p>
-			{{else}}
-		  		{{#dynamicCellImage}}
-					{{#if show_image}}
-						<div class="cell-image-container">
-							<img class="ui image  image-click-target cell-image" src="{{value}}">
-						</div>
-					{{else}}
-						<i class="square plus icon link image-click-target"></i>
-					{{/if}}
-					
-				{{/dynamicCellImage}}
+  		{{#if converted}}
+			{{#if show_image}}
+				<div class="cell-image-container">
+					<img class="ui image cell-image" src="{{value}}">
+				</div>
 			{{/if}}
-			
+  		{{else}}
+	  		{{#if is_loading}}
+				<div class="ui active inline loader"></div>
+			{{else}}
+		  		{{#if is_facebook_link}}
+					<p>Image populated from link</p>
+				{{else}}
+			  		{{#dynamicCellImage}}
+						{{#if show_image}}
+							<div class="cell-image-container">
+								<img class="ui image  image-click-target cell-image" src="{{value}}">
+							</div>
+						{{else}}
+							<i class="square plus icon link image-click-target"></i>
+						{{/if}}
+						
+					{{/dynamicCellImage}}
+				{{/if}}
+				
+			{{/if}}
+		
 		{{/if}}
 			    
 	</td>

@@ -1,4 +1,8 @@
 Template['contentTypeDropdownCell'].helpers({
+	display_value : function() {
+		var types = contentTypeBuilder.getCellDropdownOptions(this);
+		return contentBucketHandler.getDisplayForValue(this.value, types);	
+	},
 	variable_class : function() {
 		return draftItemHandler.getDraftVariableClass(this);
 	},

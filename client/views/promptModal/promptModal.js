@@ -24,7 +24,7 @@ Template['promptModal'].events({
 		promptModalHandler.hide();
 	},
 	'click .button.confirm' : function() {
-		promptModalHandler.handleConfirm();
+		promptModalHandler.handleConfirm ();
 	},
 });
 

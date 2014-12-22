@@ -1,16 +1,21 @@
 <template name="dropdownCell">
 	<td class="{{error_class}} {{variable_class}} center-cell">
-		{{initializeDropdown}}
-		<div class="ui inline dropdown inline-dropdown {{content_bucket_id}} {{style_class}}">
-			<input type="hidden" name="{{default_text}}">
-			<div class="default text">{{default_value}}</div>
-			<i class="dropdown icon"></i>
-			<div class="menu">
-				{{#each dropdown_options}}
-					<div class="item" data-value="{{value}}">{{display}}</div>
-				{{/each}}
+		
+		{{#if converted}}
+			<p>{{display_value}}</p>
+		{{else}}
+			{{initializeDropdown}}
+			<div class="ui inline dropdown inline-dropdown {{content_bucket_id}} {{style_class}}">
+				<input type="hidden" name="{{default_text}}">
+				<div class="default text">{{default_value}}</div>
+				<i class="dropdown icon"></i>
+				<div class="menu">
+					{{#each dropdown_options}}
+						<div class="item" data-value="{{value}}">{{display}}</div>
+					{{/each}}
+				</div>
 			</div>
-		</div>
+		{{/if}}
 	</td>
 </template>
 

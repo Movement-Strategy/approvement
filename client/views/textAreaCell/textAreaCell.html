@@ -1,7 +1,11 @@
 <template name="textAreaCell">
 	<td class="{{error_class}} {{variable_class}} center-cell">
-		<textarea class="content-input" placeholder = "{{placeholder}}">{{value}}</textarea>
-		{{initializeTextArea}}
+		{{#if converted}}
+			<p>{{value}}</p>
+		{{else}}
+			<textarea class="content-input" placeholder = "{{placeholder}}">{{value}}</textarea>
+			{{initializeTextArea}}
+		{{/if}}
 	</td>
 </template>
 

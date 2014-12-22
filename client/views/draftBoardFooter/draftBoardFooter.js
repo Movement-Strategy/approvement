@@ -1,6 +1,6 @@
 Template['draftBoardFooter'].helpers({
 	there_are_buckets : function() {
-		return Session.get('bucket_count') > 0;	
+		return contentBucketHandler.thereAreBucketsToConvert();	
 	},
 });
 

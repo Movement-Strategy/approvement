@@ -1,18 +1,22 @@
 <template name="contentTypeDropdownCell">
 	<td class="{{error_class}} {{variable_class}} center-cell">
-		{{#if network_type_chosen}}
-			<div class="ui inline dropdown {{disabled_class}} content-type-dropdown-cell {{style_class}} {{content_bucket_id}}">
-				<input type="hidden" name="content type">
-				<div class="text">Content Type</div>
-				<i class="dropdown icon"></i>
-				<div class="menu">
-					{{#each dropdown_options}}
-						<div class="item content-type-item" data-value="{{value}}">{{display}}</div>
-					{{/each}}
+		{{#if converted}}
+			<p>{{display_value}}</p>
+		{{else}}
+			{{#if network_type_chosen}}
+				<div class="ui inline dropdown {{disabled_class}} content-type-dropdown-cell {{style_class}} {{content_bucket_id}}">
+					<input type="hidden" name="content type">
+					<div class="text">Content Type</div>
+					<i class="dropdown icon"></i>
+					<div class="menu">
+						{{#each dropdown_options}}
+							<div class="item content-type-item" data-value="{{value}}">{{display}}</div>
+						{{/each}}
+					</div>
+					{{valueTest}}
 				</div>
-				{{valueTest}}
-			</div>
-			{{initializeDropdown}}
+				{{initializeDropdown}}
+			{{/if}}
 		{{/if}}
 	</td>
 </template>

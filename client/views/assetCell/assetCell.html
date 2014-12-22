@@ -1,12 +1,16 @@
 <template name="assetCell">
 	<td class ='center-cell {{error_class}}'>
-		{{#if being_edited}}
-			<textarea id="{{content_bucket_id}}" class="draft-link-input" placeholder = "Test">{{value}}</textarea>
-			{{initializeTextArea}}
-
+		{{#if converted}}
+			{{value}}
 		{{else}}
-			<i id="{{content_bucket_id}}" class="square {{icon_class}} icon link edit-draft-link" data-content="{{popup_content}}"></i>
-			
+			{{#if being_edited}}
+				<textarea id="{{content_bucket_id}}" class="draft-link-input" placeholder = "Test">{{value}}</textarea>
+				{{initializeTextArea}}
+	
+			{{else}}
+				<i id="{{content_bucket_id}}" class="square {{icon_class}} icon link edit-draft-link" data-content="{{popup_content}}"></i>
+				
+			{{/if}}
 		{{/if}}
 	</td>
 			
