@@ -44,6 +44,7 @@ actionMap = {
 			'reject',
 			'approve',
 			'update',
+			'unapprove',
 		],
 		external : [
 			'delete',

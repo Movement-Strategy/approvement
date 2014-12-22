@@ -54,8 +54,15 @@ stateMap = {
 	},
 	approved : {
 		creative_director : {
-			status : 'submitted',
-			scope : 'external',
+			status : {
+				in_house : 'approved',
+				standard : 'submitted',
+			},
+			scope : {
+				in_house : 'internal',
+				standard : 'external',
+			},
+			
 			contents : 'set',
 		},
 		client : {
@@ -83,6 +90,16 @@ stateManager = {
 	changeToState : function(newState) {
 		var stateDetails = stateMap[newState];
 		var userTypeDetails = stateDetails[Session.get('user_type')];
+		userTypeDetails = this.handleInHouseStatus(userTypeDetails);
 		detailsHandler.handleUpdate(userTypeDetails);
+	},
+	handleInHouseStatus : function(userTypeDetails) {
+		_.map(userTypeDetails, function(value, key){
+			if(typeof value === 'object') {
+				var lookUpKey = clientHandler.selectedClientIsInHouse() ? 'in_house' : 'standard';
+				userTypeDetails[key] = value[lookUpKey];
+			}
+		});
+		return userTypeDetails;
 	},
 };
