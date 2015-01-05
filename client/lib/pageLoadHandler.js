@@ -6,6 +6,7 @@ pageLoadHandler = {
 		assetHandler.updateCurrentAssets();
 		gifHandler.handleSuccessGif();
     	draftItemHandler.handleDraftItems();
+    	intervalHandler.isMonthly();
 	},
 	checkIfPageIsReady : function() {
 		Deps.autorun(function(){
