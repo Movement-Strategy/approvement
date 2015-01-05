@@ -12,6 +12,9 @@ Template['calendarDay'].helpers({
 	show_date : function() {
 		return clientHandler.selectedClientIsInHouse() ? this.day_type == 'internal' : this.day_type == 'external';
 	},
+	is_external : function() {
+		return this.day_type == 'external';	
+	},
 	is_internal : function() {
 		return this.day_type == 'internal';
 	},

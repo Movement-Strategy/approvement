@@ -238,6 +238,8 @@ detailsHandler = {
 		Session.set('current_item_id', itemID);
 		Session.set('current_scope', context.scope);
 		Session.set('current_day', context.day);
+		var status = _.has(context, 'status') ? context.status : null;
+		Session.set('current_status', status);
 		Session.set('current_content_type', null);
 		Session.set('current_network_type', null);
 		Session.set('current_scheduled_time', context.day.scheduled_time);
