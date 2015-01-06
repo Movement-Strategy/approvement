@@ -261,6 +261,9 @@ contentBucketHandler = {
 		var query = contentBucketHandler.getContentBucketQuery();
 		var contentBuckets = ContentBucket.find(query).fetch();
 		var contentBucketsByID = {};
+		
+		
+		contentBuckets = intervalHandler.filterContentBucketsBasedOnInterval(contentBuckets);
 		_.map(contentBuckets, function(bucket){
 			contentBucketsByID[bucket['_id']] = bucket;
 		});
