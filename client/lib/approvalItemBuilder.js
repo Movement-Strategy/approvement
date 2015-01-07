@@ -33,6 +33,9 @@ approvalItemBuilder = {
 				if(error == null) {
 					var linkData = facebookHandler.convertResponseIntoLinkData(response);
 					approvalItemBuilder.updateApprovalItemWithLinkData(item, linkData);
+				} else {
+					
+					Meteor.call('handleInvalidLink', item['_id']);
 				}
 			});
 	},
