@@ -54,6 +54,7 @@ contentBucketModalHandler = {
 	},
 	setSessionVariablesOnShow : function(context, creatingNew) {
 		Session.set('creating_new_bucket', creatingNew);
+		Session.set('bucket_repeat_interval', null);
 		if(!creatingNew) {
 			var bucket = contentBucketHandler.getBucketByID(context['content_bucket_id']);
 			Meteor.defer(function(){
@@ -103,14 +104,22 @@ contentBucketModalHandler = {
 		var description = $('.description-input').val();
 		var repeats = Session.get('bucket_is_repeating');
 		var required = Session.get('bucket_is_required');
+		var repeatInterval = Session.get('bucket_repeat_interval') == null ? 'weekly' : Session.get('bucket_repeat_interval');
 		if(description == '' || description == null) {
 			bucketChangeErrors['description'] = true;
 		}
 		Session.set('bucket_change_errors', bucketChangeErrors);
-		return {
+		
+		var bucket = {
 			description : description,
 			repeats : repeats,
 			required : required,
 		};
+		
+		if(repeats) {
+			bucket['repeat_interval'] = repeatInterval;
+		}
+		
+		return bucket;
 	}
 };

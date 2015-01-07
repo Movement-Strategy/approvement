@@ -10,12 +10,20 @@ Template['editContentBucketModal'].helpers({
 		var bucket = Session.get('current_content_bucket');
 		return _.has(bucket, 'description') ? bucket['description'] : '';
 	},
+	is_repeating : function() {
+		return Session.get('bucket_is_repeating');
+	},
 	creating_new : function() {
 		return Session.get('creating_new_bucket');
 	},
 	initializeToggles : function() {
 		contentBucketModalHandler.initializeRepeatsToggle();
 		contentBucketModalHandler.initializeRequiredToggle();
+	},
+	initializeDropdowns : function() {
+		Meteor.defer(function(){
+			intervalHandler.initializeDropdowns();
+		});
 	},
 });
 

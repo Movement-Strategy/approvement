@@ -14,15 +14,35 @@
 				<div class="repeats-toggle ui toggle checkbox">
 					<input type="checkbox" name="repeats" id="repeats">
 					<label>Should Repeat</label>
+					
 				</div>
 			</div>
 			<div class="inline field">
 				<div class="required-toggle ui toggle checkbox">
 					<input type="checkbox" name="required" id="required">
 					<label>Required</label>
+					
 				</div>
-			</div>		
-  		</div>
+			</div>
+			{{#if is_repeating}}
+				<div class="inline field">
+					<div class="ui selection dropdown interval-dropdown">
+						<input type="hidden" name="interval">
+						<div class="default text">Repeats</div>
+						<i class="dropdown icon"></i>
+						<div class="menu">
+							<div class="item" data-value="weekly">Weekly</div>
+							<div class="item" data-value="bi_weekly">Bi-Weekly</div>
+							<div class="item" data-value="monthly">Monthly</div>
+						</div>
+					</div>
+					<label class='interval-label'>Repeat Interval</label>
+					{{initializeDropdowns}}
+					  		
+				</div>
+			{{/if}}
+			</div>
+		
   		{{initializeToggles}}
     </div>
     <div class="bucket-actions actions">

@@ -1,4 +1,4 @@
-intervalHandler = {
+	intervalHandler = {
 	
 	intervalMap : {
 		monthly : {
@@ -17,6 +17,16 @@ intervalHandler = {
 			}
 		},
 		
+	},
+	onDropdownChange : function(value, text, element) {
+		Session.set('bucket_repeat_interval', value);
+	},
+	initializeDropdowns : function() {
+		var bucket = Session.get('current_content_bucket');
+		var repeatInterval = _.has(bucket, 'repeat_interval') ? bucket['repeat_interval'] : 'weekly';
+		$('.interval-dropdown').dropdown('set selected', repeatInterval).dropdown('setting', {onChange : function(value, text){
+			intervalHandler.onDropdownChange(value, text, this);
+		}});
 	},
 	getAdjustedWeekOfMonth: function(week) {
 		var dateObject = timeHandler.dateStringToObject(week);
@@ -42,9 +52,25 @@ intervalHandler = {
 			return intervalHandler.bucketMatchesCurrentInterval(bucket);
 		});
 	},
+	bucketWasCreatedAfterCurrentWeek : function(bucket) {
+		if(bucket.week == timeHandler.getWeekForSelectedTime()) {
+			// include this week
+			return true;
+		} else {
+			var bucketCreatedObject = timeHandler.dateStringToObject(bucket.week);
+			var currentWeekObject = timeHandler.getCurrentDateObject();
+			return currentWeekObject.isAfter(bucketCreatedObject); 
+		}
+	},
 	bucketMatchesCurrentInterval : function(bucket) {
-		var interval = 'monthly';
 		var startWeekForBucket = bucket.week;
-		return intervalHandler.intervalMap[interval]['matches'](startWeekForBucket);
+		var matches = false;
+		
+		if(_.has(bucket, 'repeat_interval') && this.bucketWasCreatedAfterCurrentWeek(bucket)) {
+			var interval = bucket['repeat_interval'];
+			var startWeekForBucket = bucket.week;
+			matches = intervalHandler.intervalMap[interval]['matches'](startWeekForBucket);
+		}
+		return matches;
 	},
 };
