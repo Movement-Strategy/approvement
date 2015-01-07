@@ -9,8 +9,10 @@ contentBucketHandler = {
 					return Session.get('content_buckets_by_id')[bucketID]['description'];
 				},
 				width : 'two',
+				allow_apply : false,
 			},
 			day_of_week : {
+				allow_apply : true,
 				required : true,
 				display : "Day of week",
 				cell_template : "dropdownCell",
@@ -56,6 +58,7 @@ contentBucketHandler = {
 				width : 'one',
 			},
 			network : {
+				allow_apply : true,
 				required : true,
 				display : "Network",
 				cell_template : "dropdownCell",
@@ -91,6 +94,7 @@ contentBucketHandler = {
 				width : 'one',
 			},
 			content_type : {
+				allow_apply : true,
 				required : true,
 				display : "Content Type",
 				cell_template : "contentTypeDropdownCell",
@@ -105,12 +109,14 @@ contentBucketHandler = {
 				width : 'one',
 			},
 			actions : {
+				allow_apply : false,
 				required : false,
 				display : "Actions",
 				cell_template : "actionCell",
 				width : 'one',
 			},
 			content : {
+				allow_apply : false,
 				required : true,
 				display : "Content",
 				cell_template : 'textAreaCell',
@@ -130,6 +136,7 @@ contentBucketHandler = {
 				width : 'three',
 			},
 			image : {
+				allow_apply : false,
 				required : false,
 				display : "Image",
 				cell_template : 'imageCell',
@@ -145,6 +152,7 @@ contentBucketHandler = {
 				}
 			},			
 			link : {
+				allow_apply : false,
 				required : {
 					facebook : [
 						'link',
@@ -207,9 +215,12 @@ contentBucketHandler = {
 		var draftItemID = contentBucketHandler.getDraftItemIDForContentBucket(bucketID);
 		var updatedValues = {};
 		_.map(this.getDraftVariableMap(), function(variable, variableID){
-			var updatedValue = contentBucketHandler.getValueForDraftVariable(variableID, draftItemID, bucketID);
-			if(updatedValue != null) {
-				updatedValues[variableID] = updatedValue;
+			// If the variable is applied to other content buckets
+			if(variable['allow_apply']) {
+				var updatedValue = contentBucketHandler.getValueForDraftVariable(variableID, draftItemID, bucketID);
+				if(updatedValue != null) {
+					updatedValues[variableID] = updatedValue;
+				}
 			}
 		});
 		var updateQuery = draftItemHandler.convertIndexedArrayIntoUpdateQuery(updatedValues);
