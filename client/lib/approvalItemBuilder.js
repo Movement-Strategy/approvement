@@ -29,6 +29,7 @@ approvalItemBuilder = {
 	},
 	fillInMissingDataForFacebookLink : function(item) {
 			var linkURL = item['contents']['facebook_link'];
+			linkURL = facebookHandler.addHTTPToUrl(linkURL);
 			Meteor.call('getLinkResponse', linkURL, function(error, response){
 				if(error == null) {
 					var linkData = facebookHandler.convertResponseIntoLinkData(response);
