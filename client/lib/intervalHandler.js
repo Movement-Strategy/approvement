@@ -63,8 +63,13 @@
 		}
 	},
 	bucketMatchesCurrentInterval : function(bucket) {
+		
 		var startWeekForBucket = bucket.week;
 		var matches = false;
+		
+		if(!bucket.repeats) {
+			matches = true;
+		}
 		
 		if(_.has(bucket, 'repeat_interval') && this.bucketWasCreatedAfterCurrentWeek(bucket)) {
 			var interval = bucket['repeat_interval'];
