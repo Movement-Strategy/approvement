@@ -93,9 +93,13 @@ assetHandler = {
 		
 		return assets;
 	},
+	generateAssetID : function() {
+		var newID = 'asset_' + new Date().getTime();
+		return newID;
+	},
 	createOrUpdateAsset : function(url){
 		var assetID = Session.get('current_asset_id');
-		var newID = 'asset_' + new Date().getTime();
+		var newID = assetHandler.generateAssetID();
 		assetID = assetID == null ? newID : assetID;
 		var newAsset = {
 			_id : assetID,

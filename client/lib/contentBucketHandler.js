@@ -307,8 +307,42 @@ contentBucketHandler = {
 		_.map(bucketsToConvert, function(bucket, bucketID){
 			var draftItemID = contentBucketHandler.getDraftItemIDForContentBucket(bucketID);
 			var approvalItem = contentBucketHandler.convertBucketIntoApprovalItem(bucketID, draftItemID);
-			Meteor.call('insertApprovalItem', approvalItem);
+			Meteor.call('insertApprovalItem', approvalItem, function(error, approvalItemID){
+				contentBucketHandler.insertAssetIfNeeded(approvalItemID, draftItemID, bucket);
+			});
 		});
+	},
+	insertAssetIfNeeded : function(approvalItemID, draftItemID, bucket) {
+		var assetLink = contentBucketHandler.getAssetLinkForBucket(bucket, draftItemID);
+		if(assetLink) {
+			var asset = contentBucketHandler.buildNewLinkAssetForApprovalItem(approvalItemID, assetLink);
+			Meteor.call('createOrUpdateAsset', asset);
+		}
+	},
+	buildNewLinkAssetForApprovalItem : function(approvalItemID, assetLink) {
+		return {
+			_id : assetHandler.generateAssetID(),
+			approval_item_id : approvalItemID,
+			client_id : Session.get('selected_client_id'),
+			type : 'link',
+			url : assetLink,
+		};
+	},
+	getAssetLinkForBucket : function(bucket, draftItemID) {
+		var link = contentBucketHandler.getValueForDraftVariable('link', draftItemID, bucket['_id']);
+		var contentType = contentBucketHandler.getValueForDraftVariable('content_type', draftItemID, bucket['_id']);
+		var network = contentBucketHandler.getValueForDraftVariable('network', draftItemID, bucket['_id']);
+		
+		if(network == 'facebook' && contentType == 'link') {
+			
+			// if it's a facebook link, set it as null, because they don't asset links
+			link = null;
+		}
+		
+		return link;
+	},
+	getBucketLink : function(bucket) {
+		return _.has(bucket['draft_variables'], 'link') ? bucket['draft_variables']['link'] : null;
 	},
 	convertBucketIntoApprovalItem : function(bucketID, draftItemID) {
 		var approvalItem = {};
