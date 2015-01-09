@@ -8,5 +8,12 @@ draftLinkHandler = {
 	handleEscape : function() {
 		Session.set('edited_draft_link', null);
 	},
+	onAddLink : function(event) {
+		popupContent.handlePopup('.edit-draft-link', 'hide');
+		Session.set('edited_draft_link', event.target.id);
+		Meteor.flush();
+		var element = document.getElementById(event.target.id);
+		$(element).focus();
+	}
 	
 };

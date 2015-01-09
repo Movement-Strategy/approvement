@@ -23,8 +23,8 @@ Template['assetCell'].helpers({
 
 Template['assetCell'].events({
 	'click .edit-draft-link' : function(event) {
-		popupContent.handlePopup('.edit-draft-link', 'hide');
-		Session.set('edited_draft_link', event.target.id);
+		popupContent.handlePopup('.edit-draft-link', 'hide all');
+		draftLinkHandler.onAddLink(event);
 	},
 	'blur .draft-link-input' : function() {
 		draftLinkHandler.handleEnter();
