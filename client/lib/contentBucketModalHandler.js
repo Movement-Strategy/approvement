@@ -11,10 +11,8 @@ contentBucketModalHandler = {
 		this.isShown = true;
 		this.setSessionVariablesOnShow(context, creatingNew);
 		this.handleModal('show');
-/*
 		contentBucketModalHandler.initializeRepeatsToggle();
 		contentBucketModalHandler.initializeRequiredToggle();
-*/
 	},
 	hideModal : function() {
 		this.isShown = false;
