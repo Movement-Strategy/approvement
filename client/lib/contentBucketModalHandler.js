@@ -11,6 +11,10 @@ contentBucketModalHandler = {
 		this.isShown = true;
 		this.setSessionVariablesOnShow(context, creatingNew);
 		this.handleModal('show');
+/*
+		contentBucketModalHandler.initializeRepeatsToggle();
+		contentBucketModalHandler.initializeRequiredToggle();
+*/
 	},
 	hideModal : function() {
 		this.isShown = false;
@@ -18,7 +22,6 @@ contentBucketModalHandler = {
 	},
 	initializeRepeatsToggle : function() {
 		var bucket = Session.get('current_content_bucket');
-		
 		if(bucket) {
 			var isRepeating = bucket['repeats'];
 			var onStart = isRepeating ? 'enable' : 'disable';
@@ -36,7 +39,6 @@ contentBucketModalHandler = {
 	},
 	initializeRequiredToggle : function() {
 		var bucket = Session.get('current_content_bucket');
-		
 		if(bucket) {
 			var isRequired = _.has(bucket, 'required') ? bucket['required'] : false;
 			var onStart = isRequired ? 'enable' : 'disable';

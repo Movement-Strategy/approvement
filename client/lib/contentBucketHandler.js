@@ -523,7 +523,6 @@ contentBucketHandler = {
 			bucket['draft_item_id'] = draftItemID;
 			return bucket;
 		});
-		
 		Session.set('bucket_count', contentBuckets.length);
 		return contentBuckets;
 	},
