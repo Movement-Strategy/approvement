@@ -26,5 +26,8 @@ Template['assetCell'].events({
 		popupContent.handlePopup('.edit-draft-link', 'hide');
 		Session.set('edited_draft_link', event.target.id);
 	},
+	'blur .draft-link-input' : function() {
+		draftLinkHandler.handleEnter();
+	},
 });
 
