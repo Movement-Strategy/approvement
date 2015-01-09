@@ -177,20 +177,21 @@ contentBucketHandler = {
 		};	
 	},
 	variableIsRequired : function(variable) {
+	
 		var required = false;
 		var requiredStatus = variable.required;
 		if(typeof requiredStatus === 'object') {
 			required = this.variableIsRequiredForNetworkAndType(requiredStatus, variable.draft_item_id, variable.content_bucket_id);
 		} else {
 			required = requiredStatus;
-		}
-		
+		}		
 		return required;
 	},
 	variableIsRequiredForNetworkAndType : function(requiredStatus, draftItemID, bucketID) {
 		var required = false;
 		var networkType = this.getValueForDraftVariable('network', draftItemID, bucketID);
 		var contentType = this.getValueForDraftVariable('content_type', draftItemID, bucketID);
+		
 		if(_.has(requiredStatus, networkType)) {
 			var requiredForNetwork = requiredStatus[networkType];
 			
@@ -215,6 +216,7 @@ contentBucketHandler = {
 		var draftItemID = contentBucketHandler.getDraftItemIDForContentBucket(bucketID);
 		var updatedValues = {};
 		_.map(this.getDraftVariableMap(), function(variable, variableID){
+			
 			// If the variable is applied to other content buckets
 			if(variable['allow_apply']) {
 				var updatedValue = contentBucketHandler.getValueForDraftVariable(variableID, draftItemID, bucketID);
@@ -412,6 +414,9 @@ contentBucketHandler = {
 		return draftVariablesWithErrors.length > 0;
 	},
 	draftVariableHasError : function(variable, variableID, draftItemID, bucketID) {
+		variable['content_bucket_id'] = bucketID;
+		variable['draft_item_id'] = draftItemID;
+		variable['variable_id'] = variableID;
 		var draftValue = contentBucketHandler.getValueForDraftVariable(variableID, draftItemID, bucketID);
 		if(contentBucketHandler.variableIsRequired(variable)) {
 			return hasError = draftValue == null || draftValue == '';
