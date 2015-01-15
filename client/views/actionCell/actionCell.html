@@ -2,10 +2,13 @@
     <td class='center-cell'>
 	    {{#if converted}}
 		{{else}}
-		    <i class="draft-action edit-action edit icon link square" data-content="Edit Bucket"></i>
-		    {{#if bucket_repeats}}
-			    <i class="draft-action apply-action level up icon link square" data-content="Apply Selected Options To All Buckets"></i>
-			{{/if}}
+			<div class="action-cell-container">
+				<i class="draft-action edit-action edit icon link square" data-content="Edit Bucket"></i>
+				{{#if bucket_repeats}}
+					<i class="draft-action apply-action level up icon link square" data-content="Apply Selected Options To All Buckets"></i>
+				
+				{{/if}}
+			</div>
 		{{/if}}
     </td>
 </template>
