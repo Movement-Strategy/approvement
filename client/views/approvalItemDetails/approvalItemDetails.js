@@ -55,6 +55,9 @@ Template['approvalItemDetails'].events({
 	'click .submit.button' : function() {
 		stateManager.changeToState('updated');
 	},
+	'click .unapprove.button' : function() {
+		stateManager.changeToState('unapproved');
+	},	
 	'click .reject.button' : function() {
 		stateManager.changeToState('rejected');
 	},

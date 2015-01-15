@@ -1,4 +1,7 @@
 Template['contentCalendar'].helpers({
+	is_in_house : function() {
+		return clientHandler.selectedClientIsInHouse();
+	},
 	calendar_days : function() {
 		// maps a status to the color that's going to be displayed
 		return calendarBuilder.getCalendarDays();

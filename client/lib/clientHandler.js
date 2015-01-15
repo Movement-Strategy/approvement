@@ -75,6 +75,10 @@ clientHandler = {
 		});
 		return clients;
 	},
+	selectedClientIsInHouse : function() {
+		var selectedClient = Session.get('selected_client');
+		return _.has(selectedClient, 'in_house') ? selectedClient['in_house'] : false;	
+	},
 	handleSingleClient : function() {
 		var clients = Session.get('current_clients');
 		if(clients.length == 1) {

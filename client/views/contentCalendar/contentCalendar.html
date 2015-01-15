@@ -5,23 +5,34 @@
 	    	<div class="back arrow column">
 	    		<a><i class="large left arrow icon"></i></a>
 	    	</div>
-    		{{#each calendar_days}}
-    			{{> calendarDay day_type='external' day=this}}
-    		{{/each}}
+    		
+    		{{#if is_in_house}}
+	    		{{#each calendar_days}}
+	    			{{> calendarDay day_type='internal' day=this}}
+	    		{{/each}}
+	    	{{else}}
+	    		{{#each calendar_days}}
+	    			{{> calendarDay day_type='external' day=this}}
+	    		{{/each}}
+	    	{{/if}}
+	    	
 	    	<div class="forward arrow column">
 	    		<a><i class="large right arrow icon"></i></a>
 	    	</div>
     	</div>
     	{{#if is_not_client}}
-	    	<div class="bottom calendar row">
-		    	<div class="back arrow column">
+	    	{{#if is_in_house}}
+	    	{{else}}
+		    	<div class="bottom calendar row">
+			    	<div class="back arrow column">
+			    	</div>
+		    		{{#each calendar_days}}
+		    			{{> calendarDay day_type='internal' day=this}}
+		    		{{/each}}
+			    	<div class="forward arrow column">
+			    	</div>
 		    	</div>
-	    		{{#each calendar_days}}
-	    			{{> calendarDay day_type='internal' day=this}}
-	    		{{/each}}
-		    	<div class="forward arrow column">
-		    	</div>
-	    	</div>
+	    	{{/if}}
 			{{#if can_see_private_row}}
 		    	<div class="bottom calendar row">
 			    	<div class="back arrow column">

@@ -1,6 +1,6 @@
 <template name="calendarDay">
 	<div class="column calendar-day {{drag_class}}">
-    	{{#if is_external}}
+    	{{#if show_date}}
     		<p class="day-name {{is_today_class}}">{{day.day_name}}</p>
     		<p class="full-date {{is_today_class}}">{{day.full_date}}</p>
     	{{/if}}
