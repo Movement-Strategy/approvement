@@ -58,10 +58,12 @@ keyStrokeHandler = {
 			contentBucketModalHandler.handleEnter();
 		}
 		
+		// cancel edit if editing a draft link on escape press
 		if(Session.get('edited_draft_link') != null && event.which == 27) {
 			draftLinkHandler.handleEscape();
 		}
 		
+		// submit edit if editing a draft link on enter press
 		if(Session.get('edited_draft_link') != null && event.which == 13) {
 			draftLinkHandler.handleEnter();
 		}

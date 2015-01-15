@@ -343,9 +343,6 @@ contentBucketHandler = {
 		
 		return link;
 	},
-	getBucketLink : function(bucket) {
-		return _.has(bucket['draft_variables'], 'link') ? bucket['draft_variables']['link'] : null;
-	},
 	convertBucketIntoApprovalItem : function(bucketID, draftItemID) {
 		var approvalItem = {};
 		approvalItem = this.addAllDraftVariablesToApprovalItem(approvalItem, bucketID, draftItemID);
@@ -536,16 +533,27 @@ contentBucketHandler = {
 	},
 	getValueForDraftVariable : function(variableID, draftItemID, bucketID) {
 		var value = null;
+		
+		// if there's a custom function for getting the value, use that. 
 		if(_.has(this.getDraftVariableMap()[variableID], 'get_value')) {
 			value = this.getDraftVariableMap()[variableID]['get_value'](draftItemID, bucketID);
 		} else {
+			
+			// get all draft items
 			var draftItemsByBucketID = Session.get('draft_items_by_bucket_id');
+			
+			// try to get the value from the existing draft items
 			value = this.getValueFromArrayWithBucketID(draftItemsByBucketID, variableID, bucketID);
+			
+			// if its not set in the draft items, try to get it from the content bucket
+			// we want the draft item to override the content bucket
 			if(value == null) {
 				var contentBucketsByID = Session.get('content_buckets_by_id');
 				value = this.getValueFromArrayWithBucketID(contentBucketsByID, variableID, bucketID);
 			}
 		}
+		
+		// if the value is unset, set it as null so we have a way to unset existing values
 		return value == 'unset' ? null : value;
 	},
 	getValueFromArrayWithBucketID : function(array, variableID, bucketID) {
