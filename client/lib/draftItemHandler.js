@@ -6,6 +6,20 @@ draftItemHandler = {
 			}
 		});	
 	},
+	hideDraftItem : function() {
+		var draftItemID = Session.get('draft_item_to_hide');
+		var query = {
+			$set : {hidden : true},
+		};
+		Meteor.call('updateDraftItem', draftItemID, null, query);
+	},
+	onClickDeleteDraftItem : function(event) {
+		var context = UI.getData(event.target);
+		var draftItemID = context.draft_item_id;
+		Session.set('draft_item_to_hide', draftItemID);
+		promptModalHandler.show('content_bucket');
+		draftBoardHandler.hideAllPopups();
+	},
 	goToDraftWeek : function(clientID, weekID) {
 		
 		// if we try to change weeks while the popups are open, they don't get closed, so we close them manually here

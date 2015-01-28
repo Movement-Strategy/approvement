@@ -277,10 +277,18 @@ contentBucketHandler = {
 		
 		
 		contentBuckets = intervalHandler.filterContentBucketsBasedOnInterval(contentBuckets);
+		contentBuckets = contentBucketHandler.filterContentBucketsWithHiddenDraftItems(contentBuckets);
 		_.map(contentBuckets, function(bucket){
 			contentBucketsByID[bucket['_id']] = bucket;
 		});
 		Session.set('content_buckets_by_id', contentBucketsByID);
+	},
+	filterContentBucketsWithHiddenDraftItems : function(contentBuckets) {
+		return _.filter(contentBuckets, function(bucket){
+			var hidden = contentBucketHandler.getKeyFromDraftItemForBucket('hidden', bucket._id);
+			hidden = hidden ? hidden : false;
+			return !hidden;
+		});
 	},
 	tryToConvertBucketsToApprovalItems : function() {
 		Session.set('error_on_convert', false);
@@ -364,13 +372,19 @@ contentBucketHandler = {
 		});
 	},
 	bucketHasBeenConverted : function(bucketID) {
-		var converted = false;
+		var converted = this.getKeyFromDraftItemForBucket('converted', bucketID);
+		return converted == null ? false : converted;
+	},
+	getKeyFromDraftItemForBucket : function(key, bucketID) {
+		var value = null;
 		var draftItemsByBucketID = Session.get('draft_items_by_bucket_id');
 		var draftItem = _.has(draftItemsByBucketID, bucketID) ? draftItemsByBucketID[bucketID] : null;
 		if(draftItem) {
-			converted = _.has(draftItem, 'converted') ? draftItem['converted'] : false;
+			if(_.has(draftItem, key)) {
+				value = draftItem[key];
+			}
 		}
-		return converted;
+		return value;
 	},
 	setDraftItemsAsConverted : function(bucketsToConvert) {
 		var draftItemIDs = _.map(bucketsToConvert, function(bucket, bucketID){

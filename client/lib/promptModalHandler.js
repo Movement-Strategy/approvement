@@ -90,7 +90,17 @@ promptModalHandler = {
 				'confirm',
 			],
 		},
-		
+		content_bucket : {
+			on_delete : function() {
+				draftItemHandler.hideDraftItem();
+				promptModalHandler.hide();
+			},
+			message : "Are you sure you want to delete this converted item? It can't be undone",
+			buttons : [
+				'undo',
+				'delete',
+			],
+		},
 	},
 	promptButtonMap : {
 		'delete' : {

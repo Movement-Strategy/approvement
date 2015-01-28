@@ -14,7 +14,7 @@ Template['actionCell'].events({
 		promptModalHandler.show('apply_changes');
 	},
 	'click .delete-converted-action' : function(event) {
-		console.log('click');
-	}
+		draftItemHandler.onClickDeleteDraftItem(event);
+	},
 });
 
