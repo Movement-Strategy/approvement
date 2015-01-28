@@ -12,6 +12,9 @@ Template['actionCell'].events({
 		var bucketID = context['content_bucket_id'];
 		Session.set('bucket_id_to_apply', bucketID);
 		promptModalHandler.show('apply_changes');
+	},
+	'click .delete-converted-action' : function(event) {
+		console.log('click');
 	}
 });
 
