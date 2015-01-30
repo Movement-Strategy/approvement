@@ -228,6 +228,7 @@ detailsHandler = {
 		Session.set('current_facebook_link', null);
 		Session.set('editing_link', false);
 		Session.set('link_is_loading', false);
+		Session.set('image_is_loading', false);
 		Session.set('tweet_length', null);
 		Session.set('changes_made', false);
 		Session.set('edited_input_id', null);

@@ -25,20 +25,20 @@ imageUploadHandler = {
 			var sampleURL = 'http://lorempixel.com/' + heightDetails['width'] + '/' + heightDetails['height'] + '/';
 			currentItemContents = Session.get('current_item_contents');
 			currentURL = _.has(currentItemContents, 'image_url') ? currentItemContents['image_url'] : sampleURL;
+			var uploadedImageURL = Session.get('uploaded_image_url');
 			var itemToCopy = Session.get('item_to_copy');
 			var linkData = Session.get('current_facebook_link_data');
 			
 			var metaTagURL = this.getImageURLFromLinkData(linkData);
-			if(metaTagURL && Session.get('uploaded_image_url') == null) {
+			if(metaTagURL && uploadedImageURL == null) {
 				Session.set('uploaded_image_url', metaTagURL);
 			}
 			
-			if(itemToCopy && metaTagURL == null) {
+			if(itemToCopy && metaTagURL == null && uploadedImageURL == null) {
 				if(_.has(itemToCopy.contents, 'image_url')) {
 					Session.set('uploaded_image_url', itemToCopy.contents.image_url);
 				}
 			}
-			
 			return Session.get('uploaded_image_url') == null ? currentURL : Session.get('uploaded_image_url');
 		} else {
 			return null;
@@ -51,8 +51,14 @@ imageUploadHandler = {
 	onFileChange : function(event) {
 		var files = $(event.target)[0].files;
 		Session.set('image_is_loading', true);
-		S3.upload(files,"/subfolder",function(e,r){
-           	imageUploadHandler.onImageUpload(r.url);
+		S3.upload(files,"/subfolder",function(error,result){
+           	if(error == null) {
+	           	imageUploadHandler.onImageUpload(result.url);
+           	} else {
+	           	warningMessageHandler.showMessage('Upload error, please try again', 'error');
+	           	Session.set('image_is_loading', false);
+           	}
+           
         });
 	},
 	onDraftFileChange : function(event, context) {
