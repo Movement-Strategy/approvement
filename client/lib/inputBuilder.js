@@ -255,12 +255,24 @@ inputBuilder = {
 			$(inputElement).attr('size', $(inputElement).val().length);
 		}
 	},
+	submitInputEdit : function(elementID, inputElement) {
+			var displayElement = '#' + elementID + '_display';
+			inputBuilder.setEditStateForInput(elementID, false, $(inputElement).val());
+			Session.set('edited_input_id', null);
+			// flush so that the element resets to its display form
+			Meteor.flush();
+			
+			// trigger an animation so the user knows its been edited
+			$(displayElement).transition('pulse', onHide = function(){
+				Session.set('details_can_close', true);
+			});
+	},
 	onInputKeydown : function(context) {
 		var elementID = context.id;
 		var inputElement = '#' + elementID + '_input';
 		this.setLengthOfInputElement(elementID, inputElement);
 		this.handleEnterPress(elementID, inputElement);
-		this.handleEscapePress(elementID);
+		this.handleEscapePress(elementID, inputElement);
 		this.handleShiftPress();
 	},
 	onInputKeyup : function(context) {
@@ -278,25 +290,18 @@ inputBuilder = {
 	},
 	handleEnterPress : function(elementID, inputElement) {
 		if(inputBuilder.beingEditted(elementID) && event.which == 13 && !Session.get('shift_pressed')) {
-			var displayElement = '#' + elementID + '_display';
-			inputBuilder.setEditStateForInput(elementID, false, $(inputElement).val());
-			Session.set('edited_input_id', null);
-			// flush so that the element resets to its display form
-			Meteor.flush();
-			
-			// trigger an animation so the user knows its been edited
-			$(displayElement).transition('pulse', onHide = function(){
-				Session.set('details_can_close', true);
-			});
+			this.submitInputEdit(elementID, inputElement);
 		}
 	},
-	handleEscapePress : function(elementID) {
+	handleEscapePress : function(elementID, inputElement) {
 		if(inputBuilder.beingEditted(elementID) && event.which == 27) {
-			inputBuilder.cancelEditState(elementID);
+			this.submitInputEdit(elementID, inputElement);
 		}
 	},
 	onInputBlur : function(context) {
-		inputBuilder.cancelEditState(context.id);
+		var elementID = context.id;
+		var inputElement = '#' + elementID + '_input';
+		this.submitInputEdit(elementID, inputElement);
 	},
 	inputTextIsDefault : function(context) {
 		return context.text == context.default_text
