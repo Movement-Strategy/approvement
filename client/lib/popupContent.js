@@ -1,8 +1,13 @@
 popupContent = {
-	getContent : function(networkType, contentType, currentContents) {
+	getContent : function(networkType, contentType, currentContents, context) {
 		var contentDetails = this.contentMap[networkType][contentType];
+		var title = this.getContentKey(contentDetails.title, currentContents);
+		var customTitle = customClientHandler.getCustomPopupTitle(context);
+		if(customTitle != null) {
+			title = customTitle;
+		}
 		var output = {
-			title :  this.getContentKey(contentDetails.title, currentContents),
+			title :  title,
 			content : this.getContentKey(contentDetails.content, currentContents),
 		};
 		

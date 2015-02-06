@@ -3,7 +3,8 @@ Template['linkedPreview'].helpers({
 		return imageUploadHandler.getImageURL();
 	},
 	profile_pic_url : function() {
-		return facebookHandler.getProfilePictureURL();
+		var allowCustomization = true;
+		return facebookHandler.getProfilePictureURL(allowCustomization);
 	},
 	picture_class : function() {
 		return contentTypeBuilder.isType('without_picture') ? 'no-picture' : '';
@@ -15,7 +16,8 @@ Template['linkedPreview'].helpers({
 		return !contentTypeBuilder.isType('picture_without_description');
 	},
 	display_name : function() {
-		return clientHandler.getClientName();
+		var allowCustomization = true;
+		return clientHandler.getClientName(allowCustomization);
 	},
 });
 

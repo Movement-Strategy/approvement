@@ -1,13 +1,25 @@
 facebookHandler = {
-	getProfilePictureURL : function() {
+	getProfilePictureURL : function(allowCustomization) {
 		var profileName = Session.get('selected_client').facebook_profile_name;
+		
+		if(allowCustomization){
+			var customProfileName = customClientHandler.getCustomProfileImage();
+			if(customProfileName != null) {
+				profileName = customProfileName;
+			}
+		}
 		return this.getPictureURL(profileName);
 	},
 	getPictureURL : function(id) {	
 		return 'http://graph.facebook.com/' + id + '/picture?size=square';
 	},
 	showLinkInput : function() {
-		return this.isLegacyLink() ? false : contentTypeBuilder.isType('link') && !userHandler.userIsType('client');
+		var showLink = this.isLegacyLink() ? false : contentTypeBuilder.isType('link') && !userHandler.userIsType('client');
+		if(customClientHandler.dropdownIsRequired()) {
+			valueSelected = customClientHandler.customDropdownValueSelected();
+			var showLink = valueSelected && showLink;
+		}
+		return showLink;
 	},
 	editingLink : function() {
 		if(this.getFacebookLink() == null) {

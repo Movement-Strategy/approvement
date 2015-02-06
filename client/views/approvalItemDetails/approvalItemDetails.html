@@ -20,6 +20,9 @@
 							{{#if has_more_than_one_content_type}}
 								{{> contentTypeDropdown}}
 							{{/if}}
+							{{#if show_custom_dropdown}}
+								{{> customDropdown}}
+							{{/if}}
 						{{/if}}
 						
 						{{#if is_preview_shown}}

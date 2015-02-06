@@ -10,14 +10,23 @@ clientHandler = {
 		});
 		Session.set('clients_by_id', clientsByID);	
 	},
-	getClientName : function() {
-		return Session.get('selected_client').display_name;
+	getClientName : function(allowCustomization) {
+		var clientName = Session.get('selected_client').display_name;
+		if(allowCustomization) {
+			customName = customClientHandler.getCustomClientName();
+			if(customName != null) {
+				clientName = customName;
+			}
+		}
+		return clientName;
 	},
 	getSelectedClientID : function() {
 		return Session.get('selected_client_id');
 	},
 	getTwitterProfileName : function() {
-		return Session.get('selected_client').twitter_profile_name;
+		var name = Session.get('selected_client').twitter_profile_name;
+		var customName = customClientHandler.getCustomTwitterProfile();
+		return customName ? customName : name;
 	},
 	setSelectedClient : function(){
 		Deps.autorun(function(){

@@ -3,7 +3,8 @@ Template['instagramPreview'].helpers({
 		return imageUploadHandler.getImageURL();
 	},
 	profile_pic_url : function() {
-		return facebookHandler.getProfilePictureURL();
+		var allowCustomization = true;
+		return facebookHandler.getProfilePictureURL(allowCustomization);
 	},
 	display_name : function() {
 		return clientHandler.getTwitterProfileName();

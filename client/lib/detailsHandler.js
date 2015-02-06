@@ -15,6 +15,9 @@ detailsHandler = {
 		} else {
 			isPreviewShown = contentTypeBuilder.isContentTypeChosen();
 		}
+		if(!customClientHandler.allowPreviewToShow()) {
+			isPreviewShown = false;
+		}
 		return isPreviewShown;
 	},
 	getEnterPressState : function() {
@@ -29,7 +32,12 @@ detailsHandler = {
 	},
 	showDropdowns : function() {
 		if(contentTypeBuilder.isType('link')) {
-			return false;
+			// if the custom dropdown is required, make sure the value is set before hiding the dropdowns
+			if(customClientHandler.dropdownIsRequired()) {
+				return !customClientHandler.customDropdownValueSelected();
+			} else {
+				return false;
+			}
 		} else {
 			return !this.isPreviewShown() && this.creatingNewItem();
 		}
@@ -118,6 +126,7 @@ detailsHandler = {
 	},
 	onCreatingNewItem : function(itemContents) {
 		var approvalItem = this.generateNewApprovalItemFromContents(itemContents);
+		approvalItem = customClientHandler.setCustomFieldsInItem(approvalItem);
 		Meteor.call('insertApprovalItem', approvalItem);
 		
 		// because we're creating a new item, we dont' need to worry about changes being made
@@ -224,6 +233,7 @@ detailsHandler = {
 		});
 	},
 	setDefaultsOnShow : function(context, creatingNewItem) {
+		customClientHandler.onShowDetails(context, creatingNewItem);
 		Session.set('current_facebook_link_data', {});
 		Session.set('current_facebook_link', null);
 		Session.set('editing_link', false);

@@ -6,8 +6,11 @@ Template['approvalItemDetails'].helpers({
 	preview_content : function() {
 		return detailsHandler.getPreviewContent();
 	},
+	show_custom_dropdown : function() {
+		return customClientHandler.dropdownIsRequired() && customClientHandler.dropdownShouldBeShown();	
+	},
 	show_dropdowns : function() {
-		return detailsHandler.showDropdowns();	
+		return detailsHandler.showDropdowns();
 	},
 	initializeAccordion : function() {
 		detailsHandler.initializeAccordion();

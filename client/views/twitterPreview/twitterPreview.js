@@ -11,10 +11,12 @@ Template['twitterPreview'].helpers({
 		return clientHandler.getTwitterProfileName();
 	},
 	display_name : function() {
-		return clientHandler.getClientName();
+		var allowCustomization = true;
+		return clientHandler.getClientName(allowCustomization);
 	},
 	profile_pic_url : function() {
-		return facebookHandler.getProfilePictureURL();
+		var allowCustomization = true;
+		return facebookHandler.getProfilePictureURL(allowCustomization);
 	},
 	show_image : function() {
 		return !contentTypeBuilder.isType('without_picture');
