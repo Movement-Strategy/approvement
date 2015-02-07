@@ -8,15 +8,20 @@ approvalItemBuilder = {
 			var query = this.getFindQuery();
 			var items = ApprovalItem.find(query).fetch();
 			_.map(items, function(item){
- 				var scheduledDate = moment(item.scheduled_time).add(4, 'hours');
-				var dayIndex = scheduledDate.isoWeekday();
-				if(!_.has(itemsByDay, dayIndex)) {
-					itemsByDay[dayIndex] = [];
-				}
-				if(approvalItemBuilder.isLinkTypeWithoutDataPopulated(item)) {
-					approvalItemBuilder.fillInMissingDataForFacebookLink(item);
-				} else {
-					itemsByDay[dayIndex].push(item);
+				var timestamp = item.scheduled_time;
+				timestamp = timeHandler.getShiftedTimestamp(timestamp);
+				var currentWeek = timeHandler.getWeekForSelectedTime();
+				if(timeHandler.timeStampIsInWeek(timestamp, currentWeek)) {
+	 				var scheduledDate = moment(timestamp);
+					var dayIndex = scheduledDate.isoWeekday();
+					if(!_.has(itemsByDay, dayIndex)) {
+						itemsByDay[dayIndex] = [];
+					}
+					if(approvalItemBuilder.isLinkTypeWithoutDataPopulated(item)) {
+						approvalItemBuilder.fillInMissingDataForFacebookLink(item);
+					} else {
+						itemsByDay[dayIndex].push(item);
+					}
 				}
 			});
 		}
@@ -118,11 +123,13 @@ approvalItemBuilder = {
 		calendarBuilder.resetDraggedOverDay();	
 	},
 	getFindQuery : function() {
-		var startTime = timeHandler.getTimestampForCurrentDate();
-		var startOfWeek = moment(startTime);
-		var endDate = startOfWeek;
-		endDate.add(7, 'days');
+		var currentTimeStamp = timeHandler.getTimestampForCurrentDate();
+		var startDate = moment(currentTimeStamp);
+		var endDate = moment(currentTimeStamp);
+		endDate.add(8, 'days');
+		startDate.subtract(1, 'days');
 		var endTime = endDate.format('X') * 1000;
+		var startTime = startDate.format('X') * 1000;
 		return {
 			scheduled_time : {
 				$gte : startTime,
