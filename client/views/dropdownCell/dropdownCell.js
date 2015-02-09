@@ -1,6 +1,6 @@
 Template['dropdownCell'].helpers({
 	display_value : function() {
-		var dropdownOptions = _.has(this, 'params') ? this.params.dropdown_options : [];
+		var dropdownOptions = draftItemHandler.getDropdownOptionsForCell(this);
 		return contentBucketHandler.getDisplayForValue(this.value, dropdownOptions);
 	},
 	variable_class : function() {
@@ -17,7 +17,7 @@ Template['dropdownCell'].helpers({
 	},
 	
 	dropdown_options : function() {
-		return this.params.dropdown_options;
+		return draftItemHandler.getDropdownOptionsForCell(this);
 	},
 	style_class : function() {
 		return this.params.style_class;

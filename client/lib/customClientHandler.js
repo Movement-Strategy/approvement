@@ -34,6 +34,28 @@ customClientHandler = {
 			},
 		};	
 	},
+	clientIsCustom : function(clientID) {
+		var clientMap = this.getClientMap();
+		return _.has(clientMap, clientID);	
+	},
+	handleCustomDraftVariables : function(draftVariableMap) {
+		var clientID = Session.get('selected_client_id');
+		var updatedMap = {};
+		_.map(draftVariableMap, function(variable, id){
+			var allowVariable = true;
+			if(_.has(variable, 'associated_with')) {
+				var associatedWith = variable['associated_with'];
+				if(associatedWith != clientID) {
+					allowVariable = false;
+				}
+			}
+			if(allowVariable) {
+				updatedMap[id] = variable;
+			}
+		});
+		draftVariableMap = updatedMap;
+		return draftVariableMap;
+	},
 	initializeDropdown : function() {
 		Meteor.defer(function(){
 			$('.custom-dropdown').dropdown();

@@ -13,6 +13,14 @@ truTVHandler = {
 			},
 		};	
 	},
+	getCellOptions : function() {
+		return _.map(this.getShowMap(), function(showDetails, showName){
+			return {
+				value : showName,
+				display : showDetails['name'],
+			};
+		});
+	},
 	getShowOptions : function() {
 		var showMap = this.getShowMap();
 		return _.map(showMap, function(details, showID){

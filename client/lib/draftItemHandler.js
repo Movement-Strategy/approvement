@@ -1,4 +1,4 @@
-draftItemHandler = {
+	draftItemHandler = {
 	handleDraftItems : function() {
 		Tracker.autorun(function(){
 			if(Session.get('draft_board_is_shown')) {
@@ -25,6 +25,14 @@ draftItemHandler = {
 		// if we try to change weeks while the popups are open, they don't get closed, so we close them manually here
 		draftBoardHandler.hideAllPopups();
 		Router.go('/client/' + clientID + '/week/' + weekID + '/draft');	
+	},
+	getDropdownOptionsForCell : function(context) {
+		var dropdownOptions = _.has(context, 'params') ? context.params.dropdown_options : [];
+		if(typeof(dropdownOptions) === 'function') {
+			return dropdownOptions();
+		} else {
+			return dropdownOptions;
+		}
 	},
 	getDraftVariableClass : function(context) {
 		return context.variable_id + '_cell';

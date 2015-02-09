@@ -1,6 +1,6 @@
 contentBucketHandler = {
 	getDraftVariableMap : function() {
-		return {
+		var map = {
 			description : {
 				required : false,
 				display : "Content Bucket",
@@ -93,6 +93,25 @@ contentBucketHandler = {
 				},
 				width : 'one',
 			},
+			show : {
+				associated_with : 'movement',
+				allow_apply : true,
+				required : true,
+				display : "Show",
+				cell_template : "dropdownCell",
+				add_to_approval_item : function(item, draftValue) {
+					item['show'] = draftValue;
+					return item;
+				},
+				default_value : 'Show',
+				params : {
+					style_class : 'show-network-dropdown',
+					dropdown_options : function() {
+						return truTVHandler.getCellOptions();
+					},	
+				},
+				width : 'one',
+			},
 			content_type : {
 				allow_apply : true,
 				required : true,
@@ -174,7 +193,11 @@ contentBucketHandler = {
 				},
 				width : 'one',
 			},
-		};	
+		};
+		
+		var draftVariableMap = jQuery.extend(true, {}, map);
+		draftVariableMap = customClientHandler.handleCustomDraftVariables(draftVariableMap);
+		return draftVariableMap;
 	},
 	variableIsRequired : function(variable) {
 	
@@ -547,23 +570,25 @@ contentBucketHandler = {
 	},
 	getValueForDraftVariable : function(variableID, draftItemID, bucketID) {
 		var value = null;
-		
+		var draftVariableMap = this.getDraftVariableMap();
 		// if there's a custom function for getting the value, use that. 
-		if(_.has(this.getDraftVariableMap()[variableID], 'get_value')) {
-			value = this.getDraftVariableMap()[variableID]['get_value'](draftItemID, bucketID);
-		} else {
-			
-			// get all draft items
-			var draftItemsByBucketID = Session.get('draft_items_by_bucket_id');
-			
-			// try to get the value from the existing draft items
-			value = this.getValueFromArrayWithBucketID(draftItemsByBucketID, variableID, bucketID);
-			
-			// if its not set in the draft items, try to get it from the content bucket
-			// we want the draft item to override the content bucket
-			if(value == null) {
-				var contentBucketsByID = Session.get('content_buckets_by_id');
-				value = this.getValueFromArrayWithBucketID(contentBucketsByID, variableID, bucketID);
+		if(_.has(draftVariableMap, variableID)) {
+			if(_.has(draftVariableMap[variableID], 'get_value')) {
+				value = draftVariableMap[variableID]['get_value'](draftItemID, bucketID);
+			} else {
+				
+				// get all draft items
+				var draftItemsByBucketID = Session.get('draft_items_by_bucket_id');
+				
+				// try to get the value from the existing draft items
+				value = this.getValueFromArrayWithBucketID(draftItemsByBucketID, variableID, bucketID);
+				
+				// if its not set in the draft items, try to get it from the content bucket
+				// we want the draft item to override the content bucket
+				if(value == null) {
+					var contentBucketsByID = Session.get('content_buckets_by_id');
+					value = this.getValueFromArrayWithBucketID(contentBucketsByID, variableID, bucketID);
+				}
 			}
 		}
 		
@@ -586,17 +611,21 @@ contentBucketHandler = {
 	getDraftVariablesForRow : function(row) {
 		var contentBucketID = row['_id'];
 		var draftVariables = _.has(row, 'draft_variables') ?  row['draft_variables'] : [];
-		draftVariables = _.map(row.draft_variables, function(variable, variableName){
-			var draftVariable = contentBucketHandler.getDraftVariableMap()[variableName];
-			draftVariable['value'] = variable;
-			draftVariable['draft_item_id'] = row.draft_item_id;
-			draftVariable['content_bucket_id'] = contentBucketID;
-			draftVariable['converted'] = contentBucketHandler.bucketHasBeenConverted(contentBucketID);
-			draftVariable['bucket_is_required'] = _.has(row, 'required') ? row['required'] : false;
-			draftVariable['bucket_repeats'] = _.has(row, 'repeats') ? row['repeats'] : false;
-			draftVariable['variable_id'] = variableName;
-			return draftVariable;
+		updatedVariables = {};
+		draftVariableMap = contentBucketHandler.getDraftVariableMap();
+		_.map(row.draft_variables, function(variable, variableName){
+			if(_.has(draftVariableMap, variableName)) {
+				var draftVariable = draftVariableMap[variableName];
+				draftVariable['value'] = variable;
+				draftVariable['draft_item_id'] = row.draft_item_id;
+				draftVariable['content_bucket_id'] = contentBucketID;
+				draftVariable['converted'] = contentBucketHandler.bucketHasBeenConverted(contentBucketID);
+				draftVariable['bucket_is_required'] = _.has(row, 'required') ? row['required'] : false;
+				draftVariable['bucket_repeats'] = _.has(row, 'repeats') ? row['repeats'] : false;
+				draftVariable['variable_id'] = variableName;
+				updatedVariables[variableName] = draftVariable;
+			}
 		});	
-		return draftVariables;
+		return _.values(updatedVariables);
 	},
 };
