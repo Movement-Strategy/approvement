@@ -1,15 +1,35 @@
 truTVHandler = {
 	getShowMap : function() {
 		return {
-			hack_my_life : {
-				name : 'Hack My LIfe',
-				profile : 'truTVHackMyLife',
-				twitter_profile : 'trutv',
-			},
 			impractical_jokers : {
 				name : 'Impractical Jokers',
 				profile : 'impracticaljokers',
-				twitter_profile : 'trutvjokers',
+				twitter_profile : 'truTVjokers',
+			},
+			hack_my_life : {
+				name : 'Hack My LIfe',
+				profile : 'truTVHackMyLife',
+				twitter_profile : 'truTV',
+			},
+			breaking_greenville : {
+				name : 'Breaking Greenville',
+				profile : 'trutvbreakinggreenville',
+				twitter_profile : 'truTV',
+			},
+			carbonaro_effect : {
+				name : 'The Carbonaro Effect',
+				profile : 'carbonaroeffect',
+				twitter_profile : 'truTV',
+			},
+			friends_of_the_people : {
+				 name : 'Friends of the People',
+				 profile : 'truTVFOTP',
+				 twitter_profile : 'truTVFOTP',
+			},
+			tru_tv : {
+				 name : 'TruTV',
+				 profile : 'truTV',
+				 twitter_profile : 'truTV',
 			},
 		};	
 	},

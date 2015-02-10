@@ -94,7 +94,7 @@ contentBucketHandler = {
 				width : 'one',
 			},
 			show : {
-				associated_with : 'movement',
+				associated_with : 'tru_tv',
 				allow_apply : true,
 				required : true,
 				display : "Show",

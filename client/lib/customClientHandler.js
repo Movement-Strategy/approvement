@@ -1,7 +1,7 @@
 customClientHandler = {
 	getClientMap : function() {
 		return {
-			movement : {
+			tru_tv : {
 				dropdown : {
 					get_options : function() {
 						return truTVHandler.getShowOptions();
