@@ -50,7 +50,6 @@ truTVHandler = {
 		var profileImage = this.getKeyFromItem('profile', item);
 		var imageURL = facebookHandler.getPictureURL(profileImage);
 		var fullTitle = '<img src="' + imageURL + '" class="ui avatar image">' + showName;
-		console.log(fullTitle);
 		return fullTitle;
 	},
 	getTwitterProfile : function(){
