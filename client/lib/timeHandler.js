@@ -1,4 +1,18 @@
 timeHandler = {
+	getShiftedTimestamp : function(timestamp) {
+		var dateObject = moment(timestamp);
+		var hour = dateObject.hour();
+		var shiftForward = hour > 12;
+		if(hour != 0) {
+			var updatedObject = shiftForward ? dateObject.add(24 - hour, 'hours') : dateObject.subtract(hour, 'hours');
+			timestamp = this.dateObjectToTimestamp(updatedObject);
+		}		
+		return timestamp;
+	},
+	timeStampIsInWeek : function(timestamp, weekString) {
+		var weekForTimestamp = timeHandler.timestampToStartOfWeekDateString(timestamp);
+		return weekString == weekForTimestamp;
+	},
 	getDayDescription : function() {
 		var dateMap = {
 			1 : 'Monday',
