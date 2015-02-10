@@ -26,7 +26,7 @@ customClientHandler = {
 					truTVHandler.onShowDetails(params);
 				},
 				get_popup_title : function(item) {
-					return truTVHandler.getShowName(item);	
+					return truTVHandler.getPopupTitle(item);	
 				},
 				get_twitter_profile : function() {
 					return truTVHandler.getTwitterProfile();	

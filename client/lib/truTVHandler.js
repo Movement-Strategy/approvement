@@ -40,42 +40,43 @@ truTVHandler = {
 		}
 	},
 	getProfileImage : function(){
-		var profileImage = null;
-		var showMap = this.getShowMap();
-		var showID = Session.get('current_show_id');
-		if(_.has(showMap, showID)) {
-			profileImage = showMap[showID]['profile'];
-		}	
-		return profileImage;
+		return this.getKeyForCurrentShow('profile');
 	},
 	getClientName : function(){
-		var name = null;
-		var showMap = this.getShowMap();
-		var showID = Session.get('current_show_id');
-		if(_.has(showMap, showID)) {
-			name = showMap[showID]['name'];
-		}	
-		return name;
+		return this.getKeyForCurrentShow('name');
+	},
+	getPopupTitle : function(item) {
+		var showName = this.getShowName(item);
+		var profileImage = this.getKeyFromItem('profile', item);
+		var imageURL = facebookHandler.getPictureURL(profileImage);
+		var fullTitle = '<img src="' + imageURL + '" class="ui avatar image">' + showName;
+		console.log(fullTitle);
+		return fullTitle;
 	},
 	getTwitterProfile : function(){
-		var name = null;
-		var showMap = this.getShowMap();
-		var showID = Session.get('current_show_id');
-		if(_.has(showMap, showID)) {
-			name = showMap[showID]['twitter_profile'];
-		}	
-		return name;
+		return this.getKeyForCurrentShow('twitter_profile');
 	},
 	getShowName : function(item) {
-		var name = null;
+		return this.getKeyFromItem('name', item);
+	},
+	getKeyForCurrentShow : function(key){
+		return this.getKeyFromMap(key, Session.get('current_show_id'));
+	},
+	getKeyFromItem : function(key, item) {
+		var value = null;
 		if(item) {
 			var showID = item.show;
-			var showMap = this.getShowMap();
-			if(_.has(showMap, showID)) {
-				name = showMap[showID]['name'];
-			}
+			value = this.getKeyFromMap(key, showID);
 		}
-		return name;
+		return value;
+	},
+	getKeyFromMap : function(key, showID) {
+		var value = null;
+		var showMap = this.getShowMap();
+		if(_.has(showMap, showID)) {
+			value = showMap[showID][key];
+		}
+		return value;
 	},
 	
 };
