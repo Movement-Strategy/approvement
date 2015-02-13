@@ -50,6 +50,15 @@ truTVHandler = {
 			};
 		});
 	},
+	getSummarizedShows : function() {
+		var approvalMetricsByShowByNetwork = this.getApprovalMetricsByShowByNetwork();		
+	},
+	getApprovalMetricsByShowByNetwork : function() {
+		
+	},
+	getAllApprovalItemsFromCalendarDays : function() {
+		
+	},
 	setShowInItem : function(item){
 		item['show'] = Session.get('current_show_id');
 		return item;

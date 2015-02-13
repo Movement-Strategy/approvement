@@ -13,6 +13,9 @@ calendarBuilder = {
 	goToNewWeek : function(clientID, weekID) {
 		Router.go('/client/' + clientID + '/week/' + weekID);	
 	},
+	goToOverviewWeek : function(clientID, weekID) {
+		Router.go('/client/' + clientID + '/week/' + weekID + '/overview');	
+	},
 	onModeChangeClick : function() {
 		var clientID = Session.get('selected_client_id');
 		var weekID = timeHandler.getWeekForSelectedTime();

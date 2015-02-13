@@ -3,7 +3,7 @@ keyStrokeHandler = {
 		$(document).on('keydown', keyStrokeHandler.handleKeyStrokes);	
 	},
 	allowWeekChangeOnArrowPress : function() {
-		var isRightTemplate = mainContentHandler.isShown('draftBoard') || mainContentHandler.isShown('contentCalendar');
+		var isRightTemplate = mainContentHandler.isShown('draftBoard') || mainContentHandler.isShown('contentCalendar') || mainContentHandler.isShown('bucketOverview');
 		return isRightTemplate && !Session.get('entering_draft_item_text') && !Session.get('details_shown');
 	},
 	handleKeyStrokes : function(event) {
@@ -74,6 +74,7 @@ keyStrokeHandler = {
 		if(Session.get('edited_draft_link') != null && event.which == 13) {
 			draftLinkHandler.handleEnter();
 		}
+		
 			
 	}
 	

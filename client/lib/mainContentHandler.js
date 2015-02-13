@@ -13,6 +13,12 @@ mainContentHandler = {
 				},
 				button_text : 'Draft',
 			},
+			'bucketOverview' : {
+				on_change : function(clientID, weekID) {
+					calendarBuilder.goToOverviewWeek(clientID, weekID);
+				},
+				button_text : 'Overview',
+			},
 		};
 	}, 
 	onClickDynamicButton : function(context) {
@@ -28,7 +34,8 @@ mainContentHandler = {
 		var currentTemplate = this.getCurrentTemplate();
 		return _.chain(templateMap)
 			.map(function(templateDetails, templateName){
-				if(templateName != currentTemplate) {
+				eliminated = userHandler.userIsType('client') && templateName == 'draftBoard';
+				if(templateName != currentTemplate && !eliminated) {
 					return {
 						change_to_template : templateName,
 						button_text : templateDetails.button_text,

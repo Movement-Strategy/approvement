@@ -13,6 +13,9 @@ customClientHandler = {
 						return Session.get('current_content_type') != null;	
 					},
 				},
+				get_summarized_buckets : function() {
+					return truTVHandler.getSummarizedShows();	
+				},
 				get_profile_image : function() {
 					return truTVHandler.getProfileImage();
 				},
@@ -34,6 +37,9 @@ customClientHandler = {
 				nav_template : 'dynamicNavButtons',
 			},
 		};	
+	},
+	getCustomSummarizedBuckets : function() {
+		return this.runBaseFunction('get_summarized_buckets');	
 	},
 	getCustomNavTemplate : function() {
 		var template = this.runBaseFunction('nav_template');
