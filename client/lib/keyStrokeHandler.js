@@ -1,4 +1,7 @@
 keyStrokeHandler = {
+	bindToWindow : function() {
+		$(document).on('keydown', keyStrokeHandler.handleKeyStrokes);	
+	},
 	handleKeyStrokes : function(event) {
 		
 		

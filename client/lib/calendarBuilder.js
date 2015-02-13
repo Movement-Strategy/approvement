@@ -16,11 +16,8 @@ calendarBuilder = {
 	onModeChangeClick : function() {
 		var clientID = Session.get('selected_client_id');
 		var weekID = timeHandler.getWeekForSelectedTime();
-		if(draftBoardHandler.isShown()) {
-			calendarBuilder.goToNewWeek(clientID, weekID);
-		} else {
-			draftItemHandler.goToDraftWeek(clientID, weekID);
-		}
+		var newTemplate = draftBoardHandler.isShown() ? 'contentCalendar' : 'draftBoard';
+		mainContentHandler.changeToTemplate(newTemplate, clientID, weekID);
 	},
 	setCurrentCalendarDays : function() {
 		var timestamp = timeHandler.getTimestampForCurrentDate();

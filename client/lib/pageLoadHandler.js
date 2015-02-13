@@ -6,6 +6,7 @@ pageLoadHandler = {
 		assetHandler.updateCurrentAssets();
 		gifHandler.handleSuccessGif();
     	draftItemHandler.handleDraftItems();
+    	keyStrokeHandler.bindToWindow();
 	},
 	checkIfPageIsReady : function() {
 		Deps.autorun(function(){

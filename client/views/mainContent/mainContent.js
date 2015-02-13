@@ -6,7 +6,7 @@ Template['mainContent'].helpers({
 		return draftBoardHandler.isShown();
 	},
 	current_template : function() {
-		return mainContentHandler.shownTemplate();
+		return mainContentHandler.getCurrentTemplate();
 	},
 });
 

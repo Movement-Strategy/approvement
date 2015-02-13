@@ -1,10 +1,3 @@
-Template.draftBoard.created = function() {
-    $(document).on('keydown', keyStrokeHandler.handleKeyStrokes);
-};
-
-Template.draftBoard.destroyed = function() {
-    $(document).unbind('keydown');
-};
 
 Template['draftBoard'].helpers({
 	week : function() {

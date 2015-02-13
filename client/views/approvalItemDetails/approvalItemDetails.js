@@ -45,15 +45,6 @@ Template['approvalItemDetails'].helpers({
 });
 
 
-Template.approvalItemDetails.created = function() {
-    $(document).on('keydown', keyStrokeHandler.handleKeyStrokes);
-};
-
-Template.approvalItemDetails.destroyed = function() {
-    $(document).unbind('keydown');
-};
-
-
 Template['approvalItemDetails'].events({
 	'click .submit.button' : function() {
 		stateManager.changeToState('updated');
