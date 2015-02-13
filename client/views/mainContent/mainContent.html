@@ -3,11 +3,7 @@
 		{{> successGif}}
 	{{else}}					
     	{{> warningMessage}}
-    	{{#if show_draft_board}}
-    		{{> draftBoard}}
-    	{{else}}	
-    		{{> contentCalendar}}
-    	{{/if}}
+    	{{> UI.dynamic template=current_template data=this}}
     {{/if}}
 </template>
 

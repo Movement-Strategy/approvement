@@ -16,7 +16,7 @@ calendarBuilder = {
 	onModeChangeClick : function() {
 		var clientID = Session.get('selected_client_id');
 		var weekID = timeHandler.getWeekForSelectedTime();
-		if(Session.get('draft_board_is_shown')) {
+		if(draftBoardHandler.isShown()) {
 			calendarBuilder.goToNewWeek(clientID, weekID);
 		} else {
 			draftItemHandler.goToDraftWeek(clientID, weekID);

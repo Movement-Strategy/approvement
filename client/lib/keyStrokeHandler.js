@@ -23,7 +23,7 @@ keyStrokeHandler = {
 			pendingItemHandler.goToPendingItem(Session.get('pending_item_index'));
 		}
 		
-		var preventWeekChange = Session.get('draft_board_is_shown') && Session.get('entering_draft_item_text');
+		var preventWeekChange = draftBoardHandler.isShown() && Session.get('entering_draft_item_text');
 		
 		// If details is not open change to last week on left press
 		if(!Session.get('details_shown') && event.which == 37 && !preventWeekChange) {

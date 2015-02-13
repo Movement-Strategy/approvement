@@ -18,7 +18,7 @@ if(Meteor.isClient) {
 				        	calendarBuilder.goToNewWeek(that.params.client, that.params.week);
 			        	} else {
 				        	calendarBuilder.initializeCalendarWeek(that.params.client, that.params.week);
-				        	Session.set('draft_board_is_shown', true);				        	
+				        	mainContentHandler.showTemplate('draftBoard');
 			        	}
 // 		        	});	
 	        	} else {

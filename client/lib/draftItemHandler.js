@@ -1,7 +1,7 @@
 	draftItemHandler = {
 	handleDraftItems : function() {
 		Tracker.autorun(function(){
-			if(Session.get('draft_board_is_shown')) {
+			if(draftBoardHandler.isShown()) {
 				draftItemHandler.initializeDraftItems();
 			}
 		});	

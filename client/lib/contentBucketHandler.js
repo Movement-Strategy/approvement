@@ -227,7 +227,7 @@ contentBucketHandler = {
 	},
 	handleContentBuckets : function() {
 		Tracker.autorun(function(){
-			if(Session.get('draft_board_is_shown')) {
+			if(draftBoardHandler.isShown()) {
 				contentBucketHandler.initializeContentBuckets();
 			}
 		});

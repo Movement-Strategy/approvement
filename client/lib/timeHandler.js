@@ -110,7 +110,7 @@ timeHandler = {
 		updatedDate = alterFunction(startOfWeek);
 		newWeekID = this.dateObjectToDateString(updatedDate);
 		var clientID = Session.get('selected_client_id');
-		if(Session.get('draft_board_is_shown')) {
+		if(draftBoardHandler.isShown()) {
 			draftItemHandler.goToDraftWeek(clientID, newWeekID);
 		} else {
 			calendarBuilder.goToNewWeek(clientID, newWeekID);

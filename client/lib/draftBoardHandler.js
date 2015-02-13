@@ -1,6 +1,6 @@
 draftBoardHandler = {
 	isShown : function() {
-		return Session.get('draft_board_is_shown');	
+		return mainContentHandler.isShown('draftBoard');
 	},
 	popupSelector : '.draft-action',
 	getTableHeaders : function() {

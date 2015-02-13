@@ -5,6 +5,9 @@ Template['mainContent'].helpers({
 	show_draft_board : function() {
 		return draftBoardHandler.isShown();
 	},
+	current_template : function() {
+		return mainContentHandler.shownTemplate();
+	},
 });
 
 Template['mainContent'].events({

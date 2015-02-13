@@ -61,6 +61,7 @@ pageLoadHandler = {
 		bucket_change_errors : {},
 		draft_item_to_hide : null,
 		image_is_loading : false,
+		main_content_template : null,
 	},
 	setSessionDefaults : function() {
 		_.map(this.defaultSessionValueMap, function(value, key){
