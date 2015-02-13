@@ -2,8 +2,13 @@ keyStrokeHandler = {
 	bindToWindow : function() {
 		$(document).on('keydown', keyStrokeHandler.handleKeyStrokes);	
 	},
+	allowWeekChangeOnArrowPress : function() {
+		var isRightTemplate = mainContentHandler.isShown('draftBoard') || mainContentHandler.isShown('contentCalendar');
+		return isRightTemplate && !Session.get('entering_draft_item_text') && !Session.get('details_shown');
+	},
 	handleKeyStrokes : function(event) {
 		
+		var allowWeekChangeOnArrowPress = keyStrokeHandler.allowWeekChangeOnArrowPress();
 		
 		// if details is hide creation modal submit update on cancel press
 		if(Session.get('details_shown') && event.which == 27 && Session.get('details_can_close')) {
@@ -25,28 +30,27 @@ keyStrokeHandler = {
 		if(!Session.get('details_shown') && event.which == 9) {	
 			pendingItemHandler.goToPendingItem(Session.get('pending_item_index'));
 		}
-		
-		var preventWeekChange = draftBoardHandler.isShown() && Session.get('entering_draft_item_text');
-		
+				
 		// If details is not open change to last week on left press
-		if(!Session.get('details_shown') && event.which == 37 && !preventWeekChange) {
+		if(allowWeekChangeOnArrowPress && event.which == 37) {
 			popupContent.handlePopup('.edit-draft-link', 'hide');
 			event.preventDefault();
 			detailsHandler.closeShownPopup();
 			timeHandler.changeToLastWeek();
 		}
 		
-		if(Session.get('entering_draft_item_text') && event.which == 27) {
-			$('.content-input').blur();
-		}
-		
 		// If details is not open change to next week on right press
-		if(!Session.get('details_shown') && event.which == 39 && !preventWeekChange) {
+		if(allowWeekChangeOnArrowPress && event.which == 39) {
 			popupContent.handlePopup('.edit-draft-link', 'hide');
 			event.preventDefault();
 			detailsHandler.closeShownPopup();
 			timeHandler.changeToNextWeek();
 		}
+		
+		if(Session.get('entering_draft_item_text') && event.which == 27) {
+			$('.content-input').blur();
+		}
+		
 		
 		// Submit delete on enter if the prompt modal is open
 		if(Session.get('current_prompt_type') != null && event.which == 13) {
