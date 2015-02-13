@@ -31,8 +31,14 @@ customClientHandler = {
 				get_twitter_profile : function() {
 					return truTVHandler.getTwitterProfile();	
 				},
+				nav_template : 'dynamicNavButtons',
 			},
 		};	
+	},
+	getCustomNavTemplate : function() {
+		var template = this.runBaseFunction('nav_template');
+		template = template == null ? 'modeChangeButton' : template;
+		return template;	
 	},
 	clientIsCustom : function(clientID) {
 		var clientMap = this.getClientMap();

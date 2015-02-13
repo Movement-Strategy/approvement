@@ -1,4 +1,6 @@
 <template name="modeChangeButton">
-	<a href="" class="item mode-button">{{button_text}}</a>
+	{{#if is_manager}}
+		<a href="" class="item menu-button mode-button">{{button_text}}</a>
+	{{/if}}
 </template>
 

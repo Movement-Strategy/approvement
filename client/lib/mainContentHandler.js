@@ -5,14 +5,39 @@ mainContentHandler = {
 				on_change : function(clientID, weekID) {
 					calendarBuilder.goToNewWeek(clientID, weekID);
 				},
+				button_text : 'Approve',
 			},
 			'draftBoard' : {
 				on_change : function(clientID, weekID) {
 					draftItemHandler.goToDraftWeek(clientID, weekID);
 				},
+				button_text : 'Draft',
 			},
 		};
 	}, 
+	onClickDynamicButton : function(context) {
+		if(_.has(context, 'change_to_template')) {
+			var newTemplate = context.change_to_template;
+			var clientID = Session.get('selected_client_id');
+			var weekID = timeHandler.getWeekForSelectedTime();
+			this.changeToTemplate(newTemplate, clientID, weekID);
+		}
+	},
+	getDynamicButtons : function() {
+		var templateMap = this.getTemplateMap();
+		var currentTemplate = this.getCurrentTemplate();
+		return _.chain(templateMap)
+			.map(function(templateDetails, templateName){
+				if(templateName != currentTemplate) {
+					return {
+						change_to_template : templateName,
+						button_text : templateDetails.button_text,
+					};
+				}
+			})
+			.compact()
+		.value();
+	},
 	changeToTemplate : function(templateName, clientID, weekID) {
 		var onChange = this.getOnChangeFunction(templateName, clientID, weekID);
 		if(onChange) {
