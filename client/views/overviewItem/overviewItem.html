@@ -1,0 +1,18 @@
+<template name="overviewItem">
+	<div class="item">
+		<img class="ui avatar image" src="{{image}}">
+		<div class="content">
+			<div class="header">
+				{{name}}
+			</div>
+			<div class="item">
+				<div class="list">
+					{{#each networks}}
+						{{> overviewNetwork}}
+					{{/each}}
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+

@@ -1,5 +1,22 @@
 <template name="bucketOverview">
-    {{summarized_buckets}}
-    <p>Template bucketOverview</p>
+	<div class="ui grid">
+		<div class="one wide column center aligned draft-arrow-column">
+			<a><i class="large left last-week arrow icon"></i></a>		
+		</div>
+		<div class="fourteen wide column">
+			<h1 class="ui center aligned header draft-title">Overview for  Week of {{week}}</h1>
+			<div class="ui list">
+				{{#each summarized_buckets}}
+					{{> overviewItem}}
+				{{/each}}
+			</div>
+		</div>
+		<div class="one wide column center aligned draft-arrow-column">
+			<a><i class="large right next-week arrow icon"></i></a>
+		</div>
+		<div class='page-filler'>
+			
+		</div>
+	</div>
 </template>
 
