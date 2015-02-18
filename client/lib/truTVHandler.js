@@ -54,7 +54,7 @@ truTVHandler = {
 				},
 				color : 'grey',
 			},
-			drafted : {
+			created : {
 				'check_item' : function(item) {
 					return item.scope == 'private' || item.scope == 'internal';
 				},
@@ -111,12 +111,12 @@ truTVHandler = {
 					return truTVHandler.getProcessedMetric('submitted', params);
 				},
 			},
-			drafted : {
-				header_text : 'Drafted',
+			created : {
+				header_text : 'Created',
 				row_type : 'secondary',
 				cell_template : 'metricCell',
 				get_data : function(params) {
-					return truTVHandler.getProcessedMetric('drafted', params);
+					return truTVHandler.getProcessedMetric('created', params);
 				},
 			},
 			
