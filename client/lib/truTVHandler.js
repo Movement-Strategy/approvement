@@ -7,7 +7,7 @@ truTVHandler = {
 				twitter_profile : 'truTVjokers',
 			},
 			hack_my_life : {
-				name : 'Hack My LIfe',
+				name : 'Hack My Life',
 				profile : 'truTVHackMyLife',
 				twitter_profile : 'truTV',
 			},
@@ -49,13 +49,14 @@ truTVHandler = {
 			},
 			submitted : {
 				'check_item' : function(item) {
-					return item.scope == 'internal';
+					var isRightStatus = item.status == 'commented' || item.status == 'submitted';
+					return item.scope == 'external' && isRightStatus;
 				},
 				color : 'grey',
 			},
 			drafted : {
 				'check_item' : function(item) {
-					return item.scope == 'private';
+					return item.scope == 'private' || item.scope == 'internal';
 				},
 				color : 'purple',
 			},
@@ -119,17 +120,6 @@ truTVHandler = {
 				},
 			},
 			
-/*
-			denied : {
-				header_text : 'Denied',
-			},
-			submitted : {
-				header_text : 'Submitted',
-			},
-			drafted : {
-				header_text : 'Drafted',
-			},
-*/
 		};	
 	},
 	getColumnHeaders : function() {
@@ -169,19 +159,6 @@ truTVHandler = {
 	getOverviewRows : function() {
 		var approvalMetricsByShowByNetwork = this.getApprovalMetricsByShowByNetwork();
 		return this.getProcessedShowRows(approvalMetricsByShowByNetwork);
-/*
-		return _.map(approvalMetricsByShowByNetwork, function(metricsByNetwork, showID){
-			var processedNetworks = truTVHandler.getProcessedNetworks(metricsByNetwork);
-			var profileImageURL = truTVHandler.getProfileImageURLForShowID(showID);
-			var showName = truTVHandler.getShowNameFromShowID(showID);
-			return {
-				show_id : showID,
-				name : showName,
-				image : profileImageURL,
-				networks : processedNetworks,
-			}
-		});
-*/
 	},
 	getIconMap : function() {
 		return {
@@ -191,35 +168,6 @@ truTVHandler = {
 			instagram : 'instagram',
 		};
 	},
-/*
-	getProcessedNetworks : function(metricsByNetwork){
-		// iterate over the icon map so we can make sure the networks are always in same order
-		return _.chain(this.getIconMap())
-			.map(function(icon, networkType){
-				if(_.has(metricsByNetwork, networkType)){
-					var processedMetrics = truTVHandler.getProcessedMetrics(metricsByNetwork[networkType]);
-					return {
-						icon : icon,
-						metrics : processedMetrics,
-					};
-				}
-			})
-			.compact()
-		.value();
-	},
-*/
-/*
-	getProcessedMetrics : function(metrics){
-		var metricMap = truTVHandler.getMetricMap();
-		return _.map(metrics, function(value, metricName){
-			var color = metricMap[metricName]['color'];
-			return {
-				icon_color : color,
-				value : value,
-			};
-		});
-	},
-*/
 	getApprovalMetricsByShowByNetwork : function() {
 		var approvalItems = this.getAllApprovalItemsFromCalendarDays();
 		var metricsByShowByNetwork = {};
@@ -277,7 +225,7 @@ truTVHandler = {
 		});
 		var row = {
 			columns : columns,
-			hightlighted : true,
+			highlighted : true,
 		};
 		rows.push(row);
 		return rows;
@@ -299,7 +247,7 @@ truTVHandler = {
 		});
 		var row = {
 			columns : columns,
-			hightlighted : false,
+			highlighted : false,
 		};
 		rows.push(row);
 		return rows;	

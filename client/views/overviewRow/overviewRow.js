@@ -1,7 +1,7 @@
 Template['overviewRow'].helpers({
-	test : function() {
-		console.log(this);
-	},
+	row_class : function() {
+		return this.highlighted ? 'main-row' : 'sub-row';
+	}
 });
 
 Template['overviewRow'].events({
