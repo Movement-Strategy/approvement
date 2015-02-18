@@ -1,0 +1,6 @@
+<template name="overviewRow">
+	    {{#each columns}}
+	    		{{> UI.dynamic template=this.cell_template data=this.column_data}}
+	    {{/each}}
+</template>
+

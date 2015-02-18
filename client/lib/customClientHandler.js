@@ -13,8 +13,11 @@ customClientHandler = {
 						return Session.get('current_content_type') != null;	
 					},
 				},
-				get_summarized_buckets : function() {
-					return truTVHandler.getSummarizedShows();	
+				get_overview_headers : function() {
+					return truTVHandler.getColumnHeaders();	
+				},
+				get_overview_rows : function() {
+					return truTVHandler.getOverviewRows();	
 				},
 				get_profile_image : function() {
 					return truTVHandler.getProfileImage();
@@ -38,8 +41,11 @@ customClientHandler = {
 			},
 		};	
 	},
-	getCustomSummarizedBuckets : function() {
-		return this.runBaseFunction('get_summarized_buckets');	
+	getCustomOverviewHeaders : function() {
+		return this.runBaseFunction('get_overview_headers');		
+	},
+	getCustomOverviewRows : function() {
+		return this.runBaseFunction('get_overview_rows');	
 	},
 	getCustomNavTemplate : function() {
 		var template = this.runBaseFunction('nav_template');

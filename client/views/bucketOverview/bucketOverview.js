@@ -1,7 +1,4 @@
 Template['bucketOverview'].helpers({
-	summarized_buckets : function() {
-		return customClientHandler.getCustomSummarizedBuckets();	
-	},
 	week : function() {
 		return timeHandler.getWeekForSelectedTime();	
 	},

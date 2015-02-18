@@ -53,13 +53,91 @@ truTVHandler = {
 				},
 				color : 'grey',
 			},
-			in_pipeline : {
+			drafted : {
 				'check_item' : function(item) {
 					return item.scope == 'private';
 				},
 				color : 'purple',
 			},
 		};
+	},
+	getColumnMap : function() {
+		return {
+			name : {
+				row_type : 'primary',
+				header_text : 'Show',
+				cell_template : 'showNameCell',
+				get_data : function(params) {
+					var showID = params['show_id'];
+					return {
+						image : truTVHandler.getProfileImageURLForShowID(showID),
+						name : truTVHandler.getShowNameFromShowID(showID),
+					};	
+				},
+			},
+			network : {
+				row_type : 'secondary',
+				header_text : 'Network',
+				cell_template : 'networkIconCell',
+				get_data : function(params) {
+					var iconMap = truTVHandler.getIconMap();
+					return {
+						icon : iconMap[params['network_type']],
+					};
+				},
+			},
+			approved : {
+				header_text : 'Approved',
+				row_type : 'secondary',
+				cell_template : 'metricCell',
+				get_data : function(params) {
+					return truTVHandler.getProcessedMetric('approved', params);
+				},
+			},
+			rejected : {
+				header_text : 'Rejected',
+				row_type : 'secondary',
+				cell_template : 'metricCell',
+				get_data : function(params) {
+					return truTVHandler.getProcessedMetric('rejected', params);
+				},
+			},
+			submitted : {
+				header_text : 'Submitted',
+				row_type : 'secondary',
+				cell_template : 'metricCell',
+				get_data : function(params) {
+					return truTVHandler.getProcessedMetric('submitted', params);
+				},
+			},
+			drafted : {
+				header_text : 'Drafted',
+				row_type : 'secondary',
+				cell_template : 'metricCell',
+				get_data : function(params) {
+					return truTVHandler.getProcessedMetric('drafted', params);
+				},
+			},
+			
+/*
+			denied : {
+				header_text : 'Denied',
+			},
+			submitted : {
+				header_text : 'Submitted',
+			},
+			drafted : {
+				header_text : 'Drafted',
+			},
+*/
+		};	
+	},
+	getColumnHeaders : function() {
+		return _.map(this.getColumnMap(), function(column, columnID){
+			return {
+				text : column.header_text,
+			};
+		});
 	},
 	getCellOptions : function() {
 		return _.map(this.getShowMap(), function(showDetails, showName){
@@ -78,8 +156,20 @@ truTVHandler = {
 			};
 		});
 	},
-	getSummarizedShows : function() {
+	getProcessedMetric : function(metricName, params) {
+		var metricMap = this.getMetricMap();
+		var metrics = params['metrics'];
+		var value = metrics[metricName];
+		var iconColor = metricMap[metricName]['color'];
+		return {
+			value : value,
+			icon_color : iconColor,
+		};
+	},
+	getOverviewRows : function() {
 		var approvalMetricsByShowByNetwork = this.getApprovalMetricsByShowByNetwork();
+		return this.getProcessedShowRows(approvalMetricsByShowByNetwork);
+/*
 		return _.map(approvalMetricsByShowByNetwork, function(metricsByNetwork, showID){
 			var processedNetworks = truTVHandler.getProcessedNetworks(metricsByNetwork);
 			var profileImageURL = truTVHandler.getProfileImageURLForShowID(showID);
@@ -91,6 +181,7 @@ truTVHandler = {
 				networks : processedNetworks,
 			}
 		});
+*/
 	},
 	getIconMap : function() {
 		return {
@@ -100,6 +191,7 @@ truTVHandler = {
 			instagram : 'instagram',
 		};
 	},
+/*
 	getProcessedNetworks : function(metricsByNetwork){
 		// iterate over the icon map so we can make sure the networks are always in same order
 		return _.chain(this.getIconMap())
@@ -115,6 +207,8 @@ truTVHandler = {
 			.compact()
 		.value();
 	},
+*/
+/*
 	getProcessedMetrics : function(metrics){
 		var metricMap = truTVHandler.getMetricMap();
 		return _.map(metrics, function(value, metricName){
@@ -125,6 +219,7 @@ truTVHandler = {
 			};
 		});
 	},
+*/
 	getApprovalMetricsByShowByNetwork : function() {
 		var approvalItems = this.getAllApprovalItemsFromCalendarDays();
 		var metricsByShowByNetwork = {};
@@ -149,6 +244,65 @@ truTVHandler = {
 		});
 		
 		return metricsByShowByNetwork;
+	},
+	getProcessedColumn : function(rowType, columnID, columnDetails, params) {
+		
+		var columnData = {};
+		var cellTemplate = 'emptyCell';
+		
+		if(rowType == columnDetails['row_type']) {
+			var columnData = columnDetails['get_data'](params);
+			var cellTemplate = columnDetails['cell_template'];
+		}
+		
+ 		return {
+			cell_template : cellTemplate,
+			column_data : columnData,
+		};
+	},
+	getProcessedShowRows : function(approvalMetricsByShowByNetwork) {
+		var rows = [];
+		_.map(approvalMetricsByShowByNetwork, function(metricsByNetwork, showID){
+			rows = truTVHandler.addRowForShowName(rows, showID);
+			rows = truTVHandler.addRowsForAllNetworks(rows, showID, metricsByNetwork);
+		});
+		return rows;
+	},
+	addRowForShowName : function(rows, showID) {
+		var columns = _.map(this.getColumnMap(), function(columnDetails, columnID){
+			var params = {
+				show_id : showID,
+			};
+			return truTVHandler.getProcessedColumn('primary', columnID, columnDetails, params);
+		});
+		var row = {
+			columns : columns,
+			hightlighted : true,
+		};
+		rows.push(row);
+		return rows;
+	},
+	addRowsForAllNetworks : function(rows, showID, metricsByNetwork) {
+		_.map(metricsByNetwork, function(metrics, networkType){
+			rows = truTVHandler.addRowForNetwork(rows, showID, networkType, metrics);
+		});
+		return rows;
+	},
+	addRowForNetwork : function(rows, showID, networkType, metrics) {
+		var columns = _.map(this.getColumnMap(), function(columnDetails, columnID){
+			var params = {
+				network_type : networkType,
+				metrics : metrics,
+				show_id : showID,
+			};
+			return truTVHandler.getProcessedColumn('secondary', columnID, columnDetails, params);
+		});
+		var row = {
+			columns : columns,
+			hightlighted : false,
+		};
+		rows.push(row);
+		return rows;	
 	},
 	getAllApprovalItemsFromCalendarDays : function() {
 		return _.chain(Session.get('calendar_days'))

@@ -5,11 +5,19 @@
 		</div>
 		<div class="fourteen wide column">
 			<h1 class="ui center aligned header draft-title">Overview for  Week of {{week}}</h1>
+			<table class ="ui segment table">
+				{{> overviewHeaders}}
+				{{> overviewBody}}
+			</table>
+			
+			
+<!--
 			<div class="ui list">
 				{{#each summarized_buckets}}
 					{{> overviewItem}}
 				{{/each}}
 			</div>
+-->
 		</div>
 		<div class="one wide column center aligned draft-arrow-column">
 			<a><i class="large right next-week arrow icon"></i></a>
