@@ -19,7 +19,6 @@ actionMap = {
 	client : {
 		external : [
 			'comment',
-			'needs_creative',
 			'reject',
 			'approve',
 			'update',
@@ -59,7 +58,7 @@ buttonMap = {
 		display : 'Delete',
 	},
 	comment : {
-		color : 'orange',
+		color : 'teal',
 		display : 'Note',
 	},
 	back : {

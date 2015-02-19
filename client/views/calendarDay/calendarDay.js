@@ -2,7 +2,7 @@ statusColorMap = {
 	approved : 'green',
 	rejected : 'red',
 	submitted : 'grey',
-	commented : 'orange',
+	commented : 'teal',
 	created : 'grey',
 	creative_needed : 'purple',
 	creative_updated : 'blue',
