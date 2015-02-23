@@ -36,6 +36,7 @@ pendingItemHandler = {
 					'commented',
 				],
 				private : [
+					'commented',
 					'created',
 					'creative_updated',
 				],

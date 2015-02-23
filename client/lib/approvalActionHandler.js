@@ -11,6 +11,7 @@ actionMap = {
 		],
 		private : [
 			'delete',
+			'comment',
 			'needs_creative',
 			'finalize',
 			'edit',

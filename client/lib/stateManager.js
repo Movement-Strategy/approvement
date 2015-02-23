@@ -12,6 +12,10 @@ stateManager = {
 				},
 			},
 			commented : {
+				social_media_manager : {
+					status : 'commented',
+					contents : 'set',
+				},
 				creative_director : {
 					status : 'commented',
 					contents : 'set',
