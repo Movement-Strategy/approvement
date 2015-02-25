@@ -7,6 +7,7 @@ pageLoadHandler = {
 		gifHandler.handleSuccessGif();
     	draftItemHandler.handleDraftItems();
     	keyStrokeHandler.bindToWindow();
+    	settingsWindowHandler.setCurrentlyShownType('approval_item_details');
 	},
 	checkIfPageIsReady : function() {
 		Deps.autorun(function(){

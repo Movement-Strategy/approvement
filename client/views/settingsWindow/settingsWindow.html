@@ -1,0 +1,16 @@
+<template name="settingsWindow">
+    <div class="ui {{show_class}} one column page grid">
+	    <div class="column">
+		 	<div class="item-preview">
+			    <h4 class="ui top attached header preview-header">
+				    <a><i class="icon back left"></i></a>
+				   	{{> UI.dynamic template=header_template data=this}}
+			    </h4>
+			    <div class="ui segment attached preview-content">
+					{{> UI.dynamic template=content_template data=this}}
+			    </div>
+		 	</div>
+	    </div>
+    </div>
+</template>
+

@@ -1,0 +1,43 @@
+<template name="approvalItemContent">
+    <div class="create-options {{width_class}}">
+	    {{#if show_dropdowns}}
+			{{> networkTypeDropdown}}
+			{{#if has_more_than_one_content_type}}
+				{{> contentTypeDropdown}}
+			{{/if}}
+			{{#if show_custom_dropdown}}
+				{{> customDropdown}}
+			{{/if}}
+		{{/if}}
+		
+		{{#if is_preview_shown}}
+			{{> timePicker}}
+		{{/if}}
+		{{> facebookLinkInput}}
+    </div>
+	
+	{{#if is_preview_shown}}
+		{{#with preview_content}}
+	    	{{> UI.dynamic template=preview_template data=clickable_inputs}}
+	    {{/with}}
+		{{> creationAccordion}}
+		{{initializeAccordion}}
+	{{/if}}
+    
+	{{#if details_shown}}
+		{{#if is_preview_shown}}
+			<div class="action-section {{width_class}}">
+				<div class="approval-actions">
+					{{#if creating_new_item}}
+						<div class="small grey ui button back">back</div>
+						<div class="small blue ui button submit">submit</div>
+					{{else}}
+						{{> creationActions}}
+					{{/if}}
+				</div>
+			</div>
+		{{/if}}
+		
+	{{/if}}
+</template>
+
