@@ -16,7 +16,11 @@ if(Meteor.isClient) {
 			        	if(Session.get('page_is_ready') && Session.get('approval_items_are_ready') && !detailsLoaded) {
 							var creatingNew = false;
 							var context = Session.get('approval_item_context') ? Session.get('approval_item_context') : {_id : that.params.id};
-							detailsHandler.showDetails(context, creatingNew);
+							var params = {
+								is_creating_new : creatingNew,
+								context : context,
+							};
+							settingsWindowHandler.show('approval_item_details', params);
 							detailsLoaded = true;
 			        	}
 		        	});        	

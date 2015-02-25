@@ -33,5 +33,23 @@ settingsWindowHandler = {
 	setCurrentlyShownType : function(type) {
 		Session.set('shown_settings_window_type', type);	
 	},
+	show : function(type, params){
+		this.getTypeAndRun(type, params, function(typeDetails){
+			var onShow = _.has(typeDetails, 'on_show') ? typeDetails['on_show'] : null;
+			if(onShow) {
+				onShow(params);
+			}
+		});
+	},
+	hide : function() {
+		var params = {};
+		var type = settingsWindowHandler.getCurrentlyShownType();
+		this.getTypeAndRun(type, params, function(typeDetails){
+			var onHide = _.has(typeDetails, 'on_hide') ? typeDetails['on_hide'] : null;
+			if(onHide) {
+				onHide(params);
+			}
+		});
+	},
 		
 };

@@ -122,7 +122,7 @@ detailsHandler = {
 	},
 	onBack : function() {
 		this.deleteRelatedContentIfNeeded();
-		this.hideDetails();
+		settingsWindowHandler.hide();
 	},
 	onCreatingNewItem : function(itemContents) {
 		var approvalItem = this.generateNewApprovalItemFromContents(itemContents);
@@ -131,7 +131,7 @@ detailsHandler = {
 		
 		// because we're creating a new item, we dont' need to worry about changes being made
 		Session.set('changes_made', false);
-		detailsHandler.hideDetails();
+		settingsWindowHandler.hide();
 	},
 	handleUpdate : function(userTypeDetails) {
 		contents = detailsHandler.getDynamicContents();
@@ -160,7 +160,7 @@ detailsHandler = {
 	},
 	afterUpdate : function(contents, dynamicContentsUpdated) {
 		Session.set('changes_made', false);
-		detailsHandler.hideDetails();
+		settingsWindowHandler.hide();
 		// the pop up module in semantic ui has issues resetting correctly when content changes
 		// so were manually setting the items to be empty and flushing the system so that they can reset
 		if(dynamicContentsUpdated) {

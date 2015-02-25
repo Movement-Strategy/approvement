@@ -71,7 +71,7 @@ promptModalHandler = {
 		},
 		exit_asset : {
 			on_exit : function() {
-				detailsHandler.onHideDetails();
+				settingsWindowHandler.hide();
 				promptModalHandler.hide();	
 			},
 			message : "Are you sure you want to exit?  There are unsaved changes",
@@ -147,7 +147,7 @@ promptModalHandler = {
 		Meteor.call('removeItem', itemID);
 		Meteor.call('removeAllCommentsForApprovalItem', itemID);
 		Meteor.call('removeAllAssetsForApprovalItem', itemID);
-		detailsHandler.hideDetails();
+		settingsWindowHandler.hide();
 		promptModalHandler.hide();
 	}
 };

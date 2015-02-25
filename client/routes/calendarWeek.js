@@ -11,7 +11,7 @@ if(Meteor.isClient) {
 	        	if(loginHandler.isLoggedIn()) {
 		        	var that = this;
 		        	calendarBuilder.initializeCalendarWeek(that.params.client, that.params.week);
-		        	detailsHandler.hideDetails();
+		        	settingsWindowHandler.hide();
 		        	mainContentHandler.showTemplate('contentCalendar');
 	        	} else {
 		        	Router.go('/login');
