@@ -71,6 +71,7 @@ promptModalHandler = {
 		},
 		exit_asset : {
 			on_exit : function() {
+				Session.set('changes_made', false);
 				settingsWindowHandler.hide();
 				promptModalHandler.hide();	
 			},

@@ -3,10 +3,16 @@ settingsWindowHandler.types({
 		header_template : 'approvalItemHeader',
 		content_template : 'approvalItemContent',
 		on_show : function(params) {
-			detailsHandler.showDetails(params['context'], params['is_creating_new']);
+			detailsHandler.onShowDetails(params['context'], params['is_creating_new']);
 		},
 		on_hide : function(params) {
-			detailsHandler.hideDetails();
-		}
+			detailsHandler.onHideDetails();
+		},
+		allow_hide : function() {
+			return !Session.get('changes_made');
+		},
+		on_prevent_hide : function() {
+			promptModalHandler.show('exit_asset');	
+		},
 	},
 });

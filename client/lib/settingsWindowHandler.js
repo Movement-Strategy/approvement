@@ -53,11 +53,20 @@
 		var params = {};
 		var type = settingsWindowHandler.getCurrentlyShownType();
 		this.getTypeAndRun(type, params, function(typeDetails){
+			var allowHide = _.has(typeDetails, 'allow_hide') ? typeDetails['allow_hide']() : true;
 			var onHide = _.has(typeDetails, 'on_hide') ? typeDetails['on_hide'] : null;
-			if(onHide) {
+			if(onHide && allowHide) {
 				onHide(params);
 			}
-			settingsWindowHandler.setCurrentlyShownType(null);
+			
+			if(allowHide) {
+				settingsWindowHandler.setCurrentlyShownType(null);
+			} else {
+				if(_.has(typeDetails, 'on_prevent_hide')) {
+					 typeDetails['on_prevent_hide'](); 
+				}
+			}
+			
 		});
 	},
 		

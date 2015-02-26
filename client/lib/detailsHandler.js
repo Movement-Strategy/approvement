@@ -48,7 +48,7 @@ detailsHandler = {
 	creatingNewItem : function() {
 		return Session.get('creating_new_item');
 	},
-	showDetails : function(context, creatingNewItem) {
+	onShowDetails : function(context, creatingNewItem) {
 		context = this.fillInMissingContextData(context);
 		this.closeShownPopup();
 		this.setDefaultsOnShow(context, creatingNewItem);
@@ -91,13 +91,6 @@ detailsHandler = {
 			clickable_inputs : Session.get('clickable_inputs'),
 			preview_template : Session.get('current_network_type') + 'Preview',
 		};
-	},
-	hideDetails : function() {
-		if(Session.get('changes_made')) {
-			promptModalHandler.show('exit_asset');
-		} else {
-			this.onHideDetails();
-		}
 	},
 	onHideDetails : function() {
 		commentHandler.emptyCommentInput();
