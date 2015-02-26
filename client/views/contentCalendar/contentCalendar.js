@@ -6,9 +6,6 @@ Template['contentCalendar'].helpers({
 		// maps a status to the color that's going to be displayed
 		return calendarBuilder.getCalendarDays();
 	},
-	details_shown : function() {
-		return detailsHandler.detailsShown();
-	},
 	is_not_client : function() {
 		return !userHandler.userIsType('client');
 	},
@@ -17,9 +14,6 @@ Template['contentCalendar'].helpers({
 	},
 	can_see_private_row : function() {
 		return userHandler.userIsType('social_media_manager') || userHandler.userIsType('art_director');
-	},
-	show_class : function() {
-		return detailsHandler.detailsShown() ? 'hidden' : '';
 	},
 	initializeDroppables : function() {
 		Meteor.defer(function(){

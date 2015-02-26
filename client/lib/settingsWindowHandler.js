@@ -39,6 +39,7 @@ settingsWindowHandler = {
 			if(onShow) {
 				onShow(params);
 			}
+			mainContentHandler.showTemplate('settingsWindow');
 		});
 	},
 	hide : function() {
