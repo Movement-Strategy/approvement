@@ -70,7 +70,7 @@ clientHandler = {
 		}
 	},
 	clientDropdownShouldBeShown : function() {
-		return !Session.get('details_shown') && Session.get('current_clients').length > 1;
+		return !detailsHandler.detailsShown() && Session.get('current_clients').length > 1;
 	},
 	getClientsForDropdown : function() {
 		var clientsByID = Session.get('clients_by_id');

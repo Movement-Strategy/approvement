@@ -4,19 +4,19 @@ keyStrokeHandler = {
 	},
 	allowWeekChangeOnArrowPress : function() {
 		var isRightTemplate = mainContentHandler.isShown('draftBoard') || mainContentHandler.isShown('contentCalendar') || mainContentHandler.isShown('bucketOverview');
-		return isRightTemplate && !Session.get('entering_draft_item_text') && !Session.get('details_shown');
+		return isRightTemplate && !Session.get('entering_draft_item_text') && !settingsWindowHandler.isShown();
 	},
 	handleKeyStrokes : function(event) {
 		
 		var allowWeekChangeOnArrowPress = keyStrokeHandler.allowWeekChangeOnArrowPress();
 		
 		// if details is hide creation modal submit update on cancel press
-		if(Session.get('details_shown') && event.which == 27 && Session.get('details_can_close')) {
-			detailsHandler.onBack();
+		if(settingsWindowHandler.isShown() && event.which == 27 && Session.get('details_can_close')) {
+			settingsWindowHandler.hide();
 		}
 		
 		// if details is open submit update on enter press
-		if(Session.get('details_shown') && event.which == 13 && Session.get('details_can_close')) {
+		if(detailsHandler.detailsShown() && event.which == 13 && Session.get('details_can_close')) {
 			var enterPressState = detailsHandler.getEnterPressState();
 			stateManager.changeToState(enterPressState);
 		}
@@ -26,8 +26,8 @@ keyStrokeHandler = {
 			assetHandler.resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');
 		}
 		
-		// If details aren't open, go the next pending item on tab press
-		if(!Session.get('details_shown') && event.which == 9) {	
+		// if the calendar is open
+		if(mainContentHandler.isShown('contentCalendar') && event.which == 9) {	
 			pendingItemHandler.goToPendingItem(Session.get('pending_item_index'));
 		}
 				

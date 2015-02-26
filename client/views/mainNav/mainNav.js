@@ -21,8 +21,8 @@ Template['mainNav'].events({
 		userHandler.signUserOut();
 	},
 	'click .main-title' : function() {
-		if(Session.get('details_shown')) {
-			detailsHandler.hideDetails();
+		if(settingsWindowHandler.isShown()) {
+			settingsWindowHandler.hide();
 		}
 	},
 });

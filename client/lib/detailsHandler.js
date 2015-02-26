@@ -43,7 +43,7 @@ detailsHandler = {
 		}
 	},
 	detailsShown : function(){
-		return Session.get('details_shown');
+		return settingsWindowHandler.typeIsShown('approval_item_details');
 	},
 	creatingNewItem : function() {
 		return Session.get('creating_new_item');
@@ -57,7 +57,6 @@ detailsHandler = {
 		} else {
 			this.handleCopiedAssets();
 		}
-		Session.set('details_shown', true);
 	},
 	handleCopiedAssets : function() { 
 		if(Session.get('item_to_copy')) {
@@ -103,7 +102,6 @@ detailsHandler = {
 	onHideDetails : function() {
 		commentHandler.emptyCommentInput();
 		Session.set('item_to_copy', null);
-		Session.set('details_shown', false);
 		Session.set('approval_item_context', null);
 		var clientID = Session.get('selected_client_id');
 		var weekID = timeHandler.getWeekForSelectedTime();

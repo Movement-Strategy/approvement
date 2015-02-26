@@ -1,4 +1,4 @@
-settingsWindowHandler = {
+	settingsWindowHandler = {
 	currentTypes : {},
 	types : function(typesToSet) {
 		_.map(typesToSet, function(typeDetails, typeName){
@@ -30,8 +30,14 @@ settingsWindowHandler = {
 	getContentTemplate : function() {
 		return this.getKeyForShownType('content_template');	
 	},
+	isShown : function() {
+		return !Session.equals('shown_settings_window_type', null);
+	},
 	setCurrentlyShownType : function(type) {
 		Session.set('shown_settings_window_type', type);	
+	},
+	typeIsShown : function(type) {
+		return Session.equals('shown_settings_window_type', type);
 	},
 	show : function(type, params){
 		this.getTypeAndRun(type, params, function(typeDetails){
@@ -40,6 +46,7 @@ settingsWindowHandler = {
 				onShow(params);
 			}
 			mainContentHandler.showTemplate('settingsWindow');
+			settingsWindowHandler.setCurrentlyShownType(type);
 		});
 	},
 	hide : function() {
@@ -50,6 +57,7 @@ settingsWindowHandler = {
 			if(onHide) {
 				onHide(params);
 			}
+			settingsWindowHandler.setCurrentlyShownType(null);
 		});
 	},
 		
