@@ -15,7 +15,8 @@ settingsWindowHandler.types({
 			promptModalHandler.show('exit_asset');	
 		},
 		on_enter_down : function(event, context) {
-			console.log('enter for approval item details');
+			detailsHandler.onEnterPress();
 		},
+		
 	},
 });

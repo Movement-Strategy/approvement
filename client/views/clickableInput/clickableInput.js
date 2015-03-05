@@ -15,10 +15,9 @@ Template['clickableInput'].events({
 	},
 	'keydown' : function(event) {
 		keyStrokeHandler.handleKeyStrokesOnInput('down', event, this);
-		inputBuilder.onInputKeydown(this);
 	},
 	'keyup' : function() {
-		inputBuilder.onInputKeyup(this);
+		keyStrokeHandler.handleKeyStrokesOnInput('up', event, this);
 	},
 	'focus .input-text' : function(event) {
 		inputBuilder.onInputFocus(this);
@@ -32,7 +31,19 @@ Template['clickableInput'].events({
 keyStrokeHandler.types('input',{
 	clickable_input : {
 		on_enter_down : function(event, context) {
-			console.log('enter pressed on input');
+			inputBuilder.onEnterPress(context);
+		},
+		on_escape_down : function(event, context) {
+			inputBuilder.onEnterPress(context);	
+		},
+		on_key_down : function(event, context) {
+			inputBuilder.onKeyPress(context);	
+		},
+		on_shift_down : function(event, context) {
+			inputBuilder.onShiftPress();	
+		},
+		on_shift_up : function(event, context) {
+			inputBuilder.onShiftRelease();	
 		},
 	},
 });

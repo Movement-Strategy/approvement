@@ -30,6 +30,10 @@ detailsHandler = {
 	imageIsLoading : function() {
 		return Session.get('image_is_loading');	
 	},
+	onEnterPress : function() {
+		var enterPressState = detailsHandler.getEnterPressState();
+		stateManager.changeToState(enterPressState);
+	},
 	showDropdowns : function() {
 		if(contentTypeBuilder.isType('link')) {
 			// if the custom dropdown is required, make sure the value is set before hiding the dropdowns

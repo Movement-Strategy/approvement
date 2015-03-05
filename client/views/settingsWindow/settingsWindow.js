@@ -24,7 +24,7 @@ keyStrokeHandler.types('window',{
 		},
 		on_escape_down : function(event, context) {
 			settingsWindowHandler.passAlongKeyEvent('on_escape_down', event, context, function(type){
-				console.log('default_hide');
+				settingsWindowHandler.hide();
 			});
 		},
 		on_tab_down : function () {

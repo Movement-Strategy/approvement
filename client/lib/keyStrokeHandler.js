@@ -65,18 +65,7 @@ keyStrokeHandler = {
 	handleKeyStrokes : function(event) {
 		keyStrokeHandler.handleKeyStrokesOnWindow('down', event);
 		var allowWeekChangeOnArrowPress = keyStrokeHandler.allowWeekChangeOnArrowPress();
-		
-		// if details is hide creation modal submit update on cancel press
-		if(settingsWindowHandler.isShown() && event.which == 27 && Session.get('details_can_close')) {
-			settingsWindowHandler.hide();
-		}
-		
-		// if details is open submit update on enter press
-		if(detailsHandler.detailsShown() && event.which == 13 && Session.get('details_can_close')) {
-			var enterPressState = detailsHandler.getEnterPressState();
-			stateManager.changeToState(enterPressState);
-		}
-		
+				
 		// if an asset is open cancel editted on escape
 		if(Session.get('current_asset_type') != null && event.which == 27) {
 			assetHandler.resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');
