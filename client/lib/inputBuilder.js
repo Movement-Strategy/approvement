@@ -255,6 +255,9 @@ inputBuilder = {
 			$(inputElement).attr('size', $(inputElement).val().length);
 		}
 	},
+	onInputFocus : function() {
+		keyStrokeHandler.setKeyMode('input', 'clickable_input');	
+	},
 	submitInputEdit : function(elementID, inputElement) {
 			var displayElement = '#' + elementID + '_display';
 			inputBuilder.setEditStateForInput(elementID, false, $(inputElement).val());
@@ -264,6 +267,7 @@ inputBuilder = {
 			
 			// trigger an animation so the user knows its been edited
 			$(displayElement).transition('pulse', onHide = function(){
+				keyStrokeHandler.setKeyMode('window', 'settings_window');
 				Session.set('details_can_close', true);
 			});
 	},

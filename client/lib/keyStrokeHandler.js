@@ -1,13 +1,69 @@
 keyStrokeHandler = {
+	keyStrokeMap : {
+		13 : 'enter',
+		9 : 'tab',
+		27 : 'escape',
+		39 : 'right',
+		37 : 'left',
+		16 : 'shift',
+	},
+	currentTypes : {},
+	types : function(scope, typesToSet) {
+		_.map(typesToSet, function(typeDetails, typeName){
+			if(!_.has(keyStrokeHandler.currentTypes, scope)) {
+				keyStrokeHandler.currentTypes[scope] = {};
+			}
+			keyStrokeHandler.currentTypes[scope][typeName] = typeDetails;
+		});
+	},
 	bindToWindow : function() {
-		$(document).on('keydown', keyStrokeHandler.handleKeyStrokes);	
+		$(document).on('keydown', keyStrokeHandler.handleKeyStrokes);
+		$(document).on('keyup', keyStrokeHandler.onKeyDownWindow);		
 	},
 	allowWeekChangeOnArrowPress : function() {
 		var isRightTemplate = mainContentHandler.isShown('draftBoard') || mainContentHandler.isShown('contentCalendar') || mainContentHandler.isShown('bucketOverview');
 		return isRightTemplate && !Session.get('entering_draft_item_text') && !settingsWindowHandler.isShown();
 	},
+	onKeyDownWindow : function() {
+		keyStrokeHandler.handleKeyStrokesOnWindow('up', event);
+	},
+	handleKeyStrokesOnWindow : function(keyDirection, event) {
+		var scope = Session.get('key_scope');
+		if(scope == 'window') {
+			keyStrokeHandler.handleAllKeyStrokes(scope, keyDirection, event, {});
+		}
+	},
+	handleAllKeyStrokes : function(scope, keyDirection, event, context) {
+		var mode = Session.get('key_mode');
+		var modeDetails = this.getModeDetails(scope, mode);
+		this.handleDynamicKeyEvents(modeDetails, keyDirection, event, context);
+	},
+	handleKeyStrokesOnInput : function(keyDirection, event, context) {
+		var scope = Session.get('key_scope');
+		if(scope == 'input') {
+			this.handleAllKeyStrokes(scope, keyDirection, event, context);
+		}
+	},
+	handleDynamicKeyEvents : function(modeDetails, keyDirection, event, context) {
+		var keyMap = jQuery.extend(true, {}, this.keyStrokeMap);
+		var eventKey = 'key';
+		if(_.has(keyMap, event.which)) {
+			var eventKey = keyMap[event.which];
+		}
+		var eventName = 'on_' + eventKey + '_' + keyDirection;
+		if(_.has(modeDetails, eventName)) {
+			modeDetails[eventName](event, context);
+		}
+	},
+	getModeDetails : function(scope, mode) {
+		return this.currentTypes[scope][mode];
+	},
+	setKeyMode : function(scope, mode) {
+		Session.set('key_mode', mode);
+		Session.set('key_scope', scope);	
+	},
 	handleKeyStrokes : function(event) {
-		
+		keyStrokeHandler.handleKeyStrokesOnWindow('down', event);
 		var allowWeekChangeOnArrowPress = keyStrokeHandler.allowWeekChangeOnArrowPress();
 		
 		// if details is hide creation modal submit update on cancel press
