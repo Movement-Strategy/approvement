@@ -22,12 +22,29 @@ Template['assetCell'].helpers({
 });
 
 Template['assetCell'].events({
+	'keydown .draft-link-input' : function(event) {
+		keyStrokeHandler.handleKeyStrokesOnInput('down', event, this);	
+	},
 	'click .edit-draft-link' : function(event) {
 		popupContent.handlePopup('.edit-draft-link', 'hide all');
 		draftLinkHandler.onAddLink(event);
 	},
+	'focus .draft-link-input' : function() {
+		draftLinkHandler.changeToKeyMode();	
+	},
 	'blur .draft-link-input' : function() {
-		draftLinkHandler.handleEnter();
+		draftLinkHandler.onEnterPress();
+	},
+});
+
+keyStrokeHandler.types('input', {
+	asset_cell : {
+		on_enter_down : function() {
+			draftLinkHandler.onEnterPress();
+		},
+		on_escape_down : function() {
+			draftLinkHandler.onEnterPress();
+		},
 	},
 });
 

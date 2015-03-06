@@ -66,9 +66,6 @@ keyStrokeHandler = {
 		keyStrokeHandler.handleKeyStrokesOnWindow('down', event);
 		var allowWeekChangeOnArrowPress = keyStrokeHandler.allowWeekChangeOnArrowPress();
 				
-		if(Session.get('entering_draft_item_text') && event.which == 27) {
-			$('.content-input').blur();
-		}
 		
 		// Submit delete on enter if the prompt modal is open
 		if(Session.get('current_prompt_type') != null && event.which == 13) {
@@ -83,15 +80,6 @@ keyStrokeHandler = {
 			contentBucketModalHandler.handleEnter();
 		}
 		
-		// cancel edit if editing a draft link on escape press
-		if(Session.get('edited_draft_link') != null && event.which == 27) {
-			draftLinkHandler.handleEscape();
-		}
-		
-		// submit edit if editing a draft link on enter press
-		if(Session.get('edited_draft_link') != null && event.which == 13) {
-			draftLinkHandler.handleEnter();
-		}
 		
 			
 	}
