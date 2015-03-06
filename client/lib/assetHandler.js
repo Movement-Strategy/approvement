@@ -19,17 +19,11 @@ assetHandler = {
 			return "";
 		}
 	},
-	onBlur : function() {
-		assetHandler.resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');
-	},
 	changeToKeyMode : function() {
 		keyStrokeHandler.setKeyMode('input', 'creation_asset');	
 	},
 	onEnterPress : function() {
 		assetHandler.createOrUpdateAsset($('.input-asset').val());
-	},
-	onEscapePress : function() {
-		assetHandler.resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');		
 	},
 	resetAssetTemplate : function() {
 		this.resetAssetState();

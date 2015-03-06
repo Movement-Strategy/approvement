@@ -15,7 +15,7 @@ Template['editCreationAsset'].events({
 		assetHandler.changeToKeyMode();	
 	},
 	'blur' : function() {
-		assetHandler.onBlur();
+		assetHandler.onEnterPress();
 	},
 	'click .delete-asset' : function() {
 		promptModalHandler.show('asset');
