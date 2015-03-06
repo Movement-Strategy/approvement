@@ -13,7 +13,7 @@ if(Meteor.isClient) {
 		        	calendarBuilder.initializeCalendarWeek(that.params.client, that.params.week);
 		        	settingsWindowHandler.hide();
 		        	mainContentHandler.showTemplate('contentCalendar');
-		        	keyStrokeHandler.setKeyMode('window', 'content_calendar');
+		        	calendarBuilder.changeToKeyMode();
 	        	} else {
 		        	Router.go('/login');
 	        	}

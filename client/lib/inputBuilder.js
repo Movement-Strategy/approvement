@@ -249,13 +249,13 @@ inputBuilder = {
 		element.attr('size', element.val().length);
 		element.focus();
 	},
+	changeToKeyMode : function() {
+		keyStrokeHandler.setKeyMode('input', 'clickable_input');	
+	},
 	setLengthOfInputElement : function(elementID, inputElement) {
 		if(inputBuilder.beingEditted(elementID)) {
 			$(inputElement).attr('size', $(inputElement).val().length);
 		}
-	},
-	onInputFocus : function() {
-		keyStrokeHandler.setKeyMode('input', 'clickable_input');	
 	},
 	submitInputEdit : function(elementID, inputElement) {
 			var displayElement = '#' + elementID + '_display';
@@ -266,7 +266,7 @@ inputBuilder = {
 			
 			// trigger an animation so the user knows its been edited
 			$(displayElement).transition('pulse', onHide = function(){
-				keyStrokeHandler.setKeyMode('window', 'settings_window');
+				settingsWindowHandler.changeToKeyMode();
 			});
 	},
 	onKeyPress : function(context) {

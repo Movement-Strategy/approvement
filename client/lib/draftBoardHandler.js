@@ -16,5 +16,8 @@ draftBoardHandler = {
 	},
 	hideAllPopups : function() {
 		$(this.popupSelector).popup('hide');
-	}
+	},
+	changeToKeyMode : function() {
+		keyStrokeHandler.setKeyMode('window', 'draft_board');	
+	},
 };

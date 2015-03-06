@@ -50,7 +50,7 @@
 			}
 			mainContentHandler.showTemplate('settingsWindow');
 			settingsWindowHandler.setCurrentlyShownType(type);
-			keyStrokeHandler.setKeyMode('window', 'settings_window');
+			settingsWindowHandler.changeToKeyMode();
 		});
 	},
 	passAlongKeyEvent : function(eventName, event, context, defaultFunction) {

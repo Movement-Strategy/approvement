@@ -22,6 +22,9 @@ calendarBuilder = {
 		var newTemplate = draftBoardHandler.isShown() ? 'contentCalendar' : 'draftBoard';
 		mainContentHandler.changeToTemplate(newTemplate, clientID, weekID);
 	},
+	changeToKeyMode : function() {
+		keyStrokeHandler.setKeyMode('window', 'content_calendar');
+	},
 	setCurrentCalendarDays : function() {
 		var timestamp = timeHandler.getTimestampForCurrentDate();
 		var dateObject = moment(timestamp);

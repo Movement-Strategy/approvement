@@ -14,3 +14,14 @@ Template['draftBoard'].events({
 	},
 });
 
+keyStrokeHandler.types('window', {
+	draft_board : {
+		on_left_down : function(event, context) {
+			calendarBuilder.onLeftPress();
+		},
+		on_right_down : function(event, context) {
+			calendarBuilder.onRightPress();
+		}
+	},
+});
+

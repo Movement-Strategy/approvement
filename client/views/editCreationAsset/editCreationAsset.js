@@ -9,13 +9,28 @@ Template['editCreationAsset'].helpers({
 
 Template['editCreationAsset'].events({
 	'keydown' : function(event) {
-		assetHandler.onAssetInputKeydown(event);
+		keyStrokeHandler.handleKeyStrokesOnInput('down', event, this);
+	},
+	'focus' : function() {
+		assetHandler.changeToKeyMode();	
 	},
 	'blur' : function() {
-		assetHandler.resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');
+		assetHandler.onBlur();
 	},
 	'click .delete-asset' : function() {
 		promptModalHandler.show('asset');
 	},
 });
+
+keyStrokeHandler.types('input', {
+	creation_asset : {
+		on_enter_down : function(event, context) {
+			assetHandler.onEnterPress();
+		},
+		on_escape_down : function(event, context) {
+			assetHandler.onEnterPress();	
+		},
+	},
+});
+
 

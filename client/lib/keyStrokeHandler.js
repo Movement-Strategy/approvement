@@ -65,16 +65,10 @@ keyStrokeHandler = {
 	handleKeyStrokes : function(event) {
 		keyStrokeHandler.handleKeyStrokesOnWindow('down', event);
 		var allowWeekChangeOnArrowPress = keyStrokeHandler.allowWeekChangeOnArrowPress();
-		
-		// if an asset is open cancel editted on escape
-		if(Session.get('current_asset_type') != null && event.which == 27) {
-			assetHandler.resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');
-		}
-		
+				
 		if(Session.get('entering_draft_item_text') && event.which == 27) {
 			$('.content-input').blur();
 		}
-		
 		
 		// Submit delete on enter if the prompt modal is open
 		if(Session.get('current_prompt_type') != null && event.which == 13) {

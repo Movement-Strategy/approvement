@@ -8,7 +8,7 @@ assetHandler = {
 		this.resetAssetTemplate();
 		var selector = '#' + assetID;
 		$(selector).transition(animationName, onHide = function(){
-			Session.set('details_can_close', true);
+			settingsWindowHandler.changeToKeyMode();
 		});
 	},
 	getAssetContent : function () {
@@ -19,19 +19,17 @@ assetHandler = {
 			return "";
 		}
 	},
-	onAssetInputKeydown : function(event) {
-		this.handleEnterPress(event);
-		this.handleEscapePress(event);
+	onBlur : function() {
+		assetHandler.resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');
 	},
-	handleEnterPress : function() {
-		if(event.which == 13) {
-			assetHandler.createOrUpdateAsset($('.input-asset').val());
-		}
+	changeToKeyMode : function() {
+		keyStrokeHandler.setKeyMode('input', 'creation_asset');	
 	},
-	handleEscapePress : function() {
-		if(event.which == 27) {
-			assetHandler.resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');		
-		}
+	onEnterPress : function() {
+		assetHandler.createOrUpdateAsset($('.input-asset').val());
+	},
+	onEscapePress : function() {
+		assetHandler.resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');		
 	},
 	resetAssetTemplate : function() {
 		this.resetAssetState();
@@ -72,7 +70,9 @@ assetHandler = {
 		var clickedID = event.currentTarget.id;
 		$('#' + clickedID).popup('hide');
 		Session.set('current_asset_id', clickedID);
-		Session.set('details_can_close', false);
+		Meteor.flush();
+		var element = document.getElementsByClassName('input-asset')[0];
+		element.focus();
 	},
 	editingAsset : function() {
 		return Session.get('current_asset_type') != null && !userHandler.userIsType('client');

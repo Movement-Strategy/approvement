@@ -20,7 +20,7 @@ Template['clickableInput'].events({
 		keyStrokeHandler.handleKeyStrokesOnInput('up', event, this);
 	},
 	'focus .input-text' : function(event) {
-		inputBuilder.onInputFocus(this);
+		inputBuilder.changeToKeyMode();
 	},
 	'blur .input-text' : function(event) {
 		inputBuilder.onInputBlur(this);
