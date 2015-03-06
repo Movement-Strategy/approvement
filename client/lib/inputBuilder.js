@@ -210,7 +210,6 @@ inputBuilder = {
 			this.handleChangesMade(text, inputs, input_id);
 			inputs[input_id] = inputBuilder.setTextInInput(text, inputs[input_id]);
 		}
-		
 		Session.set('clickable_inputs', inputs);
 		Meteor.flush();
 		var inputElement = '#' + input_id + '_input';

@@ -54,9 +54,15 @@ Template['contentCalendar'].events({
 
 keyStrokeHandler.types('window',{
 	content_calendar : {
-		on_enter_down : function(event, context) {
-			console.log('enter pressed on calendar');
+		on_tab_down : function(event, context) {
+			calendarBuilder.onTabPress();
 		},
+		on_left_down : function(event, context) {
+			calendarBuilder.onLeftPress();
+		},
+		on_right_down : function(event, context) {
+			calendarBuilder.onRightPress();
+		}
 	},
 });
 

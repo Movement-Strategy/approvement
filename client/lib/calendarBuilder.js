@@ -82,6 +82,21 @@ calendarBuilder = {
 	onDragExitPlusButton : function() {
 		Session.set('plus_is_dragged_over', false);
 	},
+	onLeftPress : function() {
+		popupContent.handlePopup('.edit-draft-link', 'hide');
+		event.preventDefault();
+		detailsHandler.closeShownPopup();
+		timeHandler.changeToLastWeek();
+	},
+	onRightPress : function() {
+		popupContent.handlePopup('.edit-draft-link', 'hide');
+		event.preventDefault();
+		detailsHandler.closeShownPopup();
+		timeHandler.changeToNextWeek();
+	},
+	onTabPress : function() {
+		pendingItemHandler.goToPendingItem(Session.get('pending_item_index'));
+	},
 	addContextToCalendarDay : function(day, dayIndex, dateObject) {
 		var newDay = day;
 		var isoDate = dateObject;

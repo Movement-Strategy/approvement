@@ -78,7 +78,6 @@ pendingItemHandler = {
 		Session.set('total_relevant_items', count);
 	},
 	goToPendingItem : function(itemOffset) {
-		
 		var pendingItems = Session.get('pending_items');	
 		if(pendingItems.length > 0) {
 			var pendingItem = pendingItems[itemOffset];

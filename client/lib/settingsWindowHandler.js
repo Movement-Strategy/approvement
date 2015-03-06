@@ -17,6 +17,9 @@
 			return _.has(typeDetails, key) ? typeDetails[key] : null;
 		});
 	},
+	changeToKeyMode : function() {
+		keyStrokeHandler.setKeyMode('window', 'settings_window');
+	},
 	getKeyForShownType : function(key) {
 		var type = this.getCurrentlyShownType();
 		return type == null ? null : this.getKeyForType(type, key);

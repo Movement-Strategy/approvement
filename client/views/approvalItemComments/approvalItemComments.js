@@ -37,19 +37,28 @@ Template['approvalItemComments'].helpers({
 
 Template['approvalItemComments'].events({
 	'keydown .comment-create' : function(event) {
-		commentHandler.onCreateKeydown(event);
+		var context = {
+			creating_new : true,
+		};
+		keyStrokeHandler.handleKeyStrokesOnInput('down', event, context);
 	},
 	'keydown .comment-edit' : function(event) {
-		commentHandler.onEditKeydown(event);
+		var context = {
+			creating_new : false,
+		};
+		keyStrokeHandler.handleKeyStrokesOnInput('down', event, context);
 	},
 	'click .delete-comment' : function() {
 		commentHandler.deleteComment(this);
 	},
+	'focus .edit-edit' : function(event) {
+		commentHandler.changeToKeyMode();	
+	},
 	'focus .comment-create' : function(event) {
-		commentHandler.onCreateFocus();
+		commentHandler.changeToKeyMode();
 	},
 	'blur .comment-create' : function() {
-		commentHandler.onCreateBlur();
+		settingsWindowHandler.changeToKeyMode();
 	},
 	'blur .comment-edit' : function() {
 		commentHandler.onEditBlur();	
@@ -58,4 +67,20 @@ Template['approvalItemComments'].events({
 		commentHandler.onClickComment(this);
 	}
 });
+
+keyStrokeHandler.types('input',{
+	approval_item_comments : {
+		on_enter_down : function(event, context) {
+			commentHandler.onEnterPress(context);
+		},
+		on_escape_down : function(event, context) {
+			if(!context.creating_new) {
+				commentHandler.onEditEscapePress(context);
+			}
+		}
+	},
+});
+
+
+
 
