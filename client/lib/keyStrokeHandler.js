@@ -65,23 +65,6 @@ keyStrokeHandler = {
 	handleKeyStrokes : function(event) {
 		keyStrokeHandler.handleKeyStrokesOnWindow('down', event);
 		var allowWeekChangeOnArrowPress = keyStrokeHandler.allowWeekChangeOnArrowPress();
-				
-		
-		// Submit delete on enter if the prompt modal is open
-		if(Session.get('current_prompt_type') != null && event.which == 13) {
-			promptModalHandler.handleDelete();
-		}
-		
-		// don't allow change if the draft board is shown and the user is editing text
-		
-		
-		// Submit change on enter press if content bucket modal is shown
-		if(contentBucketModalHandler.isShown && event.which == 13) {
-			contentBucketModalHandler.handleEnter();
-		}
-		
-		
-			
 	}
 	
 };

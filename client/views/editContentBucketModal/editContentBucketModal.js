@@ -39,5 +39,16 @@ Template['editContentBucketModal'].events({
 	'click .back-bucket.button' : function(){
 		contentBucketModalHandler.hideModal();
 	},
+});
+
+keyStrokeHandler.types('window', {
+	content_bucket_modal : {
+		on_enter_down : function() {
+			contentBucketModalHandler.onEnterPress();	
+		},
+		on_escape_down : function() {
+			contentBucketModalHandler.hideModal();
+		}
+	},
 });		
 
