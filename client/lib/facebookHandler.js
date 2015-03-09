@@ -23,6 +23,7 @@ facebookHandler = {
 	},
 	editingLink : function() {
 		if(this.getFacebookLink() == null) {
+			this.focusOnNewLink();
 			return true;
 		} else {
 			return Session.get('editing_link');
@@ -31,6 +32,12 @@ facebookHandler = {
 	linkEntered : function() {
 		return Session.get('current_facebook_link') && !Session.get('link_is_loading');	
 	},
+	focusOnNewLink : function() {
+		Tracker.afterFlush(function(){
+			var element = document.getElementsByClassName('facebook-link-input')[0];
+			element.focus();
+		});
+	},
 	
 	// If this is a facebook link type item
 	// that existed before facebook links were required
@@ -38,18 +45,12 @@ facebookHandler = {
 		var currentContents = Session.get('current_item_contents');
 		return !detailsHandler.creatingNewItem() && !_.has(currentContents, 'facebook_link') && contentTypeBuilder.isType('link');
 	},
-	onLinkInputKeydown : function(event) {
-		this.handleEnterPress(event);
-		this.handleEscapePress(event);
-	},
-	handleEnterPress : function(event) {
-		if(event.which == 13) {
-			var linkURL = $('.facebook-link-input').val();
-			if(linkURL != Session.get('current_facebook_link')) {
-				this.updateFacebookLink(linkURL);
-			} else {
-				this.cancelLinkEdit();
-			}
+	submitLinkUpdate : function() {
+		var linkURL = $('.facebook-link-input').val();
+		if(linkURL != Session.get('current_facebook_link')) {
+			this.updateFacebookLink(linkURL);
+		} else {
+			this.cancelLinkEdit();
 		}
 	},
 	updateFacebookLink : function(linkURL) {
@@ -82,13 +83,13 @@ facebookHandler = {
 		return link;
    },
    onLinkInputBlur : function() {
-	   this.cancelLinkEdit();
+	   this.submitLinkUpdate();
    },
    cancelLinkEdit : function() {
 		Session.set('editing_link', false);
 		Meteor.flush();
 		$('.facebook-link-display').transition('shake', onHide = function(){
-			Session.set('details_can_close', true);
+			settingsWindowHandler.changeToKeyMode();
 		});
    },
    convertResponseIntoLinkData : function(response) {
@@ -103,6 +104,9 @@ facebookHandler = {
 			indexedTags = this.addMetaTagsToIndexedTags(indexedTags, metaDiv);
         }
 		return indexedTags;
+	},
+	changeToLinkKeyMode : function() {
+		keyStrokeHandler.setKeyMode('input', 'approval_item_link');	
 	},
 	addMetaTagsToIndexedTags : function(indexedTags, metaDiv) {
 		var metaTags = metaDiv.getElementsByTagName("meta");
@@ -127,13 +131,8 @@ facebookHandler = {
 		Session.set('changes_made', true);
 		Meteor.flush();
 		$('.facebook-link-display').transition('pulse', onHide = function(){
-			Session.set('details_can_close', true);
+			settingsWindowHandler.changeToKeyMode();
 		});
-	},
-	handleEscapePress : function(event) {
-		if(event.which == 27) {
-			 this.cancelLinkEdit();
-		}
 	},
 	getFacebookLink : function() {
 		return Session.get('current_facebook_link');
@@ -142,10 +141,14 @@ facebookHandler = {
 		Session.set('editing_link', true);
 		Meteor.flush();
 		Meteor.defer(function(){
+			var element = document.getElementsByClassName('facebook-link-input')[0];
 			if(!Session.equals('current_facebook_link', null)) {
 				$('.facebook-link-input').val(facebookHandler.getFacebookLink());	
 			}
-			$('.facebook-link-input').focus();	
+			element.focus();
 		});
+	},
+	handleEditingLink : function() {
+		
 	},
 };

@@ -21,13 +21,23 @@ Template['facebookLinkInput'].events({
 		facebookHandler.onClickFacebookLink();
 	},
 	'keydown .facebook-link-input' : function(event) {
-		facebookHandler.onLinkInputKeydown(event);
+		keyStrokeHandler.handleKeyStrokesOnInput('down', event, this);
 	},
 	'focus .facebook-link-input' : function() {
-		Session.set('details_can_close', false);
+		facebookHandler.changeToLinkKeyMode();
 	},
 	'blur .facebook-link-input' : function(event) {
-		facebookHandler.onLinkInputBlur();
+		facebookHandler.submitLinkUpdate();	
 	}
 });
 
+keyStrokeHandler.types('input', {
+	approval_item_link : {
+		on_enter_down : function() {
+			facebookHandler.submitLinkUpdate();
+		},
+		on_escape_down : function() {
+			facebookHandler.submitLinkUpdate();	
+		},
+	},
+});
