@@ -271,7 +271,6 @@ inputBuilder = {
 	},
 	onKeyPress : function(context) {
 		this.handleContext(context, function(elementID, inputElement){
-			console.log('getting called');
 			inputBuilder.setLengthOfInputElement(elementID, inputElement);
 		});
 	},
