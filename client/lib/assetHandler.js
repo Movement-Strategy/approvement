@@ -53,20 +53,23 @@ assetHandler = {
 	onClickAssetTypeOption : function(event) {
 		var assetType = $(event.target).data().value;
 		Session.set('current_asset_type', assetType);
-		Session.set('details_can_close', false);
+		this.setFocusToAssetInput();
 	},
 	initializeAssetDropdown : function() {
 		Meteor.defer(function(){
 			$('.create-asset').dropdown();
 		});
 	},	
+	setFocusToAssetInput : function() {
+		Meteor.flush();
+		var element = document.getElementsByClassName('input-asset')[0];
+		element.focus();
+	},
 	onClickAssetIcon : function(event) {
 		var clickedID = event.currentTarget.id;
 		$('#' + clickedID).popup('hide');
 		Session.set('current_asset_id', clickedID);
-		Meteor.flush();
-		var element = document.getElementsByClassName('input-asset')[0];
-		element.focus();
+		this.setFocusToAssetInput();
 	},
 	editingAsset : function() {
 		return Session.get('current_asset_type') != null && !userHandler.userIsType('client');
