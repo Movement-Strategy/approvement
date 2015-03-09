@@ -17,14 +17,10 @@ keyStrokeHandler = {
 		});
 	},
 	bindToWindow : function() {
-		$(document).on('keydown', keyStrokeHandler.handleKeyStrokes);
-		$(document).on('keyup', keyStrokeHandler.onKeyDownWindow);		
+		$(document).on('keydown', keyStrokeHandler.onKeyDownWindow);
+		$(document).on('keyup', keyStrokeHandler.onKeyUpWindow);		
 	},
-	allowWeekChangeOnArrowPress : function() {
-		var isRightTemplate = mainContentHandler.isShown('draftBoard') || mainContentHandler.isShown('contentCalendar') || mainContentHandler.isShown('bucketOverview');
-		return isRightTemplate && !Session.get('entering_draft_item_text') && !settingsWindowHandler.isShown();
-	},
-	onKeyDownWindow : function() {
+	onKeyUpWindow : function() {
 		keyStrokeHandler.handleKeyStrokesOnWindow('up', event);
 	},
 	handleKeyStrokesOnWindow : function(keyDirection, event) {
@@ -62,9 +58,8 @@ keyStrokeHandler = {
 		Session.set('key_mode', mode);
 		Session.set('key_scope', scope);	
 	},
-	handleKeyStrokes : function(event) {
+	onKeyDownWindow : function(event) {
 		keyStrokeHandler.handleKeyStrokesOnWindow('down', event);
-		var allowWeekChangeOnArrowPress = keyStrokeHandler.allowWeekChangeOnArrowPress();
 	}
 	
 };
