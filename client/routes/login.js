@@ -13,7 +13,9 @@ if(Meteor.isClient) {
 					Meteor.logout();
 					Session.set('clients_are_ready', false);
 					Session.set('there_were_pending_items', false);
+					loginHandler.changeToKeyMode();
 				}
+
 	        },
 	    });
 	});

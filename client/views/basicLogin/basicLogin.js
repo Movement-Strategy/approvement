@@ -8,14 +8,16 @@ Template['basicLogin'].helpers({
 });
 
 Template['basicLogin'].events({
-	'keydown .password-input' : function(event) {
-		loginHandler.triggerLoginOnEnterPress(event);
-	},
-	'keydown .login-input' : function(event) {
-		loginHandler.triggerLoginOnEnterPress(event);
-	},
 	'click .login.button' : function() {
 		loginHandler.attemptLogin();
 	}
+});
+
+keyStrokeHandler.types('window', {
+	login : {
+		on_enter_down : function() {
+			loginHandler.attemptLogin();	
+		},
+	},
 });
 
