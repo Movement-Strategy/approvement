@@ -31,8 +31,10 @@ detailsHandler = {
 		return Session.get('image_is_loading');	
 	},
 	onEnterPress : function() {
-		var enterPressState = detailsHandler.getEnterPressState();
-		stateManager.changeToState(enterPressState);
+		if(this.isPreviewShown()) {
+			var enterPressState = detailsHandler.getEnterPressState();
+			stateManager.changeToState(enterPressState);
+		}
 	},
 	showDropdowns : function() {
 		if(contentTypeBuilder.isType('link')) {
