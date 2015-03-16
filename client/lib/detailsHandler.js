@@ -30,6 +30,12 @@ detailsHandler = {
 	imageIsLoading : function() {
 		return Session.get('image_is_loading');	
 	},
+	onEnterPress : function() {
+		if(this.isPreviewShown()) {
+			var enterPressState = detailsHandler.getEnterPressState();
+			stateManager.changeToState(enterPressState);
+		}
+	},
 	showDropdowns : function() {
 		if(contentTypeBuilder.isType('link')) {
 			// if the custom dropdown is required, make sure the value is set before hiding the dropdowns
@@ -43,12 +49,12 @@ detailsHandler = {
 		}
 	},
 	detailsShown : function(){
-		return Session.get('details_shown');
+		return settingsWindowHandler.typeIsShown('approval_item_details');
 	},
 	creatingNewItem : function() {
 		return Session.get('creating_new_item');
 	},
-	showDetails : function(context, creatingNewItem) {
+	onShowDetails : function(context, creatingNewItem) {
 		context = this.fillInMissingContextData(context);
 		this.closeShownPopup();
 		this.setDefaultsOnShow(context, creatingNewItem);
@@ -57,7 +63,6 @@ detailsHandler = {
 		} else {
 			this.handleCopiedAssets();
 		}
-		Session.set('details_shown', true);
 	},
 	handleCopiedAssets : function() { 
 		if(Session.get('item_to_copy')) {
@@ -93,17 +98,9 @@ detailsHandler = {
 			preview_template : Session.get('current_network_type') + 'Preview',
 		};
 	},
-	hideDetails : function() {
-		if(Session.get('changes_made')) {
-			promptModalHandler.show('exit_asset');
-		} else {
-			this.onHideDetails();
-		}
-	},
 	onHideDetails : function() {
 		commentHandler.emptyCommentInput();
 		Session.set('item_to_copy', null);
-		Session.set('details_shown', false);
 		Session.set('approval_item_context', null);
 		var clientID = Session.get('selected_client_id');
 		var weekID = timeHandler.getWeekForSelectedTime();
@@ -122,7 +119,7 @@ detailsHandler = {
 	},
 	onBack : function() {
 		this.deleteRelatedContentIfNeeded();
-		this.hideDetails();
+		settingsWindowHandler.hide();
 	},
 	onCreatingNewItem : function(itemContents) {
 		var approvalItem = this.generateNewApprovalItemFromContents(itemContents);
@@ -131,7 +128,7 @@ detailsHandler = {
 		
 		// because we're creating a new item, we dont' need to worry about changes being made
 		Session.set('changes_made', false);
-		detailsHandler.hideDetails();
+		settingsWindowHandler.hide();
 	},
 	handleUpdate : function(userTypeDetails) {
 		contents = detailsHandler.getDynamicContents();
@@ -160,7 +157,7 @@ detailsHandler = {
 	},
 	afterUpdate : function(contents, dynamicContentsUpdated) {
 		Session.set('changes_made', false);
-		detailsHandler.hideDetails();
+		settingsWindowHandler.hide();
 		// the pop up module in semantic ui has issues resetting correctly when content changes
 		// so were manually setting the items to be empty and flushing the system so that they can reset
 		if(dynamicContentsUpdated) {

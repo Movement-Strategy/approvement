@@ -6,9 +6,6 @@ Template['contentCalendar'].helpers({
 		// maps a status to the color that's going to be displayed
 		return calendarBuilder.getCalendarDays();
 	},
-	details_shown : function() {
-		return detailsHandler.detailsShown();
-	},
 	is_not_client : function() {
 		return !userHandler.userIsType('client');
 	},
@@ -17,9 +14,6 @@ Template['contentCalendar'].helpers({
 	},
 	can_see_private_row : function() {
 		return userHandler.userIsType('social_media_manager') || userHandler.userIsType('art_director');
-	},
-	show_class : function() {
-		return detailsHandler.detailsShown() ? 'hidden' : '';
 	},
 	initializeDroppables : function() {
 		Meteor.defer(function(){
@@ -56,5 +50,19 @@ Template['contentCalendar'].events({
 	'click .left.arrow' : function(event) {
 		timeHandler.changeToLastWeek();
 	},	
+});
+
+keyStrokeHandler.types('window',{
+	content_calendar : {
+		on_tab_down : function(event, context) {
+			calendarBuilder.onTabPress();
+		},
+		on_left_down : function(event, context) {
+			calendarBuilder.onLeftPress();
+		},
+		on_right_down : function(event, context) {
+			calendarBuilder.onRightPress();
+		}
+	},
 });
 

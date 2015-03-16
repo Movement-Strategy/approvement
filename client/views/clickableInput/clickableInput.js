@@ -13,15 +13,39 @@ Template['clickableInput'].events({
 	'click'  : function(event) {
 		inputBuilder.onInputClick(this);
 	},
-	'keydown' : function() {
-		inputBuilder.onInputKeydown(this);
+	'keydown' : function(event) {
+		keyStrokeHandler.handleKeyStrokesOnInput('down', event, this);
 	},
 	'keyup' : function() {
-		inputBuilder.onInputKeyup(this);
+		keyStrokeHandler.handleKeyStrokesOnInput('up', event, this);
+	},
+	'focus .input-text' : function(event) {
+		inputBuilder.changeToKeyMode();
 	},
 	'blur .input-text' : function(event) {
 		inputBuilder.onInputBlur(this);
 	},
 	
 });
+
+keyStrokeHandler.types('input',{
+	clickable_input : {
+		on_enter_down : function(event, context) {
+			inputBuilder.onEnterPress(context);
+		},
+		on_escape_down : function(event, context) {
+			inputBuilder.onEnterPress(context);	
+		},
+		on_key_down : function(event, context) {
+			inputBuilder.onKeyPress(context);	
+		},
+		on_shift_down : function(event, context) {
+			inputBuilder.onShiftPress();	
+		},
+		on_shift_up : function(event, context) {
+			inputBuilder.onShiftRelease();	
+		},
+	},
+});
+
 

@@ -18,15 +18,26 @@ Template['textAreaCell'].helpers({
 
 Template['textAreaCell'].events({
 	'keyup .content-input' : function(event) {
-		contentBucketHandler.onTextAreaKeyup(event);
+		keyStrokeHandler.handleKeyStrokesOnInput('up', event, this);
 	},
 	'focus .content-input' : function(event) {
-		Session.set('entering_draft_item_text', true);
+		contentBucketHandler.changeToTextAreaKeyMode();
 	},
 	'blur .content-input' : function(event) {
-		Session.set('entering_draft_item_text', false);
+		draftBoardHandler.changeToKeyMode();
 	},
 	
 		
+});
+
+keyStrokeHandler.types('input', {
+	text_area_cell : {
+		on_key_up : function(event, context) {
+			contentBucketHandler.onTextAreaKeyup(event);
+		},
+		on_escape_down : function(event, context) {
+			contentBucketHandler.onTextAreaEscapePress();
+		},
+	},
 });
 

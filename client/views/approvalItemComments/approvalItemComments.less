@@ -2,36 +2,33 @@
 @import '../../stylesheets/elements.less'; 
 
 
-.item-preview > {
-	.preview-content > {
-		.comments  {
-			margin-right : auto;
-			margin-left : auto;
-			font-size: 11px;
+.approval-item-content > {
+	.comments  {
+		margin-right : auto;
+		margin-left : auto;
+		font-size: 11px;
+	}
+	.comment > {
+		.comment-display-text:hover {
+			background-color : rgba(220,220,220,0.97);
+			cursor : pointer;
 		}
-		.comment > {
-			.comment-display-text:hover {
-				background-color : rgba(220,220,220,0.97);
-				cursor : pointer;
-			}
-			.ui.input {
-				width : 100%;
-			}
-			.comment-input {
-				margin-top : 4px;
-				width : 100%;
-				border : 1px solid rgba(0,0,0,.15);
-				border-radius : 5px 5px 5px 5px;
-			}
-			.actions {
-				text-align : center;
-				
-			}
-			.author {
-				color: #009FDA;
-				text-decoration: none;
-			}
+		.ui.input {
+			width : 100%;
 		}
-		
-	}	
+		.comment-input {
+			margin-top : 4px;
+			width : 100%;
+			border : 1px solid rgba(0,0,0,.15);
+			border-radius : 5px 5px 5px 5px;
+		}
+		.actions {
+			text-align : center;
+			
+		}
+		.author {
+			color: #009FDA;
+			text-decoration: none;
+		}
+	}
 }

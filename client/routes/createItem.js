@@ -18,7 +18,12 @@ if(Meteor.isClient) {
 							if(Session.get('page_is_ready')) {
 								creatingNew = true;
 								calendarBuilder.initializeCalendarWeek(that.params.client, that.params.week);						
-								detailsHandler.showDetails(context, creatingNew);
+								var params = {
+									is_creating_new : creatingNew,
+									context : context,
+								};
+								settingsWindowHandler.show('approval_item_details', params);
+								
 							}
 						}
 		        	});	        	

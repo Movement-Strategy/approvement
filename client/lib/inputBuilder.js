@@ -210,7 +210,6 @@ inputBuilder = {
 			this.handleChangesMade(text, inputs, input_id);
 			inputs[input_id] = inputBuilder.setTextInInput(text, inputs[input_id]);
 		}
-		
 		Session.set('clickable_inputs', inputs);
 		Meteor.flush();
 		var inputElement = '#' + input_id + '_input';
@@ -250,6 +249,9 @@ inputBuilder = {
 		element.attr('size', element.val().length);
 		element.focus();
 	},
+	changeToKeyMode : function() {
+		keyStrokeHandler.setKeyMode('input', 'clickable_input');	
+	},
 	setLengthOfInputElement : function(elementID, inputElement) {
 		if(inputBuilder.beingEditted(elementID)) {
 			$(inputElement).attr('size', $(inputElement).val().length);
@@ -264,39 +266,31 @@ inputBuilder = {
 			
 			// trigger an animation so the user knows its been edited
 			$(displayElement).transition('pulse', onHide = function(){
-				Session.set('details_can_close', true);
+				settingsWindowHandler.changeToKeyMode();
 			});
 	},
-	onInputKeydown : function(context) {
+	onKeyPress : function(context) {
+		this.handleContext(context, function(elementID, inputElement){
+			inputBuilder.setLengthOfInputElement(elementID, inputElement);
+		});
+	},
+	handleContext : function(context, useContext) {
 		var elementID = context.id;
 		var inputElement = '#' + elementID + '_input';
-		this.setLengthOfInputElement(elementID, inputElement);
-		this.handleEnterPress(elementID, inputElement);
-		this.handleEscapePress(elementID, inputElement);
-		this.handleShiftPress();
+		return useContext(elementID, inputElement);
 	},
-	onInputKeyup : function(context) {
-		this.handleShiftRelease();	
+	onShiftPress : function() {
+		Session.set('shift_pressed', true);
 	},
-	handleShiftPress : function() {
-		if(event.which == 16) {
-			Session.set('shift_pressed', true);
-		}
+	onShiftRelease : function() {
+		Session.set('shift_pressed', false);
 	},
-	handleShiftRelease : function() {
-		if(event.which == 16) {
-			Session.set('shift_pressed', false);
-		}
-	},
-	handleEnterPress : function(elementID, inputElement) {
-		if(inputBuilder.beingEditted(elementID) && event.which == 13 && !Session.get('shift_pressed')) {
-			this.submitInputEdit(elementID, inputElement);
-		}
-	},
-	handleEscapePress : function(elementID, inputElement) {
-		if(inputBuilder.beingEditted(elementID) && event.which == 27) {
-			this.submitInputEdit(elementID, inputElement);
-		}
+	onEnterPress : function(context) {
+		this.handleContext(context, function(elementID, inputElement){
+			if(inputBuilder.beingEditted(elementID) && !Session.get('shift_pressed')) {
+				inputBuilder.submitInputEdit(elementID, inputElement);
+			}
+		});
 	},
 	onInputBlur : function(context) {
 		var elementID = context.id;

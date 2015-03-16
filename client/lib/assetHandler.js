@@ -8,7 +8,7 @@ assetHandler = {
 		this.resetAssetTemplate();
 		var selector = '#' + assetID;
 		$(selector).transition(animationName, onHide = function(){
-			Session.set('details_can_close', true);
+			settingsWindowHandler.changeToKeyMode();
 		});
 	},
 	getAssetContent : function () {
@@ -19,19 +19,11 @@ assetHandler = {
 			return "";
 		}
 	},
-	onAssetInputKeydown : function(event) {
-		this.handleEnterPress(event);
-		this.handleEscapePress(event);
+	changeToKeyMode : function() {
+		keyStrokeHandler.setKeyMode('input', 'creation_asset');	
 	},
-	handleEnterPress : function() {
-		if(event.which == 13) {
-			assetHandler.createOrUpdateAsset($('.input-asset').val());
-		}
-	},
-	handleEscapePress : function() {
-		if(event.which == 27) {
-			assetHandler.resetAndTriggerAnimationOnAsset(Session.get('current_asset_id'), 'shake');		
-		}
+	onEnterPress : function() {
+		assetHandler.createOrUpdateAsset($('.input-asset').val());
 	},
 	resetAssetTemplate : function() {
 		this.resetAssetState();
@@ -61,18 +53,23 @@ assetHandler = {
 	onClickAssetTypeOption : function(event) {
 		var assetType = $(event.target).data().value;
 		Session.set('current_asset_type', assetType);
-		Session.set('details_can_close', false);
+		this.setFocusToAssetInput();
 	},
 	initializeAssetDropdown : function() {
 		Meteor.defer(function(){
 			$('.create-asset').dropdown();
 		});
 	},	
+	setFocusToAssetInput : function() {
+		Meteor.flush();
+		var element = document.getElementsByClassName('input-asset')[0];
+		element.focus();
+	},
 	onClickAssetIcon : function(event) {
 		var clickedID = event.currentTarget.id;
 		$('#' + clickedID).popup('hide');
 		Session.set('current_asset_id', clickedID);
-		Session.set('details_can_close', false);
+		this.setFocusToAssetInput();
 	},
 	editingAsset : function() {
 		return Session.get('current_asset_type') != null && !userHandler.userIsType('client');

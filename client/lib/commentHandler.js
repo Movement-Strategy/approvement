@@ -4,42 +4,39 @@ commentHandler = {
 		Session.set('comment_count', comments.length);
 		return comments;
 	},
-	onCreateKeydown : function(event) {
-		if($(".comment-input").is(":focus") && event.which == 13) {
-			var commentText = $(".comment-create").val();			
-			if(commentText != '') {
-				var comment = this.buildComment(commentText);
-				Meteor.call('insertComment', comment);
-				this.emptyCommentInput();
-				Meteor.defer(function(){
-					$(".comment-input").blur();
-				});
-			}
+	onCreateEnterPress : function() {
+		var commentText = $(".comment-create").val();			
+		if(commentText != '') {
+			var comment = this.buildComment(commentText);
+			Meteor.call('insertComment', comment);
+			this.emptyCommentInput();
+			Meteor.defer(function(){
+				$(".comment-input").blur();
+			});
 		}
 	},
-	onEditKeydown : function(event) {
-		this.handleEditEscape(event);
-		this.handleEditEnter(event);
-	},
-	handleEditEscape : function(event) {
-		if(event.which == 27) {
-			var selector = this.getElementSelector('input');
-			$(selector).blur();
+	onEnterPress : function(context) {
+		if(context.creating_new) {
+			this.onCreateEnterPress();
+		} else {
+			this.onEditEnterPress();
 		}
+	},
+	onEditEscapePress : function() {
+		var selector = this.getElementSelector('input');
+		$(selector).blur();
 	},
 	commentCanBeEdited : function(context) {
 		return context.name == Session.get('user_name');
 	},
-	handleEditEnter : function(event) {
-		if(event.which == 13) {
-			var selector = this.getElementSelector('input');
-			var updatedText = $(selector).val();
-			if(updatedText != '') {
-				Meteor.call('updateComment', Session.get('edited_comment_id'), updatedText);
-				Session.set('comment_edit_successful', true);
-			}
-			$(selector).blur();
-		}	
+	onEditEnterPress : function() {
+		var selector = this.getElementSelector('input');
+		var updatedText = $(selector).val();
+		if(updatedText != '') {
+			Meteor.call('updateComment', Session.get('edited_comment_id'), updatedText);
+			Session.set('comment_edit_successful', true);
+		}
+		$(selector).blur();
 	},
 	getElementSelector : function(type) {
 		var selectorMap = {
@@ -55,24 +52,21 @@ commentHandler = {
 		Meteor.flush();
 		$(selector).transition(transition, onHide = function(){
 			Session.set('comment_edit_successful', false);
-			Session.set('details_can_close', true);
+			settingsWindowHandler.changeToKeyMode();
 		});
+	},
+	changeToKeyMode : function() {
+		keyStrokeHandler.setKeyMode('input', 'approval_item_comments');	
 	},
 	beingEdited : function(context) {
 		return context._id == Session.get('edited_comment_id');
 	},
 	onClickComment : function(context) {
-		Session.set('details_can_close', false);
 		Session.set('edited_comment_id', context._id);
 		var selector = this.getElementSelector('input');
 		Meteor.flush();
+		this.changeToKeyMode();
 		$(selector).focus();
-	},
-	onCreateFocus : function() {
-		Session.set('details_can_close', false);
-	},
-	onCreateBlur : function() {
-		Session.set('details_can_close', true);
 	},
 	onEditBlur : function() {
 		this.cancelCommentEdit();	

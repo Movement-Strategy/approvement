@@ -509,6 +509,12 @@ contentBucketHandler = {
 			}
 		}, 500);
 	},
+	changeToTextAreaKeyMode : function() {
+		keyStrokeHandler.setKeyMode('input', 'text_area_cell');	
+	},
+	onTextAreaEscapePress : function() {
+		$('.content-input').blur();
+	},
 	updateContentBuckets : function() {
 		var variablesToUpdate = Session.get('draft_variables_to_update');
 		_.map(variablesToUpdate, function(bucket, bucketID){

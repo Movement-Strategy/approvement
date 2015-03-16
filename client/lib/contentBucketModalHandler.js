@@ -6,6 +6,9 @@ contentBucketModalHandler = {
 			$(that.modalSelector).modal(params);
 		});
 	},
+	changeToKeyMode : function() {
+		keyStrokeHandler.setKeyMode('window', 'content_bucket_modal');	
+	},
 	isShown : false,
 	showModal : function(context, creatingNew) {
 		this.isShown = true;
@@ -13,10 +16,12 @@ contentBucketModalHandler = {
 		this.handleModal('show');
 		contentBucketModalHandler.initializeRepeatsToggle();
 		contentBucketModalHandler.initializeRequiredToggle();
+		this.changeToKeyMode();
 	},
 	hideModal : function() {
 		this.isShown = false;
 		this.handleModal('hide');
+		draftBoardHandler.changeToKeyMode();
 	},
 	initializeRepeatsToggle : function() {
 		var bucket = Session.get('current_content_bucket');
@@ -66,7 +71,7 @@ contentBucketModalHandler = {
 			$('.description-input').val('');
 		}
 	},
-	handleEnter : function() {
+	onEnterPress : function() {
 		this.onBucketChange(Session.get('creating_new_bucket'));
 	},
 	onBucketChange : function(isInsert) {

@@ -1,0 +1,14 @@
+<template name="settingsWindow">
+    <div class="ui one column page grid settings-window">
+	    <div class="column">
+		    <h4 class="ui top attached header">
+			    <a><i class="icon back left"></i></a>
+			   	{{> UI.dynamic template=header_template data=this}}
+		    </h4>
+		    <div class="ui segment attached main-content">
+				{{> UI.dynamic template=content_template data=this}}
+		    </div>
+	    </div>
+    </div>
+</template>
+
