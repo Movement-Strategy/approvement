@@ -47,6 +47,7 @@ mainContentHandler = {
 	},
 	changeToTemplate : function(templateName, clientID, weekID) {
 		var onChange = this.getOnChangeFunction(templateName, clientID, weekID);
+		navButtonHandler.hidePopups();
 		if(onChange) {
 			onChange(clientID, weekID);
 		}

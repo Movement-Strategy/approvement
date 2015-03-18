@@ -16,12 +16,6 @@ calendarBuilder = {
 	goToOverviewWeek : function(clientID, weekID) {
 		Router.go('/client/' + clientID + '/week/' + weekID + '/overview');	
 	},
-	onModeChangeClick : function() {
-		var clientID = Session.get('selected_client_id');
-		var weekID = timeHandler.getWeekForSelectedTime();
-		var newTemplate = draftBoardHandler.isShown() ? 'contentCalendar' : 'draftBoard';
-		mainContentHandler.changeToTemplate(newTemplate, clientID, weekID);
-	},
 	changeToKeyMode : function() {
 		keyStrokeHandler.setKeyMode('window', 'content_calendar');
 	},

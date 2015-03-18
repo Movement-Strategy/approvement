@@ -1,4 +1,7 @@
 Template['mainNav'].helpers({
+	nav_buttons : function() {
+		return navButtonHandler.getNavButtons();	
+	},
 	show_dropdown : function() {
 		return clientHandler.clientDropdownShouldBeShown();
 	},

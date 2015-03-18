@@ -47,11 +47,6 @@ customClientHandler = {
 	getCustomOverviewRows : function() {
 		return this.runBaseFunction('get_overview_rows');	
 	},
-	getCustomNavTemplate : function() {
-		var template = this.runBaseFunction('nav_template');
-		template = template == null ? 'modeChangeButton' : template;
-		return template;	
-	},
 	clientIsCustom : function(clientID) {
 		var clientMap = this.getClientMap();
 		return _.has(clientMap, clientID);	

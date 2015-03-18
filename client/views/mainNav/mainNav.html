@@ -3,8 +3,9 @@
 		<a class="item main-title">MVMT APPROVE</a>
 		{{#if signed_in}}
 			<div class="right menu">
-	    		{{> UI.dynamic template=custom_nav_template data=this}}
-	    		{{> notificationButton}}
+	    		{{#each nav_buttons}}
+	    			{{> dynamicNavButton}}
+	    		{{/each}}
 		    	{{> progressBar}}
 		    	<a class="ui dropdown item user-image-container">
 					<img class="ui avatar image user-image" src="{{user_picture}}">

@@ -12,6 +12,7 @@ if(Meteor.isClient) {
 	        	if(loginHandler.isLoggedIn()) {
 		        	var that = this;
 		        	Deps.autorun(function(){
+			        	navButtonHandler.hidePopups();
 			        	calendarBuilder.initializeCalendarWeek(that.params.client, that.params.week);
 			        	if(Session.get('page_is_ready') && Session.get('approval_items_are_ready') && !detailsLoaded) {
 							var creatingNew = false;
