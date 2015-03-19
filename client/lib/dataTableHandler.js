@@ -33,6 +33,12 @@ dataTableHandler = {
 			return [];
 		}
 	},
+	onWeekChange : function(clientID, weekID) {
+		var weekChangeFunction = this.getKeyForShownType('on_week_change');
+		if(weekChangeFunction) {
+			return weekChangeFunction(clientID, weekID);
+		}
+	},
 	getCurrentlyShownType : function() {
 		return Session.get(this.sessionKey);
 	},

@@ -9,5 +9,8 @@ dataTableHandler.types({
 		get_headers : function() {
 			return customClientHandler.getCustomOverviewHeaders();	
 		},
+		on_week_change : function(clientID, weekID) {
+			calendarBuilder.goToShowWeek(clientID, weekID);
+		},
 	},
 });

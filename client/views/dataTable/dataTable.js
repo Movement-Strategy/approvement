@@ -16,8 +16,15 @@ Template['dataTable'].events({
 keyStrokeHandler.types('window', {
 	data_table : {
 		on_right_down : function(event, context) {
+			event.preventDefault();
 			dataTableHandler.passAlongKeyEvent('on_right_down', event, context, function(type){
 				timeHandler.changeToNextWeek();
+			});
+		},
+		on_left_down : function(event, context) {
+			event.preventDefault();
+			dataTableHandler.passAlongKeyEvent('on_left_down', event, context, function(type){
+				timeHandler.changeToLastWeek();
 			});
 		},
 	},

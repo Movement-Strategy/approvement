@@ -11,9 +11,9 @@ mainContentHandler = {
 					draftItemHandler.goToDraftWeek(clientID, weekID);
 				},
 			},
-			'showOverview' : {
+			'dataTable' : {
 				on_change : function(clientID, weekID) {
-					calendarBuilder.goToShowWeek(clientID, weekID);
+					dataTableHandler.onWeekChange(clientID, weekID);
 				},
 			},
 		};
@@ -50,7 +50,6 @@ mainContentHandler = {
 		}
 	},
 	goToWeek : function(clientID, weekID) {
-		console.log(weekID);
 		this.changeToTemplate(this.getCurrentTemplate(), clientID, weekID);
 	},
 	getOnChangeFunction : function(templateName, clientID, weekID) {
