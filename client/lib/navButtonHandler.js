@@ -28,12 +28,13 @@ navButtonHandler = {
 			},
 			shows : {
 				style_class : 'shows',
-				main_content_template : 'showOverview',
+				on_click : function() {
+					dataTableHandler.show('show_overview');	
+				},
 				icon : 'video',
 				hover_text : 'Shows',
 				is_shown : function() {
-					// only show shows for truTV
-					return clientHandler.getSelectedClientID() == 'tru_tv';
+					return clientHandler.getSelectedClientID() == 'tru_tv' && !dataTableHandler.typeIsShown('show_overview');
 				},
 			},
 			notification : {
