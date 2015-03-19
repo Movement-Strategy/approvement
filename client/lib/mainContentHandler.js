@@ -5,19 +5,16 @@ mainContentHandler = {
 				on_change : function(clientID, weekID) {
 					calendarBuilder.goToNewWeek(clientID, weekID);
 				},
-				button_text : 'Approve',
 			},
 			'draftBoard' : {
 				on_change : function(clientID, weekID) {
 					draftItemHandler.goToDraftWeek(clientID, weekID);
 				},
-				button_text : 'Draft',
 			},
-			'bucketOverview' : {
+			'showOverview' : {
 				on_change : function(clientID, weekID) {
-					calendarBuilder.goToOverviewWeek(clientID, weekID);
+					calendarBuilder.goToShowWeek(clientID, weekID);
 				},
-				button_text : 'Overview',
 			},
 		};
 	}, 

@@ -13,8 +13,8 @@ calendarBuilder = {
 	goToNewWeek : function(clientID, weekID) {
 		Router.go('/client/' + clientID + '/week/' + weekID);	
 	},
-	goToOverviewWeek : function(clientID, weekID) {
-		Router.go('/client/' + clientID + '/week/' + weekID + '/overview');	
+	goToShowWeek : function(clientID, weekID) {
+		Router.go('/client/' + clientID + '/week/' + weekID + '/shows');	
 	},
 	changeToKeyMode : function() {
 		keyStrokeHandler.setKeyMode('window', 'content_calendar');

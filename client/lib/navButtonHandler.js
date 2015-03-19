@@ -28,7 +28,7 @@ navButtonHandler = {
 			},
 			shows : {
 				style_class : 'shows',
-				main_content_template : 'bucketOverview',
+				main_content_template : 'showOverview',
 				icon : 'video',
 				hover_text : 'Shows',
 				is_shown : function() {
