@@ -50,6 +50,7 @@ mainContentHandler = {
 		}
 	},
 	goToWeek : function(clientID, weekID) {
+		console.log(weekID);
 		this.changeToTemplate(this.getCurrentTemplate(), clientID, weekID);
 	},
 	getOnChangeFunction : function(templateName, clientID, weekID) {

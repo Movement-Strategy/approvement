@@ -1,16 +1,13 @@
 dataTableHandler.types({
 	show_overview : {
-		header_text : function() {
-			return 'test';
-			// call dataTableHandler
+		get_header_text : function() {
+			return truTVHandler.getHeaderText();
 		},
 		get_rows : function() {
-			return [];
-			// call customClientHandler.getCustomOverviewRows();
+			return customClientHandler.getCustomOverviewRows();
 		},
 		get_headers : function() {
-			return [];
-			// call customClientHandler.getCustomOverviewHeaders();	
-		},	
+			return customClientHandler.getCustomOverviewHeaders();	
+		},
 	},
 });

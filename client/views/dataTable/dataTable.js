@@ -1,6 +1,6 @@
 Template['dataTable'].helpers({
-	week : function() {
-		return timeHandler.getWeekForSelectedTime();	
+	header_text : function() {
+		return dataTableHandler.getHeaderText();	
 	},
 });
 
@@ -12,4 +12,15 @@ Template['dataTable'].events({
 		timeHandler.changeToNextWeek();
 	},
 });
+
+keyStrokeHandler.types('window', {
+	data_table : {
+		on_right_down : function(event, context) {
+			dataTableHandler.passAlongKeyEvent('on_right_down', event, context, function(type){
+				timeHandler.changeToNextWeek();
+			});
+		},
+	},
+});
+
 

@@ -1,9 +1,9 @@
-Template['overviewRow'].helpers({
+Template['dataTableRow'].helpers({
 	row_class : function() {
 		return this.highlighted ? 'main-row' : 'sub-row';
 	}
 });
 
-Template['overviewRow'].events({
+Template['dataTableRow'].events({
 });
 

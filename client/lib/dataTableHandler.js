@@ -19,17 +19,38 @@ dataTableHandler = {
 		});
 	},
 	changeToKeyMode : function() {
-		keyStrokeHandler.setKeyMode('window', 'settings_window');
+		keyStrokeHandler.setKeyMode('window', 'data_table');
 	},
 	getKeyForShownType : function(key) {
 		var type = this.getCurrentlyShownType();
 		return type == null ? null : this.getKeyForType(type, key);
 	},
+	getRows : function() {
+		var rowFunction = this.getKeyForShownType('get_rows');
+		if(rowFunction) {
+			return rowFunction();
+		} else {
+			return [];
+		}
+	},
 	getCurrentlyShownType : function() {
 		return Session.get(this.sessionKey);
 	},
-	getHeaderTemplate : function() {
-		return this.getKeyForShownType('header_template');	
+	getHeaders : function() {
+		var headerFunction = this.getKeyForShownType('get_headers');
+		if(headerFunction) {
+			return headerFunction();
+		} else {
+			return [];
+		}
+	},
+	getHeaderText : function() {
+		var getHeaderText = this.getKeyForShownType('get_header_text');
+		if(getHeaderText) {
+			return getHeaderText();
+		} else {
+			return [];
+		}
 	},
 	getContentTemplate : function() {
 		return this.getKeyForShownType('content_template');	
@@ -55,7 +76,7 @@ dataTableHandler = {
 		});
 	},
 	passAlongKeyEvent : function(eventName, event, context, defaultFunction) {
-		settingsWindowHandler.getTypeAndRun(settingsWindowHandler.getCurrentlyShownType(), {}, function(typeDetails){
+		dataTableHandler.getTypeAndRun(dataTableHandler.getCurrentlyShownType(), {}, function(typeDetails){
 			if(_.has(typeDetails, eventName)){
 				typeDetails[eventName](event, context);
 			} else {

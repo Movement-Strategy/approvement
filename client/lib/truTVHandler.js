@@ -146,6 +146,10 @@ truTVHandler = {
 			};
 		});
 	},
+	getHeaderText : function() {
+		var currentWeek = timeHandler.getWeekForSelectedTime();
+		return "Show overview for " + currentWeek;	
+	},
 	getProcessedMetric : function(metricName, params) {
 		var metricMap = this.getMetricMap();
 		var metrics = params['metrics'];
