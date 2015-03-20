@@ -93,6 +93,7 @@ navButtonHandler = {
 				var weekID = timeHandler.getWeekForSelectedTime();
 				mainContentHandler.changeToTemplate(typeDetails.main_content_template, clientID, weekID);
 			}
+			navButtonHandler.hidePopups();
 		});
 	},
 };
