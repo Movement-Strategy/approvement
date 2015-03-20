@@ -1,4 +1,4 @@
-navButtonHandler = {
+	navButtonHandler = {
 	getButtonMap : function() {
 		var map = {
 			draft_board : {
@@ -53,8 +53,7 @@ navButtonHandler = {
 		return jQuery.extend(true, {}, map);
 	},
 	getNavButtons : function() {
-		this.initializePopups();
-		return _.chain(this.getButtonMap())
+		var buttons =  _.chain(this.getButtonMap())
 			.map(function(details, buttonName){
 				if(details.is_shown()) {
 					return {
@@ -67,16 +66,20 @@ navButtonHandler = {
 			})
 			.compact()
 		.value();
+		
+		return buttons;
 	},
-	initializePopups : function() {
+	initializePopup : function(context) {
+		var id = '#nav_button_' + context.button_name;
+		$(id).popup('destroy');
 		Meteor.defer(function(){
-			$('.nav-icon').popup();
-		});	
+			$(id).popup({refresh : true});
+		});
 	},
 	hidePopups : function() {
 		Meteor.defer(function(){
-			$('.nav-icon').popup('hide');
-		});	
+			$('.nav-icon').popup('hide all');
+		});
 	},
 	getTypeAndRun : function(type, typeFunction) {
 		var buttonMap = this.getButtonMap();
