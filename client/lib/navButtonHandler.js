@@ -7,8 +7,7 @@
 				hover_text : 'Draft Board',
 				main_content_template : 'draftBoard',
 				is_shown : function() {
-					return !mainContentHandler.isShown('draftBoard');
-					return true;
+					return !mainContentHandler.isShown('draftBoard') && !dataTableHandler.typeIsShown('show_overview');
 					// if draft board isn't shown
 					// if the user is a manager
 					// if a client is selected
@@ -29,7 +28,9 @@
 			shows : {
 				style_class : 'shows',
 				on_click : function() {
-					dataTableHandler.show('show_overview');	
+					var clientID = Session.get('selected_client_id');
+					var weekID = timeHandler.getWeekForSelectedTime();
+					mainContentHandler.changeToTemplate('dataTable', clientID, weekID);		
 				},
 				icon : 'video',
 				hover_text : 'Shows',

@@ -9,6 +9,7 @@ if(Meteor.isClient) {
 	        path :  '/client/:client/week/:week/shows',
 	        controller :  HomeController,
 	        onRun : function() {
+	        	
 	        	if(loginHandler.isLoggedIn()) {
 		        	Session.set('draft_variables_to_update', {});
 		        	Session.set('error_on_convert', false);

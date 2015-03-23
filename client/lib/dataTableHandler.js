@@ -33,8 +33,8 @@ dataTableHandler = {
 			return [];
 		}
 	},
-	onWeekChange : function(clientID, weekID) {
-		var weekChangeFunction = this.getKeyForShownType('on_week_change');
+	onWeekChange : function(type, clientID, weekID) {
+		var weekChangeFunction = this.getKeyForType(type, 'on_week_change');
 		if(weekChangeFunction) {
 			return weekChangeFunction(clientID, weekID);
 		}
@@ -68,7 +68,7 @@ dataTableHandler = {
 		Session.set(this.sessionKey, type);	
 	},
 	typeIsShown : function(type) {
-		return Session.equals(this.sessionKey, type);
+		return Session.equals(this.sessionKey, type) && mainContentHandler.isShown('dataTable');
 	},
 	show : function(type, params){
 		this.getTypeAndRun(type, params, function(typeDetails){

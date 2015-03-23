@@ -3,6 +3,7 @@ mainContentHandler = {
 		return {
 			'contentCalendar' : {
 				on_change : function(clientID, weekID) {
+					console.log('content calendar change');
 					calendarBuilder.goToNewWeek(clientID, weekID);
 				},
 			},
@@ -58,7 +59,7 @@ mainContentHandler = {
 		if(templateMap[templateName]) {
 			var templateDetails = templateMap[templateName];
 			if(templateDetails.on_change) {
-				templateDetails['on_change'](clientID, weekID);
+				onChange = templateDetails['on_change'];
 			}
 		}
 		return onChange;
