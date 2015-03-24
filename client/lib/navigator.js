@@ -11,12 +11,31 @@ Navigator = {
 	},
 	onRouteLoad : function(routeName, params) {
     	if(loginHandler.isLoggedIn()) {
-        	calendarBuilder.initializeCalendarWeek(params.client, params.week);
+        	this.initializeWeek(params.client, params.week);
         	settingsWindowHandler.hide();
         	mainContentHandler.showTemplate('contentCalendar');
         	calendarBuilder.changeToKeyMode();
     	} else {
         	Router.go('/login');
     	}
-	}
+	},
+	initializeWeek : function(clientID, weekName) {
+        warningMessageHandler.resetMessage();
+        if(clientID != Session.get('selected_client_id')) {
+	       
+	        Session.set('approval_items_are_ready', false);
+	        Session.set('selected_client_id', clientID);
+        }
+        
+        
+        
+        Session.set('draft_variables_to_update', {});
+        
+		var newTimestamp = timeHandler.dateStringToStartOfWeekTimestamp(weekName);
+		var currentTimestamp = timeHandler.getTimestampForCurrentDate();
+		if(currentTimestamp != newTimestamp) {
+			Session.set('approval_items_are_ready', false);
+			timeHandler.setCurrentTimestampToStartOfWeekForDateString(weekName);
+		}
+	},
 };
