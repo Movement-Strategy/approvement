@@ -1,4 +1,4 @@
-	navButtonHandler = {
+navButtonHandler = {
 	getButtonMap : function() {
 		var map = {
 			client_overview : {
