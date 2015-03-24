@@ -1,4 +1,4 @@
-Navigator = {
+navigator = {
 	getRouteMap : function() {
 		var map = {
 			initialize_week : true,
@@ -10,18 +10,33 @@ Navigator = {
 		return jQuery.extend(true, {}, map);
 	},
 	onRouteLoad : function(routeName, params) {
-    	if(loginHandler.isLoggedIn()) {
-        	this.initializeWeek(params);
-        	settingsWindowHandler.hide();
-        	mainContentHandler.showTemplate('contentCalendar');
-        	calendarBuilder.changeToKeyMode();
-    	} else {
-        	Router.go('/login');
-    	}
+    	this.getTypeAndRun(routeName, function(typeDetails){
+	    	if(loginHandler.isLoggedIn()) {
+	        	if(typeDetails['initialize_week']) {
+		        	navigator.initializeWeek(params);
+	        	}
+	        	settingsWindowHandler.hide();
+	        	mainContentHandler.showTemplate('contentCalendar');
+	        	calendarBuilder.changeToKeyMode();
+	    	} else {
+	        	Router.go('/login');
+	    	}
+    	});
+	},
+	
+	getTypeAndRun : function(type, typeFunction) {
+		var output = null;
+		var routeMap = this.getRouteMap();
+		if(_.has(routeMap[type])){
+			var typeDetails = routeMap[type];
+			output = typeFunction(typeDetails);
+		}
+		return output;
 	},
 	initializeWeek : function(params) {
         var clientID = params.client;
         var weekID = params.week;
+        
         warningMessageHandler.resetMessage();
         if(clientID != Session.get('selected_client_id')) {
 	       
