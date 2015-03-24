@@ -11,7 +11,7 @@ Navigator = {
 	},
 	onRouteLoad : function(routeName, params) {
     	if(loginHandler.isLoggedIn()) {
-        	this.initializeWeek(params.client, params.week);
+        	this.initializeWeek(params);
         	settingsWindowHandler.hide();
         	mainContentHandler.showTemplate('contentCalendar');
         	calendarBuilder.changeToKeyMode();
@@ -19,23 +19,22 @@ Navigator = {
         	Router.go('/login');
     	}
 	},
-	initializeWeek : function(clientID, weekName) {
+	initializeWeek : function(params) {
+        var clientID = params.client;
+        var weekID = params.week;
         warningMessageHandler.resetMessage();
         if(clientID != Session.get('selected_client_id')) {
 	       
 	        Session.set('approval_items_are_ready', false);
 	        Session.set('selected_client_id', clientID);
         }
-        
-        
-        
         Session.set('draft_variables_to_update', {});
         
-		var newTimestamp = timeHandler.dateStringToStartOfWeekTimestamp(weekName);
+		var newTimestamp = timeHandler.dateStringToStartOfWeekTimestamp(weekID);
 		var currentTimestamp = timeHandler.getTimestampForCurrentDate();
 		if(currentTimestamp != newTimestamp) {
 			Session.set('approval_items_are_ready', false);
-			timeHandler.setCurrentTimestampToStartOfWeekForDateString(weekName);
+			timeHandler.setCurrentTimestampToStartOfWeekForDateString(weekID);
 		}
 	},
 };
