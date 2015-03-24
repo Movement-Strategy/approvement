@@ -8,15 +8,7 @@ if(Meteor.isClient) {
 	        path :  '/client/:client/week/:week',
 	        controller :  HomeController,
 	        onRun : function() {
-	        	if(loginHandler.isLoggedIn()) {
-		        	var that = this;
-		        	calendarBuilder.initializeCalendarWeek(that.params.client, that.params.week);
-		        	settingsWindowHandler.hide();
-		        	mainContentHandler.showTemplate('contentCalendar');
-		        	calendarBuilder.changeToKeyMode();
-	        	} else {
-		        	Router.go('/login');
-	        	}
+				Navigator.onRouteLoad('content_calendar', this.params);
 	        },
 	    });
 	});

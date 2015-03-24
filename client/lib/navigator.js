@@ -8,8 +8,15 @@ Navigator = {
 			},
 		};
 		return jQuery.extend(true, {}, map);
-	},	
-	onRouteLoad : function() {
-		
+	},
+	onRouteLoad : function(routeName, params) {
+    	if(loginHandler.isLoggedIn()) {
+        	calendarBuilder.initializeCalendarWeek(params.client, params.week);
+        	settingsWindowHandler.hide();
+        	mainContentHandler.showTemplate('contentCalendar');
+        	calendarBuilder.changeToKeyMode();
+    	} else {
+        	Router.go('/login');
+    	}
 	}
 };
