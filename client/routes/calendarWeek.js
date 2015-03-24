@@ -8,7 +8,7 @@ if(Meteor.isClient) {
 	        path :  '/client/:client/week/:week',
 	        controller :  HomeController,
 	        onRun : function() {
-				navigator.onRouteLoad('content_calendar', this.params);
+				navHandler.onRouteLoad('content_calendar', this.params);
 	        },
 	    });
 	});

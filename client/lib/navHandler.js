@@ -1,10 +1,12 @@
-navigator = {
+navHandler = {
 	getRouteMap : function() {
 		var map = {
-			initialize_week : true,
-			main_content_template : 'contentCalendar',
-			get_route : function(clientID, weekID) {
-				// return a string of the route
+			content_calendar : {
+				initialize_week : true,
+				main_content_template : 'contentCalendar',
+				get_route : function(clientID, weekID) {
+					// return a string of the route
+				},
 			},
 		};
 		return jQuery.extend(true, {}, map);
@@ -13,7 +15,7 @@ navigator = {
     	this.getTypeAndRun(routeName, function(typeDetails){
 	    	if(loginHandler.isLoggedIn()) {
 	        	if(typeDetails['initialize_week']) {
-		        	navigator.initializeWeek(params);
+		        	navHandler.initializeWeek(params);
 	        	}
 	        	settingsWindowHandler.hide();
 	        	mainContentHandler.showTemplate('contentCalendar');
@@ -27,7 +29,7 @@ navigator = {
 	getTypeAndRun : function(type, typeFunction) {
 		var output = null;
 		var routeMap = this.getRouteMap();
-		if(_.has(routeMap[type])){
+		if(_.has(routeMap, type)){
 			var typeDetails = routeMap[type];
 			output = typeFunction(typeDetails);
 		}
