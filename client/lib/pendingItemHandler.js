@@ -66,6 +66,18 @@ pendingItemHandler = {
 			],
 		},
 	},
+	itemIsPending : function(item) {
+		this.userTypeMap;
+		var userType = Session.get('user_type');
+		var relevantScopes = this.userTypeMap[userType]['relevant_scopes'];
+		var pendingConditions = _.has(this.userTypeMap[userType]['pending_conditions'], item.scope) ? this.userTypeMap[userType]['pending_conditions'][item.scope] : [];
+		var hasRelevantScope = this.isInArray(relevantScopes, item.scope);
+		var hasPendingCondition = this.isInArray(pendingConditions, item.status);
+		return hasPendingCondition && hasRelevantScope;
+	},
+	isInArray : function(array, value) {
+		return array.indexOf(value) > -1;	
+	},
 	setPendingItemCount : function() {
 		var query = this.getPendingItemQuery();
 		var pendingItems = ApprovalItem.find(query, {sort : {scheduled_time : 1, created_time : 1}}).fetch();

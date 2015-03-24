@@ -33,8 +33,9 @@ dataTableHandler = {
 			return [];
 		}
 	},
-	onWeekChange : function(type, clientID, weekID) {
-		var weekChangeFunction = this.getKeyForType(type, 'on_week_change');
+	onWeekChange : function(clientID, weekID) {
+		
+		var weekChangeFunction = this.getKeyForType(this.getCurrentlyShownType(), 'on_week_change');
 		if(weekChangeFunction) {
 			return weekChangeFunction(clientID, weekID);
 		}
@@ -83,9 +84,12 @@ dataTableHandler = {
 	},
 	passAlongKeyEvent : function(eventName, event, context, defaultFunction) {
 		dataTableHandler.getTypeAndRun(dataTableHandler.getCurrentlyShownType(), {}, function(typeDetails){
+			
 			if(_.has(typeDetails, eventName)){
+				
 				typeDetails[eventName](event, context);
 			} else {
+				console.log('non default');
 				defaultFunction();
 			}
 		});

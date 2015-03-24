@@ -1,4 +1,7 @@
 clientHandler = {
+	clientIsSelected : function() {
+		return Session.get('selected_client_id') != null;	
+	},
 	onClientsReady : function() {
 		this.setClientsByID();
 	},
@@ -22,6 +25,21 @@ clientHandler = {
 	},
 	getSelectedClientID : function() {
 		return Session.get('selected_client_id');
+	},
+	getClientNameFromID : function(clientID) {
+		if(Session.get('clients_are_ready')) {
+			return Session.get('clients_by_id')[clientID]['display_name'];
+		} else {
+			return 'None';
+		}
+	},
+	getClientImageFromID : function(clientID) {
+		if(Session.get('clients_are_ready')) {
+			var profileName = Session.get('clients_by_id')[clientID]['facebook_profile_name'];
+			return facebookHandler.getPictureURL(profileName);
+		} else {
+			return 'none';
+		}
 	},
 	getTwitterProfileName : function() {
 		var name = Session.get('selected_client').twitter_profile_name;

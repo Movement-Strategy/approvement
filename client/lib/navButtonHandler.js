@@ -1,13 +1,26 @@
 	navButtonHandler = {
 	getButtonMap : function() {
 		var map = {
+			client_overview : {
+				style_class : 'client-overview',
+				icon : 'tasks',
+				is_shown : function() {
+					return !dataTableHandler.typeIsShown('client_overview');
+					// if the user isn't client	
+					// if the client overview isn't show
+				},
+				hover_text : 'Overview',
+				on_click : function() {
+					dataTableHandler.show('client_overview');
+				},
+			},
 			draft_board : {
 				style_class : 'draft-board',
 				icon : 'lab',
 				hover_text : 'Draft Board',
 				main_content_template : 'draftBoard',
 				is_shown : function() {
-					return !mainContentHandler.isShown('draftBoard') && !dataTableHandler.typeIsShown('show_overview');
+					return !mainContentHandler.isShown('draftBoard') && !dataTableHandler.typeIsShown('client_overview') && !dataTableHandler.typeIsShown('show_overview');
 					// if draft board isn't shown
 					// if the user is a manager
 					// if a client is selected
@@ -19,7 +32,7 @@
 				icon : 'calendar',
 				hover_text : 'Approval Calendar',
 				is_shown : function() {
-					return !mainContentHandler.isShown('contentCalendar');
+					return !mainContentHandler.isShown('contentCalendar') && !dataTableHandler.typeIsShown('client_overview');
 					
 					// if the calendar isn't shown
 					// if a client is selected
@@ -30,12 +43,12 @@
 				on_click : function() {
 					var clientID = Session.get('selected_client_id');
 					var weekID = timeHandler.getWeekForSelectedTime();
-					mainContentHandler.changeToTemplate('dataTable', clientID, weekID);		
+					dataTableHandler.show('show_overview');	
 				},
 				icon : 'video',
 				hover_text : 'Shows',
 				is_shown : function() {
-					return clientHandler.getSelectedClientID() == 'tru_tv' && !dataTableHandler.typeIsShown('show_overview');
+					return clientHandler.getSelectedClientID() == 'tru_tv' && !dataTableHandler.typeIsShown('show_overview') && !dataTableHandler.typeIsShown('client_overview');
 				},
 			},
 			notification : {
@@ -43,7 +56,7 @@
 				hover_text : 'Send Notification',
 				icon : 'mail',
 				is_shown : function() {
-					return true;
+					return !dataTableHandler.typeIsShown('client_overview');
 					// if a client is selected
 				},
 				on_click : function() {

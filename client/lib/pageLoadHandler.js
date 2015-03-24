@@ -1,5 +1,4 @@
 pageLoadHandler = {
-	
 	onStartUp : function() {
 		clientHandler.setSelectedClient();
 		assetHandler.handleAssetID();
@@ -8,6 +7,7 @@ pageLoadHandler = {
     	draftItemHandler.handleDraftItems();
     	keyStrokeHandler.bindToWindow();
     	settingsWindowHandler.setCurrentlyShownType('approval_item_details');
+    	approvalItemBuilder.handleApprovalItemsByClient();
 	},
 	checkIfPageIsReady : function() {
 		Deps.autorun(function(){

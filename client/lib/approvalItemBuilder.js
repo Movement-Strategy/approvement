@@ -1,4 +1,21 @@
 approvalItemBuilder = {
+	handleApprovalItemsByClient : function() {
+		Deps.autorun(function(){
+			if(Session.get('clients_are_ready')) {
+				// query for all current clients
+				var items = approvalItemBuilder.getFilteredItemsForThisWeekForClients(Session.get('current_clients'));
+				// set them by client id
+				var itemsByClientID = {}
+				_.map(items, function(item){
+					if(!_.has(itemsByClientID, item.client_id)) {
+						itemsByClientID[item.client_id] = [];
+					}
+					itemsByClientID[item.client_id].push(item);
+				});
+				Session.set('approval_items_by_client', itemsByClientID);
+			}
+		});
+	},
 	onApprovalItemsReady : function()  {
 		calendarBuilder.handleCalendarDays();
 	},
@@ -6,22 +23,21 @@ approvalItemBuilder = {
 		var itemsByDay = {};
 		if(Session.get('clients_are_ready')) {
 			var query = this.getFindQuery();
-			var items = ApprovalItem.find(query).fetch();
+			var items = this.getFilteredItemsForThisWeekForClients([Session.get('selected_client_id')]);
+			
 			_.map(items, function(item){
 				var timestamp = item.scheduled_time;
 				timestamp = timeHandler.getShiftedTimestamp(timestamp);
 				var currentWeek = timeHandler.getWeekForSelectedTime();
-				if(timeHandler.timeStampIsInWeek(timestamp, currentWeek)) {
-	 				var scheduledDate = moment(timestamp);
-					var dayIndex = scheduledDate.isoWeekday();
-					if(!_.has(itemsByDay, dayIndex)) {
-						itemsByDay[dayIndex] = [];
-					}
-					if(approvalItemBuilder.isLinkTypeWithoutDataPopulated(item)) {
-						approvalItemBuilder.fillInMissingDataForFacebookLink(item);
-					} else {
-						itemsByDay[dayIndex].push(item);
-					}
+ 				var scheduledDate = moment(timestamp);
+				var dayIndex = scheduledDate.isoWeekday();
+				if(!_.has(itemsByDay, dayIndex)) {
+					itemsByDay[dayIndex] = [];
+				}
+				if(approvalItemBuilder.isLinkTypeWithoutDataPopulated(item)) {
+					approvalItemBuilder.fillInMissingDataForFacebookLink(item);
+				} else {
+					itemsByDay[dayIndex].push(item);
 				}
 			});
 		}
@@ -33,17 +49,17 @@ approvalItemBuilder = {
 		return itemsByDay;
 	},
 	fillInMissingDataForFacebookLink : function(item) {
-			var linkURL = item['contents']['facebook_link'];
-			linkURL = facebookHandler.addHTTPToUrl(linkURL);
-			Meteor.call('getLinkResponse', linkURL, function(error, response){
-				if(error == null) {
-					var linkData = facebookHandler.convertResponseIntoLinkData(response);
-					approvalItemBuilder.updateApprovalItemWithLinkData(item, linkData);
-				} else {
-					
-					Meteor.call('handleInvalidLink', item['_id']);
-				}
-			});
+		var linkURL = item['contents']['facebook_link'];
+		linkURL = facebookHandler.addHTTPToUrl(linkURL);
+		Meteor.call('getLinkResponse', linkURL, function(error, response){
+			if(error == null) {
+				var linkData = facebookHandler.convertResponseIntoLinkData(response);
+				approvalItemBuilder.updateApprovalItemWithLinkData(item, linkData);
+			} else {
+				
+				Meteor.call('handleInvalidLink', item['_id']);
+			}
+		});
 	},
 	updateApprovalItemWithLinkData : function(item, linkData) {
 			var updatedContents = item['contents'];	
@@ -118,11 +134,25 @@ approvalItemBuilder = {
 			
 		});
 	},
+	getFilteredItemsForThisWeekForClients : function(clients) {
+		var query = this.getFindQuery(clients);
+		var items = ApprovalItem.find(query).fetch();
+		items = this.filterItemsThatAreInTheWrongWeek(items);
+		return items;
+	},
+	filterItemsThatAreInTheWrongWeek : function(items) {
+		return _.filter(items, function(item){
+			var timestamp = item.scheduled_time;
+			timestamp = timeHandler.getShiftedTimestamp(timestamp);
+			var currentWeek = timeHandler.getWeekForSelectedTime();
+			return timeHandler.timeStampIsInWeek(timestamp, currentWeek);
+		});
+	},
 	onDragEnd : function() {
 		Session.set('dragged_item', null);
 		calendarBuilder.resetDraggedOverDay();	
 	},
-	getFindQuery : function() {
+	getFindQuery : function(clientIDs) {
 		var currentTimeStamp = timeHandler.getTimestampForCurrentDate();
 		var startDate = moment(currentTimeStamp);
 		var endDate = moment(currentTimeStamp);
@@ -135,7 +165,7 @@ approvalItemBuilder = {
 				$gte : startTime,
 				$lt : endTime,
 			},
-			client_id : Session.get('selected_client_id'),
+			client_id : {$in : clientIDs},
 		};
 	},
 	addItemsToCalendarDay : function(day, dayIndex, itemsByDay) {

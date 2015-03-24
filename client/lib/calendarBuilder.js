@@ -16,6 +16,9 @@ calendarBuilder = {
 	goToShowWeek : function(clientID, weekID) {
 		Router.go('/client/' + clientID + '/week/' + weekID + '/shows');	
 	},
+	goToClientOverviewWeek : function(weekID) {
+		Router.go('/week/' + weekID + '/overview');	
+	},
 	changeToKeyMode : function() {
 		keyStrokeHandler.setKeyMode('window', 'content_calendar');
 	},
@@ -35,6 +38,7 @@ calendarBuilder = {
 	initializeCalendarWeek : function(clientID, weekName) {
         warningMessageHandler.resetMessage();
         if(clientID != Session.get('selected_client_id')) {
+	       
 	        Session.set('approval_items_are_ready', false);
 	        Session.set('selected_client_id', clientID);
         }
