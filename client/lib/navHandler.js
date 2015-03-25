@@ -15,6 +15,37 @@ navHandler = {
 					scope : 'window',
 				},
 			},
+			show_overview : {
+				initialize_week : true,
+				main_content_template : 'dataTable',
+				get_route : function(clientID, weekID) {
+					return '/client/' + clientID + '/week/' + weekID + '/shows';
+				},
+				on_route_load : function() {
+		        	Session.set('draft_variables_to_update', {});
+		        	Session.set('error_on_convert', false);
+					dataTableHandler.show('show_overview');
+				},
+			},
+			draft_board : {
+				initialize_week : true,
+				main_content_template : 'draftBoard',
+				denied_user_types : [
+					'client',
+				],
+				get_route : function(clientID, weekID) {
+					return '/client/' + clientID + '/week/' + weekID + '/draft';
+				},
+				on_route_load : function() {
+		        	Session.set('draft_variables_to_update', {});
+		        	Session.set('error_on_convert', false);
+				},
+				key_params : {
+					mode : 'draft_board',
+					scope : 'window',
+				},
+			},
+			
 		};
 		return jQuery.extend(true, {}, map);
 	},
@@ -31,7 +62,7 @@ navHandler = {
 	},	
 	onRouteLoad : function(routeName, params) {
     	this.getTypeAndRun(routeName, function(typeDetails){
-	    	if(loginHandler.isLoggedIn()) {
+	    	if(loginHandler.isLoggedIn() && !navHandler.userIsDenied(typeDetails)) {
 		    	navHandler.handleWeek(typeDetails, params);
 	        	navHandler.handleContentTemplate(typeDetails);
 	        	navHandler.handleKeyMode(typeDetails);
@@ -40,6 +71,17 @@ navHandler = {
 	        	Router.go('/login');
 	    	}
     	});
+	},
+	userIsDenied : function(typeDetails) {
+		isDenied = false;
+		
+		if(_.has(typeDetails, 'denied_user_types')){
+			isDenied = this.isInArray(typeDetails['denied_user_types'], Session.get('user_type'));
+		}
+		return isDenied;
+	},
+	isInArray : function(array, value) {
+		return array.indexOf(value) > -1;	
 	},
 	handleRouteLoad : function(typeDetails) {
 		if(_.has(typeDetails, 'on_route_load')){
