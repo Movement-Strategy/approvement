@@ -1,4 +1,11 @@
 navHandler = {
+	sessionKey : 'current_route',
+	isOnRoute : function(routeName) {
+		return this.getCurrentRoute() == routeName;
+	},
+	getCurrentRoute : function() {
+		return Session.get(this.sessionKey);	
+	},
 	getRouteMap : function() {
 		var map = {
 			content_calendar : {
@@ -13,6 +20,19 @@ navHandler = {
 				key_params : {
 					mode : 'content_calendar',
 					scope : 'window',
+				},
+			},
+			client_overview : {
+				initialize_week : true,
+				main_content_template : 'dataTable',
+				get_route : function(clientID, weekID) {
+					return '/week/' + weekID + '/overview';
+				},
+				on_route_load : function() {
+		        	Session.set('page_is_ready', true);
+		        	Session.set('draft_variables_to_update', {});
+		        	Session.set('error_on_convert', false);
+					dataTableHandler.show('client_overview');
 				},
 			},
 			show_overview : {
@@ -46,6 +66,8 @@ navHandler = {
 				},
 			},
 			
+			
+			
 		};
 		return jQuery.extend(true, {}, map);
 	},
@@ -59,7 +81,7 @@ navHandler = {
     		var route = typeDetails['get_route'](clientID, weekID);
     		Router.go(route);
     	});
-	},	
+	},
 	onRouteLoad : function(routeName, params) {
     	this.getTypeAndRun(routeName, function(typeDetails){
 	    	if(loginHandler.isLoggedIn() && !navHandler.userIsDenied(typeDetails)) {
@@ -67,9 +89,15 @@ navHandler = {
 	        	navHandler.handleContentTemplate(typeDetails);
 	        	navHandler.handleKeyMode(typeDetails);
 	        	navHandler.handleRouteLoad(typeDetails);
+	        	Session.set(navHandler.sessionKey, routeName);
 	    	} else {
 	        	Router.go('/login');
 	    	}
+    	});
+	},
+	onNavButtonClick : function(buttonName) {
+    	this.getTypeAndRun(buttonName, function(typeDetails){
+    		navHandler.go(buttonName);
     	});
 	},
 	userIsDenied : function(typeDetails) {

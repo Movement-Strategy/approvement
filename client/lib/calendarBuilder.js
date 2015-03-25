@@ -42,9 +42,6 @@ calendarBuilder = {
 	        Session.set('approval_items_are_ready', false);
 	        Session.set('selected_client_id', clientID);
         }
-        
-        
-        
         Session.set('draft_variables_to_update', {});
         
 		var newTimestamp = timeHandler.dateStringToStartOfWeekTimestamp(weekName);

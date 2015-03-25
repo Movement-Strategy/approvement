@@ -110,7 +110,7 @@ timeHandler = {
 		updatedDate = alterFunction(startOfWeek);
 		newWeekID = this.dateObjectToDateString(updatedDate);
 		var clientID = Session.get('selected_client_id');
-		mainContentHandler.goToWeek(clientID, newWeekID);
+		navHandler.go(navHandler.getCurrentRoute(), {client_id : clientID, week_id : newWeekID});
 	},
 	changeToNextWeek : function() {
 		timeHandler.alterCurrentDate(function(date){
@@ -123,7 +123,6 @@ timeHandler = {
 		var updatedDateObject = dateObject.isoWeekday(dayIndex);
 		return this.dateObjectToTimestamp(updatedDateObject);
 	},
-	
 	changeToTargetTime : function(targetTime) {
 		timeHandler.alterCurrentDate(function(date){
 			return timeHandler.convertDateObjectToStartOfWeek(date);

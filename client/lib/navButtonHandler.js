@@ -10,47 +10,35 @@ navButtonHandler = {
 					// if the client overview isn't show
 				},
 				hover_text : 'Overview',
-				on_click : function() {
-					dataTableHandler.show('client_overview');
-				},
 			},
 			draft_board : {
 				style_class : 'draft-board',
 				icon : 'lab',
 				hover_text : 'Draft Board',
-				main_content_template : 'draftBoard',
 				is_shown : function() {
-					return !mainContentHandler.isShown('draftBoard') && !dataTableHandler.typeIsShown('client_overview') && !dataTableHandler.typeIsShown('show_overview');
+					return !navHandler.isOnRoute('draft_board') && !navHandler.isOnRoute('client_overview') && !navHandler.isOnRoute('show_overview');
 					// if draft board isn't shown
 					// if the user is a manager
 					// if a client is selected
 				},
 			},
-			calendar : {
+			content_calendar : {
 				style_class : 'calendar-board',
-				on_click : function() {
-					navHandler.go('content_calendar');
-				},
 				icon : 'calendar',
 				hover_text : 'Approval Calendar',
 				is_shown : function() {
-					return !mainContentHandler.isShown('contentCalendar') && !dataTableHandler.typeIsShown('client_overview');
+					return !navHandler.isOnRoute('content_calendar') && !navHandler.isOnRoute('client_overview');
 					
 					// if the calendar isn't shown
 					// if a client is selected
 				},	
 			},
-			shows : {
+			show_overview : {
 				style_class : 'shows',
-				on_click : function() {
-					var clientID = Session.get('selected_client_id');
-					var weekID = timeHandler.getWeekForSelectedTime();
-					dataTableHandler.show('show_overview');	
-				},
 				icon : 'video',
 				hover_text : 'Shows',
 				is_shown : function() {
-					return clientHandler.getSelectedClientID() == 'tru_tv' && !dataTableHandler.typeIsShown('show_overview') && !dataTableHandler.typeIsShown('client_overview');
+					return clientHandler.getSelectedClientID() == 'tru_tv' && !navHandler.isOnRoute('show_overview') && !navHandler.isOnRoute('client_overview');
 				},
 			},
 			notification : {
@@ -58,7 +46,7 @@ navButtonHandler = {
 				hover_text : 'Send Notification',
 				icon : 'mail',
 				is_shown : function() {
-					return !dataTableHandler.typeIsShown('client_overview');
+					return !navHandler.isOnRoute('client_overview');
 					// if a client is selected
 				},
 				on_click : function() {
@@ -107,11 +95,7 @@ navButtonHandler = {
 			if(_.has(typeDetails, 'on_click')) {
 				typeDetails.on_click(context);
 			}
-			if(_.has(typeDetails, 'main_content_template')) {
-				var clientID = Session.get('selected_client_id');
-				var weekID = timeHandler.getWeekForSelectedTime();
-				mainContentHandler.changeToTemplate(typeDetails.main_content_template, clientID, weekID);
-			}
+			navHandler.onNavButtonClick(context.button_name);
 			navButtonHandler.hidePopups();
 		});
 	},

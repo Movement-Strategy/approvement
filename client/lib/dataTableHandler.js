@@ -77,19 +77,15 @@ dataTableHandler = {
 			if(onShow) {
 				onShow(params);
 			}
-			mainContentHandler.showTemplate('dataTable');
 			dataTableHandler.setCurrentlyShownType(type);
 			dataTableHandler.changeToKeyMode();
 		});
 	},
 	passAlongKeyEvent : function(eventName, event, context, defaultFunction) {
 		dataTableHandler.getTypeAndRun(dataTableHandler.getCurrentlyShownType(), {}, function(typeDetails){
-			
 			if(_.has(typeDetails, eventName)){
-				
 				typeDetails[eventName](event, context);
 			} else {
-				console.log('non default');
 				defaultFunction();
 			}
 		});
