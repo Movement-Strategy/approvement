@@ -45,7 +45,7 @@ notificationModalHandler = {
 		return $(".custom-notification").val();
 	},
 	getEmailURL : function() {
-		return 'http://mvmt-approve.herokuapp.com/client/' + Session.get('selected_client_id') + '/week/' + timeHandler.getWeekForSelectedTime();
+		return 'http://mvmt-approve.herokuapp.com/client/' + clientHandler.getSelectedClientID() + '/week/' + timeHandler.getWeekForSelectedTime();
 	},
 	buildEmailFromUsername : function(userName) {
 		var userToNotify = Session.get('users_to_notify')[userName];

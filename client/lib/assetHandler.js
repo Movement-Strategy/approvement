@@ -1,7 +1,7 @@
 assetHandler = {
 	subscribeToAssets : function() {
-		if(Session.get('selected_client_id') != null) {
-			Meteor.subscribe('asset', Session.get('selected_client_id'));
+		if(clientHandler.clientIsSelected()) {
+			Meteor.subscribe('asset', clientHandler.getSelectedClientID());
 		}
 	},
 	resetAndTriggerAnimationOnAsset : function(assetID, animationName) {
@@ -100,7 +100,7 @@ assetHandler = {
 		assetID = assetID == null ? newID : assetID;
 		var newAsset = {
 			_id : assetID,
-			client_id : Session.get('selected_client_id'),
+			client_id : clientHandler.getSelectedClientID(),
 			approval_item_id : Session.get('current_item_id'),
 			type : Session.get('current_asset_type'),
 			url : url,

@@ -1,7 +1,7 @@
 gifHandler = {
 	handleSuccessGif : function() {
 		Deps.autorun(function(){
-			if(gifHandler.allTasksAreFinished() && Session.get('there_were_pending_items')) {
+			if(gifHandler.allTasksAreFinished() && Session.get('there_were_pending_items') && !navHandler.isOnRoute('client_overview')) {
 				gifHandler.showGif();
 			}
 		});

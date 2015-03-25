@@ -104,7 +104,7 @@
 		draftItem['draft_variables'] = draftVariables;
 		draftItem['content_bucket_id'] = bucketID;
 		draftItem['week'] = timeHandler.timestampToDateString(timeHandler.getTimestampForCurrentDate()),
-		draftItem['client_id'] = Session.get('selected_client_id');
+		draftItem['client_id'] = clientHandler.getSelectedClientID();
 		draftItem['created_by'] = Meteor.userId();
 		Meteor.call('insertDraftItem', draftItem);
 	},
@@ -120,7 +120,7 @@
 	getDraftItemQuery : function() {
 		return {
 			week : timeHandler.timestampToDateString(timeHandler.getTimestampForCurrentDate()),
-			client_id : Session.get('selected_client_id'),
+			client_id : clientHandler.getSelectedClientID(),
 		};
 	},
 };

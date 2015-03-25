@@ -23,7 +23,7 @@ approvalItemBuilder = {
 		var itemsByDay = {};
 		if(Session.get('clients_are_ready')) {
 			var query = this.getFindQuery();
-			var items = this.getFilteredItemsForThisWeekForClients([Session.get('selected_client_id')]);
+			var items = this.getFilteredItemsForThisWeekForClients([clientHandler.getSelectedClientID()]);
 			
 			_.map(items, function(item){
 				var timestamp = item.scheduled_time;
@@ -96,7 +96,7 @@ approvalItemBuilder = {
 	onEditApprovalItem : function(context) {
 		var creatingNew = false;
 		Session.set('approval_item_context', context);
-		this.editItem(context._id, Session.get('selected_client_id'), timeHandler.getWeekForSelectedTime());
+		this.editItem(context._id, clientHandler.getSelectedClientID(), timeHandler.getWeekForSelectedTime());
 	},
 	draggedItemShouldRevert : function(droppedOn) {
 		shouldRevert = true;

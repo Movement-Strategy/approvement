@@ -97,7 +97,7 @@ contentBucketModalHandler = {
 	},
 	onInsertContentBucket : function(variablesFromModal) {
 		var bucket = variablesFromModal;
-		bucket['client_id'] = Session.get('selected_client_id');
+		bucket['client_id'] = clientHandler.getSelectedClientID();
 		bucket['draft_variables'] = {};
 		bucket['week'] = timeHandler.getWeekForSelectedTime();
 		Meteor.call('insertContentBucket', bucket, function(error, result){

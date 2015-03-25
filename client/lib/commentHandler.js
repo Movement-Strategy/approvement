@@ -1,6 +1,6 @@
 commentHandler = {
 	getCurrentComments : function() {
-		var comments = Comment.find({client_id : Session.get('selected_client_id'), approval_item_id : Session.get('current_item_id')}, {sort: {created_time: 1}}).fetch();
+		var comments = Comment.find({client_id : clientHandler.getSelectedClientID(), approval_item_id : Session.get('current_item_id')}, {sort: {created_time: 1}}).fetch();
 		Session.set('comment_count', comments.length);
 		return comments;
 	},
@@ -84,7 +84,7 @@ commentHandler = {
 			text : commentText,
 			created_time : timestamp,
 			approval_item_id : Session.get('current_item_id'),
-			client_id : Session.get('selected_client_id'),
+			client_id : clientHandler.getSelectedClientID(),
 			name : Session.get('user_name'),
 			avatar : Session.get('user_picture'),
 		};

@@ -2,7 +2,7 @@ calendarBuilder = {
 	intervalHandler : null,
 	handleCalendarDays : function() {
 		Deps.autorun(function(){
-			selectedClientID = Session.get('selected_client_id');
+			selectedClientID = clientHandler.getSelectedClientID();
 			currentTimestamp = Session.get('time_stamp_for_current_date');
 			
 			if(selectedClientID != null && currentTimestamp != null) {
@@ -35,22 +35,6 @@ calendarBuilder = {
 		Session.set('calendar_days', calendarDays);
 		Session.set('approval_items_are_ready', true);
 	},
-	initializeCalendarWeek : function(clientID, weekName) {
-        warningMessageHandler.resetMessage();
-        if(clientID != Session.get('selected_client_id')) {
-	       
-	        Session.set('approval_items_are_ready', false);
-	        Session.set('selected_client_id', clientID);
-        }
-        Session.set('draft_variables_to_update', {});
-        
-		var newTimestamp = timeHandler.dateStringToStartOfWeekTimestamp(weekName);
-		var currentTimestamp = timeHandler.getTimestampForCurrentDate();
-		if(currentTimestamp != newTimestamp) {
-			Session.set('approval_items_are_ready', false);
-			timeHandler.setCurrentTimestampToStartOfWeekForDateString(weekName);
-		}
-	},
 	getCachedApprovalItems : function() {
 		var cachedApprovalItems = Session.get('cached_approval_items');
 		var approvalItems = approvalItemBuilder.getApprovalItemsByDay();
@@ -67,7 +51,7 @@ calendarBuilder = {
 	onDropOverPlusButton : function() {
 		var creatingNew = true;
 		var context = Session.get('dragged_over_day');
-		var clientID = Session.get('selected_client_id');
+		var clientID = clientHandler.getSelectedClientID();
 		var weekID = timeHandler.getWeekForSelectedTime();
 		Session.set('item_to_copy', Session.get('dragged_item'));
 		Session.set('approval_item_context', context);

@@ -24,8 +24,10 @@ Template['mainNav'].events({
 		userHandler.signUserOut();
 	},
 	'click .main-title' : function() {
-		if(settingsWindowHandler.isShown()) {
-			settingsWindowHandler.hide();
+		if(Session.get('user_type') == 'client') {
+			navHandler.go('content_calendar');
+		} else {
+			navHandler.go('client_overview');
 		}
 	},
 });

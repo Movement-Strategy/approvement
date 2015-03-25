@@ -262,13 +262,13 @@ contentBucketHandler = {
 		var bucketIDs = _.keys(draftItemsByBucketID);
 		var baseQuery = {
 			week : timeHandler.timestampToDateString(timeHandler.getTimestampForCurrentDate()),
-			client_id : Session.get('selected_client_id'),
+			client_id : clientHandler.getSelectedClientID(),
 		};
 		return {
 			$or : [
 				baseQuery,
 				{
-					client_id : Session.get('selected_client_id'),
+					client_id : clientHandler.getSelectedClientID(),
 					repeats : true,
 				},
 				{
@@ -356,7 +356,7 @@ contentBucketHandler = {
 		return {
 			_id : assetHandler.generateAssetID(),
 			approval_item_id : approvalItemID,
-			client_id : Session.get('selected_client_id'),
+			client_id : clientHandler.getSelectedClientID(),
 			type : 'link',
 			url : assetLink,
 		};
@@ -389,10 +389,10 @@ contentBucketHandler = {
 	},
 	afterConvertingDraftItems : function(bucketsToConvert) {
 		this.setDraftItemsAsConverted(bucketsToConvert);
-		calendarBuilder.onModeChangeClick();
 		Meteor.defer(function(){
 			warningMessageHandler.showMessage("Draft items converted successfully", "success");
 		});
+		navHandler.go('content_calendar');
 	},
 	bucketHasBeenConverted : function(bucketID) {
 		var converted = this.getKeyFromDraftItemForBucket('converted', bucketID);
@@ -473,7 +473,7 @@ contentBucketHandler = {
 	},
 	addFinalConfigurationToApprovalItem : function(approvalItem) {
 		approvalItem['scope'] = 'private';
-		approvalItem['client_id'] = Session.get('selected_client_id');
+		approvalItem['client_id'] = clientHandler.getSelectedClientID();
 		approvalItem['created_time'] = timeHandler.convertDateToTimestamp(moment());
 		approvalItem['status'] = 'created';
 		approvalItem['created_by'] = Meteor.userId();

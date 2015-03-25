@@ -109,7 +109,7 @@ timeHandler = {
 		startOfWeek = this.convertDateObjectToStartOfWeek(currentDateObject);
 		updatedDate = alterFunction(startOfWeek);
 		newWeekID = this.dateObjectToDateString(updatedDate);
-		var clientID = Session.get('selected_client_id');
+		var clientID = clientHandler.getSelectedClientID();
 		navHandler.go(navHandler.getCurrentRoute(), {client_id : clientID, week_id : newWeekID});
 	},
 	changeToNextWeek : function() {

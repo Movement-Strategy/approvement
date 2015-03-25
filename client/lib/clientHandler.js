@@ -3,7 +3,7 @@ clientHandler = {
 		return Session.get('selected_client_id') != null;	
 	},
 	setSelectedClientID : function(clientID) {
-        if(clientID != Session.get('selected_client_id')) {
+        if(clientID != clientHandler.getSelectedClientID()) {
 	        Session.set('approval_items_are_ready', false);
 	        Session.set('selected_client_id', clientID);
         }
@@ -54,9 +54,8 @@ clientHandler = {
 	},
 	setSelectedClient : function(){
 		Deps.autorun(function(){
-			if(Session.get('clients_are_ready') && Session.get('selected_client_id') != null) {
-				var clientID = Session.get('selected_client_id');
-				clientHandler.setUsersToNotifyForClient();
+			var clientID = clientHandler.getSelectedClientID();
+			if(Session.get('clients_are_ready') && clientID != null) {
 				var clientsByID = Session.get('clients_by_id');
 				if(_.has(clientsByID, clientID)) {
 					Session.set('selected_client', clientsByID[clientID]);
@@ -76,7 +75,7 @@ clientHandler = {
 			return userName != Session.get('user_login');
 		});
 		
-		Meteor.call('getUsersToNotify', Session.get('selected_client_id'), userNames, function(error, usersToNotify){
+		Meteor.call('getUsersToNotify', clientHandler.getSelectedClientID(), userNames, function(error, usersToNotify){
 			Session.set('users_to_notify', usersToNotify);
 		});	
 	},
@@ -94,7 +93,7 @@ clientHandler = {
 		}
 	},
 	clientDropdownShouldBeShown : function() {
-		return !detailsHandler.detailsShown() && Session.get('current_clients').length > 1;
+		return !detailsHandler.detailsShown() && Session.get('current_clients').length > 1 && !navHandler.isOnRoute('client_overview');
 	},
 	getClientsForDropdown : function() {
 		var clientsByID = Session.get('clients_by_id');
@@ -113,10 +112,12 @@ clientHandler = {
 		return _.has(selectedClient, 'in_house') ? selectedClient['in_house'] : false;	
 	},
 	handleSingleClient : function() {
-		var clients = Session.get('current_clients');
-		if(clients.length == 1) {
-			Session.set('selected_client_id', clients[0]);
-		} 
+		if(!navHandler.isOnRoute('client_overview')) {
+			var clients = Session.get('current_clients');
+			if(clients.length == 1) {
+				clientHandler.setSelectedClientID(clients[0]);
+			} 
+		}
 	},
 	getSelectedClientName : function() {
 		var selectedClient = Session.get('selected_client');
@@ -143,13 +144,11 @@ clientHandler = {
 	},
 	setClientsAsReady : function(clients) {
 		if(!Session.get('clients_are_ready')) {
-			var selectedClientID = Session.get('selected_client_id');
+			var clientID = clientHandler.getSelectedClientID();
 			if(Session.get('clients_by_id') != {}) {
 				clientHandler.setSelectedClient();
 				Session.set('clients_are_ready', true);
 			}
-			
-			
 		}
 	}
 };

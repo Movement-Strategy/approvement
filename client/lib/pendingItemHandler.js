@@ -110,7 +110,7 @@ pendingItemHandler = {
 	addBaseFields : function(query) {
 		var momentDate = new moment();
 		var searchTime = momentDate.subtract(1, 'days').format('X') * 1000;
-		query['client_id'] = Session.get('selected_client_id');
+		query['client_id'] = clientHandler.getSelectedClientID();
 		query['scheduled_time'] = {
 			$gt : searchTime,
 		};

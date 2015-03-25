@@ -124,9 +124,7 @@ detailsHandler = {
 		commentHandler.emptyCommentInput();
 		Session.set('item_to_copy', null);
 		Session.set('approval_item_context', null);
-		var clientID = Session.get('selected_client_id');
-		var weekID = timeHandler.getWeekForSelectedTime();
-		calendarBuilder.goToNewWeek(clientID, weekID);
+		navHandler.go('content_calendar');
 	},
 	deleteRelatedContentIfNeeded : function() {
 		if(this.creatingNewItem()) {
@@ -202,7 +200,7 @@ detailsHandler = {
 			status : 'created',
 			created_by : Meteor.userId(),
 			created_time : moment().format("X") * 1000,
-			client_id : Session.get('selected_client_id'),
+			client_id : clientHandler.getSelectedClientID(),
 			type : Session.get('current_network_type'),
 			time_to_post : Session.get('time_to_post'),
 		};

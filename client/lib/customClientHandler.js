@@ -52,7 +52,7 @@ customClientHandler = {
 		return _.has(clientMap, clientID);	
 	},
 	handleCustomDraftVariables : function(draftVariableMap) {
-		var clientID = Session.get('selected_client_id');
+		var clientID = clientHandler.getSelectedClientID();
 		var updatedMap = {};
 		_.map(draftVariableMap, function(variable, id){
 			var allowVariable = true;
@@ -130,7 +130,7 @@ customClientHandler = {
 	},
 	dropdownIsRequired : function() {
 		var clientMap = this.getClientMap();
-		var clientID = Session.get('selected_client_id');
+		var clientID = clientHandler.getSelectedClientID()
 		var required = false;
 		if(_.has(clientMap, clientID)) {
 			required = _.has(clientMap[clientID], 'dropdown');
@@ -147,7 +147,7 @@ customClientHandler = {
 	runDropdownFunction : function(functionName, params) {
 		var value = null;
 		var clientMap = this.getClientMap();
-		var clientID = Session.get('selected_client_id');
+		var clientID = clientHandler.getSelectedClientID();
 		if(_.has(clientMap, clientID)) {
 			if(_.has(clientMap[clientID], 'dropdown')) {
 				if(_.has(clientMap[clientID]['dropdown'], functionName)) {
@@ -164,7 +164,7 @@ customClientHandler = {
 	runBaseFunction : function(functionName, params) {
 		var value = null;
 		var clientMap = this.getClientMap();
-		var clientID = Session.get('selected_client_id');
+		var clientID = clientHandler.getSelectedClientID();
 		if(_.has(clientMap, clientID)) {
 			if(_.has(clientMap[clientID], functionName)) {
 				if(typeof(clientMap[clientID][functionName]) === 'function') {

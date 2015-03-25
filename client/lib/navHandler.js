@@ -97,7 +97,7 @@ navHandler = {
 	    	params = {};
     	}
     	this.getTypeAndRun(routeName, function(typeDetails){
-    		var clientID = _.has(params, 'client_id') ? params['client_id'] : Session.get('selected_client_id');
+    		var clientID = _.has(params, 'client_id') ? params['client_id'] : clientHandler.getSelectedClientID();
     		var weekID = _.has(params, 'week_id') ? params['week_id'] : timeHandler.getWeekForSelectedTime();
     		var route = typeDetails['get_route'](clientID, weekID, params);
     		Router.go(route);
