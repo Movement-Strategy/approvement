@@ -102,7 +102,6 @@ navHandler = {
 	},
 	userIsDenied : function(typeDetails) {
 		isDenied = false;
-		
 		if(_.has(typeDetails, 'denied_user_types')){
 			isDenied = this.isInArray(typeDetails['denied_user_types'], Session.get('user_type'));
 		}

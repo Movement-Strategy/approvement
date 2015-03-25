@@ -95,8 +95,8 @@ navButtonHandler = {
 			if(_.has(typeDetails, 'on_click')) {
 				typeDetails.on_click(context);
 			}
-			navHandler.onNavButtonClick(context.button_name);
 			navButtonHandler.hidePopups();
+			navHandler.onNavButtonClick(context.button_name);
 		});
 	},
 };
