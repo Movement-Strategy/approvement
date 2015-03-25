@@ -51,7 +51,6 @@ navHandler = {
 					return '/week/' + weekID + '/overview';
 				},
 				on_route_load : function() {
-		        	Session.set('page_is_ready', true);
 		        	Session.set('draft_variables_to_update', {});
 		        	Session.set('error_on_convert', false);
 					dataTableHandler.show('client_overview');
@@ -167,13 +166,8 @@ navHandler = {
         var weekID = params.week;
         
         warningMessageHandler.resetMessage();
-        if(clientID != Session.get('selected_client_id')) {
-	       
-	        Session.set('approval_items_are_ready', false);
-	        Session.set('selected_client_id', clientID);
-        }
         Session.set('draft_variables_to_update', {});
-        
+        clientHandler.setSelectedClientID(clientID);
 		var newTimestamp = timeHandler.dateStringToStartOfWeekTimestamp(weekID);
 		var currentTimestamp = timeHandler.getTimestampForCurrentDate();
 		if(currentTimestamp != newTimestamp) {

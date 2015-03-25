@@ -1,5 +1,6 @@
 pageLoadHandler = {
 	onStartUp : function() {
+		this.checkIfOverviewPageIsReady();
 		clientHandler.setSelectedClient();
 		assetHandler.handleAssetID();
 		assetHandler.updateCurrentAssets();
@@ -9,6 +10,14 @@ pageLoadHandler = {
     	settingsWindowHandler.setCurrentlyShownType('approval_item_details');
     	approvalItemBuilder.handleApprovalItemsByClient();
 	},
+	checkIfOverviewPageIsReady : function() {
+		// new autorun function check if just clients and raw approval items are ready
+		Deps.autorun(function(){
+			if(Session.get('raw_approval_items_ready') && Session.get('clients_are_ready')) {
+				Session.set('overview_page_is_ready', true);
+			}
+		});	
+	},	
 	checkIfPageIsReady : function() {
 		Deps.autorun(function(){
 			
@@ -24,9 +33,12 @@ pageLoadHandler = {
 		});
 	},
 	pageIsReady : function() {
-		return Session.get('page_is_ready');
+		
+		return navHandler.isOnRoute('client_overview') ? Session.get('overview_page_is_ready') : Session.get('page_is_ready');
 	},
 	defaultSessionValueMap : {
+		overview_page_is_ready : false,
+		raw_approval_items_ready : false,
 		show_network_type_dropdown : true,
 		draft_variables_to_update : {},
 		show_popups : true,

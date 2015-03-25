@@ -2,6 +2,12 @@ clientHandler = {
 	clientIsSelected : function() {
 		return Session.get('selected_client_id') != null;	
 	},
+	setSelectedClientID : function(clientID) {
+        if(clientID != Session.get('selected_client_id')) {
+	        Session.set('approval_items_are_ready', false);
+	        Session.set('selected_client_id', clientID);
+        }
+	},
 	onClientsReady : function() {
 		this.setClientsByID();
 	},
