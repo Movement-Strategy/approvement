@@ -7,25 +7,47 @@ navHandler = {
 				get_route : function(clientID, weekID) {
 					// return a string of the route
 				},
+				key_params : {
+					mode : 'content_calendar',
+					scope : 'window',
+				},
 			},
 		};
 		return jQuery.extend(true, {}, map);
 	},
+	go : function(routeName,  params) {
+    	this.getTypeAndRun(routeName, function(typeDetails){
+    		
+    	});
+	},	
 	onRouteLoad : function(routeName, params) {
     	this.getTypeAndRun(routeName, function(typeDetails){
 	    	if(loginHandler.isLoggedIn()) {
-	        	if(typeDetails['initialize_week']) {
-		        	navHandler.initializeWeek(params);
-	        	}
+		    	navHandler.handleWeek(typeDetails, params);
 	        	settingsWindowHandler.hide();
-	        	mainContentHandler.showTemplate('contentCalendar');
-	        	calendarBuilder.changeToKeyMode();
+	        	navHandler.handleContentTemplate(typeDetails);
+	        	navHandler.handleKeyMode(typeDetails);
 	    	} else {
 	        	Router.go('/login');
 	    	}
     	});
 	},
-	
+	handleKeyMode : function(typeDetails) {
+		if(_.has(typeDetails, 'key_params')){
+			var keyParams = typeDetails['key_params'];
+			keyStrokeHandler.setKeyMode(keyParams['scope'], keyParams['mode']);	
+		}
+	},
+	handleWeek : function(typeDetails, params) {
+    	if(typeDetails['initialize_week']) {
+        	navHandler.initializeWeek(params);
+    	}
+	},
+	handleContentTemplate : function(typeDetails) {
+    	if(_.has(typeDetails, 'main_content_template')) {
+        	mainContentHandler.showTemplate(typeDetails['main_content_template']);
+    	}
+	},
 	getTypeAndRun : function(type, typeFunction) {
 		var output = null;
 		var routeMap = this.getRouteMap();
