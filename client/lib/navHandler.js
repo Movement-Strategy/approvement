@@ -4,8 +4,11 @@ navHandler = {
 			content_calendar : {
 				initialize_week : true,
 				main_content_template : 'contentCalendar',
+				on_route_load : function(){
+					settingsWindowHandler.hide();
+				},
 				get_route : function(clientID, weekID) {
-					// return a string of the route
+					return '/client/' + clientID + '/week/' + weekID;
 				},
 				key_params : {
 					mode : 'content_calendar',
@@ -16,21 +19,32 @@ navHandler = {
 		return jQuery.extend(true, {}, map);
 	},
 	go : function(routeName,  params) {
+    	if(params == null) {
+	    	params = {};
+    	}
     	this.getTypeAndRun(routeName, function(typeDetails){
-    		
+    		var clientID = _.has(params, 'client_id') ? params['client_id'] : Session.get('selected_client_id');
+    		var weekID = _.has(params, 'week_id') ? params['week_id'] : timeHandler.getWeekForSelectedTime();
+    		var route = typeDetails['get_route'](clientID, weekID);
+    		Router.go(route);
     	});
 	},	
 	onRouteLoad : function(routeName, params) {
     	this.getTypeAndRun(routeName, function(typeDetails){
 	    	if(loginHandler.isLoggedIn()) {
 		    	navHandler.handleWeek(typeDetails, params);
-	        	settingsWindowHandler.hide();
 	        	navHandler.handleContentTemplate(typeDetails);
 	        	navHandler.handleKeyMode(typeDetails);
+	        	navHandler.handleRouteLoad(typeDetails);
 	    	} else {
 	        	Router.go('/login');
 	    	}
     	});
+	},
+	handleRouteLoad : function(typeDetails) {
+		if(_.has(typeDetails, 'on_route_load')){
+			typeDetails['on_route_load']();
+		}
 	},
 	handleKeyMode : function(typeDetails) {
 		if(_.has(typeDetails, 'key_params')){

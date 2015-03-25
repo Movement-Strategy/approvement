@@ -28,7 +28,9 @@ navButtonHandler = {
 			},
 			calendar : {
 				style_class : 'calendar-board',
-				main_content_template : 'contentCalendar',
+				on_click : function() {
+					navHandler.go('content_calendar');
+				},
 				icon : 'calendar',
 				hover_text : 'Approval Calendar',
 				is_shown : function() {
