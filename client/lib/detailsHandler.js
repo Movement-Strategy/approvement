@@ -20,6 +20,28 @@ detailsHandler = {
 		}
 		return isPreviewShown;
 	},
+	onEditRouteLoad : function(params) {
+		var creatingNew = false;
+		var context = Session.get('approval_item_context') ? Session.get('approval_item_context') : {_id : params.id};
+		var windowParams = {
+			is_creating_new : creatingNew,
+			context : context,
+		};
+		settingsWindowHandler.show('approval_item_details', windowParams);
+	},
+	onCreateRouteLoad : function(params) {
+		var context = Session.get('approval_item_context');
+		if(context == null) {
+			calendarBuilder.goToNewWeek(params.client, params.week);
+		} else {
+			creatingNew = true;				
+			var routeParams = {
+				is_creating_new : creatingNew,
+				context : context,
+			};
+			settingsWindowHandler.show('approval_item_details', routeParams);
+		}
+	},
 	getEnterPressState : function() {
 		if(!userHandler.userIsType('art_director')) {
 			return Session.get('current_scope') == 'private' ? 'edited' : 'updated';

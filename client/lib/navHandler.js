@@ -22,6 +22,28 @@ navHandler = {
 					scope : 'window',
 				},
 			},
+			edit_item : {
+				initialize_week : true,
+				main_content_template : 'settingsWindow',
+				on_route_load : function(params){
+					navButtonHandler.hidePopups();
+					detailsHandler.onEditRouteLoad(params);
+				},
+				get_route : function(clientID, weekID, params) {
+					return '/client/' + clientID + '/week/' + weekID + '/content/edit/' + params.item_id;
+				},
+			},
+			create_item : {
+				initialize_week : true,
+				main_content_template : 'settingsWindow',
+				on_route_load : function(params){
+					navButtonHandler.hidePopups();
+					detailsHandler.onCreateRouteLoad(params);
+				},
+				get_route : function(clientID, weekID) {
+					return '/client/' + clientID + '/week/' + weekID + '/content/create';
+				},
+			},
 			client_overview : {
 				initialize_week : true,
 				main_content_template : 'dataTable',
@@ -78,7 +100,7 @@ navHandler = {
     	this.getTypeAndRun(routeName, function(typeDetails){
     		var clientID = _.has(params, 'client_id') ? params['client_id'] : Session.get('selected_client_id');
     		var weekID = _.has(params, 'week_id') ? params['week_id'] : timeHandler.getWeekForSelectedTime();
-    		var route = typeDetails['get_route'](clientID, weekID);
+    		var route = typeDetails['get_route'](clientID, weekID, params);
     		Router.go(route);
     	});
 	},
@@ -88,7 +110,7 @@ navHandler = {
 		    	navHandler.handleWeek(typeDetails, params);
 	        	navHandler.handleContentTemplate(typeDetails);
 	        	navHandler.handleKeyMode(typeDetails);
-	        	navHandler.handleRouteLoad(typeDetails);
+	        	navHandler.handleRouteLoad(typeDetails, params);
 	        	Session.set(navHandler.sessionKey, routeName);
 	    	} else {
 	        	Router.go('/login');
@@ -110,9 +132,9 @@ navHandler = {
 	isInArray : function(array, value) {
 		return array.indexOf(value) > -1;	
 	},
-	handleRouteLoad : function(typeDetails) {
+	handleRouteLoad : function(typeDetails, params) {
 		if(_.has(typeDetails, 'on_route_load')){
-			typeDetails['on_route_load']();
+			typeDetails['on_route_load'](params);
 		}
 	},
 	handleKeyMode : function(typeDetails) {

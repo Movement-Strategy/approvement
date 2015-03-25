@@ -91,7 +91,7 @@ approvalItemBuilder = {
 		return  bodyMissing && titleMissing && hasLink;
 	},
 	editItem : function(itemID, clientID, weekID) {
-		Router.go('/client/' + clientID + '/week/' + weekID + '/content/edit/' + itemID);
+		navHandler.go('edit_item', {item_id : itemID, client_id : clientID, week_id : weekID});
 	},
 	onEditApprovalItem : function(context) {
 		var creatingNew = false;

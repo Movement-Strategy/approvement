@@ -73,9 +73,7 @@ Template['calendarDay'].helpers({
 Template['calendarDay'].events({
 	'click .create-item-button' : function(event) {
 		Session.set('approval_item_context', this);
-		var clientID = Session.get('selected_client_id');
-		var weekID = timeHandler.getWeekForSelectedTime();
-		Router.go('/client/' + clientID + '/week/' + weekID + '/content/create');
+		navHandler.go('create_item');
 	},
 });
 

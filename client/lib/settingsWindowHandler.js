@@ -1,4 +1,4 @@
-	settingsWindowHandler = {
+settingsWindowHandler = {
 	currentTypes : {},
 	types : function(typesToSet) {
 		_.map(typesToSet, function(typeDetails, typeName){
