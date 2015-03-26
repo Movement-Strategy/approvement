@@ -62,6 +62,11 @@ keyStrokeHandler.types('window',{
 		},
 		on_right_down : function(event, context) {
 			calendarBuilder.onRightPress();
+		},
+		on_escape_down : function(event, context) {
+			if(!userHandler.userIsType('client')) {
+				navHandler.go('client_overview');
+			}
 		}
 	},
 });
