@@ -6,6 +6,9 @@ gifHandler = {
 			}
 		});
 	},
+	resetGifCount : function() {
+		Session.set('there_were_pending_items', false);
+	},
 	showGif : function() {
 		Session.set('show_gif', true);
 		Session.set('there_were_pending_items', false);

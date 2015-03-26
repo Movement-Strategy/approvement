@@ -59,6 +59,7 @@ navHandler = {
 				on_route_load : function() {
 		        	Session.set('draft_variables_to_update', {});
 		        	Session.set('error_on_convert', false);
+		        	gifHandler.resetGifCount();
 					dataTableHandler.show('client_overview');
 				},
 			},
