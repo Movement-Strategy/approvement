@@ -8,6 +8,12 @@ navHandler = {
 	},
 	getRouteMap : function() {
 		var map = {
+			home : {
+				initialize_week : false,
+				on_route_load : function(){
+					clientHandler.onHomeRouteLoad();
+				},
+			},
 			content_calendar : {
 				initialize_week : true,
 				main_content_template : 'contentCalendar',

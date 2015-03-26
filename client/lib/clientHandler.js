@@ -19,6 +19,21 @@ clientHandler = {
 		});
 		Session.set('clients_by_id', clientsByID);	
 	},
+	onHomeRouteLoad : function() {
+        Deps.autorun(function(){
+			if(Session.get('clients_are_ready')) {
+				var clients = Session.get('current_clients');
+				// go the first client in the client list
+				if(_.size(clients) == 1){
+					var clientID = clients[0];
+					var weekID = timeHandler.getDateStringForStartOfThisWeek();
+					navHandler.go('content_calendar', {client_id : clientID, week_id : weekID});
+				} else {
+					navHandler.go('client_overview');
+				}
+			}
+        });
+	},
 	getClientName : function(allowCustomization) {
 		var clientName = Session.get('selected_client').display_name;
 		if(allowCustomization) {
@@ -111,14 +126,6 @@ clientHandler = {
 		var selectedClient = Session.get('selected_client');
 		return _.has(selectedClient, 'in_house') ? selectedClient['in_house'] : false;	
 	},
-	handleSingleClient : function() {
-		if(!navHandler.isOnRoute('client_overview')) {
-			var clients = Session.get('current_clients');
-			if(clients.length == 1) {
-				clientHandler.setSelectedClientID(clients[0]);
-			} 
-		}
-	},
 	getSelectedClientName : function() {
 		var selectedClient = Session.get('selected_client');
 		var clientName = Session.get('clients_are_ready') ? selectedClient.display_name : 'Client';
@@ -134,7 +141,6 @@ clientHandler = {
 	setCurrentClients : function(profile) {
 		clients = this.getClientsFromProfile(profile);
 		Session.set('current_clients', clients);
-		clientHandler.handleSingleClient();
 		this.setClientsAsReady(clients);
 	},
 	getClientsFromProfile : function(profile) {

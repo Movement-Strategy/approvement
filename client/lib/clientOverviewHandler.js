@@ -18,7 +18,7 @@ clientOverviewHandler = {
 		var map = {
 			name : {
 				header_text : 'Client',
-				cell_template : 'showNameCell',
+				cell_template : 'clientNameCell',
 			},
 			needs_action : {
 				header_text : 'Needs Action',
@@ -123,6 +123,19 @@ clientOverviewHandler = {
 			column_id : columnID,
 		};
 	},
+	renderNameCell : function(columnDetails, valueForColumn, clientID) {
+		var clientName = clientHandler.getClientNameFromID(clientID);
+		var clientImage = clientHandler.getClientImageFromID(clientID);
+		return {
+			image : clientImage,
+			name : clientName,
+			client_id : clientID,
+		};
+	},
+	onCellClick : function(context) {
+		var clientID = context.client_id;
+		navHandler.go('content_calendar', {client_id : clientID});	
+	},
 	getTemplateMap : function() {
 		var map = {
 			metricCell : function(columnDetails, columnValue, clientID) {
@@ -131,14 +144,11 @@ clientOverviewHandler = {
 					value : columnValue,
 				};
 			},
+			clientNameCell : function(columnDetails, valueForColumn, clientID) {
+				return clientOverviewHandler.renderNameCell(columnDetails, valueForColumn, clientID);
+			},
 			showNameCell : function(columnDetails, valueForColumn, clientID) {
-				var clientName = clientHandler.getClientNameFromID(clientID);
-				var clientImage = clientHandler.getClientImageFromID(clientID);
-				return {
-					image : clientImage,
-					name : clientName,
-					client_id : clientID,
-				};
+				return clientOverviewHandler.renderNameCell(columnDetails, valueForColumn, clientID);
 			},
 		};
 		return jQuery.extend(true, {}, map); 	

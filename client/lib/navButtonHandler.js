@@ -5,7 +5,7 @@ navButtonHandler = {
 				style_class : 'client-overview',
 				icon : 'tasks',
 				is_shown : function() {
-					return !dataTableHandler.typeIsShown('client_overview');
+					return !dataTableHandler.typeIsShown('client_overview') && !userHandler.userIsType('client');
 					// if the user isn't client	
 					// if the client overview isn't show
 				},
@@ -16,10 +16,7 @@ navButtonHandler = {
 				icon : 'lab',
 				hover_text : 'Draft Board',
 				is_shown : function() {
-					return !navHandler.isOnRoute('draft_board') && !navHandler.isOnRoute('client_overview') && !navHandler.isOnRoute('show_overview');
-					// if draft board isn't shown
-					// if the user is a manager
-					// if a client is selected
+					return !navHandler.isOnRoute('draft_board') && !navHandler.isOnRoute('client_overview') && !navHandler.isOnRoute('show_overview') && userHandler.userIsType('manager');
 				},
 			},
 			content_calendar : {
@@ -28,9 +25,6 @@ navButtonHandler = {
 				hover_text : 'Approval Calendar',
 				is_shown : function() {
 					return !navHandler.isOnRoute('content_calendar') && !navHandler.isOnRoute('client_overview');
-					
-					// if the calendar isn't shown
-					// if a client is selected
 				},	
 			},
 			show_overview : {
@@ -47,7 +41,6 @@ navButtonHandler = {
 				icon : 'mail',
 				is_shown : function() {
 					return !navHandler.isOnRoute('client_overview');
-					// if a client is selected
 				},
 				on_click : function() {
 					notificationModalHandler.showModal();
@@ -57,7 +50,7 @@ navButtonHandler = {
 		return jQuery.extend(true, {}, map);
 	},
 	getNavButtons : function() {
-		var buttons =  _.chain(this.getButtonMap())
+		var buttons = _.chain(this.getButtonMap())
 			.map(function(details, buttonName){
 				if(details.is_shown()) {
 					return {
