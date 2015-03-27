@@ -16,7 +16,7 @@ navButtonHandler = {
 				icon : 'lab',
 				hover_text : 'Draft Board',
 				is_shown : function() {
-					return !navHandler.isOnRoute('draft_board') && !navHandler.isOnRoute('client_overview') && !navHandler.isOnRoute('show_overview') && userHandler.userIsType('manager');
+					return !navHandler.isOnRoute('draft_board') && !navHandler.isOnRoute('client_overview') && !navHandler.isOnRoute('show_overview') && userHandler.userIsType('social_media_manager');
 				},
 			},
 			content_calendar : {
