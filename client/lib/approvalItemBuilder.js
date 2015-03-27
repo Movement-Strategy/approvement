@@ -2,8 +2,9 @@ approvalItemBuilder = {
 	handleApprovalItemsByClient : function() {
 		Deps.autorun(function(){
 			if(Session.get('clients_are_ready')) {
+				var currentClients = Session.get('current_clients');
 				// query for all current clients
-				var items = approvalItemBuilder.getFilteredItemsForThisWeekForClients(Session.get('current_clients'));
+				var items = approvalItemBuilder.getFilteredItemsForThisWeekForClients(currentClients);
 				// set them by client id
 				var itemsByClientID = {}
 				_.map(items, function(item){
@@ -12,9 +13,19 @@ approvalItemBuilder = {
 					}
 					itemsByClientID[item.client_id].push(item);
 				});
+				itemsByClientID = approvalItemBuilder.fillInClientsWithNoApprovalItems(currentClients, itemsByClientID);
+				
 				Session.set('approval_items_by_client', itemsByClientID);
 			}
 		});
+	},
+	fillInClientsWithNoApprovalItems : function(currentClients, itemsByClientID){
+		_.map(currentClients, function(clientID){
+			if(!_.has(itemsByClientID, clientID)) {
+				itemsByClientID[clientID] = [];
+			}
+		});	
+		return itemsByClientID;
 	},
 	onApprovalItemsReady : function()  {
 		calendarBuilder.handleCalendarDays();

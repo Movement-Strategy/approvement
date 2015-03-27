@@ -79,13 +79,17 @@ clientOverviewHandler = {
 		};
 		return jQuery.extend(true, {}, map);
 	},
-	getValuesForColumns : function(clientID, approvalItems) {
+	getBaseValuesForColumns : function() {
 		var valuesForColumns = {};
+		_.map(clientOverviewHandler.getColumnMap(), function(columnDetails, columnID){
+			valuesForColumns[columnID] = 0;
+		});
+		return valuesForColumns;
+	},
+	getValuesForColumns : function(clientID, approvalItems) {
+		var valuesForColumns = this.getBaseValuesForColumns();
 		_.map(approvalItems, function(item){
 			_.map(clientOverviewHandler.getColumnMap(), function(columnDetails, columnID){
-				if(!_.has(valuesForColumns, columnID)) {
-					valuesForColumns[columnID] = 0;
-				}
 				if(_.has(columnDetails, 'count_item')) {
 					if(columnDetails['count_item'](item)) {
 						valuesForColumns[columnID] = valuesForColumns[columnID] + 1;
