@@ -3,6 +3,9 @@ navHandler = {
 	isOnRoute : function(routeName) {
 		return this.getCurrentRoute() == routeName;
 	},
+	resetRoute : function(){
+		Session.get(this.sessionKey, null);
+	},
 	getCurrentRoute : function() {
 		return Session.get(this.sessionKey);	
 	},

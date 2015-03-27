@@ -14,6 +14,7 @@ pageLoadHandler = {
 		// new autorun function check if just clients and raw approval items are ready
 		Deps.autorun(function(){
 			if(Session.get('raw_approval_items_ready') && Session.get('clients_are_ready')) {
+				
 				Session.set('overview_page_is_ready', true);
 			}
 		});	

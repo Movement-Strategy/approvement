@@ -5,6 +5,9 @@ Template['mainNav'].helpers({
 	show_dropdown : function() {
 		return clientHandler.clientDropdownShouldBeShown();
 	},
+	show_progress_bar : function() {
+		return !navHandler.isOnRoute('client_overview');
+	},
 	user_picture : function() {
 		return userHandler.getPicture();
 	},
