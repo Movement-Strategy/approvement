@@ -6,7 +6,7 @@ Template['mainNav'].helpers({
 		return clientHandler.clientDropdownShouldBeShown();
 	},
 	show_progress_bar : function() {
-		return !navHandler.isOnRoute('client_overview');
+		return !navHandler.isOnRoute('client_overview') && !settingsWindowHandler.typeIsShown('approval_item_details');
 	},
 	user_picture : function() {
 		return userHandler.getPicture();

@@ -5,7 +5,7 @@ navButtonHandler = {
 				style_class : 'client-overview',
 				icon : 'tasks',
 				is_shown : function() {
-					return !dataTableHandler.typeIsShown('client_overview') && !userHandler.userIsType('client');
+					return !dataTableHandler.typeIsShown('client_overview') && !userHandler.userIsType('client') && !settingsWindowHandler.typeIsShown('approval_item_details');
 					// if the user isn't client	
 					// if the client overview isn't show
 				},
@@ -16,7 +16,7 @@ navButtonHandler = {
 				icon : 'lab',
 				hover_text : 'Draft Board',
 				is_shown : function() {
-					return !navHandler.isOnRoute('draft_board') && !navHandler.isOnRoute('client_overview') && !navHandler.isOnRoute('show_overview') && userHandler.userIsType('social_media_manager');
+					return !navHandler.isOnRoute('draft_board') && !navHandler.isOnRoute('client_overview') && !navHandler.isOnRoute('show_overview') && userHandler.userIsType('social_media_manager') && !settingsWindowHandler.typeIsShown('approval_item_details');
 				},
 			},
 			content_calendar : {
@@ -24,7 +24,7 @@ navButtonHandler = {
 				icon : 'calendar',
 				hover_text : 'Approval Calendar',
 				is_shown : function() {
-					return !navHandler.isOnRoute('content_calendar') && !navHandler.isOnRoute('client_overview');
+					return !navHandler.isOnRoute('content_calendar') && !navHandler.isOnRoute('client_overview') && !settingsWindowHandler.typeIsShown('approval_item_details');
 				},	
 			},
 			show_overview : {
@@ -32,7 +32,7 @@ navButtonHandler = {
 				icon : 'video',
 				hover_text : 'Shows',
 				is_shown : function() {
-					return clientHandler.getSelectedClientID() == 'tru_tv' && !navHandler.isOnRoute('show_overview') && !navHandler.isOnRoute('client_overview');
+					return clientHandler.getSelectedClientID() == 'tru_tv' && !navHandler.isOnRoute('show_overview') && !navHandler.isOnRoute('client_overview') && !settingsWindowHandler.typeIsShown('approval_item_details');
 				},
 			},
 			notification : {
