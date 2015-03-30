@@ -24,7 +24,7 @@ clientHandler = {
 			if(Session.get('clients_are_ready')) {
 				var clients = Session.get('current_clients');
 				// go the first client in the client list
-				if(_.size(clients) == 1){
+				if(_.size(clients) == 1 || userHandler.userIsType('client')){
 					var clientID = clients[0];
 					var weekID = timeHandler.getDateStringForStartOfThisWeek();
 					navHandler.go('content_calendar', {client_id : clientID, week_id : weekID});
