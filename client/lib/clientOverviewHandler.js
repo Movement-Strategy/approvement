@@ -39,7 +39,7 @@ clientOverviewHandler = {
 			at_cd : {
 				header_text : 'At Creative Director',
 				cell_template : 'metricCell',
-				color : 'orange',
+				color : 'grey',
 				count_item : function(item) {
 					return item.scope == 'internal';
 				},
@@ -47,7 +47,7 @@ clientOverviewHandler = {
 			at_client : {
 				header_text : 'At Client',
 				cell_template : 'metricCell',
-				color : 'purple',
+				color : 'grey',
 				count_item : function(item) {
 					return item.scope == 'external' && (item.status == 'submitted' || item.status == 'commented');
 				},
