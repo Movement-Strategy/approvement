@@ -23,9 +23,33 @@ clientOverviewHandler = {
 			needs_action : {
 				header_text : 'Needs Action',
 				cell_template : 'metricCell',
-				color : 'black',
+				color : 'teal',
 				count_item : function(item) {
 					return pendingItemHandler.itemIsPending(item);
+				},
+			},
+			in_pod : {
+				header_text : 'In Pod',
+				cell_template : 'metricCell',
+				color : 'grey',
+				count_item : function(item) {
+					return item.scope == 'private';
+				},
+			},
+			at_cd : {
+				header_text : 'At Creative Director',
+				cell_template : 'metricCell',
+				color : 'orange',
+				count_item : function(item) {
+					return item.scope == 'internal';
+				},
+			},
+			at_client : {
+				header_text : 'At Client',
+				cell_template : 'metricCell',
+				color : 'purple',
+				count_item : function(item) {
+					return item.scope == 'external' && (item.status == 'submitted' || item.status == 'commented');
 				},
 			},
 			approved : {
@@ -42,38 +66,6 @@ clientOverviewHandler = {
 				color : 'red',
 				count_item : function(item) {
 					return item.scope == 'external' && item.status == 'rejected';
-				},
-			},
-			client_submitted : {
-				header_text : 'Needs Client Approval',
-				cell_template : 'metricCell',
-				color : 'teal',
-				count_item : function(item) {
-					return item.scope == 'external' && item.status == 'submitted';
-				},
-			},
-			client_commented : {
-				header_text : 'Needs Update',
-				cell_template : 'metricCell',
-				color : 'purple',
-				count_item : function(item) {
-					return item.scope == 'external' && item.status == 'commented';
-				},
-			},
-			internal_submitted : {
-				header_text : 'Needs Internal Approval',
-				cell_template : 'metricCell',
-				color : 'orange',
-				count_item : function(item) {
-					return item.scope == 'internal' && item.status == 'submitted';
-				},
-			},
-			private :  {
-				header_text : 'Needs Submission',
-				cell_template : 'metricCell',
-				color : 'grey',
-				count_item : function(item) {
-					return item.scope == 'private';
 				},
 			},
 		};
