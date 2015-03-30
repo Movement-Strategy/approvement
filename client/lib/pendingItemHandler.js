@@ -73,7 +73,12 @@ pendingItemHandler = {
 		var pendingConditions = _.has(this.userTypeMap[userType]['pending_conditions'], item.scope) ? this.userTypeMap[userType]['pending_conditions'][item.scope] : [];
 		var hasRelevantScope = this.isInArray(relevantScopes, item.scope);
 		var hasPendingCondition = this.isInArray(pendingConditions, item.status);
-		return hasPendingCondition && hasRelevantScope;
+		return hasPendingCondition && hasRelevantScope && this.itemIsCurrent(item);
+	},
+	itemIsCurrent : function(item) {
+		var momentDate = new moment();
+		var searchTime = momentDate.subtract(1, 'days').format('X') * 1000;
+		return searchTime <= item['scheduled_time'];
 	},
 	isInArray : function(array, value) {
 		return array.indexOf(value) > -1;	
