@@ -5,7 +5,7 @@ clientOverviewHandler = {
 			var valuesForColumns = clientOverviewHandler.getValuesForColumns(clientID, approvalItems);
 			var columns = _.map(clientOverviewHandler.getColumnMap(), function(columnDetails, columnID){
 				var columnValue = _.has(valuesForColumns, columnID) ? valuesForColumns[columnID] : null;
-				return clientOverviewHandler.getProcessedColumn(columnDetails, columnID , columnValue, clientID);	
+				return clientOverviewHandler.getProcessedColumn(columnDetails, columnID , columnValue, clientID, valuesForColumns);	
 			});
 			return {
 				columns : columns,
@@ -110,9 +110,9 @@ clientOverviewHandler = {
 		var currentWeek = timeHandler.getWeekForSelectedTime();
 		return "Client Overview for " + currentWeek;	
 	},
-	getProcessedColumn : function(columnDetails, columnID , columnValue, clientID) {
+	getProcessedColumn : function(columnDetails, columnID , columnValue, clientID, valuesForColumns) {
 		var templateMap = this.getTemplateMap();
-		var columnData =  templateMap[columnDetails['cell_template']](columnDetails, columnValue, clientID);
+		var columnData =  templateMap[columnDetails['cell_template']](columnDetails, columnValue, clientID, valuesForColumns);
 		return {
 			cell_template : columnDetails.cell_template,
 			column_data : columnData,
@@ -134,9 +134,10 @@ clientOverviewHandler = {
 	},
 	getTemplateMap : function() {
 		var map = {
-			metricCell : function(columnDetails, columnValue, clientID) {
+			metricCell : function(columnDetails, columnValue, clientID, valuesForColumns) {
+				var iconColor = valuesForColumns['needs_action'] > 0 ? columnDetails.color : 'grey';
 				return {
-					icon_color : columnDetails.color,
+					icon_color : iconColor,
 					value : columnValue,
 				};
 			},
