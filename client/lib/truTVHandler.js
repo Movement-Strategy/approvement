@@ -31,6 +31,16 @@ truTVHandler = {
 				 profile : 'truTV',
 				 twitter_profile : 'truTV',
 			},
+			way_out_west : {
+				 name : 'Way Out West',
+				 profile : 'truTVWOW',
+				 twitter_profile : 'truTV',
+			},
+			fake_off : {
+				 name : 'Fake Off',
+				 profile : 'truTVFakeOff',
+				 twitter_profile : 'truTV',
+			},
 		};	
 	},
 	getMetricMap : function() {
