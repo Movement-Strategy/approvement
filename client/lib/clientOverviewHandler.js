@@ -135,14 +135,19 @@ clientOverviewHandler = {
 	getTemplateMap : function() {
 		var map = {
 			metricCell : function(columnDetails, columnValue, clientID, valuesForColumns) {
-				var iconColor = valuesForColumns['needs_action'] > 0 ? columnDetails.color : 'grey';
+				var hideValues = valuesForColumns['needs_action'] == 0 && valuesForColumns['in_pod'] == 0 && valuesForColumns['at_client'] == 0 && valuesForColumns['at_cd'] == 0;
 				return {
-					icon_color : iconColor,
+					icon_color : columnDetails.color,
+					show_value : !hideValues,
 					value : columnValue,
 				};
 			},
-			clientNameCell : function(columnDetails, valueForColumn, clientID) {
-				return clientOverviewHandler.renderNameCell(columnDetails, valueForColumn, clientID);
+			clientNameCell : function(columnDetails, valueForColumn, clientID, valuesForColumns) {
+				var nameCell = clientOverviewHandler.renderNameCell(columnDetails, valueForColumn, clientID);
+				if(valuesForColumns['needs_action'] == 0) {
+					nameCell['disabled'] = true;
+				}
+				return nameCell;
 			},
 			showNameCell : function(columnDetails, valueForColumn, clientID) {
 				return clientOverviewHandler.renderNameCell(columnDetails, valueForColumn, clientID);

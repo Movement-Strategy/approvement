@@ -1,8 +1,10 @@
 <template name="metricCell">
 	<td class='center-aligned'> 
-		<div class="ui {{icon_color}} square label">
-			{{value}}
-		</div>
+		{{#if show_value}}
+			<div class="ui {{icon_color}} square label">
+				{{value}}
+			</div>
+		{{/if}}
 	</td>
 </template>
 
