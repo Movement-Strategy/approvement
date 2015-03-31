@@ -3,7 +3,7 @@ settingsWindowHandler.types({
 		header_template : 'approvalItemHeader',
 		content_template : 'approvalItemContent',
 		on_show : function(params) {
-			detailsHandler.onShowDetails(params['context'], params['is_creating_new']);
+			Session.set('details_params', params);
 		},
 		on_hide : function(params) {
 			detailsHandler.onHideDetails();

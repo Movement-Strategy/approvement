@@ -1,4 +1,10 @@
 Template['approvalItemContent'].helpers({
+	handle_show : function() {
+		var params = Session.get('details_params');
+		if(settingsWindowHandler.typeIsShown('approval_item_details') && params != null) {
+			detailsHandler.onShowDetails(params['context'], params['is_creating_new']);
+		}
+	},
 	details_shown : function() {
 		return detailsHandler.detailsShown();
 	},
