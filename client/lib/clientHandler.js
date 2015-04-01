@@ -72,6 +72,7 @@ clientHandler = {
 			var clientID = clientHandler.getSelectedClientID();
 			if(Session.get('clients_are_ready') && clientID != null) {
 				var clientsByID = Session.get('clients_by_id');
+				clientHandler.setUsersToNotifyForClient();
 				if(_.has(clientsByID, clientID)) {
 					Session.set('selected_client', clientsByID[clientID]);
 				} else {
