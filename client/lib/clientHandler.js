@@ -20,19 +20,19 @@ clientHandler = {
 		Session.set('clients_by_id', clientsByID);	
 	},
 	onHomeRouteLoad : function() {
-        Deps.autorun(function(){
-			if(Session.get('clients_are_ready')) {
-				var clients = Session.get('current_clients');
-				// go the first client in the client list
-				if(_.size(clients) == 1 || userHandler.userIsType('client')){
-					var clientID = clients[0];
-					var weekID = timeHandler.getDateStringForStartOfThisWeek();
-					navHandler.go('content_calendar', {client_id : clientID, week_id : weekID});
-				} else {
-					navHandler.go('client_overview');
-				}
-			}
-        });
+		Session.set('redirect_from_home', true);	
+	},
+	handleHomeRoute : function() {
+		var clients = Session.get('current_clients');
+		// go the first client in the client list
+		if(_.size(clients) == 1 || userHandler.userIsType('client')){
+			var clientID = clients[0];
+			var weekID = timeHandler.getDateStringForStartOfThisWeek();
+			Session.set('redirect_from_home', false);
+			navHandler.go('content_calendar', {client_id : clientID, week_id : weekID});
+		} else {
+			navHandler.go('client_overview');
+		}
 	},
 	getClientName : function(allowCustomization) {
 		var clientName = Session.get('selected_client').display_name;
@@ -154,6 +154,10 @@ clientHandler = {
 			if(Session.get('clients_by_id') != {}) {
 				clientHandler.setSelectedClient();
 				Session.set('clients_are_ready', true);
+				if(Session.get('redirect_from_home')) {
+					this.handleHomeRoute();
+					
+				}
 			}
 		}
 	}
