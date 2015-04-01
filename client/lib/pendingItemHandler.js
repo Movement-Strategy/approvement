@@ -98,7 +98,8 @@ pendingItemHandler = {
 		var pendingItems = Session.get('pending_items');	
 		if(pendingItems.length > 0) {
 			var pendingItem = pendingItems[itemOffset];
-			var targetTime = pendingItem['scheduled_time'];
+			var scheduledTime = pendingItem['scheduled_time'];
+			var targetTime = timeHandler.getShiftedTimestamp(scheduledTime);
 			var weekID = timeHandler.timestampToStartOfWeekDateString(targetTime);
 			approvalItemBuilder.editItem(pendingItem['_id'], pendingItem['client_id'], weekID);
 		}
