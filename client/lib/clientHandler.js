@@ -101,11 +101,11 @@ clientHandler = {
 		Session.set('there_were_pending_items', false);
 		var weekID = timeHandler.getWeekForSelectedTime();
 		var clientID = event.target.value;
-		if(draftBoardHandler.isShown()) {
-			draftItemHandler.goToDraftWeek(clientID, weekID);
-		} else {
-			calendarBuilder.goToNewWeek(clientID, weekID);
+		var routeToNavigateTo = navHandler.getCurrentRoute();
+		if(clientID != 'tru_tv' && routeToNavigateTo == 'show_overview') {
+			routeToNavigateTo = 'content_calendar';
 		}
+		navHandler.go(routeToNavigateTo, {client_id : clientID});
 	},
 	clientDropdownShouldBeShown : function() {
 		return !detailsHandler.detailsShown() && Session.get('current_clients').length > 1 && !navHandler.isOnRoute('client_overview');
