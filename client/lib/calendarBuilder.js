@@ -50,7 +50,6 @@ calendarBuilder = {
 			Session.set('plus_is_dragged_over', false);
 		});
 		navHandler.go('create_item', {client_id : clientID, week_id : weekID});
-		Router.go('/client/' + clientID + '/week/' + weekID + '/content/create');
 	},
 	onDragExitPlusButton : function() {
 		Session.set('plus_is_dragged_over', false);
