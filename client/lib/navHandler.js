@@ -88,6 +88,7 @@ navHandler = {
 					return '/client/' + clientID + '/week/' + weekID + '/draft';
 				},
 				on_route_load : function() {
+		        	draftBoardHandler.hideAllPopups();
 		        	Session.set('draft_variables_to_update', {});
 		        	Session.set('error_on_convert', false);
 				},
@@ -116,6 +117,7 @@ navHandler = {
 	onRouteLoad : function(routeName, params) {
     	this.getTypeAndRun(routeName, function(typeDetails){
 	    	if(loginHandler.isLoggedIn() && !navHandler.userIsDenied(typeDetails)) {
+		    	draftBoardHandler.hideAllPopups();
 		    	navHandler.handleWeek(typeDetails, params);
 	        	navHandler.handleContentTemplate(typeDetails);
 	        	navHandler.handleKeyMode(typeDetails);

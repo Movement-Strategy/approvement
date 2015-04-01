@@ -20,12 +20,6 @@
 		promptModalHandler.show('content_bucket');
 		draftBoardHandler.hideAllPopups();
 	},
-	goToDraftWeek : function(clientID, weekID) {
-		
-		// if we try to change weeks while the popups are open, they don't get closed, so we close them manually here
-		draftBoardHandler.hideAllPopups();
-		Router.go('/client/' + clientID + '/week/' + weekID + '/draft');	
-	},
 	getDropdownOptionsForCell : function(context) {
 		var dropdownOptions = _.has(context, 'params') ? context.params.dropdown_options : [];
 		if(typeof(dropdownOptions) === 'function') {

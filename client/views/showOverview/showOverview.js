@@ -10,7 +10,7 @@ dataTableHandler.types({
 			return customClientHandler.getCustomOverviewHeaders();	
 		},
 		on_week_change : function(clientID, weekID) {
-			calendarBuilder.goToShowWeek(clientID, weekID);
+			navHandler.go('show_overview', {client_id : clientID, week_id : weekID});
 		},
 	},
 });

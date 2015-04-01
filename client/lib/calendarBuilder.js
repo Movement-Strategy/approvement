@@ -10,15 +10,6 @@ calendarBuilder = {
 			}
 		});
 	},
-	goToNewWeek : function(clientID, weekID) {
-		Router.go('/client/' + clientID + '/week/' + weekID);	
-	},
-	goToShowWeek : function(clientID, weekID) {
-		Router.go('/client/' + clientID + '/week/' + weekID + '/shows');	
-	},
-	goToClientOverviewWeek : function(weekID) {
-		Router.go('/week/' + weekID + '/overview');	
-	},
 	changeToKeyMode : function() {
 		keyStrokeHandler.setKeyMode('window', 'content_calendar');
 	},
