@@ -118,6 +118,7 @@ navHandler = {
     	this.getTypeAndRun(routeName, function(typeDetails){
 	    	if(loginHandler.isLoggedIn() && !navHandler.userIsDenied(typeDetails)) {
 		    	draftBoardHandler.hideAllPopups();
+		    	navButtonHandler.hidePopups();
 		    	navHandler.handleWeek(typeDetails, params);
 	        	navHandler.handleContentTemplate(typeDetails);
 	        	navHandler.handleKeyMode(typeDetails);

@@ -34,9 +34,8 @@ detailsHandler = {
 		if(context == null) {
 			navHandler.go('content_calendar', {client_id : params.client, week_id : params.week});
 		} else {
-			creatingNew = true;				
 			var routeParams = {
-				is_creating_new : creatingNew,
+				is_creating_new : true,
 				context : context,
 			};
 			settingsWindowHandler.show('approval_item_details', routeParams);
