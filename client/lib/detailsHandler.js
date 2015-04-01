@@ -32,7 +32,7 @@ detailsHandler = {
 	onCreateRouteLoad : function(params) {
 		var context = Session.get('approval_item_context');
 		if(context == null) {
-			calendarBuilder.goToNewWeek(params.client, params.week);
+			navHandler.go('content_calendar', {client_id : params.client, week_id : params.week});
 		} else {
 			creatingNew = true;				
 			var routeParams = {
