@@ -92,12 +92,25 @@ clientOverviewHandler = {
 		return valuesForColumns;
 	},
 	sortRowsByColumnValue : function(rows, sortOn) {
-		return _.sortBy(rows, function(row){
-			var sortColumn = _.find(row['columns'], function(column){
-				return column['column_id'] == sortOn;
-			});
-			return sortColumn['column_data']['value'] * -1;
-		});
+		return _.chain(rows) 
+			.sortBy(function(row){
+				var sortColumn = _.find(row['columns'], function(column){
+					return column['column_id'] == sortOn;
+				});
+				return sortColumn['column_data']['value'] * -1;
+			})
+			.sortBy(function(row){
+				var totalItems = _.reduce(row['columns'], function(prev, next){
+					if(next['column_id'] != 'needs_action') {
+						return next['column_data']['value'] + prev;
+					} else {
+						return 0;
+					}
+				}, 0);
+				return totalItems * -1;
+			})
+			.value();
+			
 	},
 	getHeaders : function() {
 		return _.map(this.getColumnMap(), function(column, columnID){
