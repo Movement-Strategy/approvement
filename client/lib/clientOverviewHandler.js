@@ -101,7 +101,7 @@ clientOverviewHandler = {
 			})
 			.sortBy(function(row){
 				var totalItems = _.reduce(row['columns'], function(prev, next){
-					if(next['column_id'] != 'needs_action') {
+					if(next['column_id'] != 'needs_action' && next['column_id'] != 'approved' && next['column_id'] != 'denied') {
 						return next['column_data']['value'] + prev;
 					} else {
 						return 0;
