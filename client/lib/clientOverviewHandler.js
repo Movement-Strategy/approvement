@@ -14,6 +14,7 @@ clientOverviewHandler = {
 		rows = this.sortRowsByColumnValue(rows, 'needs_action');
 		return rows;
 	},
+	
 	getColumnMap : function() {
 		var map = {
 			name : {
