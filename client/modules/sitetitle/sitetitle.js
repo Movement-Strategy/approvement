@@ -1,5 +1,6 @@
+
 Deps.autorun(function () {
-    document.title = Session.get('sitetitle') || 'Meteor Boilerplate';
+    document.title = Session.get('sitetitle') || 'The MVMT Approve';
 });
 
 window.SiteTitle = {
