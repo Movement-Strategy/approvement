@@ -78,6 +78,18 @@ navHandler = {
 					dataTableHandler.show('show_overview');
 				},
 			},
+			channel_overview : {
+				initialize_week : true,
+				main_content_template : 'dataTable',
+				get_route : function(clientID, weekID) {
+					return '/client/' + clientID + '/week/' + weekID + '/channels';
+				},
+				on_route_load : function() {
+		        	Session.set('draft_variables_to_update', {});
+		        	Session.set('error_on_convert', false);
+					dataTableHandler.show('channel_overview');
+				},
+			},
 			draft_board : {
 				initialize_week : true,
 				main_content_template : 'draftBoard',

@@ -41,6 +41,55 @@ customClientHandler = {
 				},
 				nav_template : 'dynamicNavButtons',
 			},
+			xero : {
+				dropdowns : {
+					show : {
+						get_options : function() {
+							return [
+								{
+									name : 'Direct',
+									id : 'direct',
+								},
+								{
+									name : 'Baseline',
+									id : 'baseline',
+								},
+							];
+						},
+						icon : 'ticket',
+						display : 'Channel',
+						session_variable_to_set : 'current_channel_id',
+						should_be_shown : function() {
+							return Session.get('current_content_type') != null;	
+						},
+					},
+				},
+				get_overview_headers : function() {
+					return truTVHandler.getColumnHeaders();	
+				},
+				get_overview_rows : function() {
+					return [];
+				},
+				get_profile_image : function() {
+					return null;
+				},
+				set_fields_in_item : function(item) {
+					return item;
+				},
+				get_client_name : function() {
+					return clientHandler.getClientName();
+				},
+				on_show : function(params) {
+// 					truTVHandler.onShowDetails(params);
+				},
+				get_popup_title : function(item) {
+					return 'none';
+				},
+				get_twitter_profile : function() {
+					return clientHandler.getTwitterProfileName();	
+				},
+				nav_template : 'dynamicNavButtons',
+			},
 		};	
 	},
 	getCustomOverviewHeaders : function() {

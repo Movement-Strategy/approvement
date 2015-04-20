@@ -35,6 +35,14 @@ navButtonHandler = {
 					return clientHandler.getSelectedClientID() == 'tru_tv' && !navHandler.isOnRoute('show_overview') && !navHandler.isOnRoute('client_overview') && !settingsWindowHandler.typeIsShown('approval_item_details');
 				},
 			},
+			channel_overview : {
+				style_class : 'channels',
+				icon : 'road',
+				hover_text : 'Channels',
+				is_shown : function() {
+					return clientHandler.getSelectedClientID() == 'xero' && !navHandler.isOnRoute('channel_overview') && !navHandler.isOnRoute('client_overview') && !settingsWindowHandler.typeIsShown('approval_item_details');
+				},
+			},
 			notification : {
 				style_class : 'notification',
 				hover_text : 'Send Notification',
