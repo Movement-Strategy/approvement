@@ -2,15 +2,17 @@ customClientHandler = {
 	getClientMap : function() {
 		return {
 			tru_tv : {
-				dropdown : {
-					get_options : function() {
-						return truTVHandler.getShowOptions();
-					},
-					icon : 'ticket',
-					display : 'Show',
-					session_variable_to_set : 'current_show_id',
-					should_be_shown : function() {
-						return Session.get('current_content_type') != null;	
+				dropdowns : {
+					show : {
+						get_options : function() {
+							return truTVHandler.getShowOptions();
+						},
+						icon : 'ticket',
+						display : 'Show',
+						session_variable_to_set : 'current_show_id',
+						should_be_shown : function() {
+							return Session.get('current_content_type') != null;	
+						},
 					},
 				},
 				get_overview_headers : function() {
@@ -88,7 +90,7 @@ customClientHandler = {
 	},
 	onShowDetails : function(item, isCreatingNew) {
 		if(isCreatingNew) {
-			Session.set(this.getCustomDropdownKey(), null);
+			this.resetCustomValues();
 		}
 		var params = {
 			is_creating_new : isCreatingNew,
@@ -96,69 +98,95 @@ customClientHandler = {
 		};
 		this.runBaseFunction('on_show', params);
 	},
-	customDropdownValueSelected : function() {
-		var customDropdownValue = this.getCustomDropdownValue();
-		return customDropdownValue != null;
+	resetCustomValues : function() {
+		var dropdowns = this.runBaseFunction('dropdowns');
+		_.map(dropdowns, function(dropdowns, dropdownID){
+			var sessionKey = customClientHandler.runDropdownFunction('session_variable_to_set', {dropdown_id : dropdownID});
+			Session.set(sessionKey, null);
+		});
+	},
+	allCustomDropdownValuesSelected : function() {
+		var dropdowns = this.runBaseFunction('dropdowns');
+		var allSelected = true;
+		_.map(dropdowns, function(dropdown){
+			var customValue = Session.get(dropdown['session_variable_to_set']);
+			if(customValue == null) {
+				allSelected = false;
+			}
+		});
+		return allSelected;
 	},
 	setCustomFieldsInItem : function(item) {
 		var updatedItem = this.runBaseFunction('set_fields_in_item', item);
 		return updatedItem == null ? item : updatedItem;
 	},
-	dropdownShouldBeShown : function() {
-		return this.runDropdownFunction('should_be_shown');
+	dropdownShouldBeShown : function(context) {
+		return this.runDropdownFunction('should_be_shown', context);
 	},
 	getCustomDropdownKey : function() {
 		var key = this.runDropdownFunction('session_variable_to_set');
 		return key;
 	},
-	getCustomDropdownValue : function() {
-		var key = this.getCustomDropdownKey();
-		return Session.get(key);
-	},
 	allowPreviewToShow : function() {
 		var allowed = true;
-		if(this.dropdownIsRequired()) {
-			allowed = this.customDropdownValueSelected();
+		if(this.customDropdownsAreRequired()) {
+			allowed = this.allCustomDropdownValuesSelected();
 		}
 		return allowed;
 	},
-	getDropdownIcon : function() {
-		return this.runDropdownFunction('icon');	
+	getDropdownIcon : function(context) {
+		return this.runDropdownFunction('icon', context);	
 	},
-	getDropdownDisplay : function() {
-		return this.runDropdownFunction('display');	
+	getDropdownDisplay : function(context) {
+		return this.runDropdownFunction('display', context);	
 	},
-	dropdownIsRequired : function() {
+	customDropdownsAreRequired : function() {
 		var clientMap = this.getClientMap();
 		var clientID = clientHandler.getSelectedClientID()
 		var required = false;
 		if(_.has(clientMap, clientID)) {
-			required = _.has(clientMap[clientID], 'dropdown');
+			required = _.has(clientMap[clientID], 'dropdowns');
 		}
 		return required;
 	},
-	getCustomDropdownOptions : function() {
-		return this.runDropdownFunction('get_options');
+	getCustomDropdowns : function() {
+		var dropdowns = this.runBaseFunction('dropdowns');
+		dropdowns =  _.map(dropdowns, function(dropdown, dropdownID){
+			return {
+				dropdown_id : dropdownID,
+			};
+		});
+		return dropdowns;
 	},
-	onDropdownChange : function(customValue) {
-		var keyToSet = this.runDropdownFunction('session_variable_to_set');
+	getCustomDropdownOptions : function(context) {
+		return this.runDropdownFunction('get_options', context);
+	},
+	onDropdownChange : function(customValue,  context) {
+		var keyToSet = this.runDropdownFunction('session_variable_to_set', context);
 		Session.set(keyToSet, customValue);
 	},
 	runDropdownFunction : function(functionName, params) {
 		var value = null;
 		var clientMap = this.getClientMap();
 		var clientID = clientHandler.getSelectedClientID();
-		if(_.has(clientMap, clientID)) {
-			if(_.has(clientMap[clientID], 'dropdown')) {
-				if(_.has(clientMap[clientID]['dropdown'], functionName)) {
-					if(typeof(clientMap[clientID]['dropdown'][functionName]) === 'function') {
-						value = clientMap[clientID]['dropdown'][functionName](params);
-					} else {
-						value = clientMap[clientID]['dropdown'][functionName];
+		if(params != null && _.has(params, 'dropdown_id')) {
+			var dropdownID = params['dropdown_id'];
+			if(_.has(clientMap, clientID)) {
+				if(_.has(clientMap[clientID], 'dropdowns')) {
+					if(_.has(clientMap[clientID]['dropdowns'], dropdownID)) {
+						var dropdownMap = clientMap[clientID]['dropdowns'][dropdownID];
+						if(_.has(dropdownMap, functionName)) {
+							if(typeof(dropdownMap[functionName]) === 'function') {
+								value = dropdownMap[functionName](params);
+							} else {
+								value = dropdownMap[functionName];
+							}
+						}
 					}
 				}
 			}
 		}
+		
 		return value;
 	},
 	runBaseFunction : function(functionName, params) {

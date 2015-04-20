@@ -60,8 +60,9 @@ detailsHandler = {
 	showDropdowns : function() {
 		if(contentTypeBuilder.isType('link')) {
 			// if the custom dropdown is required, make sure the value is set before hiding the dropdowns
-			if(customClientHandler.dropdownIsRequired()) {
-				return !customClientHandler.customDropdownValueSelected();
+			if(customClientHandler.customDropdownsAreRequired()) {
+				
+				return !customClientHandler.allCustomDropdownValuesSelected();
 			} else {
 				return false;
 			}

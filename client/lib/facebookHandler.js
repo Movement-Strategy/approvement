@@ -15,8 +15,8 @@ facebookHandler = {
 	},
 	showLinkInput : function() {
 		var showLink = this.isLegacyLink() ? false : contentTypeBuilder.isType('link') && !userHandler.userIsType('client');
-		if(customClientHandler.dropdownIsRequired()) {
-			valueSelected = customClientHandler.customDropdownValueSelected();
+		if(customClientHandler.customDropdownsAreRequired()) {
+			valueSelected = customClientHandler.allCustomDropdownValuesSelected();
 			var showLink = valueSelected && showLink;
 		}
 		return showLink;
