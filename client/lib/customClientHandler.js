@@ -43,50 +43,53 @@ customClientHandler = {
 			},
 			xero : {
 				dropdowns : {
-					show : {
+					region : {
 						get_options : function() {
-							return [
-								{
-									name : 'Direct',
-									id : 'direct',
-								},
-								{
-									name : 'Baseline',
-									id : 'baseline',
-								},
-							];
+							return xeroHandler.getRegionOptions();
+						},
+						icon : 'mail',
+						display : 'Region',
+						session_variable_to_set : 'current_region_id',
+						should_be_shown : function() {
+							return Session.get('current_content_type') != null;	
+						},
+					},
+					channel : {
+						get_options : function() {
+							return xeroHandler.getChannelOptions();
 						},
 						icon : 'ticket',
 						display : 'Channel',
 						session_variable_to_set : 'current_channel_id',
 						should_be_shown : function() {
-							return Session.get('current_content_type') != null;	
+							return Session.get('current_content_type') != null && Session.get('current_region_id') != null;	
 						},
 					},
+					
 				},
 				get_overview_headers : function() {
-					return truTVHandler.getColumnHeaders();	
+					return xeroHandler.getColumnHeaders();	
 				},
 				get_overview_rows : function() {
-					return [];
+					return xeroHandler.getOverviewRows();
 				},
 				get_profile_image : function() {
 					return null;
 				},
 				set_fields_in_item : function(item) {
-					return item;
+					return xeroHandler.setRegionAndChannelInItem(item);
 				},
 				get_client_name : function() {
-					return clientHandler.getClientName();
+					return clientHandler.getStandardClientName();
 				},
 				on_show : function(params) {
 // 					truTVHandler.onShowDetails(params);
 				},
 				get_popup_title : function(item) {
-					return 'none';
+					return xeroHandler.getPopupTitle(item);
 				},
 				get_twitter_profile : function() {
-					return clientHandler.getTwitterProfileName();	
+					return clientHandler.getStandardTwitterProfileName();	
 				},
 				nav_template : 'dynamicNavButtons',
 			},

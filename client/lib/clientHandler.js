@@ -35,7 +35,7 @@ clientHandler = {
 		}
 	},
 	getClientName : function(allowCustomization) {
-		var clientName = Session.get('selected_client').display_name;
+		var clientName = this.getStandardClientName();
 		if(allowCustomization) {
 			customName = customClientHandler.getCustomClientName();
 			if(customName != null) {
@@ -43,6 +43,9 @@ clientHandler = {
 			}
 		}
 		return clientName;
+	},
+	getStandardClientName : function() {
+		return Session.get('selected_client').display_name;
 	},
 	getSelectedClientID : function() {
 		return Session.get('selected_client_id');
@@ -63,9 +66,12 @@ clientHandler = {
 		}
 	},
 	getTwitterProfileName : function() {
-		var name = Session.get('selected_client').twitter_profile_name;
+		var name = this.getStandardTwitterProfileName();
 		var customName = customClientHandler.getCustomTwitterProfile();
 		return customName ? customName : name;
+	},
+	getStandardTwitterProfileName : function() {
+		return Session.get('selected_client').twitter_profile_name;	
 	},
 	setSelectedClient : function(){
 		Deps.autorun(function(){
