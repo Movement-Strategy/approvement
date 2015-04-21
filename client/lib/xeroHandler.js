@@ -16,12 +16,15 @@ xeroHandler = {
 		var map =  {
 			baseline : {
 				name : "Baseline",
+				image : 'http://s3.amazonaws.com/approval.images/subfolder/e29943f8-298c-48ba-b1aa-03bc17b6f74e.png',
 			},
 			direct : {
 				name : 'Direct',
+				image : 'http://s3.amazonaws.com/approval.images/subfolder/e297a591-9b18-46f5-8f8a-5bba95d5800b.jpeg',
 			},
 			partner : {
 				name : 'Partner',
+				image : 'http://s3.amazonaws.com/approval.images/subfolder/ff00b72e-3bde-4660-9a6e-43fb0359b518.jpg',
 			},
 		};
 		return jQuery.extend(true, {}, map);
@@ -36,6 +39,20 @@ xeroHandler = {
 					var regionID = params['region_id'];
 					var name =  xeroHandler.getRegionNameFromID(regionID);
 					var image = xeroHandler.getRegionImageFromID(regionID);
+					return {
+						name : name,
+						image : image,
+					};
+				},
+			},	
+			channel : {
+				row_type : 'secondary',
+				header_text : 'Channel',
+				cell_template : 'showNameCell',
+				get_data : function(params) {
+					var channelID = params['channel_id'];
+					var name =  xeroHandler.getChannelNameFromID(channelID);
+					var image = xeroHandler.getChannelImageFromID(channelID);
 					return {
 						name : name,
 						image : image,
@@ -58,6 +75,14 @@ xeroHandler = {
 	getRegionImageFromID : function(regionID) {
 		var regionMap = this.getRegionMap();
 		return regionMap[regionID]['image'];
+	},
+	getChannelNameFromID : function(channelID) {
+		var channelMap = this.getRegionMap();
+		return channelMap[channelID]['name'];
+	},
+	getChannelImageFromID : function(channelID) {
+		var channelMap = this.getRegionMap();
+		return channelMap[channelID]['image'];
 	},
 	getApprovalMetricsByRegionByChannelByNetwork : function() {
 		var approvalItems = truTVHandler.getAllApprovalItemsFromCalendarDays();
@@ -95,8 +120,9 @@ xeroHandler = {
 	},
 	getProcessedRegionRows : function(metricsByRegionByChannelByNetwork) {
 		var rows = [];
-		_.map(metricsByRegionByChannelByNetwork, function(metricsByRegion, regionID){
+		_.map(metricsByRegionByChannelByNetwork, function(metricsByChannelByNetwork, regionID){
 			rows = xeroHandler.addRowForRegion(rows, regionID);
+			rows = xeroHandler.addRowsForChannels(metricsByChannelByNetwork);
 		});
 		return rows;
 	},
@@ -113,6 +139,9 @@ xeroHandler = {
 		};
 		rows.push(row);
 		return rows;
+	},
+	addRowsForChannels : function(metricsByChannelByNetwork) {
+		
 	},
 	getProcessedColumn : function(rowType, columnID, columnDetails, params) {
 		var columnData = {};
