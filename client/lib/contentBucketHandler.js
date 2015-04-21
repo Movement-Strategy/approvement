@@ -123,7 +123,7 @@ contentBucketHandler = {
 					style_class : 'show-network-dropdown',
 					dropdown_options : function() {
 						return truTVHandler.getCellOptions();
-					},	
+					},
 				},
 				width : 'one',
 			},
