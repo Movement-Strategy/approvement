@@ -185,6 +185,22 @@ xeroHandler = {
 		});
 		return rows;
 	},
+	getRegionCellOptions : function() {
+		return _.map(this.getRegionMap(), function(regionDetails, regionID){
+			return {
+				value : regionID,
+				display : regionDetails['short_name'],
+			};
+		});
+	},
+	getChannelCellOptions : function() {
+		return _.map(this.getChannelMap(), function(channelDetails, channelID){
+			return {
+				value : channelID,
+				display : channelDetails['name'],
+			};
+		});
+	},
 	addRowForRegion : function(rows, regionID) {
 		var columns = _.map(this.getColumnMap(), function(columnDetails, columnID){
 			var params = {

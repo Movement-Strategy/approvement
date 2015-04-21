@@ -93,6 +93,21 @@ contentBucketHandler = {
 				},
 				width : 'one',
 			},
+			content_type : {
+				allow_apply : true,
+				required : true,
+				display : "Content Type",
+				cell_template : "contentTypeDropdownCell",
+				add_to_approval_item : function(item, draftValue) {
+					item['content_type'] = draftValue;
+					return item;
+				},
+				params : {
+					style_class : 'draft-content-dropdown',
+					default_value : 'Select',
+				},
+				width : 'one',
+			},
 			show : {
 				associated_with : 'tru_tv',
 				allow_apply : true,
@@ -112,18 +127,41 @@ contentBucketHandler = {
 				},
 				width : 'one',
 			},
-			content_type : {
+			region : {
+				associated_with : 'xero',
 				allow_apply : true,
 				required : true,
-				display : "Content Type",
-				cell_template : "contentTypeDropdownCell",
+				display : "Region",
+				cell_template : "dropdownCell",
 				add_to_approval_item : function(item, draftValue) {
-					item['content_type'] = draftValue;
+					item['region_id'] = draftValue;
 					return item;
 				},
+				default_value : 'Region',
 				params : {
-					style_class : 'draft-content-dropdown',
-					default_value : 'Select',
+					style_class : 'region-dropdown',
+					dropdown_options : function() {
+						return xeroHandler.getRegionCellOptions();
+					},	
+				},
+				width : 'one',
+			},
+			channel : {
+				associated_with : 'xero',
+				allow_apply : true,
+				required : true,
+				display : "Channel",
+				cell_template : "dropdownCell",
+				add_to_approval_item : function(item, draftValue) {
+					item['channel_id'] = draftValue;
+					return item;
+				},
+				default_value : 'Channel',
+				params : {
+					style_class : 'channel-dropdown',
+					dropdown_options : function() {
+						return xeroHandler.getChannelCellOptions();
+					},	
 				},
 				width : 'one',
 			},
