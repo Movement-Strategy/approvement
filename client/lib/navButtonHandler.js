@@ -37,8 +37,8 @@ navButtonHandler = {
 			},
 			channel_overview : {
 				style_class : 'channels',
-				icon : 'road',
-				hover_text : 'Channels',
+				icon : 'globe',
+				hover_text : 'Region & Channel Overview',
 				is_shown : function() {
 					return clientHandler.getSelectedClientID() == 'xero' && !navHandler.isOnRoute('channel_overview') && !navHandler.isOnRoute('client_overview') && !settingsWindowHandler.typeIsShown('approval_item_details');
 				},

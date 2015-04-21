@@ -109,7 +109,11 @@ clientHandler = {
 		var weekID = timeHandler.getWeekForSelectedTime();
 		var clientID = event.target.value;
 		var routeToNavigateTo = navHandler.getCurrentRoute();
+		
 		if(clientID != 'tru_tv' && routeToNavigateTo == 'show_overview') {
+			routeToNavigateTo = 'content_calendar';
+		}
+		if(clientID != 'xero' && routeToNavigateTo == 'channel_overview') {
 			routeToNavigateTo = 'content_calendar';
 		}
 		navHandler.go(routeToNavigateTo, {client_id : clientID});

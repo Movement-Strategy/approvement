@@ -47,7 +47,7 @@ customClientHandler = {
 						get_options : function() {
 							return xeroHandler.getRegionOptions();
 						},
-						icon : 'mail',
+						icon : 'globe',
 						display : 'Region',
 						session_variable_to_set : 'current_region_id',
 						should_be_shown : function() {
@@ -58,7 +58,7 @@ customClientHandler = {
 						get_options : function() {
 							return xeroHandler.getChannelOptions();
 						},
-						icon : 'ticket',
+						icon : 'road',
 						display : 'Channel',
 						session_variable_to_set : 'current_channel_id',
 						should_be_shown : function() {
@@ -83,13 +83,16 @@ customClientHandler = {
 					return clientHandler.getStandardClientName();
 				},
 				on_show : function(params) {
-// 					truTVHandler.onShowDetails(params);
+					xeroHandler.onShowDetails(params);
 				},
 				get_popup_title : function(item) {
 					return xeroHandler.getPopupTitle(item);
 				},
 				get_twitter_profile : function() {
 					return clientHandler.getStandardTwitterProfileName();	
+				},
+				get_header_title : function() {
+					return xeroHandler.getHeaderTitle();
 				},
 				nav_template : 'dynamicNavButtons',
 			},
@@ -139,6 +142,10 @@ customClientHandler = {
 	},
 	getCustomTwitterProfile : function() {
 		return this.runBaseFunction('get_twitter_profile');	
+	},
+	getHeaderTitle : function() {
+		var headerTitle = this.runBaseFunction('get_header_title');
+		return headerTitle == null ? detailsHandler.getHeaderTitle() : headerTitle; 
 	},
 	onShowDetails : function(item, isCreatingNew) {
 		if(isCreatingNew) {

@@ -2,13 +2,26 @@ xeroHandler = {
 	getRegionMap : function() {
 		var map =  {
 			us : {
-				name : 'US',
+				name : 'United States',
+				short_name : 'US',
 				image : 'http://s3.amazonaws.com/approval.images/subfolder/12d75814-5f32-4ff4-97e5-89754c8254df.png',
 			},
 			uk : {
-				name : 'UK',
+				name : 'United Kingdom',
+				short_name : 'UK',
 				image : 'http://s3.amazonaws.com/approval.images/subfolder/22295ac6-6f53-4687-9de4-b372d7affd97.JPG',
 			},
+			nz : {
+				name : 'New Zealand',
+				short_name : 'NZ',
+				image : 'http://s3.amazonaws.com/approval.images/subfolder/334b6de6-0ea2-4030-bca7-383f38f5bdcf.png',
+			},
+			au : {
+				name : 'Austrailia',
+				short_name : 'AU',
+				image : 'http://s3.amazonaws.com/approval.images/subfolder/f1a93e30-7193-4ad0-b750-b5e1fcafc01d.png',
+			},
+
 		};
 		return jQuery.extend(true, {}, map);
 	},
@@ -58,7 +71,50 @@ xeroHandler = {
 						image : image,
 					};
 				},
-			},			
+			},
+			network : {
+				row_type : 'tertiary',
+				header_text : 'Network',
+				cell_template : 'networkIconCell',
+				get_data : function(params) {
+					var iconMap = truTVHandler.getIconMap();
+					return {
+						icon : iconMap[params['network_type']],
+					};
+				},
+			},
+			approved : {
+				header_text : 'Approved',
+				row_type : 'tertiary',
+				cell_template : 'metricCell',
+				get_data : function(params) {
+					return truTVHandler.getProcessedMetric('approved', params);
+				},
+			},
+			rejected : {
+				header_text : 'Rejected',
+				row_type : 'tertiary',
+				cell_template : 'metricCell',
+				get_data : function(params) {
+					return truTVHandler.getProcessedMetric('rejected', params);
+				},
+			},
+			submitted : {
+				header_text : 'Submitted',
+				row_type : 'tertiary',
+				cell_template : 'metricCell',
+				get_data : function(params) {
+					return truTVHandler.getProcessedMetric('submitted', params);
+				},
+			},
+			created : {
+				header_text : 'Created',
+				row_type : 'tertiary',
+				cell_template : 'metricCell',
+				get_data : function(params) {
+					return truTVHandler.getProcessedMetric('created', params);
+				},
+			},
 		};	
 	},
 	getColumnHeaders : function() {
@@ -68,6 +124,7 @@ xeroHandler = {
 			};
 		});
 	},
+	
 	getRegionNameFromID : function(regionID) {
 		var regionMap = this.getRegionMap();
 		return regionMap[regionID]['name'];
@@ -77,11 +134,11 @@ xeroHandler = {
 		return regionMap[regionID]['image'];
 	},
 	getChannelNameFromID : function(channelID) {
-		var channelMap = this.getRegionMap();
+		var channelMap = this.getChannelMap();
 		return channelMap[channelID]['name'];
 	},
 	getChannelImageFromID : function(channelID) {
-		var channelMap = this.getRegionMap();
+		var channelMap = this.getChannelMap();
 		return channelMap[channelID]['image'];
 	},
 	getApprovalMetricsByRegionByChannelByNetwork : function() {
@@ -120,9 +177,11 @@ xeroHandler = {
 	},
 	getProcessedRegionRows : function(metricsByRegionByChannelByNetwork) {
 		var rows = [];
-		_.map(metricsByRegionByChannelByNetwork, function(metricsByChannelByNetwork, regionID){
+		var regionMap = this.getRegionMap();
+		_.map(regionMap, function(regionDetails, regionID){
+			var metricsByChannelByNetwork = _.has(metricsByRegionByChannelByNetwork, regionID) ? metricsByRegionByChannelByNetwork[regionID] : {};
 			rows = xeroHandler.addRowForRegion(rows, regionID);
-			rows = xeroHandler.addRowsForChannels(metricsByChannelByNetwork);
+			rows = xeroHandler.addRowsForChannels(metricsByChannelByNetwork, rows);
 		});
 		return rows;
 	},
@@ -140,8 +199,82 @@ xeroHandler = {
 		rows.push(row);
 		return rows;
 	},
-	addRowsForChannels : function(metricsByChannelByNetwork) {
+	onShowDetails : function(params){
+		if(!params.is_creating_new) {
+			Session.set('current_region_id', params.item.region_id);
+			Session.set('current_channel_id', params.item.channel_id);
+		}
+	},
+	addRowsForChannels : function(metricsByChannelByNetwork, rows) {
+		var channelMap = this.getChannelMap();
+		_.map(channelMap, function(channelDetails, channelID){
+			var metricsByNetwork = _.has(metricsByChannelByNetwork, channelID) ? metricsByChannelByNetwork[channelID] : {};
+			var columns = _.map(xeroHandler.getColumnMap(), function(columnDetails, columnID){
+				var params = {
+					channel_id : channelID,
+				};
+				return xeroHandler.getProcessedColumn('secondary', columnID, columnDetails, params);
+			});
+			var row = {
+				columns : columns,
+				highlighted : true,
+			};
+			rows.push(row);
+			rows = xeroHandler.addRowsForAllNetworks(rows, metricsByNetwork);
+		});
+		return rows;
+	},
+	getPopupTitle : function(item) {
+		var regionID = item['region_id'];
+		var channelID = item['channel_id'];
+		var regionMap = this.getRegionMap();
+		var channelMap = this.getChannelMap();
+		var regionName = regionMap[regionID]['short_name'];
+		var channelName = channelMap[channelID]['name'];
+		var channelImage = channelMap[channelID]['image'];
+		var fullTitle = '<img src="' + channelImage + '" class="ui avatar image">' + regionName + ": " + channelName;
+		return fullTitle;
+	},
+	getHeaderTitle : function(item) {
+		var title = "";
+		var regionID = Session.get('current_region_id');
+		var channelID = Session.get('current_channel_id');
+		var createPrefix = "Create New ";
+		var editPrefix = "Edit ";
+		var regionMap = this.getRegionMap();
+		var channelMap = this.getChannelMap();
+		if(regionID != null && channelID != null) {
+			var regionName = regionMap[regionID]['short_name'];
+			var channelName = channelMap[channelID]['name'];
+			var headerName = regionName + ":" + channelName + " ";
+			createPrefix = createPrefix + " " + headerName;
+			editPrefix = editPrefix + " " + headerName;
+		}
 		
+		title =  detailsHandler.getTitleString(createPrefix, editPrefix);
+		
+		return title;
+	},
+	addRowsForAllNetworks : function(rows, metricsByNetwork) {
+		_.map(metricsByNetwork, function(metrics, networkType){
+			rows = xeroHandler.addRowForNetwork(rows, networkType, metrics);
+		});
+		return rows;
+	},
+	addRowForNetwork : function(rows, networkType, metrics) {
+		var columns = _.map(this.getColumnMap(), function(columnDetails, columnID){
+			var params = {
+				network_type : networkType,
+				metrics : metrics,
+			};
+			return xeroHandler.getProcessedColumn('tertiary', columnID, columnDetails, params);
+		});
+		var row = {
+			columns : columns,
+			highlighted : false,
+		};
+		rows.push(row);
+		return rows;	
 	},
 	getProcessedColumn : function(rowType, columnID, columnDetails, params) {
 		var columnData = {};
@@ -158,26 +291,24 @@ xeroHandler = {
 	
 	getRegionOptions : function() {
 		var regionMap = this.getRegionMap();
-		return this.convertMapIntoOptions(regionMap);
+		return this.convertMapIntoOptions(regionMap, 'short_name');
 	},
 	getChannelOptions : function() {
 		var channelMap = this.getChannelMap();
-		return this.convertMapIntoOptions(channelMap);
+		return this.convertMapIntoOptions(channelMap, 'name');
 	},
-	convertMapIntoOptions : function(map) {
+	convertMapIntoOptions : function(map, nameKey) {
 		return _.map(map, function(details, id){
 			return {
-				name : details['name'],
-				id : id,
+				name : details[nameKey],
+				value : id,
 			};
 		});
 	},
 	setRegionAndChannelInItem : function(item) {
+		
 		item['region_id'] = Session.get('current_region_id');
 		item['channel_id'] = Session.get('current_channel_id');
 		return item;	
-	},
-	getPopupTitle : function(item) {
-		return item['region_id'] + ":" + item['channel_id'];
 	},
 };

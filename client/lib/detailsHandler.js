@@ -20,6 +20,15 @@ detailsHandler = {
 		}
 		return isPreviewShown;
 	},
+	getHeaderTitle : function(item) {
+		return this.getTitleString("Create New ", "Edit ");
+	},
+	getTitleString : function(createPrefix, editPrefix){
+		var dayDescription =  timeHandler.getDayDescription();
+		var typeName = networkTypeBuilder.getTypeName();
+		var prefix = this.creatingNewItem() ? createPrefix : editPrefix;
+		return prefix + typeName + " for " + dayDescription;
+	},
 	onEditRouteLoad : function(params) {
 		var creatingNew = false;
 		var context = Session.get('approval_item_context') ? Session.get('approval_item_context') : {_id : params.id};
