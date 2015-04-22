@@ -30,14 +30,20 @@ xeroHandler = {
 			baseline : {
 				name : "Baseline",
 				image : 'http://s3.amazonaws.com/approval.images/subfolder/e29943f8-298c-48ba-b1aa-03bc17b6f74e.png',
+				icon : 'terminal',
+				color : 'grey',
 			},
 			direct : {
 				name : 'Direct',
 				image : 'http://s3.amazonaws.com/approval.images/subfolder/e297a591-9b18-46f5-8f8a-5bba95d5800b.jpeg',
+				icon : 'pin',
+				color : 'teal',
 			},
 			partner : {
 				name : 'Partner',
 				image : 'http://s3.amazonaws.com/approval.images/subfolder/ff00b72e-3bde-4660-9a6e-43fb0359b518.jpg',
+				icon : 'exchange',
+				color : 'blue',
 			},
 		};
 		return jQuery.extend(true, {}, map);
@@ -61,14 +67,16 @@ xeroHandler = {
 			channel : {
 				row_type : 'secondary',
 				header_text : 'Channel',
-				cell_template : 'showNameCell',
+				cell_template : 'iconNameCell',
 				get_data : function(params) {
 					var channelID = params['channel_id'];
 					var name =  xeroHandler.getChannelNameFromID(channelID);
-					var image = xeroHandler.getChannelImageFromID(channelID);
+					var icon = xeroHandler.getChannelIconFromID(channelID);
+					var color = xeroHandler.getChannelColorFromID(channelID);
 					return {
 						name : name,
-						image : image,
+						icon : icon,
+						color : color,
 					};
 				},
 			},
@@ -140,6 +148,14 @@ xeroHandler = {
 	getChannelImageFromID : function(channelID) {
 		var channelMap = this.getChannelMap();
 		return channelMap[channelID]['image'];
+	},
+	getChannelColorFromID : function(channelID) {
+		var channelMap = this.getChannelMap();
+		return channelMap[channelID]['color'];
+	},
+	getChannelIconFromID : function(channelID) {
+		var channelMap = this.getChannelMap();
+		return channelMap[channelID]['icon'];
 	},
 	getApprovalMetricsByRegionByChannelByNetwork : function() {
 		var approvalItems = truTVHandler.getAllApprovalItemsFromCalendarDays();
@@ -233,7 +249,7 @@ xeroHandler = {
 			});
 			var row = {
 				columns : columns,
-				highlighted : true,
+				highlighted : false,
 			};
 			rows.push(row);
 			rows = xeroHandler.addRowsForAllNetworks(rows, metricsByNetwork);
@@ -247,8 +263,9 @@ xeroHandler = {
 		var channelMap = this.getChannelMap();
 		var regionName = regionMap[regionID]['short_name'];
 		var channelName = channelMap[channelID]['name'];
-		var channelImage = channelMap[channelID]['image'];
-		var fullTitle = '<img src="' + channelImage + '" class="ui avatar image">' + regionName + ": " + channelName;
+		var channelIcon = channelMap[channelID]['icon'];
+		var channelColor = channelMap[channelID]['color'];
+		var fullTitle = '<i class="' + channelIcon + ' inverted icon circular ' + channelColor + '"></i>' + regionName + ": " + channelName;
 		return fullTitle;
 	},
 	getHeaderTitle : function(item) {
