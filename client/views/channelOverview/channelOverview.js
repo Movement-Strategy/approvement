@@ -1,7 +1,8 @@
 dataTableHandler.types({
 	channel_overview : {
 		get_header_text : function() {
-			return "Channel Overview"
+			var currentWeek = timeHandler.getWeekForSelectedTime();
+			return "Channel Overview " + currentWeek;	
 		},
 		get_rows : function() {
 			return customClientHandler.getCustomOverviewRows();
