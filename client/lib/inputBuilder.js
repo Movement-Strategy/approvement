@@ -267,9 +267,7 @@ inputBuilder = {
 			Meteor.flush();
 			
 			// trigger an animation so the user knows its been edited
-			$(displayElement).transition('pulse', onHide = function(){
-				
-			});
+			$(displayElement).transition('pulse');
 	},
 	onKeyPress : function(context) {
 		this.handleContext(context, function(elementID, inputElement){

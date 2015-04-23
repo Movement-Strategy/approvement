@@ -49,10 +49,10 @@ commentHandler = {
 		var selector = this.getElementSelector('display');
 		Session.set('edited_comment_id', null);
 		var transition = Session.get('comment_edit_successful') ? 'pulse' : 'shake';
+		settingsWindowHandler.changeToKeyMode();
 		Meteor.flush();
 		$(selector).transition(transition, onHide = function(){
-			Session.set('comment_edit_successful', false);
-			settingsWindowHandler.changeToKeyMode();
+			Session.set('comment_edit_successful', false);	
 		});
 	},
 	changeToKeyMode : function() {

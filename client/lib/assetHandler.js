@@ -7,9 +7,8 @@ assetHandler = {
 	resetAndTriggerAnimationOnAsset : function(assetID, animationName) {
 		this.resetAssetTemplate();
 		var selector = '#' + assetID;
-		$(selector).transition(animationName, onHide = function(){
-			settingsWindowHandler.changeToKeyMode();
-		});
+		settingsWindowHandler.changeToKeyMode();
+		$(selector).transition(animationName);
 	},
 	getAssetContent : function () {
 		var currentAsset = Session.get('current_asset');

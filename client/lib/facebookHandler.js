@@ -88,9 +88,8 @@ facebookHandler = {
    cancelLinkEdit : function() {
 		Session.set('editing_link', false);
 		Meteor.flush();
-		$('.facebook-link-display').transition('shake', onHide = function(){
-			settingsWindowHandler.changeToKeyMode();
-		});
+		settingsWindowHandler.changeToKeyMode();
+		$('.facebook-link-display').transition('shake');
    },
    convertResponseIntoLinkData : function(response) {
 		var indexedTags = {};
@@ -130,9 +129,8 @@ facebookHandler = {
 		Session.set('link_is_loading', false);
 		Session.set('changes_made', true);
 		Meteor.flush();
-		$('.facebook-link-display').transition('pulse', onHide = function(){
-			settingsWindowHandler.changeToKeyMode();
-		});
+		settingsWindowHandler.changeToKeyMode();
+		$('.facebook-link-display').transition('pulse');
 	},
 	getFacebookLink : function() {
 		return Session.get('current_facebook_link');
