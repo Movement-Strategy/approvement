@@ -52,14 +52,10 @@ Template['approvalItemComments'].events({
 		commentHandler.deleteComment(this);
 	},
 	'focus .edit-edit' : function(event) {
-		Meteor.defer(function(){
-			commentHandler.changeToKeyMode();	
-		})	
+		commentHandler.changeToKeyMode();	
 	},
 	'focus .comment-create' : function(event) {
-		Meteor.defer(function(){
-			commentHandler.changeToKeyMode();
-		});
+		commentHandler.changeToKeyMode();
 	},
 	'blur .comment-create' : function() {
 		settingsWindowHandler.changeToKeyMode();
