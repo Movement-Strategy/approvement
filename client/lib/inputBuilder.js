@@ -260,13 +260,15 @@ inputBuilder = {
 	submitInputEdit : function(elementID, inputElement) {
 			var displayElement = '#' + elementID + '_display';
 			inputBuilder.setEditStateForInput(elementID, false, $(inputElement).val());
+			settingsWindowHandler.changeToKeyMode();
+			
 			Session.set('edited_input_id', null);
 			// flush so that the element resets to its display form
 			Meteor.flush();
 			
 			// trigger an animation so the user knows its been edited
 			$(displayElement).transition('pulse', onHide = function(){
-				settingsWindowHandler.changeToKeyMode();
+				
 			});
 	},
 	onKeyPress : function(context) {
