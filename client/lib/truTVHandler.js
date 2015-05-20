@@ -1,6 +1,7 @@
 truTVHandler = {
 	getShowMap : function() {
 		return {
+			
 			impractical_jokers : {
 				name : 'Impractical Jokers',
 				profile : 'impracticaljokers',
@@ -10,6 +11,21 @@ truTVHandler = {
 				name : 'Hack My Life',
 				profile : 'truTVHackMyLife',
 				twitter_profile : 'truTV',
+			},
+			barmageddon: {
+				name : 'Barmageddon',
+				profile : 'truTVBarmageddon',
+				twitter_profile : 'truTV',
+			},
+			those_who_cant : {
+				 name : "Those Who Can't",
+				 profile : 'truTV',
+				 twitter_profile : 'truTV',
+			},
+			the_hustlers : {
+				 name : 'The Hustlers',
+				 profile : 'truTV',
+				 twitter_profile : 'truTV',
 			},
 			breaking_greenville : {
 				name : 'Breaking Greenville',
