@@ -11,7 +11,13 @@ facebookHandler = {
 		return this.getPictureURL(profileName);
 	},
 	getPictureURL : function(id) {	
-		return 'http://graph.facebook.com/' + id + '/picture?size=square';
+		if (/^(f|ht)tps?:\/\//i.test(id)) {
+			// if the id matches a link structure, we know it's already a link and return it
+			return id;
+		} else {
+			// if its not a valid link, assume its a profile id and buidl the full url
+			return 'http://graph.facebook.com/' + id + '/picture?size=square';
+		}
 	},
 	showLinkInput : function() {
 		var showLink = this.isLegacyLink() ? false : contentTypeBuilder.isType('link') && !userHandler.userIsType('client');
