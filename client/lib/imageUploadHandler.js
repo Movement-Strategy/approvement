@@ -51,12 +51,17 @@ imageUploadHandler = {
 	onFileChange : function(event) {
 		var files = $(event.target)[0].files;
 		Session.set('image_is_loading', true);
-		S3.upload(files,"/subfolder",function(error,result){
+		var params = {
+			files : files,
+			region : 'us-west-2',
+			path : 'subfolder',
+		};
+		S3.upload(params,function(error,result){           
            	if(error == null) {
-	           	imageUploadHandler.onImageUpload(result.url);
+	           imageUploadHandler.onImageUpload(result.url);
            	} else {
-	           	warningMessageHandler.showMessage('Upload error, please try again', 'error');
-	           	Session.set('image_is_loading', false);
+	           warningMessageHandler.showMessage('Upload error, please try again', 'error');
+	           Session.set('image_is_loading', false);
            	}
            
         });
@@ -64,9 +69,14 @@ imageUploadHandler = {
 	onDraftFileChange : function(event, context) {
 		var files = $(event.target)[0].files;
 		Session.set('loading_bucket_id', context.content_bucket_id);
-		S3.upload(files,"/subfolder",function(e,r){
-           	Session.set('loading_bucket_id', null);
-           	imageUploadHandler.onDraftImageUpload(r.url, context);
+		var params = {
+			files : files,
+			region : 'us-west-2',
+			path : 'subfolder',
+		};
+		S3.upload(params,function(e,r){
+           Session.set('loading_bucket_id', null);
+           imageUploadHandler.onDraftImageUpload(r.url, context);
         });
 	},
 	onDraftImageUpload : function(url, context) {
