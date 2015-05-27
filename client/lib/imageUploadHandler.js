@@ -52,14 +52,17 @@ imageUploadHandler = {
 		var files = $(event.target)[0].files;
 		Session.set('image_is_loading', true);
 		var params = {
+			files : files,
 			region : 'us-west-2',
 			path : 'test',
 		};
-		S3.upload(files, params,function(error,result){
+		console.log('firing');
+		S3.upload(params,function(error,result){
            
            	if(error == null) {
 	           	imageUploadHandler.onImageUpload(result.url);
            	} else {
+	           	console.log(error);
 	           	warningMessageHandler.showMessage('Upload error, please try again', 'error');
 	           	Session.set('image_is_loading', false);
            	}
