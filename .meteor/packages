@@ -16,6 +16,4 @@ accounts-facebook
 accounts-password
 email
 iron:router
-browser-policy
 lepozepo:s3
-
