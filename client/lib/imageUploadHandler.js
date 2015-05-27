@@ -51,7 +51,12 @@ imageUploadHandler = {
 	onFileChange : function(event) {
 		var files = $(event.target)[0].files;
 		Session.set('image_is_loading', true);
-		S3.upload(files,"/test",function(error,result){
+		var params = {
+			region : 'us-west-2',
+			path : 'test',
+		};
+		S3.upload(files, params,function(error,result){
+           
            	if(error == null) {
 	           	imageUploadHandler.onImageUpload(result.url);
            	} else {

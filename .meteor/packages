@@ -17,4 +17,5 @@ accounts-password
 email
 iron:router
 lepozepo:s3
+browser-policy
 
