@@ -7,15 +7,30 @@ truTVHandler = {
 				profile : 'impracticaljokers',
 				twitter_profile : 'truTVjokers',
 			},
-			hack_my_life : {
-				name : 'Hack My Life',
-				profile : 'truTVHackMyLife',
-				twitter_profile : 'truTV',
+			tru_tv : {
+				 name : 'TruTV',
+				 profile : 'truTV',
+				 twitter_profile : 'truTV',
+			},			
+			htbagu : {
+				 name : 'How To Be Grown Up',
+				 profile : 'HTBAGU',
+				 twitter_profile : 'truTV',
+			},	
+			friends_of_the_people : {
+				 name : 'Friends of the People',
+				 profile : 'truTVFOTP',
+				 twitter_profile : 'truTVFOTP',
 			},
 			barmageddon: {
 				name : 'Barmageddon',
 				profile : 'truTVBarmageddon',
 				twitter_profile : 'truTV',
+			},
+			fake_off : {
+				 name : 'Fake Off',
+				 profile : 'truTVFakeOff',
+				 twitter_profile : 'truTV',
 			},
 			those_who_cant : {
 				 name : "Those Who Can't",
@@ -26,6 +41,11 @@ truTVHandler = {
 				 name : 'The Hustlers',
 				 profile : 'truTV',
 				 twitter_profile : 'truTV',
+			},			
+			hack_my_life : {
+				name : 'Hack My Life',
+				profile : 'truTVHackMyLife',
+				twitter_profile : 'truTV',
 			},
 			breaking_greenville : {
 				name : 'Breaking Greenville',
@@ -36,26 +56,6 @@ truTVHandler = {
 				name : 'The Carbonaro Effect',
 				profile : 'carbonaroeffect',
 				twitter_profile : 'truTV',
-			},
-			friends_of_the_people : {
-				 name : 'Friends of the People',
-				 profile : 'truTVFOTP',
-				 twitter_profile : 'truTVFOTP',
-			},
-			tru_tv : {
-				 name : 'TruTV',
-				 profile : 'truTV',
-				 twitter_profile : 'truTV',
-			},
-			way_out_west : {
-				 name : 'Way Out West',
-				 profile : 'truTVWOW',
-				 twitter_profile : 'truTV',
-			},
-			fake_off : {
-				 name : 'Fake Off',
-				 profile : 'truTVFakeOff',
-				 twitter_profile : 'truTV',
 			},
 		};	
 	},
