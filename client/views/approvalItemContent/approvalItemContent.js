@@ -18,7 +18,7 @@ Template['approvalItemContent'].helpers({
 		detailsHandler.initializeAccordion();
 	},
 	width_class : function() {
-		return detailsHandler.getWidthClass();;
+		return detailsHandler.getWidthClass();
 	},
 	has_more_than_one_content_type : function() {
 		return !contentTypeBuilder.hasOnlyOneContentType();
