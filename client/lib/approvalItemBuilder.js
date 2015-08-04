@@ -31,8 +31,10 @@ approvalItemBuilder = {
 		calendarBuilder.handleCalendarDays();
 	},
 	getApprovalItemsByDay : function() {
+		popupContent.hideAllPopups();
 		var itemsByDay = {};
 		if(Session.get('clients_are_ready')) {
+			
 			var query = this.getFindQuery();
 			var items = this.getFilteredItemsForThisWeekForClients([clientHandler.getSelectedClientID()]);
 			

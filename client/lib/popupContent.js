@@ -23,6 +23,9 @@ popupContent = {
 			this.setShownPopupID(event);	
 		}
 	},
+	hideAllPopups : function() {
+		$('.approval-item').popup('hide all');
+	},	
 	handlePopup : function(selector, params) {
 		Meteor.defer(function(){
 			$(selector).popup(params);
