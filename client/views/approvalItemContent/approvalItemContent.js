@@ -23,6 +23,9 @@ Template['approvalItemContent'].helpers({
 	has_more_than_one_content_type : function() {
 		return !contentTypeBuilder.hasOnlyOneContentType();
 	},
+	current_icon : function() {
+		return approvalItemBuilder.iconMap[Session.get('current_network_type')];	
+	},
 	clickable_inputs : function() {
 		return inputBuilder.getClickableInputs();
 	},
