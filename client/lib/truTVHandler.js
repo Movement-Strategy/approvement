@@ -12,6 +12,11 @@ truTVHandler = {
 				 profile : 'truTV',
 				 twitter_profile : 'truTV',
 			},			
+			six_degrees : {
+				name : 'Six Degrees of Everything',
+				profile : 'sixdegreesofeverything',
+				twitter_profile : 'truTV',
+			},
 			htbagu : {
 				 name : 'How To Be Grown Up',
 				 profile : 'HTBAGU',
