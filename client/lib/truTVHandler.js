@@ -62,6 +62,11 @@ truTVHandler = {
 				profile : 'carbonaroeffect',
 				twitter_profile : 'truTV',
 			},
+			billy : {
+				name : 'Billy on the Street',
+				profile : 'billyonthestreet',
+				twitter_profile : 'truTV',
+			},		
 		};	
 	},
 	getMetricMap : function() {
