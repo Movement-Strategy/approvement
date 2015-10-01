@@ -6,6 +6,7 @@ Template['approvalItemContent'].helpers({
 		}
 	},
 	details_shown : function() {
+		
 		return detailsHandler.detailsShown();
 	},
 	preview_content : function() {
