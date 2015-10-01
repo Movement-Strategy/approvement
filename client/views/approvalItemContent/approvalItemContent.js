@@ -67,6 +67,7 @@ Template['approvalItemContent'].events({
 		stateManager.changeToState('creative_updated');	
 	},
 	'click .needs_creative.button' : function() {
+		
 		stateManager.changeToState('creative_needed');	
 	},
 	'click .update.button' : function() {
