@@ -7,12 +7,9 @@ standard-app-packages
 less
 jquery
 underscore
-handlebar-helpers
 accounts-ui
 semantic-ui
-collection2
 moment
-accounts-facebook
 accounts-password
 email
 iron:router
